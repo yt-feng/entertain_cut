@@ -1,0 +1,18 @@
+.DS_Store
+__pycache__/
+*.pyc
+.env
+.venv/
+venv/
+
+# Raw inputs, rendered outputs, and transient media artifacts.
+*.mp4
+*.mov
+*.m4v
+*.mkv
+*.wav
+*.aac
+原视频.mp4
+待混剪/
+work/
+
