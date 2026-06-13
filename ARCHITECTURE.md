@@ -20,9 +20,11 @@ entertain_cut/
   原视频.mp4                         # 输入原片
   KC娱乐_王濛一句话把全场整笑了.mp4    # 当前最终输出
   KC娱乐_男明星说英语你Pick谁.mp4      # 多明星混剪输出，不提交 git
+  KC娱乐_女明星说英语你Pick谁.mp4      # 多明星混剪输出，不提交 git
   generate_caption_plan.py           # 生成/校正字幕计划
   render_entertain_vertical.py        # 竖屏包装与视频合成
-  render_star_english_mix.py          # 多明星英语名场面混剪渲染器
+  render_star_english_mix.py          # 多明星英语名场面混剪模板/男明星入口
+  render_female_star_english_mix.py   # 女明星英语名场面混剪入口
   ARCHITECTURE.md                    # 本文档
   待混剪/                            # 多明星混剪输入素材，不提交 git
     肖战.mp4
@@ -138,12 +140,14 @@ scale=1080:1440:force_original_aspect_ratio=increase,crop=1080:1440
 
 ## 多明星混剪
 
-`render_star_english_mix.py` 用于「男明星说英语，你Pick谁？」这类多素材混剪。它不读取 `work/caption_plan.json`，而是在脚本顶部的 `SEGMENTS` 里直接声明素材、转场卡、截取时间、裁切参数和字幕。
+`render_star_english_mix.py` 用于「明星说英语，你Pick谁？」这类多素材混剪。它不读取 `work/caption_plan.json`，而是在脚本顶部的 `SEGMENTS` 里直接声明素材、转场卡、截取时间、裁切参数和字幕。
+
+`render_female_star_english_mix.py` 复用同一套 KC 娱乐模板，运行前覆盖 `WORK_DIR`、`OUTPUT`、`NAV_ITEMS`、`TITLE_MAIN`、`TITLE_SUB`、`LOWER_RIBBON`、`TITLE_HIGHLIGHTS` 和 `SEGMENTS`，用于生成「女明星说英语，你Pick谁？」。
 
 当前混剪约定：
 
 - 输入素材放在 `待混剪/`，按人物命名，例如 `肖战.mp4`、`王一博.mp4`
-- 输出固定为 `KC娱乐_男明星说英语你Pick谁.mp4`
+- 输出由入口脚本控制，例如 `KC娱乐_男明星说英语你Pick谁.mp4` 或 `KC娱乐_女明星说英语你Pick谁.mp4`
 - 输入视频、输出视频和 `work/` 中间产物均由 `.gitignore` 排除，不提交 GitHub
 - `kind="card"` 表示转场卡，`kind="clip"` 表示视频段
 - 同一个人物可以拆成多个连续 `clip`，用于避开噪声、脏画面或无关片段
@@ -152,11 +156,11 @@ scale=1080:1440:force_original_aspect_ratio=increase,crop=1080:1440
 
 混剪包装层规则：
 
-- 顶部标题固定为 `男明星说英语 / 你Pick谁？`
-- 顶部导航条由 `NAV_ITEMS = ["肖战", "王一博", "龚俊", "丁禹兮"]` 控制，当前人物高亮，已出现人物显示青色进度线
+- 顶部标题由 `TITLE_MAIN / TITLE_SUB` 控制，例如 `男明星说英语 / 你Pick谁？` 或 `女明星说英语 / 你Pick谁？`
+- 顶部导航条由 `NAV_ITEMS` 控制，当前人物高亮，已出现人物显示青色进度线
 - 每段视频右上方有人物标签，例如 `No.3 龚俊`
 - 主视频上缘有深色遮罩，用于压掉原片营销标题、平台字和无关贴纸
-- 字幕区与底部品牌区使用不透明深色底板，防止原片字幕、水印透出；龚俊段的 `深圳新航道` 水印通过该层盖掉
+- 字幕区与底部品牌区使用不透明深色底板，防止原片字幕、水印透出；底部遮罩从 `y=1206` 开始压住多数原片字幕条
 - 字幕位置由 `CAPTION_Y` 控制，中文主字幕大字，英文副字幕小字，关键词黄色高亮
 
 混剪渲染命令：
@@ -164,6 +168,9 @@ scale=1080:1440:force_original_aspect_ratio=increase,crop=1080:1440
 ```bash
 python3 render_star_english_mix.py
 ffmpeg -i KC娱乐_男明星说英语你Pick谁.mp4 -r 30 -c:v libx264 -preset veryfast -crf 20 -pix_fmt yuv420p -c:a aac -b:a 160k -ar 48000 -movflags +faststart KC娱乐_男明星说英语你Pick谁_30fps.mp4
+
+python3 render_female_star_english_mix.py
+ffmpeg -i KC娱乐_女明星说英语你Pick谁.mp4 -r 30 -c:v libx264 -preset veryfast -crf 20 -pix_fmt yuv420p -c:a aac -b:a 160k -ar 48000 -movflags +faststart KC娱乐_女明星说英语你Pick谁_30fps.mp4
 ```
 
 混剪质检：
@@ -246,15 +253,16 @@ python3 render_entertain_vertical.py
 
 ## 当前输出
 
-最终成片：
+当前多明星成片：
 
 ```text
 KC娱乐_男明星说英语你Pick谁.mp4
+KC娱乐_女明星说英语你Pick谁.mp4
 ```
 
-已检查规格：
+女明星混剪已检查规格：
 
 - 分辨率：`1080x1920`
 - 帧率：`30fps`
-- 时长：约 `51.70s`
+- 时长：约 `53.50s`
 - 音频：已保留并增强

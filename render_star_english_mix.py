@@ -27,6 +27,10 @@ RENDER_DIR = WORK_DIR / "render"
 CLIP_DIR = WORK_DIR / "clips"
 OUTPUT = Path("KC娱乐_男明星说英语你Pick谁.mp4")
 NAV_ITEMS = ["肖战", "王一博", "龚俊", "丁禹兮"]
+TITLE_MAIN = "男明星说英语"
+TITLE_SUB = "你Pick谁？"
+LOWER_RIBBON = "英语名场面 · 你来Pick"
+TITLE_HIGHLIGHTS = ["No.1", "No.2", "No.3", "No.4", "肖战", "王一博", "龚俊", "丁禹兮", "英语", "Pick"]
 
 
 SEGMENTS: list[dict[str, Any]] = [
@@ -296,7 +300,7 @@ def render_card_segment(segment: dict[str, Any], output: Path) -> None:
         max_width=940,
         font_size=86,
         min_size=54,
-        highlights=["No.1", "No.2", "No.3", "No.4", "肖战", "王一博", "龚俊", "丁禹兮", "英语", "Pick"],
+        highlights=TITLE_HIGHLIGHTS,
         fill=(255, 255, 255, 255),
         highlight_fill=(255, 221, 42, 255),
         stroke=6,
@@ -315,7 +319,7 @@ def render_card_segment(segment: dict[str, Any], output: Path) -> None:
     )
     draw_center_highlight_line(
         draw,
-        "男明星说英语，你Pick谁？",
+        f"{TITLE_MAIN}，{TITLE_SUB}",
         y=1288,
         max_width=900,
         font_size=50,
@@ -443,8 +447,8 @@ def render_static_overlay(segment: dict[str, Any], output: Path) -> None:
     draw_gradient(draw, 0, 0, OUT_W, 354, (6, 10, 24, 242), (18, 11, 36, 150))
     draw_gradient(draw, 0, MAIN_Y, OUT_W, MAIN_Y + 238, (5, 5, 12, 244), (5, 5, 12, 182))
     draw.rectangle((22, MAIN_Y, OUT_W - 22, MAIN_Y + 214), fill=(5, 5, 12, 218))
-    draw_gradient(draw, 0, 1218, OUT_W, 1572, (5, 5, 12, 88), (5, 5, 12, 255))
-    draw.rectangle((0, 1252, OUT_W, 1574), fill=(5, 5, 12, 255))
+    draw_gradient(draw, 0, 1148, OUT_W, 1280, (5, 5, 12, 46), (5, 5, 12, 255))
+    draw.rectangle((0, 1206, OUT_W, 1574), fill=(5, 5, 12, 255))
     draw.rectangle((0, 1548, OUT_W, OUT_H), fill=(5, 5, 12, 255))
 
     draw.rectangle((0, MAIN_Y - 8, 22, MAIN_Y + MAIN_H + 8), fill=(255, 42, 120, 235))
@@ -460,7 +464,7 @@ def render_static_overlay(segment: dict[str, Any], output: Path) -> None:
 
     draw_center_highlight_line(
         draw,
-        "男明星说英语",
+        TITLE_MAIN,
         y=180,
         max_width=980,
         font_size=74,
@@ -471,7 +475,7 @@ def render_static_overlay(segment: dict[str, Any], output: Path) -> None:
     )
     draw_center_highlight_line(
         draw,
-        "你Pick谁？",
+        TITLE_SUB,
         y=268,
         max_width=980,
         font_size=58,
@@ -485,7 +489,7 @@ def render_static_overlay(segment: dict[str, Any], output: Path) -> None:
     draw.rounded_rectangle((286, 1570, 794, 1630), radius=24, fill=(255, 42, 120, 226))
     draw_center_highlight_line(
         draw,
-        "英语名场面 · 你来Pick",
+        LOWER_RIBBON,
         y=1579,
         max_width=470,
         font_size=34,
