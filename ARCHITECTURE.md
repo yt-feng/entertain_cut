@@ -22,11 +22,13 @@ entertain_cut/
   KC娱乐_男明星说英语你Pick谁.mp4      # 多明星混剪输出，不提交 git
   KC娱乐_女明星说英语你Pick谁.mp4      # 多明星混剪输出，不提交 git
   KC娱乐_日语韩语英语法语方言全能语言小天才王一博.mp4  # 多语言混剪输出，不提交 git
+  KC娱乐_基因遗传的神奇像不像父亲母亲与女儿DontBreakMyHeart.mp4  # 亲子同曲对照输出，不提交 git
   generate_caption_plan.py           # 生成/校正字幕计划
   render_entertain_vertical.py        # 竖屏包装与视频合成
   render_star_english_mix.py          # 多明星英语名场面混剪模板/男明星入口
   render_female_star_english_mix.py   # 女明星英语名场面混剪入口
   render_wangyibo_language_mix.py     # 王一博多语言混剪入口
+  render_dou_family_heart_mix.py      # 窦唯/王菲/窦靖童同曲亲子对照入口
   ARCHITECTURE.md                    # 本文档
   待混剪/                            # 多明星混剪输入素材，不提交 git
     肖战.mp4
@@ -148,6 +150,8 @@ scale=1080:1440:force_original_aspect_ratio=increase,crop=1080:1440
 
 `render_wangyibo_language_mix.py` 同样复用该模板，用于生成「日语、韩语、英语、法语、方言，全能语言小天才王一博」。它会把顶部常驻标题缩短为两行，导航项改为 `日语/韩语/英语/法语/方言`，并把贴纸文案从 `英语` 覆盖为 `语言`。
 
+`render_dou_family_heart_mix.py` 复用同一套模板，用于生成「不得不感叹基因遗传的神奇～像不像？父亲母亲与女儿《Don't Break My Heart》」。它按 `窦唯/王菲/窦靖童` 做父亲、母亲、女儿同曲对照，顶部标题缩短为 `基因遗传太神奇 / 像不像？`，字幕使用 KC 娱乐评论式文案，不直接照搬整段歌词。
+
 当前混剪约定：
 
 - 输入素材放在 `待混剪/`，按人物命名，例如 `肖战.mp4`、`王一博.mp4`
@@ -179,6 +183,9 @@ ffmpeg -i KC娱乐_女明星说英语你Pick谁.mp4 -r 30 -c:v libx264 -preset v
 
 python3 render_wangyibo_language_mix.py
 ffmpeg -i KC娱乐_日语韩语英语法语方言全能语言小天才王一博.mp4 -r 30 -c:v libx264 -preset veryfast -crf 20 -pix_fmt yuv420p -c:a aac -b:a 160k -ar 48000 -movflags +faststart KC娱乐_日语韩语英语法语方言全能语言小天才王一博_30fps.mp4
+
+python3 render_dou_family_heart_mix.py
+ffmpeg -i KC娱乐_基因遗传的神奇像不像父亲母亲与女儿DontBreakMyHeart.mp4 -r 30 -c:v libx264 -preset veryfast -crf 20 -pix_fmt yuv420p -c:a aac -b:a 160k -ar 48000 -movflags +faststart KC娱乐_基因遗传的神奇像不像父亲母亲与女儿DontBreakMyHeart_30fps.mp4
 ```
 
 混剪质检：
