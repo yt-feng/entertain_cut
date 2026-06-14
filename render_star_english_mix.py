@@ -31,6 +31,19 @@ TITLE_MAIN = "男明星说英语"
 TITLE_SUB = "你Pick谁？"
 LOWER_RIBBON = "英语名场面 · 你来Pick"
 TITLE_HIGHLIGHTS = ["No.1", "No.2", "No.3", "No.4", "肖战", "王一博", "龚俊", "丁禹兮", "英语", "Pick"]
+TITLE_MAIN_HIGHLIGHTS = ["英语"]
+TITLE_SUB_HIGHLIGHTS = ["Pick", "谁"]
+TOP_TAG = "英语名场面"
+STICKER_TOPIC = "英语"
+NAV_X0 = 344
+NAV_ITEM_W = 94
+NAV_GAP = 8
+NAV_FONT_SIZE = 20
+MAIN_TOP_GRADIENT_H = 238
+MAIN_TOP_GRADIENT_START_ALPHA = 244
+MAIN_TOP_GRADIENT_END_ALPHA = 182
+MAIN_TOP_MASK_H = 214
+MAIN_TOP_MASK_ALPHA = 218
 
 
 SEGMENTS: list[dict[str, Any]] = [
@@ -291,7 +304,7 @@ def render_card_segment(segment: dict[str, Any], output: Path) -> None:
     draw.rectangle((92, 1210, 988, 1222), fill=(0, 220, 255, 220))
 
     draw_tag(draw, 56, 70, str(segment.get("badge", "KC娱乐")), fill=(255, 214, 47, 246), text_fill=(8, 10, 18, 255))
-    draw_sticker(draw, 816, 78, "HOT", "英语")
+    draw_sticker(draw, 816, 78, "HOT", STICKER_TOPIC)
 
     draw_center_highlight_line(
         draw,
@@ -312,7 +325,7 @@ def render_card_segment(segment: dict[str, Any], output: Path) -> None:
         max_width=900,
         font_size=56,
         min_size=38,
-        highlights=["Pick", "英文", "文化", "气候", "氛围"],
+        highlights=["Pick", "英文", "文化", "气候", "氛围", "语言", "台词", "方言"],
         fill=(224, 244, 255, 255),
         highlight_fill=(255, 221, 42, 255),
         stroke=5,
@@ -445,8 +458,16 @@ def render_static_overlay(segment: dict[str, Any], output: Path) -> None:
     draw = ImageDraw.Draw(img, "RGBA")
 
     draw_gradient(draw, 0, 0, OUT_W, 354, (6, 10, 24, 242), (18, 11, 36, 150))
-    draw_gradient(draw, 0, MAIN_Y, OUT_W, MAIN_Y + 238, (5, 5, 12, 244), (5, 5, 12, 182))
-    draw.rectangle((22, MAIN_Y, OUT_W - 22, MAIN_Y + 214), fill=(5, 5, 12, 218))
+    draw_gradient(
+        draw,
+        0,
+        MAIN_Y,
+        OUT_W,
+        MAIN_Y + MAIN_TOP_GRADIENT_H,
+        (5, 5, 12, MAIN_TOP_GRADIENT_START_ALPHA),
+        (5, 5, 12, MAIN_TOP_GRADIENT_END_ALPHA),
+    )
+    draw.rectangle((22, MAIN_Y, OUT_W - 22, MAIN_Y + MAIN_TOP_MASK_H), fill=(5, 5, 12, MAIN_TOP_MASK_ALPHA))
     draw_gradient(draw, 0, 1148, OUT_W, 1280, (5, 5, 12, 46), (5, 5, 12, 255))
     draw.rectangle((0, 1206, OUT_W, 1574), fill=(5, 5, 12, 255))
     draw.rectangle((0, 1548, OUT_W, OUT_H), fill=(5, 5, 12, 255))
@@ -457,10 +478,10 @@ def render_static_overlay(segment: dict[str, Any], output: Path) -> None:
     draw.rectangle((812, MAIN_Y + MAIN_H + 24, OUT_W - 22, MAIN_Y + MAIN_H + 36), fill=(255, 214, 47, 230))
 
     draw_navigation(draw, str(segment["person"]))
-    draw_tag(draw, 46, 84, "英语名场面", fill=(255, 42, 120, 242))
+    draw_tag(draw, 46, 84, TOP_TAG, fill=(255, 42, 120, 242))
     draw_tag(draw, 744, 316, str(segment["person"]), fill=(0, 205, 255, 224), text_fill=(8, 10, 18, 255), small=True)
     draw_tag(draw, 60, 1216, "重点来了", fill=(255, 214, 47, 236), text_fill=(13, 12, 18, 255), small=True)
-    draw_sticker(draw, 812, 96, "PICK", "英语")
+    draw_sticker(draw, 812, 96, "PICK", STICKER_TOPIC)
 
     draw_center_highlight_line(
         draw,
@@ -469,7 +490,7 @@ def render_static_overlay(segment: dict[str, Any], output: Path) -> None:
         max_width=980,
         font_size=74,
         min_size=52,
-        highlights=["英语"],
+        highlights=TITLE_MAIN_HIGHLIGHTS,
         fill=(255, 255, 255, 255),
         stroke=5,
     )
@@ -480,7 +501,7 @@ def render_static_overlay(segment: dict[str, Any], output: Path) -> None:
         max_width=980,
         font_size=58,
         min_size=42,
-        highlights=["Pick", "谁"],
+        highlights=TITLE_SUB_HIGHLIGHTS,
         fill=(255, 255, 255, 255),
         highlight_fill=(255, 220, 46, 255),
         stroke=5,
@@ -562,8 +583,27 @@ def build_filter_complex(
     top = make_even(int(crop.get("top", 0)))
     right = make_even(int(crop.get("right", 0)))
     bottom = make_even(int(crop.get("bottom", 0)))
+    fit_mode = str(crop.get("fit", "cover"))
     crop_w = make_even(max(2, media_width - left - right))
     crop_h = make_even(max(2, media_height - top - bottom))
+    if fit_mode == "contain":
+        main_filter = (
+            f"[mainsrc]crop={crop_w}:{crop_h}:{left}:{top},"
+            "scale=1080:1220:force_original_aspect_ratio=decrease,"
+            "fps=30,"
+            "eq=brightness=0.012:contrast=1.035:saturation=1.025:gamma=1.006,"
+            "unsharp=5:5:0.18,"
+            "format=rgba,"
+            "pad=1080:1220:(ow-iw)/2:(oh-ih)/2:color=black@0[main]"
+        )
+    else:
+        main_filter = (
+            f"[mainsrc]crop={crop_w}:{crop_h}:{left}:{top},"
+            "scale=1080:1220:force_original_aspect_ratio=increase,"
+            "crop=1080:1220,fps=30,"
+            "eq=brightness=0.012:contrast=1.035:saturation=1.025:gamma=1.006,"
+            "unsharp=5:5:0.18[main]"
+        )
 
     parts = [
         "[0:v]setpts=PTS-STARTPTS,split=2[bgsrc][mainsrc]",
@@ -573,13 +613,7 @@ def build_filter_complex(
             "eq=brightness=-0.16:contrast=1.055:saturation=1.35:gamma=1.004,"
             "noise=alls=1.2:allf=t+u[bg]"
         ),
-        (
-            f"[mainsrc]crop={crop_w}:{crop_h}:{left}:{top},"
-            "scale=1080:1220:force_original_aspect_ratio=increase,"
-            "crop=1080:1220,fps=30,"
-            "eq=brightness=0.012:contrast=1.035:saturation=1.025:gamma=1.006,"
-            "unsharp=5:5:0.18[main]"
-        ),
+        main_filter,
         f"[bg][main]overlay=0:{MAIN_Y}:format=auto[base0]",
         "[base0][1:v]overlay=0:0:format=auto[base1]",
     ]
@@ -664,12 +698,12 @@ def draw_sticker(draw: ImageDraw.ImageDraw, x: int, y: int, top: str, bottom: st
 
 def draw_navigation(draw: ImageDraw.ImageDraw, person: str) -> None:
     active = next((idx for idx, name in enumerate(NAV_ITEMS) if name in person), 0)
-    x0 = 344
+    x0 = NAV_X0
     y0 = 88
-    gap = 8
-    item_w = 94
+    gap = NAV_GAP
+    item_w = NAV_ITEM_W
     item_h = 34
-    font = load_font(20, bold=True)
+    font = load_font(NAV_FONT_SIZE, bold=True)
     for idx, name in enumerate(NAV_ITEMS):
         x = x0 + idx * (item_w + gap)
         is_active = idx == active

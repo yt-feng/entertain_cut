@@ -21,10 +21,12 @@ entertain_cut/
   KC娱乐_王濛一句话把全场整笑了.mp4    # 当前最终输出
   KC娱乐_男明星说英语你Pick谁.mp4      # 多明星混剪输出，不提交 git
   KC娱乐_女明星说英语你Pick谁.mp4      # 多明星混剪输出，不提交 git
+  KC娱乐_日语韩语英语法语方言全能语言小天才王一博.mp4  # 多语言混剪输出，不提交 git
   generate_caption_plan.py           # 生成/校正字幕计划
   render_entertain_vertical.py        # 竖屏包装与视频合成
   render_star_english_mix.py          # 多明星英语名场面混剪模板/男明星入口
   render_female_star_english_mix.py   # 女明星英语名场面混剪入口
+  render_wangyibo_language_mix.py     # 王一博多语言混剪入口
   ARCHITECTURE.md                    # 本文档
   待混剪/                            # 多明星混剪输入素材，不提交 git
     肖战.mp4
@@ -144,6 +146,8 @@ scale=1080:1440:force_original_aspect_ratio=increase,crop=1080:1440
 
 `render_female_star_english_mix.py` 复用同一套 KC 娱乐模板，运行前覆盖 `WORK_DIR`、`OUTPUT`、`NAV_ITEMS`、`TITLE_MAIN`、`TITLE_SUB`、`LOWER_RIBBON`、`TITLE_HIGHLIGHTS` 和 `SEGMENTS`，用于生成「女明星说英语，你Pick谁？」。
 
+`render_wangyibo_language_mix.py` 同样复用该模板，用于生成「日语、韩语、英语、法语、方言，全能语言小天才王一博」。它会把顶部常驻标题缩短为两行，导航项改为 `日语/韩语/英语/法语/方言`，并把贴纸文案从 `英语` 覆盖为 `语言`。
+
 当前混剪约定：
 
 - 输入素材放在 `待混剪/`，按人物命名，例如 `肖战.mp4`、`王一博.mp4`
@@ -152,6 +156,7 @@ scale=1080:1440:force_original_aspect_ratio=increase,crop=1080:1440
 - `kind="card"` 表示转场卡，`kind="clip"` 表示视频段
 - 同一个人物可以拆成多个连续 `clip`，用于避开噪声、脏画面或无关片段
 - `source/start/duration/crop` 决定取哪段素材和怎么裁切
+- `crop.fit = "contain"` 可用于竖屏近脸素材，保留原片完整宽高比例，再居中放入主画面区域
 - `subtitles` 手动维护中英双语字幕和高亮词，优先人工校正，不盲信 ASR
 
 混剪包装层规则：
@@ -171,6 +176,9 @@ ffmpeg -i KC娱乐_男明星说英语你Pick谁.mp4 -r 30 -c:v libx264 -preset v
 
 python3 render_female_star_english_mix.py
 ffmpeg -i KC娱乐_女明星说英语你Pick谁.mp4 -r 30 -c:v libx264 -preset veryfast -crf 20 -pix_fmt yuv420p -c:a aac -b:a 160k -ar 48000 -movflags +faststart KC娱乐_女明星说英语你Pick谁_30fps.mp4
+
+python3 render_wangyibo_language_mix.py
+ffmpeg -i KC娱乐_日语韩语英语法语方言全能语言小天才王一博.mp4 -r 30 -c:v libx264 -preset veryfast -crf 20 -pix_fmt yuv420p -c:a aac -b:a 160k -ar 48000 -movflags +faststart KC娱乐_日语韩语英语法语方言全能语言小天才王一博_30fps.mp4
 ```
 
 混剪质检：
@@ -258,11 +266,12 @@ python3 render_entertain_vertical.py
 ```text
 KC娱乐_男明星说英语你Pick谁.mp4
 KC娱乐_女明星说英语你Pick谁.mp4
+KC娱乐_日语韩语英语法语方言全能语言小天才王一博.mp4
 ```
 
-女明星混剪已检查规格：
+王一博多语言混剪已检查规格：
 
 - 分辨率：`1080x1920`
 - 帧率：`30fps`
-- 时长：约 `53.50s`
+- 时长：约 `56.73s`
 - 音频：已保留并增强
