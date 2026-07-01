@@ -20,11 +20,15 @@ on:
         description: "Use Douyin keyword search before feed fallback"
         required: true
         type: boolean
-        default: true
+        default: false
       download_candidate_multiplier:
         description: "How many extra candidates to try per requested video"
         required: true
         default: "4"
+      downloader_link_timeout_seconds:
+        description: "Seconds to spend on each candidate link"
+        required: true
+        default: "180"
   schedule:
     # 09:10 Beijing time every day.
     - cron: "10 1 * * *"
@@ -70,8 +74,9 @@ jobs:
           limit="${{ github.event.inputs.limit || '5' }}"
           search_max="${{ github.event.inputs.search_max || '20' }}"
           search_only="${{ github.event.inputs.search_only || 'false' }}"
-          direct_search="${{ github.event.inputs.direct_search || 'true' }}"
+          direct_search="${{ github.event.inputs.direct_search || 'false' }}"
           download_candidate_multiplier="${{ github.event.inputs.download_candidate_multiplier || '4' }}"
+          downloader_link_timeout_seconds="${{ github.event.inputs.downloader_link_timeout_seconds || '180' }}"
 
           args=(
             --downloader-dir /tmp/douyin-downloader
@@ -79,14 +84,15 @@ jobs:
             --limit "$limit"
             --search-max "$search_max"
             --download-candidate-multiplier "$download_candidate_multiplier"
+            --downloader-link-timeout-seconds "$downloader_link_timeout_seconds"
           )
 
           if [[ "$search_only" == "true" ]]; then
             args+=(--search-only)
           fi
 
-          if [[ "$direct_search" == "false" ]]; then
-            args+=(--no-direct-search)
+          if [[ "$direct_search" == "true" ]]; then
+            args+=(--direct-search)
           fi
 
           python tools/run_douyin_entertain_free.py "${args[@]}"

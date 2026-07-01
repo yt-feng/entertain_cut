@@ -173,18 +173,17 @@ def main() -> int:
             downloaded_ids.update(download_selected_ytdlp(args, download_dir, selected_dir, remaining, selected, run_info))
             remaining = [item for item in selected if str(item.get("aweme_id") or "") not in downloaded_ids]
         if remaining and args.downloader_fallback:
-            links = [item["url"] for item in remaining if item.get("url")]
-            if links:
-                write_downloader_config(download_config_path, download_dir, links=links)
-                run_downloader(
-                    downloader_dir,
-                    [sys.executable, "run.py", "-c", str(download_config_path), "-p", str(download_dir), "-t", str(args.threads), "--show-warnings"],
-                    run_info,
-                    check=False,
-                    timeout_seconds=args.downloader_timeout_seconds,
-                )
-            else:
-                run_info["errors"].append("download fallback skipped because no share links were available")
+            download_selected_with_downloader(
+                args,
+                downloader_dir,
+                download_dir,
+                selected_dir,
+                download_config_path,
+                remaining,
+                selected,
+                requested_limit,
+                run_info,
+            )
         copy_selected_videos(download_dir, selected_dir, selected)
         successful_ids = selected_aweme_ids(selected_dir)
         if len(successful_ids) >= requested_limit:
@@ -215,7 +214,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--feed-min-pages", type=int, default=3)
     parser.add_argument("--feed-count", type=int, default=30)
     parser.add_argument("--feed-timeout-seconds", type=int, default=12)
-    parser.add_argument("--direct-search", action=argparse.BooleanOptionalAction, default=True)
+    parser.add_argument("--direct-search", action=argparse.BooleanOptionalAction, default=False)
     parser.add_argument("--direct-search-timeout-seconds", type=int, default=12)
     parser.add_argument("--hot-board-timeout-seconds", type=int, default=60)
     parser.add_argument("--cli-search", action=argparse.BooleanOptionalAction, default=False)
@@ -233,6 +232,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--yt-dlp-timeout-seconds", type=int, default=180)
     parser.add_argument("--downloader-fallback", action=argparse.BooleanOptionalAction, default=True)
     parser.add_argument("--downloader-timeout-seconds", type=int, default=1800)
+    parser.add_argument("--downloader-link-timeout-seconds", type=int, default=180)
     parser.add_argument("--search-only", action="store_true")
     parser.add_argument(
         "--seed-keywords",
@@ -994,12 +994,71 @@ def download_selected_ytdlp(
     return downloaded
 
 
+def download_selected_with_downloader(
+    args: argparse.Namespace,
+    downloader_dir: Path,
+    download_dir: Path,
+    selected_dir: Path,
+    download_config_path: Path,
+    remaining: list[dict[str, Any]],
+    selected: list[dict[str, Any]],
+    requested_limit: int,
+    run_info: dict[str, Any],
+) -> None:
+    stats: list[dict[str, Any]] = []
+    run_info["downloader_fallback"] = stats
+    links_seen = 0
+    selected_dir.mkdir(parents=True, exist_ok=True)
+
+    for item in remaining:
+        if count_selected_files(selected_dir) >= requested_limit:
+            break
+        aweme_id = str(item.get("aweme_id") or "")
+        url = str(item.get("url") or "")
+        if not aweme_id or not url:
+            stats.append({"aweme_id": aweme_id, "status": "skipped", "reason": "missing url"})
+            continue
+
+        links_seen += 1
+        per_link_dir = download_dir / "downloader" / f"{links_seen:02d}_{aweme_id}"
+        per_link_config = download_config_path.with_name(f"download_{links_seen:02d}_{aweme_id}.yml")
+        per_link_dir.mkdir(parents=True, exist_ok=True)
+        before_ids = selected_aweme_ids(selected_dir)
+        write_downloader_config(per_link_config, per_link_dir, links=[url])
+        code = run_downloader(
+            downloader_dir,
+            [sys.executable, "run.py", "-c", str(per_link_config), "-p", str(per_link_dir), "-t", "1", "--show-warnings"],
+            run_info,
+            check=False,
+            timeout_seconds=args.downloader_link_timeout_seconds,
+        )
+        copy_selected_videos(download_dir, selected_dir, selected)
+        after_ids = selected_aweme_ids(selected_dir)
+        downloaded = aweme_id in after_ids and aweme_id not in before_ids
+        stats.append(
+            {
+                "aweme_id": aweme_id,
+                "status": "downloaded" if downloaded else "failed",
+                "code": code,
+                "selected_file_count": count_selected_files(selected_dir),
+            }
+        )
+
+    selected_file_count = count_selected_files(selected_dir)
+    if selected_file_count < requested_limit:
+        run_info["errors"].append(f"downloader fallback produced {selected_file_count} selected files from {links_seen} links")
+
+
 def record_selected_files(selected_dir: Path, run_info: dict[str, Any]) -> None:
     files = []
     for path in sorted(selected_dir.glob("*")):
         if path.is_file():
             files.append({"name": path.name, "bytes": path.stat().st_size})
     run_info["selected_files"] = files
+
+
+def count_selected_files(selected_dir: Path) -> int:
+    return sum(1 for path in selected_dir.glob("*") if path.is_file())
 
 
 def selected_aweme_ids(selected_dir: Path) -> set[str]:
