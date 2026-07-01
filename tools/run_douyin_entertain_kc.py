@@ -513,8 +513,11 @@ def download_with_ytdlp(url: str, target: Path) -> Path:
         "bv*+ba/best",
         "-o",
         template,
-        url,
     ]
+    proxy = download_proxy()
+    if proxy:
+        command.extend(["--proxy", proxy])
+    command.append(url)
     subprocess.run(command, check=True)
     after = set(target.parent.glob(f"{target.stem}.*"))
     candidates = sorted(after - before or after, key=lambda path: path.stat().st_size if path.exists() else 0, reverse=True)
@@ -542,7 +545,11 @@ def download_direct(url: str, target: Path, *, referer: str) -> Path:
         method="GET",
     )
     tmp = target.with_suffix(".part")
-    with urllib.request.urlopen(req, timeout=120) as resp, tmp.open("wb") as handle:
+    opener = urllib.request.build_opener()
+    proxy = download_proxy()
+    if proxy.startswith(("http://", "https://")):
+        opener = urllib.request.build_opener(urllib.request.ProxyHandler({"http": proxy, "https": proxy}))
+    with opener.open(req, timeout=120) as resp, tmp.open("wb") as handle:
         shutil.copyfileobj(resp, handle)
     if tmp.stat().st_size < 200_000:
         body = tmp.read_bytes()[:200].decode("utf-8", errors="replace")
@@ -557,23 +564,20 @@ def download_direct(url: str, target: Path, *, referer: str) -> Path:
 
 def download_with_ffmpeg(url: str, target: Path) -> Path:
     target.parent.mkdir(parents=True, exist_ok=True)
-    subprocess.run(
-        [
-            "ffmpeg",
-            "-hide_banner",
-            "-y",
-            "-loglevel",
-            "error",
-            "-user_agent",
-            DESKTOP_UA,
-            "-i",
-            url,
-            "-c",
-            "copy",
-            str(target),
-        ],
-        check=True,
-    )
+    command = [
+        "ffmpeg",
+        "-hide_banner",
+        "-y",
+        "-loglevel",
+        "error",
+        "-user_agent",
+        DESKTOP_UA,
+    ]
+    proxy = download_proxy()
+    if proxy.startswith(("http://", "https://")):
+        command.extend(["-http_proxy", proxy])
+    command.extend(["-i", url, "-c", "copy", str(target)])
+    subprocess.run(command, check=True)
     if not is_video_file(target):
         raise RuntimeError("ffmpeg output is not a playable video")
     return target
@@ -629,6 +633,14 @@ def convert_to_mp4(source: Path, target: Path) -> None:
             str(target),
         ],
         check=True,
+    )
+
+
+def download_proxy() -> str:
+    return (
+        os.getenv("DOUYIN_PROXY_URL", "").strip()
+        or os.getenv("DOUYIN_HTTPS_PROXY", "").strip()
+        or os.getenv("DOUYIN_HTTP_PROXY", "").strip()
     )
 
 

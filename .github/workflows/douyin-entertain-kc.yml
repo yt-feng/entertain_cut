@@ -54,6 +54,7 @@ jobs:
       TIKHUB_API_KEY: ${{ secrets.TIKHUB_API_KEY }}
       TIKHUB_BASE_URL: ${{ inputs.base_url }}
       DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+      DOUYIN_PROXY_URL: ${{ secrets.DOUYIN_PROXY_URL }}
       WHISPER_MODEL: ${{ github.workspace }}/models/ggml-small.bin
 
     steps:
