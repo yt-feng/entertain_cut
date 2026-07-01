@@ -147,9 +147,11 @@ def main() -> int:
         run_browser_search_fallback(args, downloader_dir, config_path, discovery_dir, keywords, run_info)
         candidates = load_search_candidates(discovery_dir / "search")
 
+    requested_limit = max(1, int(args.limit))
+    candidate_limit = requested_limit if args.search_only else requested_limit * max(1, int(args.download_candidate_multiplier))
     selected = select_candidates(
         candidates,
-        args.limit,
+        candidate_limit,
         args.recent_hours,
         args.primary_min_likes,
         args.fallback_min_likes,
@@ -183,6 +185,10 @@ def main() -> int:
             else:
                 run_info["errors"].append("download fallback skipped because no share links were available")
         copy_selected_videos(download_dir, selected_dir, selected)
+        successful_ids = selected_aweme_ids(selected_dir)
+        if len(successful_ids) >= requested_limit:
+            selected = [item for item in selected if str(item.get("aweme_id") or "") in successful_ids][:requested_limit]
+            rewrite_selected_dir(selected_dir, selected)
         record_selected_files(selected_dir, run_info)
         write_reports(reports_dir, hot_items, keywords, candidates, selected, run_info)
 
@@ -219,6 +225,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--threads", type=int, default=3)
     parser.add_argument("--direct-download", action=argparse.BooleanOptionalAction, default=True)
     parser.add_argument("--max-duration-seconds", type=int, default=180)
+    parser.add_argument("--download-candidate-multiplier", type=int, default=2)
     parser.add_argument("--direct-download-timeout-seconds", type=int, default=120)
     parser.add_argument("--direct-download-max-urls", type=int, default=2)
     parser.add_argument("--yt-dlp-download", action=argparse.BooleanOptionalAction, default=True)
@@ -504,6 +511,7 @@ def run_feed_fallback(
         collected_ids: set[str] = set()
         feed_pages = max(1, int(args.feed_pages))
         feed_min_pages = max(1, min(feed_pages, int(args.feed_min_pages)))
+        target_count = max(1, int(args.limit)) * max(1, int(args.download_candidate_multiplier))
         async with DouyinAPIClient(cookies) as api_client:
             for page_idx in range(feed_pages):
                 try:
@@ -544,7 +552,7 @@ def run_feed_fallback(
                             "status_code": raw.get("status_code") if isinstance(raw, dict) else None,
                         }
                     )
-                    if page_idx + 1 >= feed_min_pages and count_short_items(collected, args.max_duration_seconds) >= max(1, int(args.limit)):
+                    if page_idx + 1 >= feed_min_pages and count_short_items(collected, args.max_duration_seconds) >= target_count:
                         break
                 except Exception as exc:  # noqa: BLE001
                     message = f"feed fallback failed page={page_idx + 1}: {exc}"
@@ -552,8 +560,8 @@ def run_feed_fallback(
                     stats.append({"page": page_idx + 1, "error": str(exc)})
                     break
         broad_added = 0
-        needs_broad_fill = len(collected) < max(1, int(args.limit))
-        needs_short_fill = count_short_items(collected, args.max_duration_seconds) < max(1, int(args.limit))
+        needs_broad_fill = len(collected) < target_count
+        needs_short_fill = count_short_items(collected, args.max_duration_seconds) < target_count
         if needs_broad_fill or needs_short_fill:
             ranked_broad = sorted(
                 broad_fill,
@@ -573,7 +581,7 @@ def run_feed_fallback(
                 collected.append(item)
                 collected_ids.add(aweme_id)
                 broad_added += 1
-                if len(collected) >= max(1, int(args.limit)) and count_short_items(collected, args.max_duration_seconds) >= max(1, int(args.limit)):
+                if len(collected) >= target_count and count_short_items(collected, args.max_duration_seconds) >= target_count:
                     break
         run_info["feed_broad_fill_added"] = broad_added
         path = write_search_jsonl(discovery_dir / "search", "feed_fallback", collected)
@@ -991,6 +999,37 @@ def record_selected_files(selected_dir: Path, run_info: dict[str, Any]) -> None:
         if path.is_file():
             files.append({"name": path.name, "bytes": path.stat().st_size})
     run_info["selected_files"] = files
+
+
+def selected_aweme_ids(selected_dir: Path) -> set[str]:
+    ids: set[str] = set()
+    for path in selected_dir.glob("*"):
+        if not path.is_file():
+            continue
+        match = re.search(r"(\d{15,})", path.name)
+        if match:
+            ids.add(match.group(1))
+    return ids
+
+
+def rewrite_selected_dir(selected_dir: Path, selected: list[dict[str, Any]]) -> None:
+    temp_dir = selected_dir / "_final"
+    if temp_dir.exists():
+        shutil.rmtree(temp_dir)
+    temp_dir.mkdir(parents=True, exist_ok=True)
+    for idx, item in enumerate(selected, 1):
+        aweme_id = str(item.get("aweme_id") or "")
+        matches = [path for path in selected_dir.glob("*") if path.is_file() and aweme_id in path.name]
+        if not matches:
+            continue
+        source = matches[0]
+        shutil.copy2(source, temp_dir / f"{idx:02d}_{aweme_id}{source.suffix}")
+    for path in selected_dir.glob("*"):
+        if path.is_file():
+            path.unlink()
+    for path in temp_dir.glob("*"):
+        shutil.move(str(path), selected_dir / path.name)
+    temp_dir.rmdir()
 
 
 def write_cookie_file(path: Path, cookie_header: str) -> Path:
