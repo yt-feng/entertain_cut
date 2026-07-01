@@ -50,6 +50,7 @@ jobs:
 
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+      PYTHONUNBUFFERED: "1"
       TIKHUB_API_KEY: ${{ secrets.TIKHUB_API_KEY }}
       TIKHUB_BASE_URL: ${{ inputs.base_url }}
       DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}

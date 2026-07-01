@@ -474,12 +474,6 @@ def download_selected(selected: list[dict[str, Any]], download_dir: Path) -> lis
 
 def download_one(row: dict[str, Any], target: Path) -> dict[str, Any]:
     share_url = str(row.get("share_url") or "")
-    if share_url and shutil.which("yt-dlp"):
-        try:
-            output = download_with_ytdlp(share_url, target)
-            return {"method": "yt-dlp share_url", "path": output}
-        except Exception as exc:  # noqa: BLE001 - direct URLs from the same TikHub search may still work.
-            print(f"yt-dlp failed for {share_url}: {exc}", file=sys.stderr)
     direct_urls = list(row.get("direct_video_urls") or [])
     for direct_url in direct_urls:
         try:
@@ -487,6 +481,12 @@ def download_one(row: dict[str, Any], target: Path) -> dict[str, Any]:
             return {"method": "direct_url_from_search", "path": output}
         except Exception as exc:  # noqa: BLE001 - try the next CDN URL.
             print(f"direct download failed: {exc}", file=sys.stderr)
+    if share_url and shutil.which("yt-dlp"):
+        try:
+            output = download_with_ytdlp(share_url, target)
+            return {"method": "yt-dlp share_url", "path": output}
+        except Exception as exc:  # noqa: BLE001 - direct URLs from the same TikHub search may still work.
+            print(f"yt-dlp failed for {share_url}: {exc}", file=sys.stderr)
     if share_url:
         output = download_with_ffmpeg(share_url, target)
         return {"method": "ffmpeg share_url", "path": output}
@@ -501,6 +501,12 @@ def download_with_ytdlp(url: str, target: Path) -> Path:
         "yt-dlp",
         "--no-playlist",
         "--no-warnings",
+        "--socket-timeout",
+        "20",
+        "--retries",
+        "1",
+        "--extractor-retries",
+        "1",
         "--merge-output-format",
         "mp4",
         "-f",
