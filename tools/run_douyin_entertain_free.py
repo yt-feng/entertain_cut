@@ -19,6 +19,7 @@ import re
 import shutil
 import subprocess
 import sys
+import urllib.parse
 from pathlib import Path
 from typing import Any
 
@@ -114,6 +115,9 @@ def main() -> int:
     candidates = load_search_candidates(discovery_dir / "search")
     if not candidates:
         run_direct_search_fallback(args, downloader_dir, config_path, discovery_dir, keywords, run_info)
+        candidates = load_search_candidates(discovery_dir / "search")
+    if not candidates:
+        run_browser_search_fallback(args, downloader_dir, config_path, discovery_dir, keywords, run_info)
         candidates = load_search_candidates(discovery_dir / "search")
     if not candidates:
         run_feed_fallback(args, downloader_dir, config_path, discovery_dir, run_info)
@@ -265,6 +269,136 @@ def run_direct_search_fallback(
                     stats.append({"keyword": keyword, "error": str(exc)})
 
     asyncio.run(_search())
+
+
+def run_browser_search_fallback(
+    args: argparse.Namespace,
+    downloader_dir: Path,
+    config_path: Path,
+    discovery_dir: Path,
+    keywords: list[str],
+    run_info: dict[str, Any],
+) -> None:
+    stats: list[dict[str, Any]] = []
+    run_info["browser_search_fallback"] = stats
+    if str(downloader_dir) not in sys.path:
+        sys.path.insert(0, str(downloader_dir))
+
+    async def _search() -> None:
+        try:
+            from playwright.async_api import async_playwright  # type: ignore
+        except Exception as exc:  # noqa: BLE001
+            run_info["errors"].append(f"browser search unavailable: {exc}")
+            return
+
+        from config import ConfigLoader  # type: ignore
+        from core.api_client import DouyinAPIClient  # type: ignore
+
+        config = ConfigLoader(str(config_path))
+        cookies = config.get_cookies()
+        collected: list[dict[str, Any]] = []
+        seen: set[str] = set()
+        user_agent = (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36"
+        )
+
+        async with async_playwright() as playwright:
+            browser = await playwright.chromium.launch(
+                headless=True,
+                args=["--disable-blink-features=AutomationControlled"],
+            )
+            context = await browser.new_context(
+                locale="zh-CN",
+                timezone_id="Asia/Shanghai",
+                user_agent=user_agent,
+                viewport={"width": 1365, "height": 900},
+            )
+            await context.add_cookies(
+                [
+                    {
+                        "name": name,
+                        "value": value,
+                        "domain": ".douyin.com",
+                        "path": "/",
+                    }
+                    for name, value in cookies.items()
+                    if name and value
+                ]
+            )
+            page = await context.new_page()
+            async with DouyinAPIClient(cookies) as api_client:
+                for keyword in keywords:
+                    encoded = urllib.parse.quote(keyword)
+                    url = f"https://www.douyin.com/search/{encoded}?type=video&sort_type=1&publish_time=1"
+                    try:
+                        await page.goto(url, wait_until="domcontentloaded", timeout=45_000)
+                        await page.wait_for_timeout(4_000)
+                        for _ in range(3):
+                            await page.mouse.wheel(0, 900)
+                            await page.wait_for_timeout(1_000)
+                        cards = await page.evaluate(
+                            """
+                            () => Array.from(document.querySelectorAll('a[href*="/video/"], a[href*="modal_id="]'))
+                              .slice(0, 80)
+                              .map((a) => {
+                                const container = a.closest('[data-e2e], article, li, section, div') || a;
+                                return { href: a.href || '', text: (container.innerText || a.textContent || '').slice(0, 1200) };
+                              })
+                            """
+                        )
+                        ids: list[tuple[str, str, str]] = []
+                        for card in cards if isinstance(cards, list) else []:
+                            if not isinstance(card, dict):
+                                continue
+                            href = str(card.get("href") or "")
+                            aweme_id = extract_aweme_id(href)
+                            if aweme_id and aweme_id not in seen:
+                                seen.add(aweme_id)
+                                ids.append((aweme_id, href, str(card.get("text") or "")))
+
+                        keyword_items: list[dict[str, Any]] = []
+                        for aweme_id, href, text in ids[: max(1, int(args.search_max))]:
+                            detail = await api_client.get_video_detail(aweme_id, suppress_error=True)
+                            if isinstance(detail, dict):
+                                keyword_items.append(detail)
+                            else:
+                                keyword_items.append(
+                                    {
+                                        "aweme_id": aweme_id,
+                                        "desc": text,
+                                        "share_url": href or f"https://www.douyin.com/video/{aweme_id}",
+                                        "statistics": {},
+                                    }
+                                )
+                        collected.extend(keyword_items)
+                        stats.append(
+                            {
+                                "keyword": keyword,
+                                "link_count": len(cards) if isinstance(cards, list) else 0,
+                                "unique_ids": len(ids),
+                                "detail_count": sum(1 for item in keyword_items if item.get("statistics")),
+                            }
+                        )
+                    except Exception as exc:  # noqa: BLE001
+                        message = f"browser search failed for keyword={keyword!r}: {exc}"
+                        run_info["errors"].append(message)
+                        stats.append({"keyword": keyword, "error": str(exc)})
+            await browser.close()
+        path = write_search_jsonl(discovery_dir / "search", "browser_search_fallback", collected)
+        run_info["browser_search_fallback_path"] = str(path)
+
+    asyncio.run(_search())
+
+
+def extract_aweme_id(url: str) -> str:
+    match = re.search(r"/video/(\d+)", url)
+    if match:
+        return match.group(1)
+    match = re.search(r"[?&]modal_id=(\d+)", url)
+    if match:
+        return match.group(1)
+    return ""
 
 
 def run_feed_fallback(
