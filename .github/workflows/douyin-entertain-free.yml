@@ -28,7 +28,11 @@ on:
       downloader_link_timeout_seconds:
         description: "Seconds to spend on each candidate link"
         required: true
-        default: "180"
+        default: "120"
+      downloader_concurrency:
+        description: "How many candidate links to download in parallel"
+        required: true
+        default: "4"
   schedule:
     # 09:10 Beijing time every day.
     - cron: "10 1 * * *"
@@ -76,7 +80,8 @@ jobs:
           search_only="${{ github.event.inputs.search_only || 'false' }}"
           direct_search="${{ github.event.inputs.direct_search || 'false' }}"
           download_candidate_multiplier="${{ github.event.inputs.download_candidate_multiplier || '4' }}"
-          downloader_link_timeout_seconds="${{ github.event.inputs.downloader_link_timeout_seconds || '180' }}"
+          downloader_link_timeout_seconds="${{ github.event.inputs.downloader_link_timeout_seconds || '120' }}"
+          downloader_concurrency="${{ github.event.inputs.downloader_concurrency || '4' }}"
 
           args=(
             --downloader-dir /tmp/douyin-downloader
@@ -85,6 +90,7 @@ jobs:
             --search-max "$search_max"
             --download-candidate-multiplier "$download_candidate_multiplier"
             --downloader-link-timeout-seconds "$downloader_link_timeout_seconds"
+            --downloader-concurrency "$downloader_concurrency"
           )
 
           if [[ "$search_only" == "true" ]]; then

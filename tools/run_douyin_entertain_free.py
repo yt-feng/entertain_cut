@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import argparse
 import asyncio
+import concurrent.futures
 import csv
 import datetime as dt
 import json
@@ -232,7 +233,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--yt-dlp-timeout-seconds", type=int, default=180)
     parser.add_argument("--downloader-fallback", action=argparse.BooleanOptionalAction, default=True)
     parser.add_argument("--downloader-timeout-seconds", type=int, default=1800)
-    parser.add_argument("--downloader-link-timeout-seconds", type=int, default=180)
+    parser.add_argument("--downloader-link-timeout-seconds", type=int, default=120)
+    parser.add_argument("--downloader-concurrency", type=int, default=4)
     parser.add_argument("--search-only", action="store_true")
     parser.add_argument(
         "--seed-keywords",
@@ -1007,23 +1009,19 @@ def download_selected_with_downloader(
 ) -> None:
     stats: list[dict[str, Any]] = []
     run_info["downloader_fallback"] = stats
-    links_seen = 0
     selected_dir.mkdir(parents=True, exist_ok=True)
+    items = [item for item in remaining if item.get("aweme_id") and item.get("url")]
+    skipped = len(remaining) - len(items)
+    if skipped:
+        stats.append({"status": "skipped", "reason": "missing url or aweme_id", "count": skipped})
 
-    for item in remaining:
-        if count_selected_files(selected_dir) >= requested_limit:
-            break
+    def download_one(index_and_item: tuple[int, dict[str, Any]]) -> dict[str, Any]:
+        index, item = index_and_item
         aweme_id = str(item.get("aweme_id") or "")
         url = str(item.get("url") or "")
-        if not aweme_id or not url:
-            stats.append({"aweme_id": aweme_id, "status": "skipped", "reason": "missing url"})
-            continue
-
-        links_seen += 1
-        per_link_dir = download_dir / "downloader" / f"{links_seen:02d}_{aweme_id}"
-        per_link_config = download_config_path.with_name(f"download_{links_seen:02d}_{aweme_id}.yml")
+        per_link_dir = download_dir / "downloader" / f"{index:02d}_{aweme_id}"
+        per_link_config = per_link_dir / "download_config.yml"
         per_link_dir.mkdir(parents=True, exist_ok=True)
-        before_ids = selected_aweme_ids(selected_dir)
         write_downloader_config(per_link_config, per_link_dir, links=[url])
         code = run_downloader(
             downloader_dir,
@@ -1032,21 +1030,35 @@ def download_selected_with_downloader(
             check=False,
             timeout_seconds=args.downloader_link_timeout_seconds,
         )
+        mp4_count = sum(1 for path in per_link_dir.rglob("*.mp4") if path.is_file())
+        return {"aweme_id": aweme_id, "code": code, "mp4_count": mp4_count, "path": str(per_link_dir)}
+
+    max_workers = max(1, min(int(args.downloader_concurrency), len(items) or 1))
+    with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
+        futures = [executor.submit(download_one, (idx, item)) for idx, item in enumerate(items, 1)]
+        for future in concurrent.futures.as_completed(futures):
+            result = future.result()
+            before_ids = selected_aweme_ids(selected_dir)
+            copy_selected_videos(download_dir, selected_dir, selected)
+            after_ids = selected_aweme_ids(selected_dir)
+            aweme_id = str(result.get("aweme_id") or "")
+            downloaded = aweme_id in after_ids and aweme_id not in before_ids
+            stats.append(
+                {
+                    "aweme_id": aweme_id,
+                    "status": "downloaded" if downloaded else "failed",
+                    "code": result.get("code"),
+                    "mp4_count": result.get("mp4_count"),
+                    "selected_file_count": count_selected_files(selected_dir),
+                    "path": result.get("path"),
+                }
+            )
+
         copy_selected_videos(download_dir, selected_dir, selected)
-        after_ids = selected_aweme_ids(selected_dir)
-        downloaded = aweme_id in after_ids and aweme_id not in before_ids
-        stats.append(
-            {
-                "aweme_id": aweme_id,
-                "status": "downloaded" if downloaded else "failed",
-                "code": code,
-                "selected_file_count": count_selected_files(selected_dir),
-            }
-        )
 
     selected_file_count = count_selected_files(selected_dir)
     if selected_file_count < requested_limit:
-        run_info["errors"].append(f"downloader fallback produced {selected_file_count} selected files from {links_seen} links")
+        run_info["errors"].append(f"downloader fallback produced {selected_file_count} selected files from {len(items)} links")
 
 
 def record_selected_files(selected_dir: Path, run_info: dict[str, Any]) -> None:
