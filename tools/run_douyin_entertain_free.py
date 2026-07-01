@@ -10,6 +10,7 @@ the same downloader to fetch the selected videos.
 from __future__ import annotations
 
 import argparse
+import asyncio
 import csv
 import datetime as dt
 import json
@@ -111,6 +112,10 @@ def main() -> int:
             run_info["errors"].append(f"search failed for keyword={keyword!r} exit={code}")
 
     candidates = load_search_candidates(discovery_dir / "search")
+    if not candidates:
+        run_direct_search_fallback(args, downloader_dir, config_path, discovery_dir, keywords, run_info)
+        candidates = load_search_candidates(discovery_dir / "search")
+
     selected = select_candidates(candidates, args.limit, args.recent_hours)
     write_reports(reports_dir, hot_items, keywords, candidates, selected, run_info)
 
@@ -198,6 +203,67 @@ def run_downloader(
     if check and result.returncode:
         raise subprocess.CalledProcessError(result.returncode, cmd)
     return int(result.returncode)
+
+
+def run_direct_search_fallback(
+    args: argparse.Namespace,
+    downloader_dir: Path,
+    config_path: Path,
+    discovery_dir: Path,
+    keywords: list[str],
+    run_info: dict[str, Any],
+) -> None:
+    stats: list[dict[str, Any]] = []
+    run_info["direct_search_fallback"] = stats
+    if str(downloader_dir) not in sys.path:
+        sys.path.insert(0, str(downloader_dir))
+
+    async def _search() -> None:
+        from config import ConfigLoader  # type: ignore
+        from core.api_client import DouyinAPIClient  # type: ignore
+
+        config = ConfigLoader(str(config_path))
+        cookies = config.get_cookies()
+        async with DouyinAPIClient(cookies) as api_client:
+            for keyword in keywords:
+                try:
+                    page = await api_client.search_aweme(
+                        keyword,
+                        offset=0,
+                        count=max(1, min(int(args.search_max), 50)),
+                        sort_type=1,
+                        publish_time=1,
+                    )
+                    items = [item for item in page.get("items") or [] if isinstance(item, dict)]
+                    path = write_search_jsonl(discovery_dir / "search", keyword, items)
+                    stats.append(
+                        {
+                            "keyword": keyword,
+                            "count": len(items),
+                            "status_code": page.get("status_code"),
+                            "has_more": page.get("has_more"),
+                            "max_cursor": page.get("max_cursor"),
+                            "path": str(path),
+                        }
+                    )
+                except Exception as exc:  # noqa: BLE001
+                    message = f"direct search failed for keyword={keyword!r}: {exc}"
+                    run_info["errors"].append(message)
+                    stats.append({"keyword": keyword, "error": str(exc)})
+
+    asyncio.run(_search())
+
+
+def write_search_jsonl(search_dir: Path, keyword: str, items: list[dict[str, Any]]) -> Path:
+    search_dir.mkdir(parents=True, exist_ok=True)
+    ts = dt.datetime.now().strftime("%Y%m%d_%H%M%S")
+    safe_keyword = "".join(ch if ch.isalnum() else "_" for ch in keyword)[:40] or "query"
+    path = search_dir / f"direct_{safe_keyword}_{ts}.jsonl"
+    with path.open("w", encoding="utf-8") as handle:
+        for item in items:
+            handle.write(json.dumps(item, ensure_ascii=False))
+            handle.write("\n")
+    return path
 
 
 def build_keywords(hot_items: list[dict[str, Any]], args: argparse.Namespace) -> list[str]:
