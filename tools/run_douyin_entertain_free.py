@@ -1035,24 +1035,43 @@ def download_selected_with_downloader(
 
     max_workers = max(1, min(int(args.downloader_concurrency), len(items) or 1))
     with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
-        futures = [executor.submit(download_one, (idx, item)) for idx, item in enumerate(items, 1)]
-        for future in concurrent.futures.as_completed(futures):
-            result = future.result()
-            before_ids = selected_aweme_ids(selected_dir)
-            copy_selected_videos(download_dir, selected_dir, selected)
-            after_ids = selected_aweme_ids(selected_dir)
-            aweme_id = str(result.get("aweme_id") or "")
-            downloaded = aweme_id in after_ids and aweme_id not in before_ids
-            stats.append(
-                {
-                    "aweme_id": aweme_id,
-                    "status": "downloaded" if downloaded else "failed",
-                    "code": result.get("code"),
-                    "mp4_count": result.get("mp4_count"),
-                    "selected_file_count": count_selected_files(selected_dir),
-                    "path": result.get("path"),
-                }
-            )
+        indexed_items = iter(enumerate(items, 1))
+        futures: set[concurrent.futures.Future[dict[str, Any]]] = set()
+        submitting = True
+        while submitting and len(futures) < max_workers:
+            try:
+                futures.add(executor.submit(download_one, next(indexed_items)))
+            except StopIteration:
+                submitting = False
+
+        while futures:
+            done, futures = concurrent.futures.wait(futures, return_when=concurrent.futures.FIRST_COMPLETED)
+            for future in done:
+                result = future.result()
+                before_ids = selected_aweme_ids(selected_dir)
+                copy_selected_videos(download_dir, selected_dir, selected)
+                after_ids = selected_aweme_ids(selected_dir)
+                aweme_id = str(result.get("aweme_id") or "")
+                downloaded = aweme_id in after_ids and aweme_id not in before_ids
+                stats.append(
+                    {
+                        "aweme_id": aweme_id,
+                        "status": "downloaded" if downloaded else "failed",
+                        "code": result.get("code"),
+                        "mp4_count": result.get("mp4_count"),
+                        "selected_file_count": count_selected_files(selected_dir),
+                        "path": result.get("path"),
+                    }
+                )
+
+            if count_selected_files(selected_dir) >= requested_limit:
+                submitting = False
+            while submitting and len(futures) < max_workers:
+                try:
+                    futures.add(executor.submit(download_one, next(indexed_items)))
+                except StopIteration:
+                    submitting = False
+                    break
 
         copy_selected_videos(download_dir, selected_dir, selected)
 
