@@ -151,6 +151,7 @@ def main() -> int:
         args.recent_hours,
         args.primary_min_likes,
         args.fallback_min_likes,
+        args.max_duration_seconds,
     )
     write_reports(reports_dir, hot_items, keywords, candidates, selected, run_info)
 
@@ -210,8 +211,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--browser-max-details", type=int, default=8)
     parser.add_argument("--threads", type=int, default=3)
     parser.add_argument("--direct-download", action=argparse.BooleanOptionalAction, default=True)
-    parser.add_argument("--direct-download-timeout-seconds", type=int, default=300)
-    parser.add_argument("--downloader-timeout-seconds", type=int, default=900)
+    parser.add_argument("--max-duration-seconds", type=int, default=180)
+    parser.add_argument("--direct-download-timeout-seconds", type=int, default=120)
+    parser.add_argument("--direct-download-max-urls", type=int, default=2)
+    parser.add_argument("--downloader-timeout-seconds", type=int, default=300)
     parser.add_argument("--search-only", action="store_true")
     parser.add_argument(
         "--seed-keywords",
@@ -623,6 +626,7 @@ def normalize_aweme(raw: dict[str, Any], source_keyword: str, source_file: Path)
     aweme = raw.get("aweme_info") if isinstance(raw.get("aweme_info"), dict) else raw
     stats = first_dict(aweme.get("statistics"), aweme.get("stats"))
     author = first_dict(aweme.get("author"))
+    video = first_dict(aweme.get("video"))
     aweme_id = str(aweme.get("aweme_id") or aweme.get("id") or "")
     title = str(aweme.get("desc") or aweme.get("title") or aweme.get("caption") or "").strip()
     share_url = (
@@ -639,6 +643,7 @@ def normalize_aweme(raw: dict[str, Any], source_keyword: str, source_file: Path)
         "title": title,
         "url": str(share_url),
         "download_urls": extract_video_urls(aweme),
+        "duration_ms": as_int(video.get("duration") or aweme.get("duration")),
         "like_count": as_int(stats.get("digg_count") or stats.get("like_count")),
         "comment_count": as_int(stats.get("comment_count")),
         "share_count": as_int(stats.get("share_count")),
@@ -658,10 +663,20 @@ def select_candidates(
     recent_hours: int,
     primary_min_likes: int,
     fallback_min_likes: int,
+    max_duration_seconds: int,
 ) -> list[dict[str, Any]]:
     now = dt.datetime.now(dt.UTC).timestamp()
+    if max_duration_seconds > 0:
+        max_duration_ms = max_duration_seconds * 1000
+        short_candidates = [
+            item for item in candidates if not as_int(item.get("duration_ms")) or as_int(item.get("duration_ms")) <= max_duration_ms
+        ]
+        scoped_candidates = short_candidates if len(short_candidates) >= max(1, limit) else candidates
+    else:
+        scoped_candidates = candidates
+
     recent: list[dict[str, Any]] = []
-    for item in candidates:
+    for item in scoped_candidates:
         created = as_int(item.get("create_time"))
         if created and recent_hours > 0 and 0 <= now - created <= recent_hours * 3600:
             recent.append(item)
@@ -688,7 +703,7 @@ def select_candidates(
 
     selected: list[dict[str, Any]] = []
     seen_ids: set[str] = set()
-    pools = [recent, candidates] if recent_hours > 0 else [candidates]
+    pools = [recent, scoped_candidates] if recent_hours > 0 else [scoped_candidates]
     for pool in pools:
         for item in ranked(threshold_pool(pool)):
             aweme_id = str(item.get("aweme_id") or "")
@@ -724,6 +739,7 @@ def write_reports(
             "comment_count",
             "share_count",
             "play_count",
+            "duration_ms",
             "create_time_iso",
             "author",
             "source_keyword",
@@ -745,7 +761,7 @@ def write_reports(
         for idx, item in enumerate(selected, 1):
             handle.write(
                 f"{idx}. {item.get('title') or item.get('aweme_id')} "
-                f"likes={item.get('like_count')} keyword={item.get('source_keyword')}\n"
+                f"likes={item.get('like_count')} duration={duration_seconds(item)}s keyword={item.get('source_keyword')}\n"
                 f"   {item.get('url')}\n"
             )
 
@@ -819,6 +835,7 @@ def download_selected_direct(
         for idx, item in enumerate(selected, 1):
             aweme_id = str(item.get("aweme_id") or "")
             urls = [url for url in item.get("download_urls") or [] if isinstance(url, str) and url.startswith(("http://", "https://"))]
+            urls = urls[: max(1, int(args.direct_download_max_urls))]
             if not aweme_id:
                 continue
             if not urls:
@@ -990,6 +1007,13 @@ def timestamp_iso(value: Any) -> str:
     if not ts:
         return ""
     return dt.datetime.fromtimestamp(ts, tz=dt.UTC).isoformat()
+
+
+def duration_seconds(item: dict[str, Any]) -> int:
+    duration_ms = as_int(item.get("duration_ms"))
+    if not duration_ms:
+        return 0
+    return round(duration_ms / 1000)
 
 
 def dedupe_keep_order(values: list[str]) -> list[str]:

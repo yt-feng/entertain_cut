@@ -90,11 +90,3 @@ jobs:
           name: douyin-free-selected-videos
           path: work/douyin_free_daily/selected
           if-no-files-found: ignore
-
-      - name: Upload full downloaded package
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: douyin-free-downloads
-          path: work/douyin_free_daily/downloads
-          if-no-files-found: ignore
