@@ -27,12 +27,16 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 
 DEFAULT_SEED_KEYWORDS = [
+    "娱乐",
     "娱乐 明星",
+    "娱乐圈",
     "内娱",
     "明星",
     "综艺",
     "电视剧",
     "电影",
+    "电影混剪",
+    "短剧",
     "演唱会",
 ]
 
@@ -46,8 +50,20 @@ ENTERTAINMENT_TERMS = [
     "偶像",
     "内娱",
     "综艺",
+    "影视",
     "电影",
     "电视剧",
+    "短片",
+    "短剧",
+    "混剪",
+    "剪辑",
+    "影评",
+    "预告",
+    "上映",
+    "角色",
+    "剧情",
+    "演技",
+    "舞台",
     "剧集",
     "网剧",
     "热剧",
@@ -59,6 +75,7 @@ ENTERTAINMENT_TERMS = [
     "男星",
     "影后",
     "影帝",
+    "娱乐圈",
 ]
 
 
@@ -117,10 +134,10 @@ def main() -> int:
         run_direct_search_fallback(args, downloader_dir, config_path, discovery_dir, keywords, run_info)
         candidates = load_search_candidates(discovery_dir / "search")
     if not candidates:
-        run_browser_search_fallback(args, downloader_dir, config_path, discovery_dir, keywords, run_info)
+        run_feed_fallback(args, downloader_dir, config_path, discovery_dir, run_info)
         candidates = load_search_candidates(discovery_dir / "search")
     if not candidates:
-        run_feed_fallback(args, downloader_dir, config_path, discovery_dir, run_info)
+        run_browser_search_fallback(args, downloader_dir, config_path, discovery_dir, keywords, run_info)
         candidates = load_search_candidates(discovery_dir / "search")
 
     selected = select_candidates(
@@ -166,9 +183,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--recent-hours", type=int, default=24)
     parser.add_argument("--primary-min-likes", type=int, default=10_000)
     parser.add_argument("--fallback-min-likes", type=int, default=1_000)
-    parser.add_argument("--feed-pages", type=int, default=5)
-    parser.add_argument("--feed-count", type=int, default=20)
-    parser.add_argument("--browser-keywords", type=int, default=2)
+    parser.add_argument("--feed-pages", type=int, default=20)
+    parser.add_argument("--feed-count", type=int, default=30)
+    parser.add_argument("--browser-keywords", type=int, default=0)
     parser.add_argument("--browser-timeout-ms", type=int, default=12_000)
     parser.add_argument("--browser-max-details", type=int, default=8)
     parser.add_argument("--threads", type=int, default=3)
@@ -284,6 +301,9 @@ def run_browser_search_fallback(
 ) -> None:
     stats: list[dict[str, Any]] = []
     run_info["browser_search_fallback"] = stats
+    if int(args.browser_keywords) <= 0:
+        stats.append({"skipped": "browser fallback disabled"})
+        return
     if str(downloader_dir) not in sys.path:
         sys.path.insert(0, str(downloader_dir))
 
@@ -431,7 +451,9 @@ def run_feed_fallback(
         config = ConfigLoader(str(config_path))
         cookies = config.get_cookies()
         collected: list[dict[str, Any]] = []
+        broad_fill: list[dict[str, Any]] = []
         seen: set[str] = set()
+        collected_ids: set[str] = set()
         async with DouyinAPIClient(cookies) as api_client:
             for page_idx in range(max(1, int(args.feed_pages))):
                 try:
@@ -458,6 +480,9 @@ def run_feed_fallback(
                         if is_entertainment_aweme(item):
                             entertainment_items.append(item)
                             collected.append(item)
+                            collected_ids.add(aweme_id)
+                        else:
+                            broad_fill.append(item)
                     stats.append(
                         {
                             "page": page_idx + 1,
@@ -471,6 +496,28 @@ def run_feed_fallback(
                     run_info["errors"].append(message)
                     stats.append({"page": page_idx + 1, "error": str(exc)})
                     break
+        broad_added = 0
+        if len(collected) < max(1, int(args.limit)):
+            ranked_broad = sorted(
+                broad_fill,
+                key=lambda item: (
+                    as_int(nested_get(item, ["statistics", "digg_count"])),
+                    as_int(nested_get(item, ["statistics", "comment_count"]))
+                    + as_int(nested_get(item, ["statistics", "share_count"])),
+                ),
+                reverse=True,
+            )
+            for item in ranked_broad:
+                aweme_id = str(item.get("aweme_id") or "")
+                if not aweme_id or aweme_id in collected_ids:
+                    continue
+                item["_free_daily_broad_fill"] = True
+                collected.append(item)
+                collected_ids.add(aweme_id)
+                broad_added += 1
+                if len(collected) >= max(1, int(args.limit)):
+                    break
+        run_info["feed_broad_fill_added"] = broad_added
         path = write_search_jsonl(discovery_dir / "search", "feed_fallback", collected)
         run_info["feed_fallback_path"] = str(path)
 
@@ -576,23 +623,41 @@ def select_candidates(
         created = as_int(item.get("create_time"))
         if created and recent_hours > 0 and 0 <= now - created <= recent_hours * 3600:
             recent.append(item)
-    pool = recent if recent_hours > 0 else candidates
-    primary_pool = [item for item in pool if as_int(item.get("like_count")) >= primary_min_likes]
-    fallback_pool = [item for item in pool if as_int(item.get("like_count")) >= fallback_min_likes]
-    if len(primary_pool) >= max(1, limit):
-        pool = primary_pool
-    elif len(fallback_pool) >= max(1, limit):
-        pool = fallback_pool
-    ranked = sorted(
-        pool,
-        key=lambda item: (
-            as_int(item.get("like_count")),
-            as_int(item.get("comment_count")) + as_int(item.get("share_count")),
-            as_int(item.get("play_count")),
-        ),
-        reverse=True,
-    )
-    return ranked[: max(0, limit)]
+
+    def threshold_pool(pool: list[dict[str, Any]]) -> list[dict[str, Any]]:
+        primary_pool = [item for item in pool if as_int(item.get("like_count")) >= primary_min_likes]
+        fallback_pool = [item for item in pool if as_int(item.get("like_count")) >= fallback_min_likes]
+        if len(primary_pool) >= max(1, limit):
+            return primary_pool
+        if len(fallback_pool) >= max(1, limit):
+            return fallback_pool
+        return pool
+
+    def ranked(pool: list[dict[str, Any]]) -> list[dict[str, Any]]:
+        return sorted(
+            pool,
+            key=lambda item: (
+                as_int(item.get("like_count")),
+                as_int(item.get("comment_count")) + as_int(item.get("share_count")),
+                as_int(item.get("play_count")),
+            ),
+            reverse=True,
+        )
+
+    selected: list[dict[str, Any]] = []
+    seen_ids: set[str] = set()
+    pools = [recent, candidates] if recent_hours > 0 else [candidates]
+    for pool in pools:
+        for item in ranked(threshold_pool(pool)):
+            aweme_id = str(item.get("aweme_id") or "")
+            if aweme_id in seen_ids:
+                continue
+            selected.append(item)
+            if aweme_id:
+                seen_ids.add(aweme_id)
+            if len(selected) >= max(0, limit):
+                return selected
+    return selected
 
 
 def write_reports(
