@@ -224,7 +224,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--yt-dlp-download", action=argparse.BooleanOptionalAction, default=True)
     parser.add_argument("--yt-dlp-timeout-seconds", type=int, default=180)
     parser.add_argument("--downloader-fallback", action=argparse.BooleanOptionalAction, default=True)
-    parser.add_argument("--downloader-timeout-seconds", type=int, default=300)
+    parser.add_argument("--downloader-timeout-seconds", type=int, default=1800)
     parser.add_argument("--search-only", action="store_true")
     parser.add_argument(
         "--seed-keywords",
@@ -552,10 +552,13 @@ def run_feed_fallback(
                     stats.append({"page": page_idx + 1, "error": str(exc)})
                     break
         broad_added = 0
-        if len(collected) < max(1, int(args.limit)):
+        needs_broad_fill = len(collected) < max(1, int(args.limit))
+        needs_short_fill = count_short_items(collected, args.max_duration_seconds) < max(1, int(args.limit))
+        if needs_broad_fill or needs_short_fill:
             ranked_broad = sorted(
                 broad_fill,
                 key=lambda item: (
+                    1 if is_short_aweme(item, args.max_duration_seconds) else 0,
                     as_int(nested_get(item, ["statistics", "digg_count"])),
                     as_int(nested_get(item, ["statistics", "comment_count"]))
                     + as_int(nested_get(item, ["statistics", "share_count"])),
@@ -570,7 +573,7 @@ def run_feed_fallback(
                 collected.append(item)
                 collected_ids.add(aweme_id)
                 broad_added += 1
-                if len(collected) >= max(1, int(args.limit)):
+                if len(collected) >= max(1, int(args.limit)) and count_short_items(collected, args.max_duration_seconds) >= max(1, int(args.limit)):
                     break
         run_info["feed_broad_fill_added"] = broad_added
         path = write_search_jsonl(discovery_dir / "search", "feed_fallback", collected)
@@ -1100,6 +1103,14 @@ def is_entertainment_aweme(item: dict[str, Any]) -> bool:
         if isinstance(challenge, dict):
             text_parts.append(str(challenge.get("cha_name") or challenge.get("desc") or ""))
     return is_entertainment_text(" ".join(text_parts))
+
+
+def is_short_aweme(item: dict[str, Any], max_duration_seconds: int) -> bool:
+    if max_duration_seconds <= 0:
+        return True
+    video = first_dict(item.get("video"))
+    duration_ms = as_int(video.get("duration") or item.get("duration"))
+    return not duration_ms or duration_ms <= max_duration_seconds * 1000
 
 
 def first_dict(*values: Any) -> dict[str, Any]:
