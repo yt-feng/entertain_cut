@@ -576,7 +576,7 @@ def select_candidates(
         created = as_int(item.get("create_time"))
         if created and recent_hours > 0 and 0 <= now - created <= recent_hours * 3600:
             recent.append(item)
-    pool = recent if len(recent) >= max(1, limit) else candidates
+    pool = recent if recent_hours > 0 else candidates
     primary_pool = [item for item in pool if as_int(item.get("like_count")) >= primary_min_likes]
     fallback_pool = [item for item in pool if as_int(item.get("like_count")) >= fallback_min_likes]
     if len(primary_pool) >= max(1, limit):
