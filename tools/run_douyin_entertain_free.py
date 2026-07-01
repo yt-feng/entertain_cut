@@ -920,6 +920,7 @@ def download_selected_ytdlp(
     selected_dir.mkdir(parents=True, exist_ok=True)
     rank_by_id = {str(item.get("aweme_id") or ""): idx for idx, item in enumerate(selected, 1)}
     cookie = os.getenv("DOUYIN_COOKIE", "")
+    cookie_file = write_cookie_file(download_dir / "douyin_cookies.txt", cookie) if cookie else None
     user_agent = (
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
         "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36"
@@ -939,8 +940,6 @@ def download_selected_ytdlp(
             "--add-header",
             "Referer:https://www.douyin.com/",
         ]
-        if cookie:
-            headers.extend(["--add-header", f"Cookie:{cookie}"])
         cmd = [
             executable,
             "--no-playlist",
@@ -959,13 +958,15 @@ def download_selected_ytdlp(
             str(ytdlp_dir / f"{rank:02d}_{aweme_id}.%(ext)s"),
             url,
         ]
+        if cookie_file:
+            cmd[1:1] = ["--cookies", str(cookie_file)]
         code = run_downloader(
             Path.cwd(),
             cmd,
             run_info,
             check=False,
             timeout_seconds=args.yt_dlp_timeout_seconds,
-            printable_cmd=" ".join("***COOKIE***" if cookie and part == f"Cookie:{cookie}" else str(part) for part in cmd),
+            printable_cmd=" ".join(str(part) for part in cmd),
         )
         after = set(ytdlp_dir.glob(f"{rank:02d}_{aweme_id}.*"))
         files = sorted(path for path in after - before if path.is_file() and path.suffix.lower() not in {".part", ".ytdl"})
@@ -987,6 +988,25 @@ def record_selected_files(selected_dir: Path, run_info: dict[str, Any]) -> None:
         if path.is_file():
             files.append({"name": path.name, "bytes": path.stat().st_size})
     run_info["selected_files"] = files
+
+
+def write_cookie_file(path: Path, cookie_header: str) -> Path:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    domains = [".douyin.com", ".iesdouyin.com"]
+    lines = ["# Netscape HTTP Cookie File"]
+    for part in cookie_header.split(";"):
+        part = part.strip()
+        if not part or "=" not in part:
+            continue
+        name, value = part.split("=", 1)
+        name = name.strip()
+        value = value.strip()
+        if not name:
+            continue
+        for domain in domains:
+            lines.append(f"{domain}\tTRUE\t/\tFALSE\t0\t{name}\t{value}")
+    path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return path
 
 
 def write_downloader_config(path: Path, output_dir: Path, *, links: list[str]) -> None:
