@@ -19,6 +19,7 @@ import re
 import shutil
 import subprocess
 import sys
+import time
 import urllib.parse
 from pathlib import Path
 from typing import Any
@@ -153,15 +154,24 @@ def main() -> int:
         print("No candidate videos selected. Reports were still written.")
         return 0
 
-    links = [item["url"] for item in selected if item.get("url")]
-    write_downloader_config(download_config_path, download_dir, links=links)
     if not args.search_only:
-        run_downloader(
-            downloader_dir,
-            [sys.executable, "run.py", "-c", str(download_config_path), "-p", str(download_dir), "-t", str(args.threads), "--show-warnings"],
-            run_info,
-            check=False,
-        )
+        downloaded_ids: set[str] = set()
+        if args.direct_download:
+            downloaded_ids = download_selected_direct(args, download_dir, selected_dir, selected, run_info)
+        remaining = [item for item in selected if str(item.get("aweme_id") or "") not in downloaded_ids]
+        if remaining:
+            links = [item["url"] for item in remaining if item.get("url")]
+            if links:
+                write_downloader_config(download_config_path, download_dir, links=links)
+                run_downloader(
+                    downloader_dir,
+                    [sys.executable, "run.py", "-c", str(download_config_path), "-p", str(download_dir), "-t", str(args.threads), "--show-warnings"],
+                    run_info,
+                    check=False,
+                    timeout_seconds=args.downloader_timeout_seconds,
+                )
+            else:
+                run_info["errors"].append("download fallback skipped because no share links were available")
         copy_selected_videos(download_dir, selected_dir, selected)
         write_reports(reports_dir, hot_items, keywords, candidates, selected, run_info)
 
@@ -189,6 +199,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--browser-timeout-ms", type=int, default=12_000)
     parser.add_argument("--browser-max-details", type=int, default=8)
     parser.add_argument("--threads", type=int, default=3)
+    parser.add_argument("--direct-download", action=argparse.BooleanOptionalAction, default=True)
+    parser.add_argument("--direct-download-timeout-seconds", type=int, default=300)
+    parser.add_argument("--downloader-timeout-seconds", type=int, default=900)
     parser.add_argument("--search-only", action="store_true")
     parser.add_argument(
         "--seed-keywords",
@@ -232,11 +245,18 @@ def run_downloader(
     run_info: dict[str, Any],
     *,
     check: bool,
+    timeout_seconds: int | None = None,
 ) -> int:
     printable = " ".join(str(part) for part in cmd)
     print(f"+ {printable}")
     run_info["commands"].append(printable)
-    result = subprocess.run(cmd, cwd=str(cwd), text=True)
+    try:
+        result = subprocess.run(cmd, cwd=str(cwd), text=True, timeout=timeout_seconds)
+    except subprocess.TimeoutExpired:
+        message = f"command timed out after {timeout_seconds}s: {printable}"
+        print(message)
+        run_info["errors"].append(message)
+        return 124
     if check and result.returncode:
         raise subprocess.CalledProcessError(result.returncode, cmd)
     return int(result.returncode)
@@ -597,6 +617,7 @@ def normalize_aweme(raw: dict[str, Any], source_keyword: str, source_file: Path)
         "aweme_id": aweme_id,
         "title": title,
         "url": str(share_url),
+        "download_urls": extract_video_urls(aweme),
         "like_count": as_int(stats.get("digg_count") or stats.get("like_count")),
         "comment_count": as_int(stats.get("comment_count")),
         "share_count": as_int(stats.get("share_count")),
@@ -719,6 +740,112 @@ def copy_selected_videos(download_dir: Path, selected_dir: Path, selected: list[
         for source in matches[:1]:
             target = selected_dir / f"{idx:02d}_{aweme_id}{source.suffix}"
             shutil.copy2(source, target)
+
+
+def extract_video_urls(aweme: dict[str, Any]) -> list[str]:
+    video = first_dict(aweme.get("video"))
+    urls: list[str] = []
+
+    def add_addr(addr: Any) -> None:
+        if not isinstance(addr, dict):
+            return
+        value = addr.get("url_list") or addr.get("url_list_264") or addr.get("url_list_265")
+        if isinstance(value, list):
+            urls.extend(str(url) for url in value if url)
+        elif isinstance(value, str):
+            urls.append(value)
+
+    for key in ("play_addr_h264", "play_addr", "download_addr"):
+        add_addr(video.get(key))
+
+    for bit_rate in video.get("bit_rate") or []:
+        if isinstance(bit_rate, dict):
+            add_addr(bit_rate.get("play_addr"))
+            add_addr(bit_rate.get("play_addr_265"))
+
+    return dedupe_keep_order([url for url in urls if url.startswith(("http://", "https://"))])
+
+
+def download_selected_direct(
+    args: argparse.Namespace,
+    download_dir: Path,
+    selected_dir: Path,
+    selected: list[dict[str, Any]],
+    run_info: dict[str, Any],
+) -> set[str]:
+    import httpx
+
+    direct_dir = download_dir / "direct"
+    direct_dir.mkdir(parents=True, exist_ok=True)
+    selected_dir.mkdir(parents=True, exist_ok=True)
+    cookie = os.getenv("DOUYIN_COOKIE", "")
+    headers = {
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36"
+        ),
+        "Referer": "https://www.douyin.com/",
+        "Accept": "*/*",
+    }
+    if cookie:
+        headers["Cookie"] = cookie
+
+    downloaded: set[str] = set()
+    stats: list[dict[str, Any]] = []
+    run_info["direct_download"] = stats
+    timeout = httpx.Timeout(connect=20, read=60, write=60, pool=20)
+    with httpx.Client(headers=headers, follow_redirects=True, timeout=timeout) as client:
+        for idx, item in enumerate(selected, 1):
+            aweme_id = str(item.get("aweme_id") or "")
+            urls = [url for url in item.get("download_urls") or [] if isinstance(url, str) and url.startswith(("http://", "https://"))]
+            if not aweme_id:
+                continue
+            if not urls:
+                stats.append({"aweme_id": aweme_id, "status": "no_direct_url"})
+                continue
+            for url_idx, url in enumerate(urls, 1):
+                target = direct_dir / f"{idx:02d}_{aweme_id}.mp4"
+                temp_target = target.with_suffix(".mp4.part")
+                started = time.monotonic()
+                bytes_written = 0
+                try:
+                    with client.stream("GET", url) as response:
+                        response.raise_for_status()
+                        with temp_target.open("wb") as handle:
+                            for chunk in response.iter_bytes():
+                                if not chunk:
+                                    continue
+                                if time.monotonic() - started > int(args.direct_download_timeout_seconds):
+                                    raise TimeoutError("direct download timed out")
+                                handle.write(chunk)
+                                bytes_written += len(chunk)
+                    temp_target.replace(target)
+                    shutil.copy2(target, selected_dir / target.name)
+                    downloaded.add(aweme_id)
+                    stats.append(
+                        {
+                            "aweme_id": aweme_id,
+                            "status": "downloaded",
+                            "bytes": bytes_written,
+                            "url_index": url_idx,
+                            "path": str(target),
+                        }
+                    )
+                    break
+                except Exception as exc:  # noqa: BLE001
+                    if temp_target.exists():
+                        temp_target.unlink()
+                    stats.append(
+                        {
+                            "aweme_id": aweme_id,
+                            "status": "failed",
+                            "url_index": url_idx,
+                            "error": str(exc),
+                        }
+                    )
+            if aweme_id not in downloaded:
+                run_info["errors"].append(f"direct download failed aweme_id={aweme_id}")
+    return downloaded
 
 
 def write_downloader_config(path: Path, output_dir: Path, *, links: list[str]) -> None:
