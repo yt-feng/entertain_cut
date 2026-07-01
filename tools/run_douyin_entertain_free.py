@@ -168,6 +168,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--fallback-min-likes", type=int, default=1_000)
     parser.add_argument("--feed-pages", type=int, default=5)
     parser.add_argument("--feed-count", type=int, default=20)
+    parser.add_argument("--browser-keywords", type=int, default=2)
+    parser.add_argument("--browser-timeout-ms", type=int, default=12_000)
+    parser.add_argument("--browser-max-details", type=int, default=8)
     parser.add_argument("--threads", type=int, default=3)
     parser.add_argument("--search-only", action="store_true")
     parser.add_argument(
@@ -328,15 +331,17 @@ def run_browser_search_fallback(
             )
             page = await context.new_page()
             async with DouyinAPIClient(cookies) as api_client:
-                for keyword in keywords:
+                preferred = [keyword for keyword in keywords if keyword in DEFAULT_SEED_KEYWORDS]
+                browser_keywords = dedupe_keep_order(preferred + keywords)[: max(1, int(args.browser_keywords))]
+                for keyword in browser_keywords:
                     encoded = urllib.parse.quote(keyword)
                     url = f"https://www.douyin.com/search/{encoded}?type=video&sort_type=1&publish_time=1"
                     try:
-                        await page.goto(url, wait_until="domcontentloaded", timeout=45_000)
-                        await page.wait_for_timeout(4_000)
-                        for _ in range(3):
+                        await page.goto(url, wait_until="domcontentloaded", timeout=int(args.browser_timeout_ms))
+                        await page.wait_for_timeout(1_500)
+                        for _ in range(1):
                             await page.mouse.wheel(0, 900)
-                            await page.wait_for_timeout(1_000)
+                            await page.wait_for_timeout(800)
                         cards = await page.evaluate(
                             """
                             () => Array.from(document.querySelectorAll('a[href*="/video/"], a[href*="modal_id="]'))
@@ -358,8 +363,14 @@ def run_browser_search_fallback(
                                 ids.append((aweme_id, href, str(card.get("text") or "")))
 
                         keyword_items: list[dict[str, Any]] = []
-                        for aweme_id, href, text in ids[: max(1, int(args.search_max))]:
-                            detail = await api_client.get_video_detail(aweme_id, suppress_error=True)
+                        for aweme_id, href, text in ids[: max(1, int(args.browser_max_details))]:
+                            try:
+                                detail = await asyncio.wait_for(
+                                    api_client.get_video_detail(aweme_id, suppress_error=True),
+                                    timeout=8,
+                                )
+                            except Exception:
+                                detail = None
                             if isinstance(detail, dict):
                                 keyword_items.append(detail)
                             else:
