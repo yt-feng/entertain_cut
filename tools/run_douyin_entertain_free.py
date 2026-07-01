@@ -115,8 +115,17 @@ def main() -> int:
     if not candidates:
         run_direct_search_fallback(args, downloader_dir, config_path, discovery_dir, keywords, run_info)
         candidates = load_search_candidates(discovery_dir / "search")
+    if not candidates:
+        run_feed_fallback(args, downloader_dir, config_path, discovery_dir, run_info)
+        candidates = load_search_candidates(discovery_dir / "search")
 
-    selected = select_candidates(candidates, args.limit, args.recent_hours)
+    selected = select_candidates(
+        candidates,
+        args.limit,
+        args.recent_hours,
+        args.primary_min_likes,
+        args.fallback_min_likes,
+    )
     write_reports(reports_dir, hot_items, keywords, candidates, selected, run_info)
 
     if not selected:
@@ -151,6 +160,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--max-hot-keywords", type=int, default=10)
     parser.add_argument("--search-max", type=int, default=20)
     parser.add_argument("--recent-hours", type=int, default=24)
+    parser.add_argument("--primary-min-likes", type=int, default=10_000)
+    parser.add_argument("--fallback-min-likes", type=int, default=1_000)
+    parser.add_argument("--feed-pages", type=int, default=5)
+    parser.add_argument("--feed-count", type=int, default=20)
     parser.add_argument("--threads", type=int, default=3)
     parser.add_argument("--search-only", action="store_true")
     parser.add_argument(
@@ -254,6 +267,88 @@ def run_direct_search_fallback(
     asyncio.run(_search())
 
 
+def run_feed_fallback(
+    args: argparse.Namespace,
+    downloader_dir: Path,
+    config_path: Path,
+    discovery_dir: Path,
+    run_info: dict[str, Any],
+) -> None:
+    stats: list[dict[str, Any]] = []
+    run_info["feed_fallback"] = stats
+    if str(downloader_dir) not in sys.path:
+        sys.path.insert(0, str(downloader_dir))
+
+    async def _fetch() -> None:
+        from config import ConfigLoader  # type: ignore
+        from core.api_client import DouyinAPIClient  # type: ignore
+
+        config = ConfigLoader(str(config_path))
+        cookies = config.get_cookies()
+        collected: list[dict[str, Any]] = []
+        seen: set[str] = set()
+        async with DouyinAPIClient(cookies) as api_client:
+            for page_idx in range(max(1, int(args.feed_pages))):
+                try:
+                    params = await api_client._default_query()  # noqa: SLF001
+                    params.update(
+                        {
+                            "count": max(1, min(int(args.feed_count), 30)),
+                            "refresh_index": page_idx + 1,
+                            "video_type_select": 1,
+                        }
+                    )
+                    raw = await api_client._request_json(  # noqa: SLF001
+                        "/aweme/v1/web/tab/feed/",
+                        params,
+                        suppress_error=True,
+                    )
+                    items = normalize_feed_items(raw)
+                    entertainment_items: list[dict[str, Any]] = []
+                    for item in items:
+                        aweme_id = str(item.get("aweme_id") or "")
+                        if not aweme_id or aweme_id in seen:
+                            continue
+                        seen.add(aweme_id)
+                        if is_entertainment_aweme(item):
+                            entertainment_items.append(item)
+                            collected.append(item)
+                    stats.append(
+                        {
+                            "page": page_idx + 1,
+                            "raw_count": len(items),
+                            "entertainment_count": len(entertainment_items),
+                            "status_code": raw.get("status_code") if isinstance(raw, dict) else None,
+                        }
+                    )
+                except Exception as exc:  # noqa: BLE001
+                    message = f"feed fallback failed page={page_idx + 1}: {exc}"
+                    run_info["errors"].append(message)
+                    stats.append({"page": page_idx + 1, "error": str(exc)})
+                    break
+        path = write_search_jsonl(discovery_dir / "search", "feed_fallback", collected)
+        run_info["feed_fallback_path"] = str(path)
+
+    asyncio.run(_fetch())
+
+
+def normalize_feed_items(raw: Any) -> list[dict[str, Any]]:
+    if not isinstance(raw, dict):
+        return []
+    for key in ("aweme_list", "items"):
+        value = raw.get(key)
+        if isinstance(value, list):
+            return [item for item in value if isinstance(item, dict)]
+    data = raw.get("data")
+    if isinstance(data, dict):
+        value = data.get("aweme_list") or data.get("items")
+        if isinstance(value, list):
+            return [item for item in value if isinstance(item, dict)]
+    if isinstance(data, list):
+        return [item for item in data if isinstance(item, dict)]
+    return []
+
+
 def write_search_jsonl(search_dir: Path, keyword: str, items: list[dict[str, Any]]) -> Path:
     search_dir.mkdir(parents=True, exist_ok=True)
     ts = dt.datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -323,7 +418,13 @@ def normalize_aweme(raw: dict[str, Any], source_keyword: str, source_file: Path)
     }
 
 
-def select_candidates(candidates: list[dict[str, Any]], limit: int, recent_hours: int) -> list[dict[str, Any]]:
+def select_candidates(
+    candidates: list[dict[str, Any]],
+    limit: int,
+    recent_hours: int,
+    primary_min_likes: int,
+    fallback_min_likes: int,
+) -> list[dict[str, Any]]:
     now = dt.datetime.now(dt.UTC).timestamp()
     recent: list[dict[str, Any]] = []
     for item in candidates:
@@ -331,6 +432,12 @@ def select_candidates(candidates: list[dict[str, Any]], limit: int, recent_hours
         if created and recent_hours > 0 and 0 <= now - created <= recent_hours * 3600:
             recent.append(item)
     pool = recent if len(recent) >= max(1, limit) else candidates
+    primary_pool = [item for item in pool if as_int(item.get("like_count")) >= primary_min_likes]
+    fallback_pool = [item for item in pool if as_int(item.get("like_count")) >= fallback_min_likes]
+    if len(primary_pool) >= max(1, limit):
+        pool = primary_pool
+    elif len(fallback_pool) >= max(1, limit):
+        pool = fallback_pool
     ranked = sorted(
         pool,
         key=lambda item: (
@@ -479,6 +586,22 @@ def hot_word(item: dict[str, Any]) -> str:
 
 def is_entertainment_text(text: str) -> bool:
     return any(term in text for term in ENTERTAINMENT_TERMS)
+
+
+def is_entertainment_aweme(item: dict[str, Any]) -> bool:
+    text_parts = [
+        str(item.get("desc") or ""),
+        str(item.get("title") or ""),
+        str(nested_get(item, ["author", "nickname"]) or ""),
+        str(nested_get(item, ["music", "title"]) or ""),
+    ]
+    for extra in item.get("text_extra") or []:
+        if isinstance(extra, dict):
+            text_parts.append(str(extra.get("hashtag_name") or extra.get("hashtag_id") or ""))
+    for challenge in item.get("cha_list") or []:
+        if isinstance(challenge, dict):
+            text_parts.append(str(challenge.get("cha_name") or challenge.get("desc") or ""))
+    return is_entertainment_text(" ".join(text_parts))
 
 
 def first_dict(*values: Any) -> dict[str, Any]:
