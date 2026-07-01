@@ -135,9 +135,11 @@ def main() -> int:
         run_info["cli_search_skipped"] = True
 
     candidates = load_search_candidates(discovery_dir / "search")
-    if not candidates:
+    if not candidates and args.direct_search:
         run_direct_search_fallback(args, downloader_dir, config_path, discovery_dir, keywords, run_info)
         candidates = load_search_candidates(discovery_dir / "search")
+    elif not candidates:
+        run_info["direct_search_skipped"] = True
     if not candidates:
         run_feed_fallback(args, downloader_dir, config_path, discovery_dir, run_info)
         candidates = load_search_candidates(discovery_dir / "search")
@@ -164,7 +166,10 @@ def main() -> int:
         if args.direct_download:
             downloaded_ids = download_selected_direct(args, download_dir, selected_dir, selected, run_info)
         remaining = [item for item in selected if str(item.get("aweme_id") or "") not in downloaded_ids]
-        if remaining:
+        if remaining and args.yt_dlp_download:
+            downloaded_ids.update(download_selected_ytdlp(args, download_dir, selected_dir, remaining, selected, run_info))
+            remaining = [item for item in selected if str(item.get("aweme_id") or "") not in downloaded_ids]
+        if remaining and args.downloader_fallback:
             links = [item["url"] for item in remaining if item.get("url")]
             if links:
                 write_downloader_config(download_config_path, download_dir, links=links)
@@ -178,6 +183,7 @@ def main() -> int:
             else:
                 run_info["errors"].append("download fallback skipped because no share links were available")
         copy_selected_videos(download_dir, selected_dir, selected)
+        record_selected_files(selected_dir, run_info)
         write_reports(reports_dir, hot_items, keywords, candidates, selected, run_info)
 
     print(f"Selected {len(selected)} videos.")
@@ -198,10 +204,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--recent-hours", type=int, default=24)
     parser.add_argument("--primary-min-likes", type=int, default=10_000)
     parser.add_argument("--fallback-min-likes", type=int, default=1_000)
-    parser.add_argument("--feed-pages", type=int, default=8)
+    parser.add_argument("--feed-pages", type=int, default=20)
     parser.add_argument("--feed-min-pages", type=int, default=3)
     parser.add_argument("--feed-count", type=int, default=30)
     parser.add_argument("--feed-timeout-seconds", type=int, default=12)
+    parser.add_argument("--direct-search", action=argparse.BooleanOptionalAction, default=False)
     parser.add_argument("--direct-search-timeout-seconds", type=int, default=12)
     parser.add_argument("--hot-board-timeout-seconds", type=int, default=60)
     parser.add_argument("--cli-search", action=argparse.BooleanOptionalAction, default=False)
@@ -214,6 +221,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--max-duration-seconds", type=int, default=180)
     parser.add_argument("--direct-download-timeout-seconds", type=int, default=120)
     parser.add_argument("--direct-download-max-urls", type=int, default=2)
+    parser.add_argument("--yt-dlp-download", action=argparse.BooleanOptionalAction, default=True)
+    parser.add_argument("--yt-dlp-timeout-seconds", type=int, default=180)
+    parser.add_argument("--downloader-fallback", action=argparse.BooleanOptionalAction, default=True)
     parser.add_argument("--downloader-timeout-seconds", type=int, default=300)
     parser.add_argument("--search-only", action="store_true")
     parser.add_argument(
@@ -260,8 +270,9 @@ def run_downloader(
     *,
     check: bool,
     timeout_seconds: int | None = None,
+    printable_cmd: str | None = None,
 ) -> int:
-    printable = " ".join(str(part) for part in cmd)
+    printable = printable_cmd or " ".join(str(part) for part in cmd)
     print(f"+ {printable}")
     run_info["commands"].append(printable)
     try:
@@ -533,7 +544,7 @@ def run_feed_fallback(
                             "status_code": raw.get("status_code") if isinstance(raw, dict) else None,
                         }
                     )
-                    if page_idx + 1 >= feed_min_pages and len(collected) + len(broad_fill) >= max(1, int(args.limit)):
+                    if page_idx + 1 >= feed_min_pages and count_short_items(collected, args.max_duration_seconds) >= max(1, int(args.limit)):
                         break
                 except Exception as exc:  # noqa: BLE001
                     message = f"feed fallback failed page={page_idx + 1}: {exc}"
@@ -758,6 +769,9 @@ def write_reports(
         handle.write(f"- Search keywords: {', '.join(keywords)}\n")
         handle.write(f"- Candidates: {len(candidates)}\n")
         handle.write(f"- Selected: {len(selected)}\n\n")
+        selected_files = run_info.get("selected_files")
+        if isinstance(selected_files, list):
+            handle.write(f"- Selected files: {len(selected_files)}\n\n")
         for idx, item in enumerate(selected, 1):
             handle.write(
                 f"{idx}. {item.get('title') or item.get('aweme_id')} "
@@ -884,6 +898,95 @@ def download_selected_direct(
             if aweme_id not in downloaded:
                 run_info["errors"].append(f"direct download failed aweme_id={aweme_id}")
     return downloaded
+
+
+def download_selected_ytdlp(
+    args: argparse.Namespace,
+    download_dir: Path,
+    selected_dir: Path,
+    remaining: list[dict[str, Any]],
+    selected: list[dict[str, Any]],
+    run_info: dict[str, Any],
+) -> set[str]:
+    executable = shutil.which("yt-dlp")
+    stats: list[dict[str, Any]] = []
+    run_info["yt_dlp_download"] = stats
+    if not executable:
+        stats.append({"status": "skipped", "reason": "yt-dlp not installed"})
+        return set()
+
+    ytdlp_dir = download_dir / "yt-dlp"
+    ytdlp_dir.mkdir(parents=True, exist_ok=True)
+    selected_dir.mkdir(parents=True, exist_ok=True)
+    rank_by_id = {str(item.get("aweme_id") or ""): idx for idx, item in enumerate(selected, 1)}
+    cookie = os.getenv("DOUYIN_COOKIE", "")
+    user_agent = (
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36"
+    )
+    downloaded: set[str] = set()
+    for item in remaining:
+        aweme_id = str(item.get("aweme_id") or "")
+        url = str(item.get("url") or "")
+        rank = rank_by_id.get(aweme_id, len(downloaded) + 1)
+        if not aweme_id or not url:
+            stats.append({"aweme_id": aweme_id, "status": "skipped", "reason": "missing url"})
+            continue
+        before = set(ytdlp_dir.glob(f"{rank:02d}_{aweme_id}.*"))
+        headers = [
+            "--add-header",
+            f"User-Agent:{user_agent}",
+            "--add-header",
+            "Referer:https://www.douyin.com/",
+        ]
+        if cookie:
+            headers.extend(["--add-header", f"Cookie:{cookie}"])
+        cmd = [
+            executable,
+            "--no-playlist",
+            "--no-warnings",
+            "--no-progress",
+            "--retries",
+            "2",
+            "--fragment-retries",
+            "2",
+            "--socket-timeout",
+            "20",
+            "--merge-output-format",
+            "mp4",
+            *headers,
+            "-o",
+            str(ytdlp_dir / f"{rank:02d}_{aweme_id}.%(ext)s"),
+            url,
+        ]
+        code = run_downloader(
+            Path.cwd(),
+            cmd,
+            run_info,
+            check=False,
+            timeout_seconds=args.yt_dlp_timeout_seconds,
+            printable_cmd=" ".join("***COOKIE***" if cookie and part == f"Cookie:{cookie}" else str(part) for part in cmd),
+        )
+        after = set(ytdlp_dir.glob(f"{rank:02d}_{aweme_id}.*"))
+        files = sorted(path for path in after - before if path.is_file() and path.suffix.lower() not in {".part", ".ytdl"})
+        if files:
+            source = files[0]
+            target = selected_dir / source.name
+            shutil.copy2(source, target)
+            downloaded.add(aweme_id)
+            stats.append({"aweme_id": aweme_id, "status": "downloaded", "code": code, "path": str(source), "bytes": source.stat().st_size})
+        else:
+            stats.append({"aweme_id": aweme_id, "status": "failed", "code": code})
+            run_info["errors"].append(f"yt-dlp download failed aweme_id={aweme_id}")
+    return downloaded
+
+
+def record_selected_files(selected_dir: Path, run_info: dict[str, Any]) -> None:
+    files = []
+    for path in sorted(selected_dir.glob("*")):
+        if path.is_file():
+            files.append({"name": path.name, "bytes": path.stat().st_size})
+    run_info["selected_files"] = files
 
 
 def write_downloader_config(path: Path, output_dir: Path, *, links: list[str]) -> None:
@@ -1014,6 +1117,13 @@ def duration_seconds(item: dict[str, Any]) -> int:
     if not duration_ms:
         return 0
     return round(duration_ms / 1000)
+
+
+def count_short_items(items: list[dict[str, Any]], max_duration_seconds: int) -> int:
+    if max_duration_seconds <= 0:
+        return len(items)
+    max_duration_ms = max_duration_seconds * 1000
+    return sum(1 for item in items if not as_int(item.get("duration_ms")) or as_int(item.get("duration_ms")) <= max_duration_ms)
 
 
 def dedupe_keep_order(values: list[str]) -> list[str]:
