@@ -1,0 +1,99 @@
+name: Douyin Entertainment Free Daily
+
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: "How many videos to download"
+        required: true
+        default: "5"
+      search_max:
+        description: "Max search results per keyword"
+        required: true
+        default: "20"
+      search_only:
+        description: "Only discover links, skip downloads"
+        required: true
+        type: boolean
+        default: false
+  schedule:
+    # 09:10 Beijing time every day.
+    - cron: "10 1 * * *"
+
+jobs:
+  douyin-entertain-free:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+
+    env:
+      # Optional. Leave empty for a fully no-secret/free attempt.
+      # If Douyin blocks GitHub-hosted requests, set this secret to a full
+      # douyin.com Cookie header copied from your own browser session.
+      DOUYIN_COOKIE: ${{ secrets.DOUYIN_COOKIE }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install system packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            ca-certificates curl ffmpeg git
+
+      - name: Clone free Douyin downloader
+        run: |
+          git clone --depth 1 https://github.com/jiji262/douyin-downloader.git /tmp/douyin-downloader
+
+      - name: Install downloader dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r /tmp/douyin-downloader/requirements.txt
+
+      - name: Discover and download daily entertainment videos
+        run: |
+          limit="${{ github.event.inputs.limit || '5' }}"
+          search_max="${{ github.event.inputs.search_max || '20' }}"
+          search_only="${{ github.event.inputs.search_only || 'false' }}"
+
+          args=(
+            --downloader-dir /tmp/douyin-downloader
+            --work-dir work/douyin_free_daily
+            --limit "$limit"
+            --search-max "$search_max"
+          )
+
+          if [[ "$search_only" == "true" ]]; then
+            args+=(--search-only)
+          fi
+
+          python tools/run_douyin_entertain_free.py "${args[@]}"
+
+      - name: Upload reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: douyin-free-daily-reports
+          path: work/douyin_free_daily/reports
+          if-no-files-found: ignore
+
+      - name: Upload selected videos
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: douyin-free-selected-videos
+          path: work/douyin_free_daily/selected
+          if-no-files-found: ignore
+
+      - name: Upload full downloaded package
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: douyin-free-downloads
+          path: work/douyin_free_daily/downloads
+          if-no-files-found: ignore
