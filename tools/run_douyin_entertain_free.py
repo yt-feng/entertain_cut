@@ -108,27 +108,31 @@ def main() -> int:
     keywords = build_keywords(hot_items, args)
     run_info["keywords"] = keywords
 
-    for keyword in keywords:
-        code = run_downloader(
-            downloader_dir,
-            [
-                sys.executable,
-                "run.py",
-                "-c",
-                str(config_path),
-                "--search",
-                keyword,
-                "--search-max",
-                str(args.search_max),
-                "-p",
-                str(discovery_dir),
-                "--show-warnings",
-            ],
-            run_info,
-            check=False,
-        )
-        if code != 0:
-            run_info["errors"].append(f"search failed for keyword={keyword!r} exit={code}")
+    if args.cli_search:
+        for keyword in keywords:
+            code = run_downloader(
+                downloader_dir,
+                [
+                    sys.executable,
+                    "run.py",
+                    "-c",
+                    str(config_path),
+                    "--search",
+                    keyword,
+                    "--search-max",
+                    str(args.search_max),
+                    "-p",
+                    str(discovery_dir),
+                    "--show-warnings",
+                ],
+                run_info,
+                check=False,
+                timeout_seconds=args.cli_search_timeout_seconds,
+            )
+            if code != 0:
+                run_info["errors"].append(f"search failed for keyword={keyword!r} exit={code}")
+    else:
+        run_info["cli_search_skipped"] = True
 
     candidates = load_search_candidates(discovery_dir / "search")
     if not candidates:
@@ -193,8 +197,14 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--recent-hours", type=int, default=24)
     parser.add_argument("--primary-min-likes", type=int, default=10_000)
     parser.add_argument("--fallback-min-likes", type=int, default=1_000)
-    parser.add_argument("--feed-pages", type=int, default=20)
+    parser.add_argument("--feed-pages", type=int, default=8)
+    parser.add_argument("--feed-min-pages", type=int, default=3)
     parser.add_argument("--feed-count", type=int, default=30)
+    parser.add_argument("--feed-timeout-seconds", type=int, default=12)
+    parser.add_argument("--direct-search-timeout-seconds", type=int, default=12)
+    parser.add_argument("--hot-board-timeout-seconds", type=int, default=60)
+    parser.add_argument("--cli-search", action=argparse.BooleanOptionalAction, default=False)
+    parser.add_argument("--cli-search-timeout-seconds", type=int, default=30)
     parser.add_argument("--browser-keywords", type=int, default=0)
     parser.add_argument("--browser-timeout-ms", type=int, default=12_000)
     parser.add_argument("--browser-max-details", type=int, default=8)
@@ -233,6 +243,7 @@ def run_hot_board(
         ],
         run_info,
         check=False,
+        timeout_seconds=args.hot_board_timeout_seconds,
     )
     if code != 0:
         run_info["errors"].append(f"hot board failed exit={code}")
@@ -284,12 +295,15 @@ def run_direct_search_fallback(
         async with DouyinAPIClient(cookies) as api_client:
             for keyword in keywords:
                 try:
-                    page = await api_client.search_aweme(
-                        keyword,
-                        offset=0,
-                        count=max(1, min(int(args.search_max), 50)),
-                        sort_type=1,
-                        publish_time=1,
+                    page = await asyncio.wait_for(
+                        api_client.search_aweme(
+                            keyword,
+                            offset=0,
+                            count=max(1, min(int(args.search_max), 50)),
+                            sort_type=1,
+                            publish_time=1,
+                        ),
+                        timeout=int(args.direct_search_timeout_seconds),
                     )
                     items = [item for item in page.get("items") or [] if isinstance(item, dict)]
                     path = write_search_jsonl(discovery_dir / "search", keyword, items)
@@ -474,8 +488,10 @@ def run_feed_fallback(
         broad_fill: list[dict[str, Any]] = []
         seen: set[str] = set()
         collected_ids: set[str] = set()
+        feed_pages = max(1, int(args.feed_pages))
+        feed_min_pages = max(1, min(feed_pages, int(args.feed_min_pages)))
         async with DouyinAPIClient(cookies) as api_client:
-            for page_idx in range(max(1, int(args.feed_pages))):
+            for page_idx in range(feed_pages):
                 try:
                     params = await api_client._default_query()  # noqa: SLF001
                     params.update(
@@ -485,10 +501,13 @@ def run_feed_fallback(
                             "video_type_select": 1,
                         }
                     )
-                    raw = await api_client._request_json(  # noqa: SLF001
-                        "/aweme/v1/web/tab/feed/",
-                        params,
-                        suppress_error=True,
+                    raw = await asyncio.wait_for(
+                        api_client._request_json(  # noqa: SLF001
+                            "/aweme/v1/web/tab/feed/",
+                            params,
+                            suppress_error=True,
+                        ),
+                        timeout=int(args.feed_timeout_seconds),
                     )
                     items = normalize_feed_items(raw)
                     entertainment_items: list[dict[str, Any]] = []
@@ -511,6 +530,8 @@ def run_feed_fallback(
                             "status_code": raw.get("status_code") if isinstance(raw, dict) else None,
                         }
                     )
+                    if page_idx + 1 >= feed_min_pages and len(collected) + len(broad_fill) >= max(1, int(args.limit)):
+                        break
                 except Exception as exc:  # noqa: BLE001
                     message = f"feed fallback failed page={page_idx + 1}: {exc}"
                     run_info["errors"].append(message)
