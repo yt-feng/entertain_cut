@@ -16,6 +16,11 @@ on:
         required: true
         type: boolean
         default: false
+      direct_search:
+        description: "Use Douyin keyword search before feed fallback"
+        required: true
+        type: boolean
+        default: true
       download_candidate_multiplier:
         description: "How many extra candidates to try per requested video"
         required: true
@@ -65,6 +70,7 @@ jobs:
           limit="${{ github.event.inputs.limit || '5' }}"
           search_max="${{ github.event.inputs.search_max || '20' }}"
           search_only="${{ github.event.inputs.search_only || 'false' }}"
+          direct_search="${{ github.event.inputs.direct_search || 'true' }}"
           download_candidate_multiplier="${{ github.event.inputs.download_candidate_multiplier || '4' }}"
 
           args=(
@@ -77,6 +83,10 @@ jobs:
 
           if [[ "$search_only" == "true" ]]; then
             args+=(--search-only)
+          fi
+
+          if [[ "$direct_search" == "false" ]]; then
+            args+=(--no-direct-search)
           fi
 
           python tools/run_douyin_entertain_free.py "${args[@]}"

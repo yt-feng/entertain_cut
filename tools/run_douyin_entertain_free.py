@@ -107,6 +107,7 @@ def main() -> int:
     hot_items = run_hot_board(args, downloader_dir, config_path, discovery_dir, run_info)
     keywords = build_keywords(hot_items, args)
     run_info["keywords"] = keywords
+    target_candidate_count = max(1, int(args.limit)) * max(1, int(args.download_candidate_multiplier))
 
     if args.cli_search:
         for keyword in keywords:
@@ -140,15 +141,15 @@ def main() -> int:
         candidates = load_search_candidates(discovery_dir / "search")
     elif not candidates:
         run_info["direct_search_skipped"] = True
-    if not candidates:
+    if len(candidates) < target_candidate_count:
         run_feed_fallback(args, downloader_dir, config_path, discovery_dir, run_info)
         candidates = load_search_candidates(discovery_dir / "search")
-    if not candidates:
+    if len(candidates) < target_candidate_count:
         run_browser_search_fallback(args, downloader_dir, config_path, discovery_dir, keywords, run_info)
         candidates = load_search_candidates(discovery_dir / "search")
 
     requested_limit = max(1, int(args.limit))
-    candidate_limit = requested_limit if args.search_only else requested_limit * max(1, int(args.download_candidate_multiplier))
+    candidate_limit = requested_limit if args.search_only else target_candidate_count
     selected = select_candidates(
         candidates,
         candidate_limit,
@@ -214,7 +215,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--feed-min-pages", type=int, default=3)
     parser.add_argument("--feed-count", type=int, default=30)
     parser.add_argument("--feed-timeout-seconds", type=int, default=12)
-    parser.add_argument("--direct-search", action=argparse.BooleanOptionalAction, default=False)
+    parser.add_argument("--direct-search", action=argparse.BooleanOptionalAction, default=True)
     parser.add_argument("--direct-search-timeout-seconds", type=int, default=12)
     parser.add_argument("--hot-board-timeout-seconds", type=int, default=60)
     parser.add_argument("--cli-search", action=argparse.BooleanOptionalAction, default=False)
