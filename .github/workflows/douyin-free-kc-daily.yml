@@ -21,6 +21,10 @@ on:
         description: "Optional prior run id containing douyin-free-selected-videos; used for KC render test"
         required: false
         default: ""
+      kc_artifact_run_id:
+        description: "Optional prior run id containing kc-entertain-videos; used to publish existing KC outputs to main"
+        required: false
+        default: ""
   schedule:
     # 07:00 Beijing time every day.
     - cron: "0 23 * * *"
@@ -56,6 +60,7 @@ jobs:
           python-version: "3.11"
 
       - name: Install system packages
+        if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.kc_artifact_run_id == '' }}
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
@@ -63,24 +68,26 @@ jobs:
             tesseract-ocr tesseract-ocr-chi-sim fonts-noto-cjk fonts-dejavu-core
 
       - name: Clone free Douyin downloader
+        if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.kc_artifact_run_id == '' }}
         run: |
           git clone --depth 1 https://github.com/jiji262/douyin-downloader.git /tmp/douyin-downloader
 
       - name: Install Python packages
+        if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.kc_artifact_run_id == '' }}
         run: |
           python -m pip install --upgrade pip
           python -m pip install -r /tmp/douyin-downloader/requirements.txt
           python -m pip install pillow httpx yt-dlp
 
       - name: Cache Whisper model
-        if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true' }}
+        if: ${{ (github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true') && (github.event_name != 'workflow_dispatch' || github.event.inputs.kc_artifact_run_id == '') }}
         uses: actions/cache@v4
         with:
           path: models/ggml-small.bin
           key: whisper-cpp-ggml-small
 
       - name: Build whisper.cpp
-        if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true' }}
+        if: ${{ (github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true') && (github.event_name != 'workflow_dispatch' || github.event.inputs.kc_artifact_run_id == '') }}
         run: |
           git clone --depth 1 https://github.com/ggerganov/whisper.cpp /tmp/whisper.cpp
           cmake -S /tmp/whisper.cpp -B /tmp/whisper.cpp/build \
@@ -90,7 +97,7 @@ jobs:
           echo "/tmp/whisper.cpp/build/bin" >> "$GITHUB_PATH"
 
       - name: Download Whisper model
-        if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true' }}
+        if: ${{ (github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true') && (github.event_name != 'workflow_dispatch' || github.event.inputs.kc_artifact_run_id == '') }}
         run: |
           mkdir -p models
           if [[ ! -s "$WHISPER_MODEL" ]]; then
@@ -99,7 +106,7 @@ jobs:
           fi
 
       - name: Discover selected videos and package KC
-        if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.selected_artifact_run_id == '' }}
+        if: ${{ github.event_name != 'workflow_dispatch' || (github.event.inputs.selected_artifact_run_id == '' && github.event.inputs.kc_artifact_run_id == '') }}
         run: |
           extra_args=()
           if [[ "${{ github.event.inputs.search_only }}" == "true" ]]; then
@@ -123,7 +130,7 @@ jobs:
             "${extra_args[@]}"
 
       - name: Download selected videos from prior free run
-        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.selected_artifact_run_id != '' }}
+        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.selected_artifact_run_id != '' && github.event.inputs.kc_artifact_run_id == '' }}
         uses: actions/download-artifact@v5
         with:
           name: douyin-free-selected-videos
@@ -132,7 +139,7 @@ jobs:
           path: work/douyin_free_daily/latest/selected
 
       - name: Download reports from prior free run
-        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.selected_artifact_run_id != '' }}
+        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.selected_artifact_run_id != '' && github.event.inputs.kc_artifact_run_id == '' }}
         uses: actions/download-artifact@v5
         with:
           name: douyin-free-daily-reports
@@ -141,7 +148,7 @@ jobs:
           path: work/douyin_free_daily/latest/reports
 
       - name: Prepare limited prior selected videos
-        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.selected_artifact_run_id != '' }}
+        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.selected_artifact_run_id != '' && github.event.inputs.kc_artifact_run_id == '' }}
         env:
           KC_LIMIT: ${{ inputs.limit || '10' }}
         run: |
@@ -174,7 +181,7 @@ jobs:
           PY
 
       - name: Package prior selected videos as KC
-        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.selected_artifact_run_id != '' }}
+        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.selected_artifact_run_id != '' && github.event.inputs.kc_artifact_run_id == '' }}
         run: |
           extra_args=()
           if [[ "${{ github.event.inputs.force_fallback }}" == "true" || -z "${DEEPSEEK_API_KEY}" ]]; then
@@ -190,6 +197,29 @@ jobs:
             --threads 2 \
             "${extra_args[@]}"
 
+      - name: Download KC videos from prior run
+        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.kc_artifact_run_id != '' }}
+        uses: actions/download-artifact@v5
+        with:
+          name: kc-entertain-videos
+          run-id: ${{ github.event.inputs.kc_artifact_run_id }}
+          github-token: ${{ github.token }}
+          path: work/prior_kc_artifact
+
+      - name: Stage prior KC videos by date
+        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.kc_artifact_run_id != '' }}
+        run: |
+          mkdir -p "$KC_OUTPUT_DIR" work/auto_kc_douyin_free
+          outputs_file="work/auto_kc_douyin_free/last_run_outputs.txt"
+          : > "$outputs_file"
+          while IFS= read -r file; do
+            target="$KC_OUTPUT_DIR/$(basename "$file")"
+            cp "$file" "$target"
+            echo "$(pwd)/$target" >> "$outputs_file"
+          done < <(find work/prior_kc_artifact -type f -name '*.mp4' | sort)
+          count="$(find "$KC_OUTPUT_DIR" -maxdepth 1 -type f -name '*.mp4' | wc -l)"
+          echo "Staged $count KC video(s) into $KC_OUTPUT_DIR"
+
       - name: Commit KC videos to main
         if: ${{ success() && (github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true') }}
         run: |
@@ -202,7 +232,7 @@ jobs:
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add "$KC_OUTPUT_DIR"
+          git add -f "$KC_OUTPUT_DIR"
           if git diff --cached --quiet; then
             echo "No new KC videos to commit"
             exit 0
