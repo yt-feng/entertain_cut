@@ -22,7 +22,6 @@ OUT_H = 1920
 MAIN_Y = 360
 MAIN_H = 796
 CAPTION_Y = 1376
-BRAND_Y = 1806
 TITLE_LINE1_Y = 188
 TITLE_LINE2_Y = 276
 ZH_FONT_CANDIDATES = [
@@ -413,22 +412,22 @@ def draw_brand(draw: ImageDraw.ImageDraw) -> None:
     draw_center_highlight_line(
         draw,
         "KC娱乐",
-        y=BRAND_Y,
-        max_width=620,
-        font_size=74,
-        min_size=58,
+        y=1788,
+        max_width=560,
+        font_size=64,
+        min_size=54,
         highlights=["KC"],
         fill=(255, 255, 255, 255),
         highlight_fill=(255, 218, 45, 255),
-        stroke=5,
+        stroke=4,
     )
     draw_center_highlight_line(
         draw,
         "ENTERTAINMENT",
-        y=1880,
+        y=1874,
         max_width=520,
-        font_size=24,
-        min_size=20,
+        font_size=22,
+        min_size=18,
         highlights=[],
         fill=(0, 220, 255, 210),
         stroke=1,
