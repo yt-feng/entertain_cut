@@ -135,8 +135,6 @@ def main() -> int:
     free_cmd.append("--direct-search" if args.direct_search else "--no-direct-search")
     if args.browser_keywords:
         free_cmd.extend(["--browser-keywords", str(args.browser_keywords)])
-    if args.search_only:
-        free_cmd.append("--search-only")
     if args.direct_download:
         free_cmd.append("--direct-download")
     if args.yt_dlp_download:
@@ -223,8 +221,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--threads", type=int, default=4)
     parser.add_argument("--force", action="store_true")
     parser.add_argument("--force-fallback", action="store_true")
-    parser.add_argument("--search-only", action="store_true")
-    parser.add_argument("--skip-kc", action="store_true")
+    parser.add_argument("--search-only", action="store_true", help="Download selected videos and skip KC packaging.")
+    parser.add_argument("--skip-kc", action="store_true", help="Alias for skipping KC packaging after download.")
     parser.add_argument("--install-downloader-deps", action="store_true")
     return parser.parse_args()
 
