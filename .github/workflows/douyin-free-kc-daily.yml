@@ -119,8 +119,13 @@ jobs:
           python tools/run_douyin_free_kc_daily.py \
             --limit "${{ inputs.limit || '10' }}" \
             --recent-hours 24 \
+            --max-duration-seconds 300 \
             --search-max 50 \
-            --download-candidate-multiplier 8 \
+            --download-candidate-multiplier 4 \
+            --direct-download-timeout-seconds 75 \
+            --direct-download-max-urls 1 \
+            --yt-dlp-timeout-seconds 90 \
+            --downloader-link-timeout-seconds 75 \
             --downloader-dir /tmp/douyin-downloader \
             --work-root work/douyin_free_daily \
             --kc-work-dir work/auto_kc_douyin_free \

@@ -208,6 +208,12 @@ def main() -> int:
         str(args.downloader_concurrency),
         "--downloader-timeout-seconds",
         str(args.downloader_timeout_seconds),
+        "--direct-download-timeout-seconds",
+        str(args.direct_download_timeout_seconds),
+        "--direct-download-max-urls",
+        str(args.direct_download_max_urls),
+        "--yt-dlp-timeout-seconds",
+        str(args.yt_dlp_timeout_seconds),
         "--seed-keywords",
         args.seed_keywords,
         "--must-include-terms",
@@ -282,13 +288,16 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--limit", type=int, default=10)
     parser.add_argument("--recent-hours", type=int, default=24)
-    parser.add_argument("--max-duration-seconds", type=int, default=480)
+    parser.add_argument("--max-duration-seconds", type=int, default=300)
     parser.add_argument("--search-max", type=int, default=30)
     parser.add_argument("--feed-pages", type=int, default=60)
-    parser.add_argument("--download-candidate-multiplier", type=int, default=8)
-    parser.add_argument("--downloader-link-timeout-seconds", type=int, default=120)
+    parser.add_argument("--download-candidate-multiplier", type=int, default=4)
+    parser.add_argument("--downloader-link-timeout-seconds", type=int, default=75)
     parser.add_argument("--downloader-concurrency", type=int, default=4)
     parser.add_argument("--downloader-timeout-seconds", type=int, default=1800)
+    parser.add_argument("--direct-download-timeout-seconds", type=int, default=75)
+    parser.add_argument("--direct-download-max-urls", type=int, default=1)
+    parser.add_argument("--yt-dlp-timeout-seconds", type=int, default=90)
     parser.add_argument("--seed-keywords", default=DEFAULT_SEED_KEYWORDS)
     parser.add_argument("--must-include-terms", default=DEFAULT_MUST_INCLUDE_TERMS)
     parser.add_argument("--exclude-terms", default=DEFAULT_EXCLUDE_TERMS)
