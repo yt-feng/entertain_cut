@@ -179,11 +179,15 @@ def main() -> int:
     if not args.search_only:
         downloaded_ids: set[str] = set()
         if args.direct_download:
-            downloaded_ids = download_selected_direct(args, download_dir, selected_dir, selected, run_info)
+            downloaded_ids = download_selected_direct(args, download_dir, selected_dir, selected, requested_limit, run_info)
         remaining = [item for item in selected if str(item.get("aweme_id") or "") not in downloaded_ids]
+        if count_selected_files(selected_dir) >= requested_limit:
+            remaining = []
         if remaining and args.yt_dlp_download:
-            downloaded_ids.update(download_selected_ytdlp(args, download_dir, selected_dir, remaining, selected, run_info))
+            downloaded_ids.update(download_selected_ytdlp(args, download_dir, selected_dir, remaining, selected, requested_limit, run_info))
             remaining = [item for item in selected if str(item.get("aweme_id") or "") not in downloaded_ids]
+            if count_selected_files(selected_dir) >= requested_limit:
+                remaining = []
         if remaining and args.downloader_fallback:
             download_selected_with_downloader(
                 args,
@@ -868,6 +872,7 @@ def download_selected_direct(
     download_dir: Path,
     selected_dir: Path,
     selected: list[dict[str, Any]],
+    requested_limit: int,
     run_info: dict[str, Any],
 ) -> set[str]:
     import httpx
@@ -893,6 +898,8 @@ def download_selected_direct(
     timeout = httpx.Timeout(connect=20, read=60, write=60, pool=20)
     with httpx.Client(headers=headers, follow_redirects=True, timeout=timeout) as client:
         for idx, item in enumerate(selected, 1):
+            if count_selected_files(selected_dir) >= requested_limit:
+                break
             aweme_id = str(item.get("aweme_id") or "")
             urls = [url for url in item.get("download_urls") or [] if isinstance(url, str) and url.startswith(("http://", "https://"))]
             urls = urls[: max(1, int(args.direct_download_max_urls))]
@@ -952,6 +959,7 @@ def download_selected_ytdlp(
     selected_dir: Path,
     remaining: list[dict[str, Any]],
     selected: list[dict[str, Any]],
+    requested_limit: int,
     run_info: dict[str, Any],
 ) -> set[str]:
     executable = shutil.which("yt-dlp")
@@ -973,6 +981,8 @@ def download_selected_ytdlp(
     )
     downloaded: set[str] = set()
     for item in remaining:
+        if count_selected_files(selected_dir) >= requested_limit:
+            break
         aweme_id = str(item.get("aweme_id") or "")
         url = str(item.get("url") or "")
         rank = rank_by_id.get(aweme_id, len(downloaded) + 1)
