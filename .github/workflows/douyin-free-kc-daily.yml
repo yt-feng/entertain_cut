@@ -1,0 +1,139 @@
+name: Douyin Free Selected KC Daily
+
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: "How many high-like recent entertainment videos to package"
+        required: true
+        default: "10"
+      search_only:
+        description: "Only discover and upload douyin-free-selected-videos, skip KC packaging"
+        required: true
+        type: boolean
+        default: false
+      force_fallback:
+        description: "Skip DeepSeek and use local fallback KC captions"
+        required: true
+        type: boolean
+        default: false
+  schedule:
+    # 07:00 Beijing time every day.
+    - cron: "0 23 * * *"
+
+jobs:
+  douyin-free-kc-daily:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+
+    env:
+      PYTHONUNBUFFERED: "1"
+      DOUYIN_COOKIE: ${{ secrets.DOUYIN_COOKIE }}
+      DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+      WHISPER_MODEL: ${{ github.workspace }}/models/ggml-small.bin
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Install system packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            build-essential cmake ffmpeg git ca-certificates curl \
+            tesseract-ocr tesseract-ocr-chi-sim fonts-noto-cjk fonts-dejavu-core
+
+      - name: Clone free Douyin downloader
+        run: |
+          git clone --depth 1 https://github.com/jiji262/douyin-downloader.git /tmp/douyin-downloader
+
+      - name: Install Python packages
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r /tmp/douyin-downloader/requirements.txt
+          python -m pip install pillow httpx yt-dlp
+
+      - name: Cache Whisper model
+        if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true' }}
+        uses: actions/cache@v4
+        with:
+          path: models/ggml-small.bin
+          key: whisper-cpp-ggml-small
+
+      - name: Build whisper.cpp
+        if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true' }}
+        run: |
+          git clone --depth 1 https://github.com/ggerganov/whisper.cpp /tmp/whisper.cpp
+          cmake -S /tmp/whisper.cpp -B /tmp/whisper.cpp/build \
+            -DWHISPER_BUILD_TESTS=OFF \
+            -DWHISPER_BUILD_EXAMPLES=ON
+          cmake --build /tmp/whisper.cpp/build --config Release -j2
+          echo "/tmp/whisper.cpp/build/bin" >> "$GITHUB_PATH"
+
+      - name: Download Whisper model
+        if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true' }}
+        run: |
+          mkdir -p models
+          if [[ ! -s "$WHISPER_MODEL" ]]; then
+            curl -L --retry 3 -o "$WHISPER_MODEL" \
+              https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-small.bin
+          fi
+
+      - name: Discover selected videos and package KC
+        run: |
+          extra_args=()
+          if [[ "${{ github.event.inputs.search_only }}" == "true" ]]; then
+            extra_args+=(--search-only)
+          fi
+          if [[ "${{ github.event.inputs.force_fallback }}" == "true" || -z "${DEEPSEEK_API_KEY}" ]]; then
+            extra_args+=(--force-fallback)
+          fi
+
+          python tools/run_douyin_free_kc_daily.py \
+            --limit "${{ inputs.limit || '10' }}" \
+            --recent-hours 24 \
+            --search-max 30 \
+            --download-candidate-multiplier 5 \
+            --downloader-dir /tmp/douyin-downloader \
+            --work-root work/douyin_free_daily \
+            --kc-work-dir work/auto_kc_douyin_free \
+            --output-dir outputs/kc_entertain \
+            --encoder libx264 \
+            --threads 2 \
+            "${extra_args[@]}"
+
+      - name: Upload reports
+        if: always()
+        uses: actions/upload-artifact@v5
+        with:
+          name: douyin-free-daily-reports
+          path: |
+            work/douyin_free_daily/latest/reports
+            work/douyin_free_daily/latest/kc_daily_summary.*
+            work/auto_kc_douyin_free/last_run_summary.md
+            work/auto_kc_douyin_free/last_run_outputs.txt
+          if-no-files-found: ignore
+          retention-days: 14
+
+      - name: Upload selected videos
+        if: always()
+        uses: actions/upload-artifact@v5
+        with:
+          name: douyin-free-selected-videos
+          path: work/douyin_free_daily/latest/selected
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Upload KC videos
+        if: always()
+        uses: actions/upload-artifact@v5
+        with:
+          name: kc-entertain-videos
+          path: outputs/kc_entertain/*.mp4
+          if-no-files-found: ignore
+          retention-days: 14

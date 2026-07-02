@@ -96,7 +96,7 @@ def main() -> int:
         path.mkdir(parents=True, exist_ok=True)
 
     run_info: dict[str, Any] = {
-        "generated_at": dt.datetime.now(dt.UTC).isoformat(),
+        "generated_at": dt.datetime.now(dt.timezone.utc).isoformat(),
         "downloader_dir": str(downloader_dir),
         "work_dir": str(work_dir),
         "commands": [],
@@ -158,6 +158,8 @@ def main() -> int:
         args.primary_min_likes,
         args.fallback_min_likes,
         args.max_duration_seconds,
+        args.must_include_terms,
+        args.exclude_terms,
     )
     write_reports(reports_dir, hot_items, keywords, candidates, selected, run_info)
 
@@ -235,6 +237,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--downloader-timeout-seconds", type=int, default=1800)
     parser.add_argument("--downloader-link-timeout-seconds", type=int, default=120)
     parser.add_argument("--downloader-concurrency", type=int, default=4)
+    parser.add_argument("--must-include-terms", default="", help="Comma-separated terms; keep candidates matching any term.")
+    parser.add_argument("--exclude-terms", default="", help="Comma-separated terms; remove candidates matching any term.")
     parser.add_argument("--search-only", action="store_true")
     parser.add_argument(
         "--seed-keywords",
@@ -689,8 +693,10 @@ def select_candidates(
     primary_min_likes: int,
     fallback_min_likes: int,
     max_duration_seconds: int,
+    must_include_terms: str = "",
+    exclude_terms: str = "",
 ) -> list[dict[str, Any]]:
-    now = dt.datetime.now(dt.UTC).timestamp()
+    now = dt.datetime.now(dt.timezone.utc).timestamp()
     if max_duration_seconds > 0:
         max_duration_ms = max_duration_seconds * 1000
         short_candidates = [
@@ -699,6 +705,15 @@ def select_candidates(
         scoped_candidates = short_candidates if len(short_candidates) >= max(1, limit) else candidates
     else:
         scoped_candidates = candidates
+
+    include_terms = split_terms(must_include_terms)
+    exclude_terms_list = split_terms(exclude_terms)
+    if exclude_terms_list:
+        scoped_candidates = [item for item in scoped_candidates if not matches_any_term(item, exclude_terms_list)]
+    if include_terms:
+        included = [item for item in scoped_candidates if matches_any_term(item, include_terms)]
+        if included:
+            scoped_candidates = included
 
     recent: list[dict[str, Any]] = []
     for item in scoped_candidates:
@@ -740,6 +755,15 @@ def select_candidates(
             if len(selected) >= max(0, limit):
                 return selected
     return selected
+
+
+def split_terms(raw: str) -> list[str]:
+    return [part.strip() for part in str(raw or "").split(",") if part.strip()]
+
+
+def matches_any_term(item: dict[str, Any], terms: list[str]) -> bool:
+    text = " ".join(str(item.get(key) or "") for key in ("title", "author", "source_keyword", "aweme_id"))
+    return any(term in text for term in terms)
 
 
 def write_reports(
@@ -1270,7 +1294,7 @@ def timestamp_iso(value: Any) -> str:
     ts = as_int(value)
     if not ts:
         return ""
-    return dt.datetime.fromtimestamp(ts, tz=dt.UTC).isoformat()
+    return dt.datetime.fromtimestamp(ts, tz=dt.timezone.utc).isoformat()
 
 
 def duration_seconds(item: dict[str, Any]) -> int:

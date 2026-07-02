@@ -79,6 +79,12 @@ def main() -> None:
         default="",
         help="Optional landscape crop as width:height:x:y, used before fitting the main layer.",
     )
+    parser.add_argument(
+        "--cleanup-band",
+        choices=["none", "soft", "solid"],
+        default="none",
+        help="Optional mid-frame source subtitle cleanup band. Default is none.",
+    )
     args = parser.parse_args()
 
     if not args.source.exists():
@@ -97,7 +103,7 @@ def main() -> None:
     args.work_dir.mkdir(parents=True, exist_ok=True)
 
     static_png = args.work_dir / "static_overlay.png"
-    subtitle_pngs = render_overlays(plan, args.work_dir, static_png)
+    subtitle_pngs = render_overlays(plan, args.work_dir, static_png, cleanup_band=args.cleanup_band)
 
     command = build_ffmpeg_command(
         source=args.source,
@@ -146,8 +152,10 @@ def render_overlays(
     plan: dict[str, Any],
     work_dir: Path,
     static_png: Path,
+    *,
+    cleanup_band: str,
 ) -> list[tuple[Path, float, float]]:
-    render_static_overlay(plan, static_png)
+    render_static_overlay(plan, static_png, cleanup_band=cleanup_band)
     result: list[tuple[Path, float, float]] = []
     for item in plan.get("subtitles", []):
         try:
@@ -163,7 +171,7 @@ def render_overlays(
     return result
 
 
-def render_static_overlay(plan: dict[str, Any], output: Path) -> None:
+def render_static_overlay(plan: dict[str, Any], output: Path, *, cleanup_band: str = "none") -> None:
     img = Image.new("RGBA", (OUT_W, OUT_H), (0, 0, 0, 0))
     draw = ImageDraw.Draw(img, "RGBA")
 
@@ -175,10 +183,7 @@ def render_static_overlay(plan: dict[str, Any], output: Path) -> None:
     draw.rectangle((OUT_W - 22, MAIN_Y + 46, OUT_W, MAIN_Y + MAIN_H + 40), fill=(0, 220, 255, 220))
     draw.rectangle((22, MAIN_Y - 10, 240, MAIN_Y + 2), fill=(255, 214, 47, 240))
     draw.rectangle((812, MAIN_Y + MAIN_H + 28, OUT_W - 22, MAIN_Y + MAIN_H + 40), fill=(255, 214, 47, 230))
-    draw_gradient(draw, 0, 990, OUT_W, 1172, (5, 6, 14, 246), (5, 6, 14, 255))
-    draw.rectangle((0, 1012, OUT_W, 1156), fill=(5, 6, 14, 255))
-    draw.rectangle((0, 990, 256, 1002), fill=(255, 214, 47, 238))
-    draw.rectangle((824, 1160, OUT_W, 1172), fill=(0, 220, 255, 226))
+    draw_cleanup_band(draw, cleanup_band)
 
     draw_tag(draw, 46, 84, str(plan.get("top_badge", "气场名场面")), fill=(255, 42, 120, 242))
     draw_tag(draw, 744, 330, str(plan.get("side_badge", "表达太稳")), fill=(0, 205, 255, 224), text_fill=(8, 10, 18, 255), small=True)
@@ -289,6 +294,19 @@ def render_subtitle_overlay(item: dict[str, Any], output: Path) -> None:
     img.save(output)
 
 
+def draw_cleanup_band(draw: ImageDraw.ImageDraw, mode: str) -> None:
+    if mode == "none":
+        return
+    alpha = 236 if mode == "soft" else 255
+    x0, y0, x1, y1 = 82, 1030, 998, 1144
+    shadow = (0, 0, 0, 96 if mode == "soft" else 130)
+    fill = (5, 7, 16, alpha)
+    draw.rounded_rectangle((x0 + 10, y0 + 12, x1 + 10, y1 + 12), radius=22, fill=shadow)
+    draw.rounded_rectangle((x0, y0, x1, y1), radius=22, fill=fill)
+    draw.rectangle((x0 + 28, y0, x0 + 222, y0 + 10), fill=(255, 214, 47, 232))
+    draw.rectangle((x1 - 222, y1 - 10, x1 - 28, y1), fill=(0, 220, 255, 220))
+
+
 def draw_gradient(
     draw: ImageDraw.ImageDraw,
     x0: int,
@@ -315,14 +333,48 @@ def draw_tag(
     text_fill: tuple[int, int, int, int] = (255, 255, 255, 255),
     small: bool = False,
 ) -> None:
-    font = load_font(32 if small else 36, bold=True)
     pad_x = 22 if small else 26
     pad_y = 12 if small else 14
+    box_max_width = max(80, OUT_W - x - 46)
+    content_max_width = max(28, box_max_width - pad_x * 2)
+    text = fit_single_line(
+        draw,
+        normalize_space(text),
+        max_width=content_max_width,
+        start_size=32 if small else 36,
+        min_size=22,
+    )
+    font = load_font(32 if small else 36, bold=True)
+    while measure_text(draw, text, font, stroke_width=0)[0] > content_max_width and font.size > 22:
+        font = load_font(font.size - 2, bold=True)
+    if measure_text(draw, text, font, stroke_width=0)[0] > content_max_width:
+        text = fit_single_line(draw, text, max_width=content_max_width, start_size=font.size, min_size=font.size)
     box = draw.textbbox((0, 0), text, font=font, stroke_width=0)
     w = box[2] - box[0] + pad_x * 2
     h = box[3] - box[1] + pad_y * 2
     draw.rounded_rectangle((x, y, x + w, y + h), radius=18, fill=fill)
     draw.text((x + pad_x, y + pad_y - 3), text, font=font, fill=text_fill)
+
+
+def fit_single_line(
+    draw: ImageDraw.ImageDraw,
+    text: str,
+    *,
+    max_width: int,
+    start_size: int,
+    min_size: int,
+) -> str:
+    text = normalize_space(text)
+    font = load_font(start_size, bold=True)
+    if measure_text(draw, text, font, stroke_width=0)[0] <= max_width:
+        return text
+    font = load_font(min_size, bold=True)
+    if measure_text(draw, text, font, stroke_width=0)[0] <= max_width:
+        return text
+    suffix = "..."
+    while text and measure_text(draw, text + suffix, font, stroke_width=0)[0] > max_width:
+        text = text[:-1]
+    return (text + suffix) if text else suffix
 
 
 def draw_sticker(draw: ImageDraw.ImageDraw, x: int, y: int, top: str, bottom: str) -> None:
