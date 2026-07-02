@@ -700,9 +700,9 @@ def select_candidates(
     if max_duration_seconds > 0:
         max_duration_ms = max_duration_seconds * 1000
         short_candidates = [
-            item for item in candidates if not as_int(item.get("duration_ms")) or as_int(item.get("duration_ms")) <= max_duration_ms
+            item for item in candidates if not item_duration_ms(item) or item_duration_ms(item) <= max_duration_ms
         ]
-        scoped_candidates = short_candidates if len(short_candidates) >= max(1, limit) else candidates
+        scoped_candidates = short_candidates if short_candidates else candidates
     else:
         scoped_candidates = candidates
 
@@ -712,8 +712,7 @@ def select_candidates(
         scoped_candidates = [item for item in scoped_candidates if not matches_any_term(item, exclude_terms_list)]
     if include_terms:
         included = [item for item in scoped_candidates if matches_any_term(item, include_terms)]
-        if included:
-            scoped_candidates = included
+        scoped_candidates = included
 
     recent: list[dict[str, Any]] = []
     for item in scoped_candidates:
@@ -1262,8 +1261,7 @@ def is_entertainment_aweme(item: dict[str, Any]) -> bool:
 def is_short_aweme(item: dict[str, Any], max_duration_seconds: int) -> bool:
     if max_duration_seconds <= 0:
         return True
-    video = first_dict(item.get("video"))
-    duration_ms = as_int(video.get("duration") or item.get("duration"))
+    duration_ms = item_duration_ms(item)
     return not duration_ms or duration_ms <= max_duration_seconds * 1000
 
 
@@ -1298,7 +1296,7 @@ def timestamp_iso(value: Any) -> str:
 
 
 def duration_seconds(item: dict[str, Any]) -> int:
-    duration_ms = as_int(item.get("duration_ms"))
+    duration_ms = item_duration_ms(item)
     if not duration_ms:
         return 0
     return round(duration_ms / 1000)
@@ -1308,7 +1306,12 @@ def count_short_items(items: list[dict[str, Any]], max_duration_seconds: int) ->
     if max_duration_seconds <= 0:
         return len(items)
     max_duration_ms = max_duration_seconds * 1000
-    return sum(1 for item in items if not as_int(item.get("duration_ms")) or as_int(item.get("duration_ms")) <= max_duration_ms)
+    return sum(1 for item in items if not item_duration_ms(item) or item_duration_ms(item) <= max_duration_ms)
+
+
+def item_duration_ms(item: dict[str, Any]) -> int:
+    video = first_dict(item.get("video"))
+    return as_int(item.get("duration_ms") or video.get("duration") or item.get("duration"))
 
 
 def dedupe_keep_order(values: list[str]) -> list[str]:

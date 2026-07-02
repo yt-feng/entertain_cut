@@ -17,6 +17,10 @@ on:
         required: true
         type: boolean
         default: false
+      selected_artifact_run_id:
+        description: "Optional prior run id containing douyin-free-selected-videos; used for KC render test"
+        required: false
+        default: ""
   schedule:
     # 07:00 Beijing time every day.
     - cron: "0 23 * * *"
@@ -85,6 +89,7 @@ jobs:
           fi
 
       - name: Discover selected videos and package KC
+        if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.selected_artifact_run_id == '' }}
         run: |
           extra_args=()
           if [[ "${{ github.event.inputs.search_only }}" == "true" ]]; then
@@ -103,6 +108,41 @@ jobs:
             --work-root work/douyin_free_daily \
             --kc-work-dir work/auto_kc_douyin_free \
             --output-dir outputs/kc_entertain \
+            --encoder libx264 \
+            --threads 2 \
+            "${extra_args[@]}"
+
+      - name: Download selected videos from prior free run
+        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.selected_artifact_run_id != '' }}
+        uses: actions/download-artifact@v5
+        with:
+          name: douyin-free-selected-videos
+          run-id: ${{ github.event.inputs.selected_artifact_run_id }}
+          github-token: ${{ github.token }}
+          path: work/douyin_free_daily/latest/selected
+
+      - name: Download reports from prior free run
+        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.selected_artifact_run_id != '' }}
+        uses: actions/download-artifact@v5
+        with:
+          name: douyin-free-daily-reports
+          run-id: ${{ github.event.inputs.selected_artifact_run_id }}
+          github-token: ${{ github.token }}
+          path: work/douyin_free_daily/latest/reports
+
+      - name: Package prior selected videos as KC
+        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.selected_artifact_run_id != '' }}
+        run: |
+          extra_args=()
+          if [[ "${{ github.event.inputs.force_fallback }}" == "true" || -z "${DEEPSEEK_API_KEY}" ]]; then
+            extra_args+=(--force-fallback)
+          fi
+
+          python auto_kc_entertain.py \
+            --input-dir work/douyin_free_daily/latest/selected \
+            --metadata-file work/douyin_free_daily/latest/reports/selected.json \
+            --output-dir outputs/kc_entertain \
+            --work-dir work/auto_kc_douyin_free \
             --encoder libx264 \
             --threads 2 \
             "${extra_args[@]}"

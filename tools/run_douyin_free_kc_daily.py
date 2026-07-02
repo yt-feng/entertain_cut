@@ -127,6 +127,10 @@ def main() -> int:
         free_cmd.extend(["--browser-keywords", str(args.browser_keywords)])
     if args.search_only:
         free_cmd.append("--search-only")
+    if args.direct_download:
+        free_cmd.append("--direct-download")
+    if args.yt_dlp_download:
+        free_cmd.append("--yt-dlp-download")
     run(free_cmd, summary)
 
     selected_dir = run_dir / "selected"
@@ -195,6 +199,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--seed-keywords", default=DEFAULT_SEED_KEYWORDS)
     parser.add_argument("--must-include-terms", default=DEFAULT_MUST_INCLUDE_TERMS)
     parser.add_argument("--exclude-terms", default=DEFAULT_EXCLUDE_TERMS)
+    parser.add_argument("--direct-download", action=argparse.BooleanOptionalAction, default=True)
+    parser.add_argument("--yt-dlp-download", action=argparse.BooleanOptionalAction, default=True)
     parser.add_argument("--direct-search", action=argparse.BooleanOptionalAction, default=True)
     parser.add_argument("--browser-keywords", type=int, default=0)
     parser.add_argument("--downloader-dir", type=Path, default=Path("/tmp/douyin-downloader"))
