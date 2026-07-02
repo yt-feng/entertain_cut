@@ -1235,14 +1235,17 @@ def write_run_summary(work_dir: Path, sources: list[Path], outputs: list[Path]) 
         lines.extend(f"- {path.resolve()}" for path in outputs)
     else:
         lines.append("- 没有新成片；可能这些素材已经处理过。需要重跑时在终端执行：`python3 auto_kc_entertain.py --force`")
+    lines.extend(["", "## 说明"])
+    if os.environ.get("GITHUB_ACTIONS") == "true":
+        lines.append("- GitHub Actions 成品在 `kc-entertain-videos` artifact 中下载。")
+        lines.append("- 报告、候选和包装计划在 `douyin-free-daily-reports` artifact 中下载。")
+    else:
+        lines.append("- 新视频放进 `new_video_pending/` 后，双击 `run_kc_entertain.command` 即可批量处理。")
+        lines.append("- 每条素材的转写、可选 OCR、包装计划、源抽帧和成片抽帧保存在 `work/auto_kc/<素材名>_<hash>/`。")
     lines.extend(
         [
-            "",
-            "## 说明",
-            "- 新视频放进 `new_video_pending/` 后，双击 `run_kc_entertain.command` 即可批量处理。",
-            "- 每条素材的转写、可选 OCR、包装计划、源抽帧和成片抽帧保存在 `work/auto_kc/<素材名>_<hash>/`。",
             "- 脚本会按内容 hash 跳过已处理素材，避免重复生成。",
-            "- 若本机没有 OCR 引擎，流程会明确记录并继续使用文件名和 Whisper 转写逐条包装。",
+            "- 若没有 OCR 引擎，流程会明确记录并继续使用文件名和 Whisper 转写逐条包装。",
         ]
     )
     summary_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
