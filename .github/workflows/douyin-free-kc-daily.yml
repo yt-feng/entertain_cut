@@ -130,6 +130,35 @@ jobs:
           github-token: ${{ github.token }}
           path: work/douyin_free_daily/latest/reports
 
+      - name: Prepare limited prior selected videos
+        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.selected_artifact_run_id != '' }}
+        run: |
+          limit="${{ inputs.limit || '10' }}"
+          if ! [[ "$limit" =~ ^[0-9]+$ ]] || [[ "$limit" -lt 1 ]]; then
+            limit=10
+          fi
+
+          mkdir -p work/douyin_free_daily/latest/selected_limited
+          mapfile -t selected_files < <(
+            find work/douyin_free_daily/latest/selected -maxdepth 1 -type f \
+              \( -iname '*.mp4' -o -iname '*.mov' -o -iname '*.m4v' -o -iname '*.webm' \) \
+              | sort
+          )
+          if [[ "${#selected_files[@]}" -eq 0 ]]; then
+            echo "No prior selected videos found"
+            exit 1
+          fi
+
+          count=0
+          for file in "${selected_files[@]}"; do
+            cp "$file" work/douyin_free_daily/latest/selected_limited/
+            count=$((count + 1))
+            if [[ "$count" -ge "$limit" ]]; then
+              break
+            fi
+          done
+          echo "Prepared $count prior selected video(s) for KC packaging"
+
       - name: Package prior selected videos as KC
         if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.selected_artifact_run_id != '' }}
         run: |
@@ -139,7 +168,7 @@ jobs:
           fi
 
           python auto_kc_entertain.py \
-            --input-dir work/douyin_free_daily/latest/selected \
+            --input-dir work/douyin_free_daily/latest/selected_limited \
             --metadata-file work/douyin_free_daily/latest/reports/selected.json \
             --output-dir outputs/kc_entertain \
             --work-dir work/auto_kc_douyin_free \
