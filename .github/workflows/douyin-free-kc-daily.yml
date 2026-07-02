@@ -112,8 +112,8 @@ jobs:
           python tools/run_douyin_free_kc_daily.py \
             --limit "${{ inputs.limit || '10' }}" \
             --recent-hours 24 \
-            --search-max 30 \
-            --download-candidate-multiplier 5 \
+            --search-max 50 \
+            --download-candidate-multiplier 8 \
             --downloader-dir /tmp/douyin-downloader \
             --work-root work/douyin_free_daily \
             --kc-work-dir work/auto_kc_douyin_free \
