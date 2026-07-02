@@ -237,7 +237,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--browser-max-details", type=int, default=8)
     parser.add_argument("--threads", type=int, default=3)
     parser.add_argument("--direct-download", action=argparse.BooleanOptionalAction, default=False)
-    parser.add_argument("--max-duration-seconds", type=int, default=180)
+    parser.add_argument("--max-duration-seconds", type=int, default=360)
     parser.add_argument("--download-candidate-multiplier", type=int, default=4)
     parser.add_argument("--direct-download-timeout-seconds", type=int, default=120)
     parser.add_argument("--direct-download-max-urls", type=int, default=2)

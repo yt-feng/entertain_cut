@@ -115,6 +115,8 @@ def main() -> int:
         str(args.limit),
         "--recent-hours",
         str(args.recent_hours),
+        "--max-duration-seconds",
+        str(args.max_duration_seconds),
         "--search-max",
         str(args.search_max),
         "--download-candidate-multiplier",
@@ -199,6 +201,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--limit", type=int, default=10)
     parser.add_argument("--recent-hours", type=int, default=24)
+    parser.add_argument("--max-duration-seconds", type=int, default=360)
     parser.add_argument("--search-max", type=int, default=30)
     parser.add_argument("--download-candidate-multiplier", type=int, default=5)
     parser.add_argument("--downloader-link-timeout-seconds", type=int, default=120)
