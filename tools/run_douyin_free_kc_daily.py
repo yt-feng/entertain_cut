@@ -231,9 +231,9 @@ def resolve_python() -> str:
     candidates = [
         os.getenv("KC_PYTHON", "").strip(),
         str(Path.home() / ".cache/codex-runtimes/codex-primary-runtime/dependencies/python/bin/python3"),
+        sys.executable,
         shutil.which("python3.12") or "",
         shutil.which("python3.11") or "",
-        sys.executable,
     ]
     for candidate in candidates:
         if not candidate:
