@@ -172,6 +172,7 @@ def main() -> int:
         "run_id": run_id,
         "generated_at": dt.datetime.now().isoformat(timespec="seconds"),
         "limit": args.limit,
+        "min_selected_videos": args.min_selected_videos,
         "recent_hours": args.recent_hours,
         "python": python_bin,
         "run_dir": str(run_dir),
@@ -202,6 +203,8 @@ def main() -> int:
         str(args.feed_pages),
         "--download-candidate-multiplier",
         str(args.download_candidate_multiplier),
+        "--min-selected-videos",
+        str(args.min_selected_videos),
         "--downloader-link-timeout-seconds",
         str(args.downloader_link_timeout_seconds),
         "--downloader-concurrency",
@@ -292,12 +295,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--search-max", type=int, default=30)
     parser.add_argument("--feed-pages", type=int, default=60)
     parser.add_argument("--download-candidate-multiplier", type=int, default=4)
-    parser.add_argument("--downloader-link-timeout-seconds", type=int, default=75)
+    parser.add_argument("--min-selected-videos", type=int, default=7)
+    parser.add_argument("--downloader-link-timeout-seconds", type=int, default=60)
     parser.add_argument("--downloader-concurrency", type=int, default=4)
     parser.add_argument("--downloader-timeout-seconds", type=int, default=1800)
-    parser.add_argument("--direct-download-timeout-seconds", type=int, default=75)
+    parser.add_argument("--direct-download-timeout-seconds", type=int, default=45)
     parser.add_argument("--direct-download-max-urls", type=int, default=1)
-    parser.add_argument("--yt-dlp-timeout-seconds", type=int, default=90)
+    parser.add_argument("--yt-dlp-timeout-seconds", type=int, default=60)
     parser.add_argument("--seed-keywords", default=DEFAULT_SEED_KEYWORDS)
     parser.add_argument("--must-include-terms", default=DEFAULT_MUST_INCLUDE_TERMS)
     parser.add_argument("--exclude-terms", default=DEFAULT_EXCLUDE_TERMS)

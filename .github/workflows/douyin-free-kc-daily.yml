@@ -122,10 +122,11 @@ jobs:
             --max-duration-seconds 300 \
             --search-max 50 \
             --download-candidate-multiplier 4 \
-            --direct-download-timeout-seconds 75 \
+            --min-selected-videos 7 \
+            --direct-download-timeout-seconds 45 \
             --direct-download-max-urls 1 \
-            --yt-dlp-timeout-seconds 90 \
-            --downloader-link-timeout-seconds 75 \
+            --yt-dlp-timeout-seconds 60 \
+            --downloader-link-timeout-seconds 60 \
             --downloader-dir /tmp/douyin-downloader \
             --work-root work/douyin_free_daily \
             --kc-work-dir work/auto_kc_douyin_free \

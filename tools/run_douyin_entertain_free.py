@@ -159,6 +159,10 @@ def main() -> int:
         candidates = load_search_candidates(discovery_dir / "search")
 
     requested_limit = max(1, int(args.limit))
+    min_selected_videos = int(args.min_selected_videos or 0)
+    minimum_download_count = min(requested_limit, max(1, min_selected_videos)) if min_selected_videos > 0 else requested_limit
+    run_info["requested_limit"] = requested_limit
+    run_info["minimum_selected_videos"] = minimum_download_count
     candidate_limit = requested_limit if args.search_only else target_candidate_count
     selected = select_candidates(
         candidates,
@@ -180,13 +184,23 @@ def main() -> int:
         downloaded_ids: set[str] = set()
         if args.direct_download:
             downloaded_ids = download_selected_direct(args, download_dir, selected_dir, selected, requested_limit, run_info)
+            print(
+                f"Direct download selected files: {count_selected_files(selected_dir)}/{requested_limit} "
+                f"(minimum {minimum_download_count})",
+                flush=True,
+            )
         remaining = [item for item in selected if str(item.get("aweme_id") or "") not in downloaded_ids]
-        if count_selected_files(selected_dir) >= requested_limit:
+        if count_selected_files(selected_dir) >= minimum_download_count:
             remaining = []
         if remaining and args.yt_dlp_download:
-            downloaded_ids.update(download_selected_ytdlp(args, download_dir, selected_dir, remaining, selected, requested_limit, run_info))
+            downloaded_ids.update(download_selected_ytdlp(args, download_dir, selected_dir, remaining, selected, minimum_download_count, run_info))
             remaining = [item for item in selected if str(item.get("aweme_id") or "") not in downloaded_ids]
-            if count_selected_files(selected_dir) >= requested_limit:
+            print(
+                f"yt-dlp selected files: {count_selected_files(selected_dir)}/{requested_limit} "
+                f"(minimum {minimum_download_count})",
+                flush=True,
+            )
+            if count_selected_files(selected_dir) >= minimum_download_count:
                 remaining = []
         if remaining and args.downloader_fallback:
             download_selected_with_downloader(
@@ -197,12 +211,17 @@ def main() -> int:
                 download_config_path,
                 remaining,
                 selected,
-                requested_limit,
+                minimum_download_count,
                 run_info,
+            )
+            print(
+                f"Downloader fallback selected files: {count_selected_files(selected_dir)}/{requested_limit} "
+                f"(minimum {minimum_download_count})",
+                flush=True,
             )
         copy_selected_videos(download_dir, selected_dir, selected)
         successful_ids = selected_aweme_ids(selected_dir)
-        if len(successful_ids) >= requested_limit:
+        if successful_ids:
             selected = [item for item in selected if str(item.get("aweme_id") or "") in successful_ids][:requested_limit]
             rewrite_selected_dir(selected_dir, selected)
         record_selected_files(selected_dir, run_info)
@@ -242,6 +261,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--direct-download", action=argparse.BooleanOptionalAction, default=False)
     parser.add_argument("--max-duration-seconds", type=int, default=360)
     parser.add_argument("--download-candidate-multiplier", type=int, default=4)
+    parser.add_argument("--min-selected-videos", type=int, default=0)
     parser.add_argument("--direct-download-timeout-seconds", type=int, default=120)
     parser.add_argument("--direct-download-max-urls", type=int, default=2)
     parser.add_argument("--yt-dlp-download", action=argparse.BooleanOptionalAction, default=False)
