@@ -118,13 +118,14 @@ jobs:
           fi
 
           python tools/run_douyin_free_kc_daily.py \
-            --provider auto \
+            --provider tikhub \
             --limit "${{ inputs.limit || '10' }}" \
             --recent-hours 24 \
             --max-duration-seconds 300 \
             --search-max 50 \
             --download-candidate-multiplier 4 \
             --min-selected-videos 7 \
+            --tikhub-max-search-requests 5 \
             --direct-download-timeout-seconds 45 \
             --direct-download-max-urls 1 \
             --yt-dlp-timeout-seconds 60 \

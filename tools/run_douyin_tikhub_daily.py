@@ -46,6 +46,7 @@ def main() -> int:
         "errors": [],
         "requested_limit": args.limit,
         "minimum_selected_videos": args.min_selected_videos,
+        "max_search_requests": args.max_search_requests,
     }
 
     candidates = fetch_candidates(args, api_key, keywords, discovery_dir, run_info)
@@ -97,6 +98,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--fallback-min-likes", type=int, default=1_000)
     parser.add_argument("--max-duration-seconds", type=int, default=300)
     parser.add_argument("--download-candidate-multiplier", type=int, default=4)
+    parser.add_argument("--max-search-requests", type=int, default=5)
     parser.add_argument("--pages-per-keyword", type=int, default=1)
     parser.add_argument("--request-timeout-seconds", type=int, default=45)
     parser.add_argument("--download-timeout-seconds", type=int, default=120)
@@ -116,6 +118,8 @@ def fetch_candidates(
 ) -> list[dict[str, Any]]:
     candidates: list[dict[str, Any]] = []
     seen: set[str] = set()
+    request_count = 0
+    max_search_requests = max(0, int(args.max_search_requests))
     headers = {
         "Authorization": f"Bearer {api_key}",
         "Content-Type": "application/json",
@@ -124,10 +128,14 @@ def fetch_candidates(
     timeout = httpx.Timeout(connect=15, read=args.request_timeout_seconds, write=20, pool=15)
     with httpx.Client(headers=headers, timeout=timeout, follow_redirects=True) as client:
         for keyword in keywords:
+            if max_search_requests and request_count >= max_search_requests:
+                break
             cursor = 0
             search_id = ""
             backtrace = ""
             for page in range(max(1, args.pages_per_keyword)):
+                if max_search_requests and request_count >= max_search_requests:
+                    break
                 payload = {
                     "keyword": keyword,
                     "cursor": cursor,
@@ -139,6 +147,7 @@ def fetch_candidates(
                     "backtrace": backtrace,
                 }
                 try:
+                    request_count += 1
                     response = client.post(TIKHUB_VIDEO_SEARCH_URL, json=payload)
                     response.raise_for_status()
                     data = response.json()

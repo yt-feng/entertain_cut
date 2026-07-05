@@ -202,6 +202,8 @@ def main() -> int:
             str(args.download_candidate_multiplier),
             "--pages-per-keyword",
             str(args.tikhub_pages_per_keyword),
+            "--max-search-requests",
+            str(args.tikhub_max_search_requests),
             "--request-timeout-seconds",
             str(args.tikhub_request_timeout_seconds),
             "--download-timeout-seconds",
@@ -349,6 +351,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--direct-download-max-urls", type=int, default=1)
     parser.add_argument("--yt-dlp-timeout-seconds", type=int, default=60)
     parser.add_argument("--tikhub-pages-per-keyword", type=int, default=1)
+    parser.add_argument("--tikhub-max-search-requests", type=int, default=5)
     parser.add_argument("--tikhub-request-timeout-seconds", type=int, default=45)
     parser.add_argument("--tikhub-download-timeout-seconds", type=int, default=120)
     parser.add_argument("--tikhub-download-max-urls", type=int, default=3)
