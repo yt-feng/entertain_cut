@@ -168,9 +168,11 @@ def main() -> int:
     kc_work_dir = project_path(args.kc_work_dir)
     downloader_dir = project_path(args.downloader_dir)
     python_bin = resolve_python()
+    source_provider = resolve_source_provider(args.provider)
     summary: dict[str, Any] = {
         "run_id": run_id,
         "generated_at": dt.datetime.now().isoformat(timespec="seconds"),
+        "source_provider": source_provider,
         "limit": args.limit,
         "min_selected_videos": args.min_selected_videos,
         "recent_hours": args.recent_hours,
@@ -182,56 +184,87 @@ def main() -> int:
     }
 
     run_dir.mkdir(parents=True, exist_ok=True)
-    ensure_downloader(downloader_dir, install_deps=args.install_downloader_deps, python_bin=python_bin)
-
-    free_cmd = [
-        python_bin,
-        str(ROOT / "tools" / "run_douyin_entertain_free.py"),
-        "--downloader-dir",
-        str(downloader_dir),
-        "--work-dir",
-        str(run_dir),
-        "--limit",
-        str(args.limit),
-        "--recent-hours",
-        str(args.recent_hours),
-        "--max-duration-seconds",
-        str(args.max_duration_seconds),
-        "--search-max",
-        str(args.search_max),
-        "--feed-pages",
-        str(args.feed_pages),
-        "--download-candidate-multiplier",
-        str(args.download_candidate_multiplier),
-        "--min-selected-videos",
-        str(args.min_selected_videos),
-        "--downloader-link-timeout-seconds",
-        str(args.downloader_link_timeout_seconds),
-        "--downloader-concurrency",
-        str(args.downloader_concurrency),
-        "--downloader-timeout-seconds",
-        str(args.downloader_timeout_seconds),
-        "--direct-download-timeout-seconds",
-        str(args.direct_download_timeout_seconds),
-        "--direct-download-max-urls",
-        str(args.direct_download_max_urls),
-        "--yt-dlp-timeout-seconds",
-        str(args.yt_dlp_timeout_seconds),
-        "--seed-keywords",
-        args.seed_keywords,
-        "--must-include-terms",
-        args.must_include_terms,
-        "--exclude-terms",
-        args.exclude_terms,
-    ]
-    free_cmd.append("--direct-search" if args.direct_search else "--no-direct-search")
-    if args.browser_keywords:
-        free_cmd.extend(["--browser-keywords", str(args.browser_keywords)])
-    if args.direct_download:
-        free_cmd.append("--direct-download")
-    if args.yt_dlp_download:
-        free_cmd.append("--yt-dlp-download")
-    run(free_cmd, summary)
+    if source_provider == "tikhub":
+        discovery_cmd = [
+            python_bin,
+            str(ROOT / "tools" / "run_douyin_tikhub_daily.py"),
+            "--work-dir",
+            str(run_dir),
+            "--limit",
+            str(args.limit),
+            "--min-selected-videos",
+            str(args.min_selected_videos),
+            "--recent-hours",
+            str(args.recent_hours),
+            "--max-duration-seconds",
+            str(args.max_duration_seconds),
+            "--download-candidate-multiplier",
+            str(args.download_candidate_multiplier),
+            "--pages-per-keyword",
+            str(args.tikhub_pages_per_keyword),
+            "--request-timeout-seconds",
+            str(args.tikhub_request_timeout_seconds),
+            "--download-timeout-seconds",
+            str(args.tikhub_download_timeout_seconds),
+            "--download-max-urls",
+            str(args.tikhub_download_max_urls),
+            "--seed-keywords",
+            args.seed_keywords,
+            "--must-include-terms",
+            args.must_include_terms,
+            "--exclude-terms",
+            args.exclude_terms,
+        ]
+    else:
+        ensure_downloader(downloader_dir, install_deps=args.install_downloader_deps, python_bin=python_bin)
+        discovery_cmd = [
+            python_bin,
+            str(ROOT / "tools" / "run_douyin_entertain_free.py"),
+            "--downloader-dir",
+            str(downloader_dir),
+            "--work-dir",
+            str(run_dir),
+            "--limit",
+            str(args.limit),
+            "--recent-hours",
+            str(args.recent_hours),
+            "--max-duration-seconds",
+            str(args.max_duration_seconds),
+            "--search-max",
+            str(args.search_max),
+            "--feed-pages",
+            str(args.feed_pages),
+            "--download-candidate-multiplier",
+            str(args.download_candidate_multiplier),
+            "--min-selected-videos",
+            str(args.min_selected_videos),
+            "--downloader-link-timeout-seconds",
+            str(args.downloader_link_timeout_seconds),
+            "--downloader-concurrency",
+            str(args.downloader_concurrency),
+            "--downloader-timeout-seconds",
+            str(args.downloader_timeout_seconds),
+            "--direct-download-timeout-seconds",
+            str(args.direct_download_timeout_seconds),
+            "--direct-download-max-urls",
+            str(args.direct_download_max_urls),
+            "--yt-dlp-timeout-seconds",
+            str(args.yt_dlp_timeout_seconds),
+            "--seed-keywords",
+            args.seed_keywords,
+            "--must-include-terms",
+            args.must_include_terms,
+            "--exclude-terms",
+            args.exclude_terms,
+        ]
+        discovery_cmd.append("--direct-search" if args.direct_search else "--no-direct-search")
+        if args.browser_keywords:
+            discovery_cmd.extend(["--browser-keywords", str(args.browser_keywords)])
+        if args.direct_download:
+            discovery_cmd.append("--direct-download")
+        if args.yt_dlp_download:
+            discovery_cmd.append("--yt-dlp-download")
+    run(discovery_cmd, summary)
 
     selected_dir = run_dir / "selected"
     selected_files = sorted(path for path in selected_dir.glob("*") if path.suffix.lower() in VIDEO_EXTENSIONS)
@@ -302,6 +335,7 @@ def main() -> int:
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--limit", type=int, default=10)
+    parser.add_argument("--provider", choices=["auto", "free", "tikhub"], default=os.environ.get("KC_SOURCE_PROVIDER", "auto"))
     parser.add_argument("--recent-hours", type=int, default=24)
     parser.add_argument("--max-duration-seconds", type=int, default=300)
     parser.add_argument("--search-max", type=int, default=30)
@@ -314,6 +348,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--direct-download-timeout-seconds", type=int, default=45)
     parser.add_argument("--direct-download-max-urls", type=int, default=1)
     parser.add_argument("--yt-dlp-timeout-seconds", type=int, default=60)
+    parser.add_argument("--tikhub-pages-per-keyword", type=int, default=1)
+    parser.add_argument("--tikhub-request-timeout-seconds", type=int, default=45)
+    parser.add_argument("--tikhub-download-timeout-seconds", type=int, default=120)
+    parser.add_argument("--tikhub-download-max-urls", type=int, default=3)
     parser.add_argument("--seed-keywords", default=DEFAULT_SEED_KEYWORDS)
     parser.add_argument("--must-include-terms", default=DEFAULT_MUST_INCLUDE_TERMS)
     parser.add_argument("--exclude-terms", default=DEFAULT_EXCLUDE_TERMS)
@@ -335,6 +373,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--skip-kc", action="store_true", help="Alias for skipping KC packaging after download.")
     parser.add_argument("--install-downloader-deps", action="store_true")
     return parser.parse_args()
+
+
+def resolve_source_provider(provider: str) -> str:
+    if provider != "auto":
+        return provider
+    return "tikhub" if os.environ.get("TIKHUB_API_KEY", "").strip() else "free"
 
 
 def ensure_downloader(downloader_dir: Path, *, install_deps: bool, python_bin: str) -> None:

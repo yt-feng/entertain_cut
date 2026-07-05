@@ -39,6 +39,7 @@ jobs:
 
     env:
       PYTHONUNBUFFERED: "1"
+      TIKHUB_API_KEY: ${{ secrets.TIKHUB_API_KEY }}
       DOUYIN_COOKIE: ${{ secrets.DOUYIN_COOKIE }}
       DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
       WHISPER_MODEL: ${{ github.workspace }}/models/ggml-small.bin
@@ -117,6 +118,7 @@ jobs:
           fi
 
           python tools/run_douyin_free_kc_daily.py \
+            --provider auto \
             --limit "${{ inputs.limit || '10' }}" \
             --recent-hours 24 \
             --max-duration-seconds 300 \
