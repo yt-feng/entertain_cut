@@ -250,7 +250,19 @@ def main() -> int:
         write_summary(run_dir, summary)
         print("No selected videos were downloaded; KC packaging skipped.")
         print(f"Reports: {run_dir / 'reports'}")
-        return 0
+        return 3
+
+    minimum_selected = min(max(1, int(args.limit)), max(1, int(args.min_selected_videos)))
+    if len(selected_files) < minimum_selected:
+        summary["kc_skipped"] = f"only {len(selected_files)} selected videos; minimum is {minimum_selected}"
+        write_summary(run_dir, summary)
+        print(
+            f"Only {len(selected_files)}/{args.limit} selected videos were downloaded; "
+            f"minimum for KC publishing is {minimum_selected}. KC packaging skipped.",
+            flush=True,
+        )
+        print(f"Reports: {run_dir / 'reports'}")
+        return 3
 
     output_dir.mkdir(parents=True, exist_ok=True)
     kc_cmd = [

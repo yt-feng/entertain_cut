@@ -174,6 +174,17 @@ def main() -> int:
         args.must_include_terms,
         args.exclude_terms,
     )
+    if not args.search_only and len(selected) < max(requested_limit, minimum_download_count):
+        selected = backfill_candidates(
+            selected,
+            candidates,
+            candidate_limit,
+            args.recent_hours,
+            args.fallback_min_likes,
+            args.max_duration_seconds,
+            args.exclude_terms,
+        )
+        run_info["candidate_backfill_count"] = len(selected)
     write_reports(reports_dir, hot_items, keywords, candidates, selected, run_info)
 
     if not selected:
@@ -226,6 +237,16 @@ def main() -> int:
             rewrite_selected_dir(selected_dir, selected)
         record_selected_files(selected_dir, run_info)
         write_reports(reports_dir, hot_items, keywords, candidates, selected, run_info)
+        selected_file_count = count_selected_files(selected_dir)
+        if selected_file_count < minimum_download_count:
+            message = (
+                f"Only {selected_file_count}/{requested_limit} selected videos downloaded; "
+                f"minimum for publishing is {minimum_download_count}."
+            )
+            run_info["minimum_not_met"] = message
+            write_reports(reports_dir, hot_items, keywords, candidates, selected, run_info)
+            print(message, flush=True)
+            return 0
 
     print(f"Selected {len(selected)} videos.")
     print(f"Reports: {reports_dir}")
@@ -787,6 +808,43 @@ def select_candidates(
             if len(selected) >= max(0, limit):
                 return selected
     return selected
+
+
+def backfill_candidates(
+    selected: list[dict[str, Any]],
+    candidates: list[dict[str, Any]],
+    limit: int,
+    recent_hours: int,
+    fallback_min_likes: int,
+    max_duration_seconds: int,
+    exclude_terms: str,
+) -> list[dict[str, Any]]:
+    existing_keys = {candidate_key(item) for item in selected}
+    filled = list(selected)
+    broad_candidates = select_candidates(
+        candidates,
+        limit,
+        recent_hours,
+        fallback_min_likes,
+        0,
+        max_duration_seconds,
+        "",
+        exclude_terms,
+    )
+    for item in broad_candidates:
+        key = candidate_key(item)
+        if key in existing_keys:
+            continue
+        item["_free_daily_backfill"] = True
+        filled.append(item)
+        existing_keys.add(key)
+        if len(filled) >= max(0, limit):
+            break
+    return filled
+
+
+def candidate_key(item: dict[str, Any]) -> str:
+    return str(item.get("aweme_id") or item.get("url") or item.get("title") or id(item))
 
 
 def split_terms(raw: str) -> list[str]:
