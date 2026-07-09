@@ -818,7 +818,12 @@ def score_candidate(
     item["low_signal_terms"] = low_signal[:8]
     item["explainer_terms"] = explainer_terms[:8]
     item["star_clip_cues"] = clip_cues[:8]
-    item["clip_type"] = "likely_face_explainer" if explainer_terms and not clip_cues else "likely_star_clip"
+    if explainer_terms:
+        item["clip_type"] = "likely_face_explainer"
+    elif clip_cues:
+        item["clip_type"] = "likely_star_clip"
+    else:
+        item["clip_type"] = "metadata_entertainment_clip"
 
 
 def deepseek_candidate_review(
