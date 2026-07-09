@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       limit:
-        description: "How many high-like recent entertainment videos to package"
+        description: "How many high-quality entertainment star clips to package"
         required: true
-        default: "10"
+        default: "5"
       search_only:
         description: "Only discover and upload douyin-free-selected-videos, skip KC packaging"
         required: true
@@ -42,6 +42,10 @@ jobs:
       TIKHUB_API_KEY: ${{ secrets.TIKHUB_API_KEY }}
       DOUYIN_COOKIE: ${{ secrets.DOUYIN_COOKIE }}
       DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+      BING_SEARCH_API_KEY: ${{ secrets.BING_SEARCH_API_KEY }}
+      BING_SEARCH_ENDPOINT: ${{ secrets.BING_SEARCH_ENDPOINT }}
+      HOTSPOT_ASSISTANT_API_URL: ${{ secrets.HOTSPOT_ASSISTANT_API_URL }}
+      HOTSPOT_ASSISTANT_API_KEY: ${{ secrets.HOTSPOT_ASSISTANT_API_KEY }}
       WHISPER_MODEL: ${{ github.workspace }}/models/ggml-small.bin
 
     steps:
@@ -68,16 +72,10 @@ jobs:
             build-essential cmake ffmpeg git ca-certificates curl \
             tesseract-ocr tesseract-ocr-chi-sim fonts-noto-cjk fonts-dejavu-core
 
-      - name: Clone free Douyin downloader
-        if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.kc_artifact_run_id == '' }}
-        run: |
-          git clone --depth 1 https://github.com/jiji262/douyin-downloader.git /tmp/douyin-downloader
-
       - name: Install Python packages
         if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.kc_artifact_run_id == '' }}
         run: |
           python -m pip install --upgrade pip
-          python -m pip install -r /tmp/douyin-downloader/requirements.txt
           python -m pip install pillow httpx yt-dlp
 
       - name: Cache Whisper model
@@ -119,18 +117,23 @@ jobs:
 
           python tools/run_douyin_free_kc_daily.py \
             --provider tikhub \
-            --limit "${{ inputs.limit || '10' }}" \
-            --recent-hours 24 \
+            --limit "${{ inputs.limit || '5' }}" \
+            --recent-hours 720 \
+            --primary-min-likes 10000 \
+            --fallback-min-likes 1000 \
+            --target-min-duration-seconds 60 \
             --max-duration-seconds 300 \
             --search-max 50 \
-            --download-candidate-multiplier 4 \
-            --min-selected-videos 7 \
+            --download-candidate-multiplier 8 \
+            --min-selected-videos 5 \
             --tikhub-max-search-requests 5 \
+            --tikhub-filter-duration auto \
+            --processed-manifest outputs/kc_entertain/processed_aweme_ids.json \
+            --output-date "$KC_OUTPUT_DATE" \
             --direct-download-timeout-seconds 45 \
             --direct-download-max-urls 1 \
             --yt-dlp-timeout-seconds 60 \
             --downloader-link-timeout-seconds 60 \
-            --downloader-dir /tmp/douyin-downloader \
             --work-root work/douyin_free_daily \
             --kc-work-dir work/auto_kc_douyin_free \
             --output-dir "$KC_OUTPUT_DIR" \
@@ -159,7 +162,7 @@ jobs:
       - name: Prepare limited prior selected videos
         if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.selected_artifact_run_id != '' && github.event.inputs.kc_artifact_run_id == '' }}
         env:
-          KC_LIMIT: ${{ inputs.limit || '10' }}
+          KC_LIMIT: ${{ inputs.limit || '5' }}
         run: |
           python - <<'PY'
           import os
@@ -242,6 +245,9 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -f "$KC_OUTPUT_DIR"
+          if [[ -f outputs/kc_entertain/processed_aweme_ids.json ]]; then
+            git add -f outputs/kc_entertain/processed_aweme_ids.json
+          fi
           if git diff --cached --quiet; then
             echo "No new KC videos to commit"
             exit 0

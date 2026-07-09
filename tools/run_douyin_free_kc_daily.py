@@ -18,16 +18,16 @@ ROOT = Path(__file__).resolve().parents[1]
 VIDEO_EXTENSIONS = {".mp4", ".mov", ".m4v", ".mkv", ".webm"}
 DEFAULT_SEED_KEYWORDS = ",".join(
     [
-        "明星",
-        "娱乐 明星",
-        "娱乐圈",
-        "内娱",
-        "综艺 明星",
-        "电视剧 明星",
-        "电影 明星",
-        "红毯",
-        "演唱会",
-        "短剧 明星",
+        "明星 评论区",
+        "热播剧 演员",
+        "综艺 名场面",
+        "明星 采访",
+        "明星 舞台",
+        "明星 红毯",
+        "演唱会 明星",
+        "娱乐圈 热议",
+        "内娱 争议",
+        "新剧 主演",
     ]
 )
 DEFAULT_MUST_INCLUDE_TERMS = ",".join(
@@ -47,8 +47,6 @@ DEFAULT_MUST_INCLUDE_TERMS = ",".join(
         "综艺",
         "电视剧",
         "影视",
-        "影评",
-        "电影解说",
         "短剧",
         "演唱会",
         "唱歌",
@@ -114,6 +112,19 @@ DEFAULT_MUST_INCLUDE_TERMS = ",".join(
         "迪丽热巴",
         "易烊千玺",
         "刘亦菲",
+        "成毅",
+        "檀健次",
+        "张凌赫",
+        "田曦薇",
+        "虞书欣",
+        "杨幂",
+        "唐嫣",
+        "刘诗诗",
+        "胡歌",
+        "邓为",
+        "王鹤棣",
+        "张晚意",
+        "吴磊",
         "于正",
     ]
 )
@@ -155,6 +166,20 @@ DEFAULT_EXCLUDE_TERMS = ",".join(
         "机甲",
         "职场",
         "生活",
+        "娱乐解说",
+        "影视解说",
+        "电影解说",
+        "娱评",
+        "锐评",
+        "个人观点",
+        "我来聊",
+        "聊一聊",
+        "盘点",
+        "爆料",
+        "吃瓜",
+        "八卦",
+        "内娱瓜",
+        "揭秘",
     ]
 )
 
@@ -176,6 +201,9 @@ def main() -> int:
         "limit": args.limit,
         "min_selected_videos": args.min_selected_videos,
         "recent_hours": args.recent_hours,
+        "primary_min_likes": args.primary_min_likes,
+        "fallback_min_likes": args.fallback_min_likes,
+        "target_min_duration_seconds": args.target_min_duration_seconds,
         "python": python_bin,
         "run_dir": str(run_dir),
         "selected_dir": str(run_dir / "selected"),
@@ -196,6 +224,14 @@ def main() -> int:
             str(args.min_selected_videos),
             "--recent-hours",
             str(args.recent_hours),
+            "--primary-min-likes",
+            str(args.primary_min_likes),
+            "--fallback-min-likes",
+            str(args.fallback_min_likes),
+            "--min-duration-seconds",
+            str(args.min_duration_seconds),
+            "--target-min-duration-seconds",
+            str(args.target_min_duration_seconds),
             "--max-duration-seconds",
             str(args.max_duration_seconds),
             "--download-candidate-multiplier",
@@ -204,12 +240,18 @@ def main() -> int:
             str(args.tikhub_pages_per_keyword),
             "--max-search-requests",
             str(args.tikhub_max_search_requests),
+            "--tikhub-filter-duration",
+            args.tikhub_filter_duration,
             "--request-timeout-seconds",
             str(args.tikhub_request_timeout_seconds),
             "--download-timeout-seconds",
             str(args.tikhub_download_timeout_seconds),
             "--download-max-urls",
             str(args.tikhub_download_max_urls),
+            "--processed-manifest",
+            str(args.processed_manifest),
+            "--output-date",
+            args.output_date,
             "--seed-keywords",
             args.seed_keywords,
             "--must-include-terms",
@@ -217,6 +259,8 @@ def main() -> int:
             "--exclude-terms",
             args.exclude_terms,
         ]
+        discovery_cmd.append("--hot-context" if args.hot_context else "--no-hot-context")
+        discovery_cmd.append("--deepseek-candidate-review" if args.deepseek_candidate_review else "--no-deepseek-candidate-review")
     else:
         ensure_downloader(downloader_dir, install_deps=args.install_downloader_deps, python_bin=python_bin)
         discovery_cmd = [
@@ -336,14 +380,18 @@ def main() -> int:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--limit", type=int, default=10)
+    parser.add_argument("--limit", type=int, default=5)
     parser.add_argument("--provider", choices=["auto", "free", "tikhub"], default=os.environ.get("KC_SOURCE_PROVIDER", "auto"))
-    parser.add_argument("--recent-hours", type=int, default=24)
+    parser.add_argument("--recent-hours", type=int, default=720)
+    parser.add_argument("--primary-min-likes", type=int, default=10_000)
+    parser.add_argument("--fallback-min-likes", type=int, default=1_000)
+    parser.add_argument("--min-duration-seconds", type=int, default=0)
+    parser.add_argument("--target-min-duration-seconds", type=int, default=60)
     parser.add_argument("--max-duration-seconds", type=int, default=300)
     parser.add_argument("--search-max", type=int, default=30)
     parser.add_argument("--feed-pages", type=int, default=60)
-    parser.add_argument("--download-candidate-multiplier", type=int, default=4)
-    parser.add_argument("--min-selected-videos", type=int, default=7)
+    parser.add_argument("--download-candidate-multiplier", type=int, default=8)
+    parser.add_argument("--min-selected-videos", type=int, default=5)
     parser.add_argument("--downloader-link-timeout-seconds", type=int, default=60)
     parser.add_argument("--downloader-concurrency", type=int, default=4)
     parser.add_argument("--downloader-timeout-seconds", type=int, default=1800)
@@ -352,9 +400,14 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--yt-dlp-timeout-seconds", type=int, default=60)
     parser.add_argument("--tikhub-pages-per-keyword", type=int, default=1)
     parser.add_argument("--tikhub-max-search-requests", type=int, default=5)
+    parser.add_argument("--tikhub-filter-duration", default="auto")
     parser.add_argument("--tikhub-request-timeout-seconds", type=int, default=45)
     parser.add_argument("--tikhub-download-timeout-seconds", type=int, default=120)
     parser.add_argument("--tikhub-download-max-urls", type=int, default=3)
+    parser.add_argument("--processed-manifest", type=Path, default=ROOT / "outputs" / "kc_entertain" / "processed_aweme_ids.json")
+    parser.add_argument("--output-date", default=os.environ.get("KC_OUTPUT_DATE", ""))
+    parser.add_argument("--hot-context", action=argparse.BooleanOptionalAction, default=True)
+    parser.add_argument("--deepseek-candidate-review", action=argparse.BooleanOptionalAction, default=True)
     parser.add_argument("--seed-keywords", default=DEFAULT_SEED_KEYWORDS)
     parser.add_argument("--must-include-terms", default=DEFAULT_MUST_INCLUDE_TERMS)
     parser.add_argument("--exclude-terms", default=DEFAULT_EXCLUDE_TERMS)

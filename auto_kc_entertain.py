@@ -12,6 +12,7 @@ import os
 import re
 import shutil
 import subprocess
+import sys
 from datetime import datetime
 from pathlib import Path
 from typing import Any
@@ -39,6 +40,21 @@ TITLE_ANCHORS = [
     "关晓彤",
     "龚俊",
     "丁禹兮",
+    "杨紫",
+    "赵丽颖",
+    "成毅",
+    "檀健次",
+    "张凌赫",
+    "田曦薇",
+    "虞书欣",
+    "杨幂",
+    "唐嫣",
+    "刘诗诗",
+    "胡歌",
+    "邓为",
+    "王鹤棣",
+    "张晚意",
+    "吴磊",
     "王菲",
     "窦唯",
     "窦靖童",
@@ -57,7 +73,21 @@ GENERIC_TITLE_LINES = {
     "气场名场面",
     "爆笑名场面",
     "重点来了",
+    "前面还正常",
+    "前一秒正常",
+    "下一秒反转",
+    "反差太大",
+    "意外一幕",
+    "看到后面才懂",
 }
+DUMMY_TITLE_PHRASES = [
+    "前一秒正常",
+    "前面还正常",
+    "下一秒反转",
+    "看到后面才懂",
+    "万万没想到",
+    "重点来了",
+]
 
 
 def main() -> None:
@@ -91,7 +121,7 @@ def main() -> None:
 
     sources = find_sources(args.source, args.input_dir, latest_only=args.latest)
     if not sources:
-        write_run_summary(args.work_dir, [], [])
+        write_run_summary(args.work_dir, [], [], [])
         print(f"No video found in {args.input_dir}. Put videos into new_video_pending and run again.")
         return
 
@@ -99,16 +129,26 @@ def main() -> None:
     metadata_index = load_source_metadata(args.metadata_file, args.input_dir)
     manifest = load_manifest(args.work_dir)
     outputs: list[Path] = []
+    existing_outputs: list[Path] = []
     for source in sources:
         output = process_one(source, args, api_key, manifest, metadata_for_source(source, metadata_index))
         if output is not None:
             outputs.append(output)
+        elif not args.force:
+            existing_output = existing_manifest_output(source, manifest)
+            if existing_output is not None:
+                existing_outputs.append(existing_output)
     save_manifest(args.work_dir, manifest)
-    write_run_summary(args.work_dir, sources, outputs)
+    write_run_summary(args.work_dir, sources, outputs, existing_outputs)
+    reveal_in_finder(outputs + existing_outputs)
 
     if outputs:
         print("Done:")
         for output in outputs:
+            print(f"  {output}")
+    elif existing_outputs:
+        print("Already processed:")
+        for output in existing_outputs:
             print(f"  {output}")
     else:
         print("No new videos to process. Use --force to regenerate existing outputs.")
@@ -125,6 +165,29 @@ def find_sources(source: Path | None, input_dir: Path, *, latest_only: bool) -> 
         reverse=True,
     )
     return videos[:1] if latest_only else videos
+
+
+def reveal_in_finder(paths: list[Path]) -> None:
+    """Refresh Finder by revealing a generated or already-rendered file."""
+    if sys.platform != "darwin":
+        return
+    for path in paths:
+        try:
+            target = path if path.exists() else path.parent
+            cmd = ["open", "-R", str(target)] if target.is_file() else ["open", str(target)]
+            subprocess.run(cmd, check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            return
+        except Exception:  # noqa: BLE001
+            pass
+
+
+def existing_manifest_output(source: Path, manifest: dict[str, Any]) -> Path | None:
+    source_hash = file_sha256(source)
+    manifest_item = manifest.get(source_hash)
+    if not manifest_item:
+        return None
+    output = Path(str(manifest_item.get("output", "")))
+    return output if output.exists() else None
 
 
 def process_one(
@@ -203,7 +266,7 @@ def process_one(
     raw_transcript = load_transcript(transcript_json)
     duration = float(media["duration"])
     announce("4/7 DeepSeek 校正 Whisper 错字、人名、剧名和品牌名")
-    fact_evidence = collect_fact_check_evidence(source, raw_transcript, visual_text, task_dir)
+    fact_evidence = collect_fact_check_evidence(source, raw_transcript, visual_text, task_dir, source_metadata)
     transcript = raw_transcript
     polish_report: dict[str, Any] = {"available": False, "reason": "not requested", "corrections": []}
     if api_key and not args.force_fallback and raw_transcript:
@@ -319,7 +382,10 @@ def ask_deepseek(api_key: str, analysis: dict[str, Any]) -> dict[str, Any]:
                     "Never reuse titles, callouts, badges, or examples from another video. "
                     "Use OCR text when available to understand original on-screen text, but always plan to crop "
                     "or replace the original platform captions/watermarks. "
-                    "Fix obvious ASR mistakes from context. Return strict JSON only."
+                    "Fix obvious ASR mistakes from context. Use verified_entities, known_entities, search evidence, "
+                    "and hot-context metadata to avoid wrong celebrity/show/film names. "
+                    "Never use dummy title templates such as 前一秒正常/下一秒反转 or 前面还正常/下一秒反转. "
+                    "Return strict JSON only."
                 ),
             },
             {
@@ -339,6 +405,8 @@ Methodology:
 - Prefer click-worthy tensions that are true to the source: counterintuitive claims, status reversal, before/after contrast, hidden cause, forced choice, emotional collapse, unexpected calm, "everyone thought X but Y", or a concrete number/result.
 - For public/financial/economic topics, do not overclaim. If the evidence is uncertain, phrase it as tension or question, e.g. "房价还低迷 / 却说触底了", not a fake certainty.
 - Avoid soft generic title lines such as "这段太有梗", "反应全是真", "质感拉满", "重点来了", unless no concrete person/topic/twist exists.
+- Do not use dummy reversal templates: "前一秒正常/下一秒反转", "前面还正常/下一秒反转", "看到后面才懂".
+- If source_metadata includes verified_entities or known_entities, prefer those spellings for people, shows, dramas and films.
 - Keep titles short enough for mobile: each title line preferably 3-9 Chinese characters, maximum 12 Chinese characters. Shorter and sharper is better.
 - Make top_badge, side_badge, caption_badge, sticker_bottom, and lower_ribbon different roles, not repeated copies.
 - sticker_top must be 1-6 uppercase English letters or digits only, such as HOT, NEW, TOP, 90, AI. No emoji, punctuation, or Chinese.
@@ -468,12 +536,13 @@ def collect_fact_check_evidence(
     transcript: list[dict[str, Any]],
     visual_text: dict[str, Any],
     task_dir: Path,
+    source_metadata: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    queries = fact_check_queries(source, transcript, visual_text)
+    queries = fact_check_queries(source, transcript, visual_text, source_metadata or {})
     evidence: dict[str, Any] = {"available": False, "queries": queries, "items": [], "errors": []}
     for query in queries:
         try:
-            items = search_sogou_via_jina(query)
+            items = search_fact_evidence(query)
         except Exception as exc:  # noqa: BLE001 - fact-check search should never block rendering.
             evidence["errors"].append({"query": query, "error": str(exc)})
             continue
@@ -490,11 +559,20 @@ def collect_fact_check_evidence(
     return evidence
 
 
-def fact_check_queries(source: Path, transcript: list[dict[str, Any]], visual_text: dict[str, Any]) -> list[str]:
+def fact_check_queries(
+    source: Path,
+    transcript: list[dict[str, Any]],
+    visual_text: dict[str, Any],
+    source_metadata: dict[str, Any],
+) -> list[str]:
     text = normalize_space(
         " ".join(
             [
                 source.stem,
+                metadata_search_text(source_metadata),
+                " ".join(str(value) for value in source_metadata.get("known_entities", []) if value),
+                " ".join(str(value) for value in source_metadata.get("verified_entities", []) if value),
+                " ".join(str(value) for value in source_metadata.get("hot_context_matches", []) if value),
                 " ".join(item.get("text", "") for item in transcript[:14]),
                 str(visual_text.get("text", "")),
             ]
@@ -505,6 +583,13 @@ def fact_check_queries(source: Path, transcript: list[dict[str, Any]], visual_te
     source_query = re.sub(r"\d+[a-f0-9]{2,}$", "", source_query, flags=re.I)
     if source_query:
         queries.append(source_query)
+    metadata_title = clean_video_description(str(source_metadata.get("title") or source_metadata.get("desc") or ""))
+    if metadata_title:
+        queries.append(metadata_title[:48])
+    for entity in list(source_metadata.get("verified_entities", []) or []) + list(source_metadata.get("known_entities", []) or []):
+        entity_text = normalize_space(str(entity))
+        if entity_text:
+            queries.append(f"{entity_text} 综艺 电视剧 电影 明星")
     if any(word in text for word in ["AI剧", "AI聚集", "即梦", "题梦", "激闷", "紫金", "紫禁", "颠倒", "梦想"]):
         queries.extend(
             [
@@ -525,8 +610,84 @@ def fact_check_queries(source: Path, transcript: list[dict[str, Any]], visual_te
     return result[:4]
 
 
-def search_sogou_via_jina(query: str) -> list[dict[str, str]]:
-    url = "https://r.jina.ai/http://r.jina.ai/http://https://www.sogou.com/web?query=" + quote(query)
+def search_fact_evidence(query: str) -> list[dict[str, str]]:
+    items: list[dict[str, str]] = []
+    for searcher in (search_bing_api, search_gdelt_doc):
+        try:
+            items.extend(searcher(query))
+        except Exception:  # noqa: BLE001
+            continue
+    if not items:
+        try:
+            items.extend(search_jina_web(query))
+        except Exception:  # noqa: BLE001
+            pass
+    return dedupe_evidence_items(items)[:6]
+
+
+def search_bing_api(query: str) -> list[dict[str, str]]:
+    api_key = os.environ.get("BING_SEARCH_API_KEY", "").strip() or os.environ.get("BING_SUBSCRIPTION_KEY", "").strip()
+    if not api_key:
+        return []
+    endpoint = os.environ.get("BING_SEARCH_ENDPOINT", "https://api.bing.microsoft.com/v7.0/search").strip()
+    url = endpoint + "?" + "&".join(
+        [
+            "q=" + quote(query),
+            "mkt=zh-CN",
+            "count=5",
+            "freshness=Month",
+        ]
+    )
+    req = Request(url, headers={"Ocp-Apim-Subscription-Key": api_key, "User-Agent": "Mozilla/5.0"})
+    with urlopen(req, timeout=20) as resp:
+        data = json.loads(resp.read().decode("utf-8", "ignore"))
+    items = []
+    for value in data.get("webPages", {}).get("value", [])[:5]:
+        items.append(
+            {
+                "engine": "bing",
+                "query": query,
+                "title": clean_markdown_text(str(value.get("name") or ""))[:160],
+                "snippet": clean_markdown_text(str(value.get("snippet") or ""))[:420],
+                "url": str(value.get("url") or "")[:260],
+            }
+        )
+    return items
+
+
+def search_gdelt_doc(query: str) -> list[dict[str, str]]:
+    url = (
+        "https://api.gdeltproject.org/api/v2/doc/doc?"
+        + "&".join(
+            [
+                "query=" + quote(query),
+                "mode=ArtList",
+                "format=json",
+                "maxrecords=5",
+                "timespan=30d",
+                "sort=HybridRel",
+            ]
+        )
+    )
+    req = Request(url, headers={"User-Agent": "Mozilla/5.0"})
+    with urlopen(req, timeout=20) as resp:
+        data = json.loads(resp.read().decode("utf-8", "ignore"))
+    items = []
+    for value in data.get("articles", [])[:5]:
+        items.append(
+            {
+                "engine": "gdelt",
+                "query": query,
+                "title": clean_markdown_text(str(value.get("title") or ""))[:160],
+                "snippet": clean_markdown_text(str(value.get("domain") or value.get("seendate") or ""))[:420],
+                "url": str(value.get("url") or "")[:260],
+            }
+        )
+    return items
+
+
+def search_jina_web(query: str) -> list[dict[str, str]]:
+    url = "https://s.jina.ai/" + quote(query)
     req = Request(url, headers={"User-Agent": "Mozilla/5.0"})
     with urlopen(req, timeout=25) as resp:
         text = resp.read().decode("utf-8", "ignore")
@@ -535,6 +696,30 @@ def search_sogou_via_jina(query: str) -> list[dict[str, str]]:
 
 def parse_search_markdown(text: str, query: str, url: str) -> list[dict[str, str]]:
     items: list[dict[str, str]] = []
+    jina_blocks = re.split(r"\n\s*\d+\.\s+", text)
+    for block in jina_blocks:
+        title_match = re.search(r"Title:\s*(.+)", block)
+        url_match = re.search(r"URL:\s*(.+)", block)
+        snippet_match = re.search(r"Snippet:\s*(.+)", block, flags=re.S)
+        if not title_match:
+            continue
+        title = clean_markdown_text(title_match.group(1))
+        snippet = clean_markdown_text(snippet_match.group(1) if snippet_match else "")
+        if relevant_evidence_text(f"{title} {snippet}", query):
+            items.append(
+                {
+                    "engine": "jina_search",
+                    "query": query,
+                    "title": title[:160],
+                    "snippet": snippet[:420],
+                    "url": clean_markdown_text(url_match.group(1) if url_match else url)[:260],
+                }
+            )
+        if len(items) >= 4:
+            break
+    if items:
+        return items
+
     blocks = re.split(r"\n### ", text)
     for block in blocks[1:]:
         block = "### " + block
@@ -961,6 +1146,7 @@ def upper_lower_repeat_score(path: Path) -> float:
 
 def fallback_headline(source_text: str, source_stem: str) -> dict[str, Any]:
     anchor = detect_title_anchor(f"{source_stem} {source_text}")
+    topic_anchor = fallback_topic_anchor(source_text, source_stem)
     if any(word in source_text for word in ["房价", "房地产", "楼市", "买房", "卖房", "触底", "回升"]):
         return {
             "title_lines": ["房价还低迷", "却说触底了"],
@@ -1011,13 +1197,27 @@ def fallback_headline(source_text: str, source_stem: str) -> dict[str, Any]:
             "lower_ribbon": "越看越不对劲的一幕",
         }
     return {
-        "title_lines": ["前面还正常", "下一秒反转"],
-        "title_highlights": ["正常", "反转"],
-        "top_badge": "意外一幕",
-        "side_badge": "下一秒",
-        "sticker_bottom": "反转",
-        "lower_ribbon": "看到后面才懂",
+        "title_lines": [topic_anchor, "评论区吵开"],
+        "title_highlights": [topic_anchor[:4], "评论区"],
+        "top_badge": "话题度",
+        "side_badge": "热议点",
+        "sticker_bottom": "开聊",
+        "lower_ribbon": "这类讨论最容易炸评论区",
     }
+
+
+def fallback_topic_anchor(source_text: str, source_stem: str) -> str:
+    text = clean_video_description(f"{source_stem} {source_text}")
+    text = re.sub(r"\d{5,}", " ", text)
+    text = re.sub(r"[A-Za-z0-9_]{6,}", " ", text)
+    for title in re.findall(r"《([^》]{2,8})》", text):
+        return title[:8]
+    chunks = re.findall(r"[\u4e00-\u9fff]{2,8}", text)
+    banned = {"视频", "这个", "看到", "原来", "真的", "感觉", "一下", "一个", "明星", "娱乐", "评论"}
+    for chunk in chunks:
+        if chunk not in banned and not any(phrase in chunk for phrase in DUMMY_TITLE_PHRASES):
+            return chunk[:8]
+    return "这段话题"
 
 
 def detect_title_anchor(text: str) -> str:
@@ -1032,6 +1232,8 @@ def title_is_generic(title_lines: list[str]) -> bool:
     if compact & GENERIC_TITLE_LINES:
         return True
     joined = "".join(compact)
+    if any(phrase in joined for phrase in DUMMY_TITLE_PHRASES):
+        return True
     return bool(joined) and not detect_title_anchor(joined) and any(word in joined for word in ["有梗", "真实", "质感", "名场面"])
 
 
@@ -1214,12 +1416,18 @@ def manifest_path(work_dir: Path) -> Path:
     return work_dir / "processed_manifest.json"
 
 
-def write_run_summary(work_dir: Path, sources: list[Path], outputs: list[Path]) -> None:
+def write_run_summary(
+    work_dir: Path,
+    sources: list[Path],
+    outputs: list[Path],
+    existing_outputs: list[Path],
+) -> None:
     work_dir.mkdir(parents=True, exist_ok=True)
     outputs_path = work_dir / "last_run_outputs.txt"
     summary_path = work_dir / "last_run_summary.md"
+    visible_outputs = outputs + existing_outputs
     outputs_path.write_text(
-        "\n".join(str(path.resolve()) for path in outputs) + ("\n" if outputs else ""),
+        "\n".join(str(path.resolve()) for path in visible_outputs) + ("\n" if visible_outputs else ""),
         encoding="utf-8",
     )
     lines = [
@@ -1228,13 +1436,18 @@ def write_run_summary(work_dir: Path, sources: list[Path], outputs: list[Path]) 
         f"- 时间：{datetime.now().isoformat(timespec='seconds')}",
         f"- 扫描视频数：{len(sources)}",
         f"- 新生成成片数：{len(outputs)}",
+        f"- 已存在成片数：{len(existing_outputs)}",
         "",
         "## 成片",
     ]
     if outputs:
+        lines.append("### 本次新生成")
         lines.extend(f"- {path.resolve()}" for path in outputs)
-    else:
-        lines.append("- 没有新成片；可能这些素材已经处理过。需要重跑时在终端执行：`python3 auto_kc_entertain.py --force`")
+    if existing_outputs:
+        lines.append("### 已处理过，直接使用")
+        lines.extend(f"- {path.resolve()}" for path in existing_outputs)
+    if not visible_outputs:
+        lines.append("- 没有成片；需要重跑时在终端执行：`python3 auto_kc_entertain.py --force`")
     lines.extend(["", "## 说明"])
     if os.environ.get("GITHUB_ACTIONS") == "true":
         lines.append("- GitHub Actions 成品在 `kc-entertain-videos` artifact 中下载。")
