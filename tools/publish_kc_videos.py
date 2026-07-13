@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Publish oversized KC videos to WebDAV and prepare Git-safe copies."""
+"""Publish KC videos to WebDAV and prepare Git-safe copies."""
 
 from __future__ import annotations
 
@@ -8,6 +8,7 @@ import json
 import os
 import shutil
 import subprocess
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from typing import Any
 from urllib.parse import quote
@@ -16,8 +17,9 @@ from urllib.parse import quote
 DEFAULT_GIT_MAX_BYTES = 99 * 1024 * 1024
 DEFAULT_COMPRESSION_TARGET_BYTES = 90 * 1024 * 1024
 DEFAULT_WEBDAV_BASE_URL = "https://dav.jianguoyun.com/dav/"
-DEFAULT_WEBDAV_ROOT = "KCdesk/Ops"
+DEFAULT_WEBDAV_ROOT = "我的坚果云/KCdesk/Ops"
 DEFAULT_WEBDAV_CATEGORY = "KC娱乐"
+DEFAULT_WEBDAV_UPLOAD_CONCURRENCY = 3
 
 
 def main() -> int:
@@ -32,6 +34,7 @@ def main() -> int:
         webdav_base_url=args.webdav_base_url,
         webdav_root=args.webdav_root,
         webdav_category=args.webdav_category,
+        webdav_upload_concurrency=args.webdav_upload_concurrency,
         webdav_user=os.environ.get("JIANGUOYUN_WEBDAV_USER", "").strip(),
         webdav_password=os.environ.get("JIANGUOYUN_WEBDAV_PASSWORD", "").strip(),
     )
@@ -64,6 +67,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--webdav-base-url", default=DEFAULT_WEBDAV_BASE_URL)
     parser.add_argument("--webdav-root", default=DEFAULT_WEBDAV_ROOT)
     parser.add_argument("--webdav-category", default=DEFAULT_WEBDAV_CATEGORY)
+    parser.add_argument(
+        "--webdav-upload-concurrency",
+        type=int,
+        default=DEFAULT_WEBDAV_UPLOAD_CONCURRENCY,
+    )
     return parser.parse_args()
 
 
@@ -80,19 +88,19 @@ def process_directory(
     webdav_category: str,
     webdav_user: str,
     webdav_password: str,
+    webdav_upload_concurrency: int = DEFAULT_WEBDAV_UPLOAD_CONCURRENCY,
 ) -> dict[str, Any]:
     output_dir = output_dir.resolve()
     videos = sorted(path for path in output_dir.glob("*.mp4") if path.is_file())
-    oversized = [path for path in videos if not is_git_safe(path.stat().st_size, git_max_bytes)]
     remote_segments = split_remote_path(webdav_root) + [output_date, webdav_category]
     remote_directory_url = build_webdav_url(webdav_base_url, remote_segments)
     directory_result: dict[str, Any] = {
         "ready": False,
-        "reason": "No oversized videos",
+        "reason": "No videos",
         "url": remote_directory_url,
     }
 
-    if oversized:
+    if videos:
         if webdav_user and webdav_password:
             directory_result = ensure_webdav_directory(
                 webdav_base_url,
@@ -106,7 +114,16 @@ def process_directory(
                 "reason": "WebDAV credentials are not configured",
                 "url": remote_directory_url,
             }
-            print("::warning::Jianguoyun WebDAV credentials are not configured; oversized originals stay in Artifact.")
+            print("::warning::Jianguoyun WebDAV credentials are not configured; videos stay in Artifact.")
+
+    upload_results = upload_all_webdav_files(
+        videos,
+        remote_directory_url,
+        directory_result,
+        webdav_user,
+        webdav_password,
+        concurrency=webdav_upload_concurrency,
+    )
 
     report: dict[str, Any] = {
         "output_date": output_date,
@@ -115,6 +132,7 @@ def process_directory(
         "compression_target_bytes": compression_target_bytes,
         "remote_directory": remote_directory_url,
         "webdav_directory": directory_result,
+        "webdav_upload_concurrency": max(1, webdav_upload_concurrency),
         "files": [],
     }
 
@@ -127,7 +145,10 @@ def process_directory(
             "path": str(video),
             "size_before": before_size,
             "oversized_original": not is_git_safe(before_size, git_max_bytes),
-            "webdav": {"attempted": False, "success": False},
+            "webdav": upload_results.get(
+                video,
+                {"attempted": False, "success": False, "reason": "Upload result unavailable"},
+            ),
             "compression": {"attempted": False, "success": False},
         }
 
@@ -140,16 +161,6 @@ def process_directory(
             continue
 
         print(f"Oversized: {video.name} ({format_bytes(before_size)})")
-        if directory_result.get("ready"):
-            item["webdav"] = upload_webdav_file(
-                video,
-                remote_directory_url,
-                webdav_user,
-                webdav_password,
-            )
-        else:
-            item["webdav"]["reason"] = directory_result.get("reason", "WebDAV directory unavailable")
-
         compressed_path = compression_work_dir / f"{video.stem}.git-safe{video.suffix}"
         compressed_path.unlink(missing_ok=True)
         item["compression"] = compress_video(
@@ -183,11 +194,6 @@ def process_directory(
             item["git_ready"] = False
             item["status"] = "git_skipped_original_preserved"
 
-        if item["webdav"].get("success"):
-            print(f"Uploaded original to Jianguoyun: {video.name}")
-        else:
-            reason = item["webdav"].get("reason") or item["webdav"].get("error") or "upload failed"
-            print(f"::warning::Jianguoyun upload did not complete for {video.name}: {reason}")
         if item["git_ready"]:
             print(f"Compressed for Git: {video.name} ({format_bytes(item['size_after'])})")
         else:
@@ -201,6 +207,46 @@ def process_directory(
         bool(item.get("compression", {}).get("success")) for item in report["files"]
     )
     return report
+
+
+def upload_all_webdav_files(
+    videos: list[Path],
+    remote_directory_url: str,
+    directory_result: dict[str, Any],
+    username: str,
+    password: str,
+    *,
+    concurrency: int,
+) -> dict[Path, dict[str, Any]]:
+    if not videos:
+        return {}
+    if not directory_result.get("ready"):
+        reason = directory_result.get("reason", "WebDAV directory unavailable")
+        return {
+            video: {"attempted": False, "success": False, "reason": reason}
+            for video in videos
+        }
+
+    results: dict[Path, dict[str, Any]] = {}
+    workers = min(len(videos), max(1, int(concurrency)))
+    with ThreadPoolExecutor(max_workers=workers) as executor:
+        futures = {
+            executor.submit(upload_webdav_file, video, remote_directory_url, username, password): video
+            for video in videos
+        }
+        for future in as_completed(futures):
+            video = futures[future]
+            try:
+                result = future.result()
+            except Exception as exc:  # noqa: BLE001 - one upload must not block the daily run.
+                result = {"attempted": True, "success": False, "error": str(exc)}
+            results[video] = result
+            if result.get("success"):
+                print(f"Uploaded to Jianguoyun: {video.name}")
+            else:
+                reason = result.get("reason") or result.get("error") or "upload failed"
+                print(f"::warning::Jianguoyun upload did not complete for {video.name}: {reason}")
+    return results
 
 
 def is_git_safe(size_bytes: int, git_max_bytes: int) -> bool:

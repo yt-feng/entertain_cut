@@ -235,7 +235,7 @@ jobs:
           count="$(find "$KC_OUTPUT_DIR" -maxdepth 1 -type f -name '*.mp4' | wc -l)"
           echo "Staged $count KC video(s) into $KC_OUTPUT_DIR"
 
-      - name: Publish oversized KC originals and prepare Git-safe copies
+      - name: Upload all KC videos and prepare Git-safe copies
         if: ${{ success() && (github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true') }}
         continue-on-error: true
         run: |
@@ -248,8 +248,9 @@ jobs:
             --compression-work-dir work/kc_publish_tmp \
             --summary-file work/kc_publish_summary.json \
             --webdav-base-url "https://dav.jianguoyun.com/dav/" \
-            --webdav-root "KCdesk/Ops" \
-            --webdav-category "KC娱乐"
+            --webdav-root "我的坚果云/KCdesk/Ops" \
+            --webdav-category "KC娱乐" \
+            --webdav-upload-concurrency 3
 
       - name: Commit KC videos to main
         if: ${{ success() && (github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true') }}
