@@ -46,6 +46,9 @@ jobs:
       BING_SEARCH_ENDPOINT: ${{ secrets.BING_SEARCH_ENDPOINT }}
       HOTSPOT_ASSISTANT_API_URL: ${{ secrets.HOTSPOT_ASSISTANT_API_URL }}
       HOTSPOT_ASSISTANT_API_KEY: ${{ secrets.HOTSPOT_ASSISTANT_API_KEY }}
+      JIANGUOYUN_WEBDAV_USER: ${{ secrets.JIANGUOYUN_WEBDAV_USER }}
+      JIANGUOYUN_WEBDAV_PASSWORD: ${{ secrets.JIANGUOYUN_WEBDAV_PASSWORD }}
+      KC_GIT_MAX_BYTES: "103809024"
       WHISPER_MODEL: ${{ github.workspace }}/models/ggml-small.bin
 
     steps:
@@ -228,12 +231,29 @@ jobs:
             target="$KC_OUTPUT_DIR/$(basename "$file")"
             cp "$file" "$target"
             echo "$(pwd)/$target" >> "$outputs_file"
-          done < <(find work/prior_kc_artifact -type f -name '*.mp4' | sort)
+          done < <(find work/prior_kc_artifact -type f -name '*.mp4' ! -path '*/oversized-originals/*' | sort)
           count="$(find "$KC_OUTPUT_DIR" -maxdepth 1 -type f -name '*.mp4' | wc -l)"
           echo "Staged $count KC video(s) into $KC_OUTPUT_DIR"
 
+      - name: Publish oversized KC originals and prepare Git-safe copies
+        if: ${{ success() && (github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true') }}
+        continue-on-error: true
+        run: |
+          python tools/publish_kc_videos.py \
+            --output-dir "$KC_OUTPUT_DIR" \
+            --output-date "$KC_OUTPUT_DATE" \
+            --git-max-bytes "$KC_GIT_MAX_BYTES" \
+            --compression-target-bytes 94371840 \
+            --backup-dir "work/kc_oversized_originals/${KC_OUTPUT_DATE}" \
+            --compression-work-dir work/kc_publish_tmp \
+            --summary-file work/kc_publish_summary.json \
+            --webdav-base-url "https://dav.jianguoyun.com/dav/" \
+            --webdav-root "KCdesk/Ops" \
+            --webdav-category "KC娱乐"
+
       - name: Commit KC videos to main
         if: ${{ success() && (github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true') }}
+        continue-on-error: true
         run: |
           shopt -s nullglob
           videos=("$KC_OUTPUT_DIR"/*.mp4)
@@ -244,7 +264,20 @@ jobs:
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -f "$KC_OUTPUT_DIR"
+          safe_count=0
+          skipped_count=0
+          for video in "${videos[@]}"; do
+            size="$(stat -c '%s' "$video")"
+            if (( size < KC_GIT_MAX_BYTES )); then
+              git add -f -- "$video"
+              safe_count=$((safe_count + 1))
+              echo "Staged for main: $video ($size bytes)"
+            else
+              skipped_count=$((skipped_count + 1))
+              echo "::warning::Skipped oversized Git file: $video ($size bytes)"
+            fi
+          done
+          echo "Git staging summary: $safe_count ready, $skipped_count skipped"
           if [[ -f outputs/kc_entertain/processed_aweme_ids.json ]]; then
             git add -f outputs/kc_entertain/processed_aweme_ids.json
           fi
@@ -253,8 +286,15 @@ jobs:
             exit 0
           fi
           git commit -m "Add KC entertainment videos ${KC_OUTPUT_DATE}"
-          git pull --rebase origin "${GITHUB_REF_NAME}"
-          git push origin "HEAD:${GITHUB_REF_NAME}"
+          if ! git pull --rebase origin "${GITHUB_REF_NAME}"; then
+            git rebase --abort || true
+            echo "::warning::Could not rebase the KC commit; videos remain available in Artifact and Jianguoyun."
+            exit 0
+          fi
+          if ! git push origin "HEAD:${GITHUB_REF_NAME}"; then
+            echo "::warning::Could not push the KC commit; videos remain available in Artifact and Jianguoyun."
+            exit 0
+          fi
 
       - name: Prepare KC artifact payload
         if: always()
@@ -271,6 +311,11 @@ jobs:
               cp "$file" "work/kc_artifact/${KC_OUTPUT_DATE}/"
             fi
           done < "$outputs_file"
+          originals_dir="work/kc_oversized_originals/${KC_OUTPUT_DATE}"
+          if [[ -d "$originals_dir" ]]; then
+            mkdir -p "work/kc_artifact/${KC_OUTPUT_DATE}/oversized-originals"
+            cp "$originals_dir"/*.mp4 "work/kc_artifact/${KC_OUTPUT_DATE}/oversized-originals/" 2>/dev/null || true
+          fi
 
       - name: Upload reports
         if: always()
@@ -282,6 +327,7 @@ jobs:
             work/douyin_free_daily/latest/kc_daily_summary.*
             work/auto_kc_douyin_free/last_run_summary.md
             work/auto_kc_douyin_free/last_run_outputs.txt
+            work/kc_publish_summary.json
           if-no-files-found: ignore
           retention-days: 14
 
