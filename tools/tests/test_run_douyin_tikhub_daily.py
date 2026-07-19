@@ -3,6 +3,7 @@ from __future__ import annotations
 import importlib.util
 import unittest
 from pathlib import Path
+from types import SimpleNamespace
 from unittest import mock
 
 import httpx
@@ -20,7 +21,7 @@ class FakeClient:
         self.responses = list(responses)
         self.calls: list[tuple[str, dict]] = []
 
-    def post(self, url: str, *, json: dict) -> httpx.Response:
+    def post(self, url: str, *, json: dict, headers: dict | None = None) -> httpx.Response:
         self.calls.append((url, json))
         response = self.responses.pop(0)
         if isinstance(response, Exception):
@@ -122,6 +123,77 @@ class TikHubSearchCompatibilityTests(unittest.TestCase):
 
     def test_empty_success_envelope_is_not_treated_as_search_data(self) -> None:
         self.assertIn("empty data", tikhub.tikhub_envelope_error({"code": 200, "data": None}))
+
+
+class TikHubSearchBudgetTests(unittest.TestCase):
+    def test_daily_ten_cent_budget_caps_search_at_ten_calls(self) -> None:
+        self.assertEqual(tikhub.resolve_search_request_limit(50, 0.10), 10)
+
+    def test_lower_configured_limit_wins(self) -> None:
+        self.assertEqual(tikhub.resolve_search_request_limit(7, 0.10), 7)
+
+    def test_zero_budget_disables_only_the_dollar_cap(self) -> None:
+        self.assertEqual(tikhub.resolve_search_request_limit(10, 0), 10)
+
+    def test_sub_cent_positive_budget_is_rejected(self) -> None:
+        with self.assertRaises(ValueError):
+            tikhub.resolve_search_request_limit(10, 0.005)
+
+    def test_broad_seed_keywords_fill_the_ten_request_plan(self) -> None:
+        args = SimpleNamespace(max_search_requests=10)
+        seeds = ["娱乐", "明星", "娱乐圈", "综艺", "热播剧 演员", "明星 评论区", "明星 采访", "明星 舞台", "明星 红毯", "演唱会 明星"]
+
+        planned = tikhub.plan_search_keywords(args, seeds, {"terms": []})
+
+        self.assertEqual(planned, seeds)
+
+    def test_hot_terms_keep_half_the_plan_for_broad_keywords(self) -> None:
+        args = SimpleNamespace(max_search_requests=10)
+        seeds = ["娱乐", "明星", "娱乐圈", "综艺", "热播剧 演员", "明星 评论区"]
+        hot_context = {"terms": ["杨紫", "赵丽颖", "刘亦菲", "白鹿", "王一博", "肖战"]}
+
+        planned = tikhub.plan_search_keywords(args, seeds, hot_context)
+
+        self.assertEqual(planned[:5], ["杨紫 热议", "赵丽颖 热议", "刘亦菲 热议", "白鹿 热议", "王一博 热议"])
+        self.assertEqual(planned[5:], seeds[:5])
+
+
+class TavilyHotContextTests(unittest.TestCase):
+    def test_tavily_uses_one_basic_news_search_for_the_last_day(self) -> None:
+        client = FakeClient(
+            [
+                httpx.Response(
+                    200,
+                    request=httpx.Request("POST", tikhub.TAVILY_SEARCH_URL),
+                    json={
+                        "answer": "杨紫与《国色芳华》成为娱乐热议话题。",
+                        "results": [
+                            {
+                                "title": "杨紫新剧引发热议",
+                                "content": "相关片段登上热搜。",
+                                "url": "https://example.com/news",
+                                "published_date": "2026-07-19",
+                            }
+                        ],
+                        "usage": {"credits": 1},
+                        "response_time": 1.2,
+                        "request_id": "test-request",
+                    },
+                )
+            ]
+        )
+        context: dict = {"errors": [], "sources": []}
+
+        with mock.patch.dict("os.environ", {"TAVILY_API_KEY": "test-key"}):
+            items = tikhub.fetch_tavily_context(client, 10, context)
+
+        self.assertEqual(len(client.calls), 1)
+        self.assertEqual(client.calls[0][1]["topic"], "news")
+        self.assertEqual(client.calls[0][1]["time_range"], "day")
+        self.assertEqual(client.calls[0][1]["search_depth"], "basic")
+        self.assertEqual(context["tavily_usage"]["credits"], 1)
+        self.assertEqual(context["sources"], ["tavily"])
+        self.assertEqual(len(items), 2)
 
 
 if __name__ == "__main__":

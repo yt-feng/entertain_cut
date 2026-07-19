@@ -27,6 +27,8 @@ TIKHUB_VIDEO_SEARCH_ENDPOINTS = (
     ("video_v1", "https://api.tikhub.io/api/v1/douyin/search/fetch_video_search_v1"),
     ("general_v1", "https://api.tikhub.io/api/v1/douyin/search/fetch_general_search_v1"),
 )
+TIKHUB_SEARCH_UNIT_PRICE_USD = 0.01
+TAVILY_SEARCH_URL = "https://api.tavily.com/search"
 RETRYABLE_TIKHUB_STATUS_CODES = {408, 409, 425, 429, 500, 502, 503, 504}
 FATAL_TIKHUB_STATUS_CODES = {401, 402, 403}
 DEEPSEEK_URL = "https://api.deepseek.com/chat/completions"
@@ -172,6 +174,15 @@ KNOWN_ENTITIES = [
 
 def main() -> int:
     args = parse_args()
+    configured_max_search_requests = max(0, int(args.max_search_requests))
+    try:
+        budget_max_search_requests = search_request_limit_for_budget(args.daily_budget_usd)
+        args.max_search_requests = resolve_search_request_limit(
+            configured_max_search_requests,
+            args.daily_budget_usd,
+        )
+    except ValueError as exc:
+        raise SystemExit(str(exc)) from exc
     api_key = os.environ.get("TIKHUB_API_KEY", "").strip()
     if not api_key:
         raise SystemExit("TIKHUB_API_KEY is required for TikHub source discovery.")
@@ -200,6 +211,13 @@ def main() -> int:
         "requested_limit": args.limit,
         "minimum_selected_videos": args.min_selected_videos,
         "max_search_requests": args.max_search_requests,
+        "search_budget": {
+            "configured_max_requests": configured_max_search_requests,
+            "daily_budget_usd": args.daily_budget_usd,
+            "unit_price_usd": TIKHUB_SEARCH_UNIT_PRICE_USD,
+            "budget_max_requests": budget_max_search_requests,
+            "effective_max_requests": args.max_search_requests,
+        },
         "processed_manifest": str(processed_manifest),
         "processed_id_count": len(processed_ids),
         "quality_rules": {
@@ -214,6 +232,13 @@ def main() -> int:
     }
 
     candidates = fetch_candidates(args, api_key, keywords, discovery_dir, run_info)
+    used_search_requests = len(run_info.get("tikhub_attempts", []))
+    run_info["search_budget"].update(
+        {
+            "used_requests": used_search_requests,
+            "estimated_cost_usd": round(used_search_requests * TIKHUB_SEARCH_UNIT_PRICE_USD, 2),
+        }
+    )
     selected = select_candidates(
         candidates,
         max(args.limit, args.limit * max(1, args.download_candidate_multiplier)),
@@ -270,7 +295,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--target-min-duration-seconds", type=int, default=60)
     parser.add_argument("--max-duration-seconds", type=int, default=300)
     parser.add_argument("--download-candidate-multiplier", type=int, default=4)
-    parser.add_argument("--max-search-requests", type=int, default=5)
+    parser.add_argument("--max-search-requests", type=int, default=10)
+    parser.add_argument(
+        "--daily-budget-usd",
+        type=float,
+        default=0.10,
+        help="Hard TikHub search budget; every endpoint attempt counts against it. Use 0 to disable the dollar cap.",
+    )
     parser.add_argument("--pages-per-keyword", type=int, default=1)
     parser.add_argument("--tikhub-filter-duration", default="auto", help="TikHub filter_duration; auto, 0, 0-1, 1-5, or 5-10000.")
     parser.add_argument("--request-timeout-seconds", type=int, default=45)
@@ -280,6 +311,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--processed-manifest", default=str(PROCESSED_MANIFEST))
     parser.add_argument("--output-date", default="")
     parser.add_argument("--hot-context", action=argparse.BooleanOptionalAction, default=True)
+    parser.add_argument("--hot-context-provider", choices=["auto", "tavily", "legacy"], default="auto")
     parser.add_argument("--hot-context-max-items", type=int, default=24)
     parser.add_argument("--deepseek-candidate-review", action=argparse.BooleanOptionalAction, default=True)
     parser.add_argument("--deepseek-candidate-review-count", type=int, default=30)
@@ -287,6 +319,31 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--must-include-terms", default="")
     parser.add_argument("--exclude-terms", default="")
     return parser.parse_args()
+
+
+def search_request_limit_for_budget(daily_budget_usd: float) -> int | None:
+    budget = float(daily_budget_usd)
+    if not math.isfinite(budget) or budget < 0:
+        raise ValueError("--daily-budget-usd must be a finite non-negative number.")
+    if budget == 0:
+        return None
+    request_limit = math.floor((budget + 1e-9) / TIKHUB_SEARCH_UNIT_PRICE_USD)
+    if request_limit < 1:
+        raise ValueError(
+            f"--daily-budget-usd must be at least ${TIKHUB_SEARCH_UNIT_PRICE_USD:.2f} "
+            "or exactly 0 to disable the dollar cap."
+        )
+    return request_limit
+
+
+def resolve_search_request_limit(configured_max: int, daily_budget_usd: float) -> int:
+    configured_limit = max(0, int(configured_max))
+    budget_limit = search_request_limit_for_budget(daily_budget_usd)
+    if budget_limit is None:
+        return configured_limit
+    if configured_limit:
+        return min(configured_limit, budget_limit)
+    return budget_limit
 
 
 def fetch_candidates(
@@ -696,7 +753,15 @@ def select_candidates(
 
 
 def collect_hot_context(args: argparse.Namespace, reports_dir: Path) -> dict[str, Any]:
-    context: dict[str, Any] = {"available": False, "terms": [], "items": [], "errors": [], "sources": []}
+    provider = str(getattr(args, "hot_context_provider", "auto") or "auto")
+    context: dict[str, Any] = {
+        "available": False,
+        "provider": provider,
+        "terms": [],
+        "items": [],
+        "errors": [],
+        "sources": [],
+    }
     if not args.hot_context:
         return context
 
@@ -704,25 +769,107 @@ def collect_hot_context(args: argparse.Namespace, reports_dir: Path) -> dict[str
     timeout = httpx.Timeout(connect=10, read=25, write=15, pool=10)
     headers = {"User-Agent": "kc-entertain-hot-context/1.0"}
     with httpx.Client(headers=headers, timeout=timeout, follow_redirects=True) as client:
-        context["items"].extend(fetch_hotspot_assistant_context(client, max_items, context))
-        for query in HOT_CONTEXT_QUERIES:
-            if len(context["items"]) >= max_items:
-                break
-            context["items"].extend(fetch_bing_context(client, query, max_items - len(context["items"]), context))
-            if len(context["items"]) >= max_items:
-                break
-            context["items"].extend(fetch_gdelt_context(client, query, max_items - len(context["items"]), context))
-        if len(context["items"]) < max_items:
-            for query in HOT_CONTEXT_QUERIES[:2]:
+        tavily_configured = bool(os.environ.get("TAVILY_API_KEY", "").strip())
+        use_tavily = provider == "tavily" or (provider == "auto" and tavily_configured)
+        if use_tavily:
+            context["items"].extend(fetch_tavily_context(client, max_items, context))
+        else:
+            context["items"].extend(fetch_hotspot_assistant_context(client, max_items, context))
+            for query in HOT_CONTEXT_QUERIES:
                 if len(context["items"]) >= max_items:
                     break
-                context["items"].extend(fetch_jina_search_context(client, query, max_items - len(context["items"]), context))
+                context["items"].extend(fetch_bing_context(client, query, max_items - len(context["items"]), context))
+                if len(context["items"]) >= max_items:
+                    break
+                context["items"].extend(fetch_gdelt_context(client, query, max_items - len(context["items"]), context))
+            if len(context["items"]) < max_items:
+                for query in HOT_CONTEXT_QUERIES[:2]:
+                    if len(context["items"]) >= max_items:
+                        break
+                    context["items"].extend(
+                        fetch_jina_search_context(client, query, max_items - len(context["items"]), context)
+                    )
 
     context["items"] = dedupe_hot_items(context["items"])[:max_items]
     context["terms"] = extract_hot_terms(context["items"])[:20]
     context["available"] = bool(context["items"])
     write_json(reports_dir / "hot_context.json", context)
     return context
+
+
+def fetch_tavily_context(
+    client: httpx.Client,
+    max_items: int,
+    context: dict[str, Any],
+) -> list[dict[str, str]]:
+    key = os.environ.get("TAVILY_API_KEY", "").strip()
+    if not key:
+        context["errors"].append({"source": "tavily", "error": "TAVILY_API_KEY is not configured"})
+        return []
+    beijing_today = dt.datetime.now(dt.timezone(dt.timedelta(hours=8))).date().isoformat()
+    query = (
+        f"{beijing_today} 过去24小时中国内地娱乐圈最热门话题，"
+        "请明确列出相关明星姓名、影视剧名、综艺名和热议事件"
+    )
+    payload = {
+        "query": query,
+        "topic": "news",
+        "time_range": "day",
+        "search_depth": "basic",
+        "max_results": min(10, max(1, max_items)),
+        "include_answer": "basic",
+        "include_raw_content": False,
+        "include_images": False,
+    }
+    try:
+        response = client.post(
+            TAVILY_SEARCH_URL,
+            json=payload,
+            headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
+        )
+        response.raise_for_status()
+        data = response.json()
+    except Exception as exc:  # noqa: BLE001
+        context["errors"].append({"source": "tavily", "query": query, "error": str(exc)})
+        return []
+
+    usage = data.get("usage") if isinstance(data, dict) else None
+    context["tavily_usage"] = {
+        "credits": int_or_zero(usage.get("credits")) if isinstance(usage, dict) else 0,
+        "response_time": data.get("response_time") if isinstance(data, dict) else None,
+        "request_id": data.get("request_id") if isinstance(data, dict) else None,
+    }
+    items: list[dict[str, str]] = []
+    answer = normalize_space(str(data.get("answer") or "")) if isinstance(data, dict) else ""
+    if answer:
+        items.append(
+            {
+                "source": "tavily",
+                "query": query,
+                "title": "过去24小时娱乐热点摘要",
+                "snippet": answer[:1000],
+                "url": "",
+            }
+        )
+    for value in data.get("results") or [] if isinstance(data, dict) else []:
+        if not isinstance(value, dict):
+            continue
+        published_date = normalize_space(str(value.get("published_date") or ""))
+        content = normalize_space(str(value.get("content") or ""))
+        items.append(
+            {
+                "source": "tavily",
+                "query": query,
+                "title": normalize_space(str(value.get("title") or ""))[:240],
+                "snippet": normalize_space(f"{published_date} {content}")[:1000],
+                "url": str(value.get("url") or "")[:500],
+            }
+        )
+        if len(items) >= max_items:
+            break
+    if items:
+        context["sources"].append("tavily")
+    return items
 
 
 def fetch_hotspot_assistant_context(
@@ -925,25 +1072,36 @@ def extract_hot_terms(items: list[dict[str, str]]) -> list[str]:
             terms.append(entity)
     terms.extend(re.findall(r"《([^》]{2,12})》", joined))
     terms.extend(re.findall(r"#([^#\s，。！？、]{2,12})", joined))
+    for match in re.findall(
+        r"(?<![\u4e00-\u9fff])([\u4e00-\u9fff]{2,4})(?=回应|官宣|发文|现身|直播|道歉|获奖|上热搜|登热搜|红毯|演唱会)",
+        joined,
+    ):
+        terms.append(match)
     for match in re.findall(r"[\u4e00-\u9fff]{2,8}(?:开播|定档|杀青|路透|热播|收官|官宣|热议)", joined):
         terms.append(match)
     return dedupe_keep_order([normalize_space(term).strip("《》#：:，。") for term in terms if len(term.strip()) >= 2])
 
 
 def plan_search_keywords(args: argparse.Namespace, seeds: list[str], hot_context: dict[str, Any]) -> list[str]:
-    keywords: list[str] = []
+    hot_keywords: list[str] = []
     for term in hot_context.get("terms", []) or []:
         term = normalize_space(str(term))
         if not term:
             continue
         if term in KNOWN_ENTITIES:
-            keywords.append(f"{term} 热议")
+            hot_keywords.append(f"{term} 热议")
         elif len(term) <= 8:
-            keywords.append(f"{term} 明星")
-    keywords.extend(seeds)
-    if not keywords:
-        keywords.extend(["明星 评论区", "热播剧 演员", "综艺 名场面", "娱乐圈 高赞", "明星 争议"])
-    return dedupe_keep_order(keywords)[: max(1, int(args.max_search_requests) or 5)]
+            hot_keywords.append(f"{term} 明星")
+    hot_keywords = dedupe_keep_order(hot_keywords)
+    broad_keywords = dedupe_keep_order(seeds)
+    if not broad_keywords:
+        broad_keywords = ["娱乐", "明星", "娱乐圈", "综艺", "热播剧 演员"]
+    request_limit = max(1, int(args.max_search_requests) or 5)
+    broad_reserve = min(len(broad_keywords), max(1, request_limit // 2))
+    keywords = hot_keywords[: request_limit - broad_reserve] + broad_keywords[:broad_reserve]
+    keywords.extend(hot_keywords[request_limit - broad_reserve :])
+    keywords.extend(broad_keywords[broad_reserve:])
+    return dedupe_keep_order(keywords)[:request_limit]
 
 
 def score_candidate(

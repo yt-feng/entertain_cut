@@ -41,6 +41,7 @@ jobs:
     env:
       PYTHONUNBUFFERED: "1"
       TIKHUB_API_KEY: ${{ secrets.TIKHUB_API_KEY }}
+      TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
       DOUYIN_COOKIE: ${{ secrets.DOUYIN_COOKIE }}
       DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
       BING_SEARCH_API_KEY: ${{ secrets.BING_SEARCH_API_KEY }}
@@ -147,7 +148,7 @@ jobs:
           python tools/run_douyin_free_kc_daily.py \
             --provider tikhub \
             --limit "$KC_LIMIT" \
-            --recent-hours 720 \
+            --recent-hours 24 \
             --primary-min-likes 10000 \
             --fallback-min-likes 1000 \
             --target-min-duration-seconds 60 \
@@ -155,8 +156,11 @@ jobs:
             --search-max 50 \
             --download-candidate-multiplier 8 \
             --min-selected-videos "$KC_LIMIT" \
-            --tikhub-max-search-requests 5 \
+            --tikhub-max-search-requests 10 \
+            --tikhub-daily-budget-usd 0.10 \
             --tikhub-filter-duration auto \
+            --hot-context \
+            --hot-context-provider tavily \
             --processed-manifest outputs/kc_entertain/processed_aweme_ids.json \
             --output-date "$KC_OUTPUT_DATE" \
             --direct-download-timeout-seconds 45 \
@@ -202,7 +206,7 @@ jobs:
             --provider free \
             --install-downloader-deps \
             --limit "$KC_LIMIT" \
-            --recent-hours 720 \
+            --recent-hours 24 \
             --target-min-duration-seconds 60 \
             --max-duration-seconds 300 \
             --search-max 50 \

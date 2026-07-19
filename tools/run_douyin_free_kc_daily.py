@@ -19,16 +19,24 @@ ROOT = Path(__file__).resolve().parents[1]
 VIDEO_EXTENSIONS = {".mp4", ".mov", ".m4v", ".mkv", ".webm"}
 DEFAULT_SEED_KEYWORDS = ",".join(
     [
-        "明星 评论区",
+        "娱乐",
+        "明星",
+        "娱乐圈",
+        "综艺",
         "热播剧 演员",
-        "综艺 名场面",
+        "明星 评论区",
         "明星 采访",
         "明星 舞台",
         "明星 红毯",
         "演唱会 明星",
+        "综艺 名场面",
+        "演员 名场面",
         "娱乐圈 热议",
         "内娱 争议",
         "新剧 主演",
+        "明星 直播",
+        "明星 路透",
+        "明星 同框",
     ]
 )
 DEFAULT_MUST_INCLUDE_TERMS = ",".join(
@@ -241,6 +249,8 @@ def main() -> int:
             str(args.tikhub_pages_per_keyword),
             "--max-search-requests",
             str(args.tikhub_max_search_requests),
+            "--daily-budget-usd",
+            str(args.tikhub_daily_budget_usd),
             "--tikhub-filter-duration",
             args.tikhub_filter_duration,
             "--request-timeout-seconds",
@@ -259,6 +269,8 @@ def main() -> int:
             args.must_include_terms,
             "--exclude-terms",
             args.exclude_terms,
+            "--hot-context-provider",
+            args.hot_context_provider,
         ]
         discovery_cmd.append("--hot-context" if args.hot_context else "--no-hot-context")
         discovery_cmd.append("--deepseek-candidate-review" if args.deepseek_candidate_review else "--no-deepseek-candidate-review")
@@ -400,7 +412,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--direct-download-max-urls", type=int, default=1)
     parser.add_argument("--yt-dlp-timeout-seconds", type=int, default=60)
     parser.add_argument("--tikhub-pages-per-keyword", type=int, default=1)
-    parser.add_argument("--tikhub-max-search-requests", type=int, default=5)
+    parser.add_argument("--tikhub-max-search-requests", type=int, default=10)
+    parser.add_argument("--tikhub-daily-budget-usd", type=float, default=0.10)
     parser.add_argument("--tikhub-filter-duration", default="auto")
     parser.add_argument("--tikhub-request-timeout-seconds", type=int, default=45)
     parser.add_argument("--tikhub-download-timeout-seconds", type=int, default=120)
@@ -408,6 +421,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--processed-manifest", type=Path, default=ROOT / "outputs" / "kc_entertain" / "processed_aweme_ids.json")
     parser.add_argument("--output-date", default=os.environ.get("KC_OUTPUT_DATE", ""))
     parser.add_argument("--hot-context", action=argparse.BooleanOptionalAction, default=True)
+    parser.add_argument("--hot-context-provider", choices=["auto", "tavily", "legacy"], default="auto")
     parser.add_argument("--deepseek-candidate-review", action=argparse.BooleanOptionalAction, default=True)
     parser.add_argument("--seed-keywords", default=DEFAULT_SEED_KEYWORDS)
     parser.add_argument("--must-include-terms", default=DEFAULT_MUST_INCLUDE_TERMS)
