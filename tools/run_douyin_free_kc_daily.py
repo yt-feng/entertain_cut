@@ -10,6 +10,7 @@ import os
 import shutil
 import subprocess
 import sys
+import time
 from pathlib import Path
 from typing import Any
 
@@ -438,17 +439,46 @@ def resolve_source_provider(provider: str) -> str:
 
 
 def ensure_downloader(downloader_dir: Path, *, install_deps: bool, python_bin: str) -> None:
-    if not downloader_dir.exists():
+    if not (downloader_dir / "run.py").exists():
         downloader_dir.parent.mkdir(parents=True, exist_ok=True)
-        subprocess.run(
-            ["git", "clone", "--depth", "1", "https://github.com/jiji262/douyin-downloader.git", str(downloader_dir)],
-            check=True,
-        )
+        clone_command = [
+            "git",
+            "clone",
+            "--depth",
+            "1",
+            "https://github.com/jiji262/douyin-downloader.git",
+            str(downloader_dir),
+        ]
+        for attempt in range(1, 4):
+            if downloader_dir.exists():
+                shutil.rmtree(downloader_dir)
+            completed = subprocess.run(clone_command, check=False)
+            if completed.returncode == 0:
+                break
+            if attempt == 3:
+                raise subprocess.CalledProcessError(completed.returncode, clone_command)
+            print(f"Downloader clone failed (attempt {attempt}/3); retrying.", flush=True)
+            time.sleep(attempt * 5)
     if not (downloader_dir / "run.py").exists():
         raise SystemExit(f"Douyin downloader is not usable: {downloader_dir}")
     if install_deps:
-        subprocess.run([python_bin, "-m", "pip", "install", "-r", str(downloader_dir / "requirements.txt")], check=True)
-        subprocess.run([python_bin, "-m", "pip", "install", "pillow", "httpx", "yt-dlp"], check=True)
+        run_checked_with_retries(
+            [python_bin, "-m", "pip", "install", "--retries", "5", "-r", str(downloader_dir / "requirements.txt")]
+        )
+        run_checked_with_retries(
+            [python_bin, "-m", "pip", "install", "--retries", "5", "pillow", "httpx", "yt-dlp"]
+        )
+
+
+def run_checked_with_retries(command: list[str], *, attempts: int = 3) -> None:
+    for attempt in range(1, max(1, attempts) + 1):
+        completed = subprocess.run(command, check=False)
+        if completed.returncode == 0:
+            return
+        if attempt >= max(1, attempts):
+            raise subprocess.CalledProcessError(completed.returncode, command)
+        print(f"Command failed (attempt {attempt}/{attempts}); retrying.", flush=True)
+        time.sleep(attempt * 5)
 
 
 def resolve_python() -> str:

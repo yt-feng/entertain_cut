@@ -31,6 +31,7 @@ on:
 
 permissions:
   contents: write
+  actions: read
 
 jobs:
   douyin-free-kc-daily:
@@ -49,6 +50,7 @@ jobs:
       JIANGUOYUN_WEBDAV_USER: ${{ secrets.JIANGUOYUN_WEBDAV_USER }}
       JIANGUOYUN_WEBDAV_PASSWORD: ${{ secrets.JIANGUOYUN_WEBDAV_PASSWORD }}
       KC_GIT_MAX_BYTES: "103809024"
+      KC_LIMIT: ${{ inputs.limit || '5' }}
       WHISPER_MODEL: ${{ github.workspace }}/models/ggml-small.bin
 
     steps:
@@ -64,34 +66,55 @@ jobs:
 
       - name: Set up Python
         uses: actions/setup-python@v6
+        continue-on-error: true
         with:
           python-version: "3.11"
 
       - name: Install system packages
         if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.kc_artifact_run_id == '' }}
+        continue-on-error: true
         run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends \
-            build-essential cmake ffmpeg git ca-certificates curl \
-            tesseract-ocr tesseract-ocr-chi-sim fonts-noto-cjk fonts-dejavu-core
+          for attempt in 1 2 3; do
+            if sudo apt-get update && sudo apt-get install -y --no-install-recommends \
+              build-essential cmake ffmpeg git ca-certificates curl \
+              tesseract-ocr tesseract-ocr-chi-sim fonts-noto-cjk fonts-dejavu-core; then
+              break
+            fi
+            if [[ "$attempt" == "3" ]]; then
+              exit 1
+            fi
+            sleep $((attempt * 10))
+          done
 
       - name: Install Python packages
         if: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.kc_artifact_run_id == '' }}
+        continue-on-error: true
         run: |
-          python -m pip install --upgrade pip
-          python -m pip install pillow httpx yt-dlp
+          python -m pip install --retries 5 --timeout 60 --upgrade pip
+          python -m pip install --retries 5 --timeout 60 pillow httpx yt-dlp
 
       - name: Cache Whisper model
         if: ${{ (github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true') && (github.event_name != 'workflow_dispatch' || github.event.inputs.kc_artifact_run_id == '') }}
         uses: actions/cache@v4
+        continue-on-error: true
         with:
           path: models/ggml-small.bin
           key: whisper-cpp-ggml-small
 
       - name: Build whisper.cpp
         if: ${{ (github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true') && (github.event_name != 'workflow_dispatch' || github.event.inputs.kc_artifact_run_id == '') }}
+        continue-on-error: true
         run: |
-          git clone --depth 1 https://github.com/ggerganov/whisper.cpp /tmp/whisper.cpp
+          for attempt in 1 2 3; do
+            rm -rf /tmp/whisper.cpp
+            if git clone --depth 1 https://github.com/ggerganov/whisper.cpp /tmp/whisper.cpp; then
+              break
+            fi
+            if [[ "$attempt" == "3" ]]; then
+              exit 1
+            fi
+            sleep $((attempt * 10))
+          done
           cmake -S /tmp/whisper.cpp -B /tmp/whisper.cpp/build \
             -DWHISPER_BUILD_TESTS=OFF \
             -DWHISPER_BUILD_EXAMPLES=ON
@@ -100,15 +123,18 @@ jobs:
 
       - name: Download Whisper model
         if: ${{ (github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true') && (github.event_name != 'workflow_dispatch' || github.event.inputs.kc_artifact_run_id == '') }}
+        continue-on-error: true
         run: |
           mkdir -p models
           if [[ ! -s "$WHISPER_MODEL" ]]; then
-            curl -L --retry 3 -o "$WHISPER_MODEL" \
+            curl -L --fail --retry 5 --retry-all-errors -o "$WHISPER_MODEL" \
               https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-small.bin
           fi
 
       - name: Discover selected videos and package KC
+        id: primary_kc
         if: ${{ github.event_name != 'workflow_dispatch' || (github.event.inputs.selected_artifact_run_id == '' && github.event.inputs.kc_artifact_run_id == '') }}
+        continue-on-error: true
         run: |
           extra_args=()
           if [[ "${{ github.event.inputs.search_only }}" == "true" ]]; then
@@ -120,7 +146,7 @@ jobs:
 
           python tools/run_douyin_free_kc_daily.py \
             --provider tikhub \
-            --limit "${{ inputs.limit || '5' }}" \
+            --limit "$KC_LIMIT" \
             --recent-hours 720 \
             --primary-min-likes 10000 \
             --fallback-min-likes 1000 \
@@ -128,7 +154,7 @@ jobs:
             --max-duration-seconds 300 \
             --search-max 50 \
             --download-candidate-multiplier 8 \
-            --min-selected-videos 5 \
+            --min-selected-videos "$KC_LIMIT" \
             --tikhub-max-search-requests 5 \
             --tikhub-filter-duration auto \
             --processed-manifest outputs/kc_entertain/processed_aweme_ids.json \
@@ -144,8 +170,64 @@ jobs:
             --threads 2 \
             "${extra_args[@]}"
 
+      - name: Check primary KC result
+        id: primary_kc_check
+        if: ${{ always() && (github.event_name != 'workflow_dispatch' || (github.event.inputs.search_only != 'true' && github.event.inputs.selected_artifact_run_id == '' && github.event.inputs.kc_artifact_run_id == '')) }}
+        continue-on-error: true
+        run: |
+          mkdir -p "$KC_OUTPUT_DIR"
+          count="$(find "$KC_OUTPUT_DIR" -maxdepth 1 -type f -name '*.mp4' | wc -l | tr -d ' ')"
+          echo "count=$count" >> "$GITHUB_OUTPUT"
+          if (( count >= KC_LIMIT )); then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          fi
+          echo "Primary KC result: $count/$KC_LIMIT video(s)"
+
+      - name: Try free Cookie source when TikHub is unavailable
+        if: ${{ always() && steps.primary_kc_check.outputs.ready != 'true' && (github.event_name != 'workflow_dispatch' || (github.event.inputs.search_only != 'true' && github.event.inputs.selected_artifact_run_id == '' && github.event.inputs.kc_artifact_run_id == '')) }}
+        continue-on-error: true
+        run: |
+          if [[ -d work/douyin_free_daily/latest/reports ]]; then
+            rm -rf work/tikhub_primary_reports
+            cp -a work/douyin_free_daily/latest/reports work/tikhub_primary_reports
+          fi
+          extra_args=()
+          if [[ "${{ github.event.inputs.force_fallback }}" == "true" || -z "${DEEPSEEK_API_KEY}" ]]; then
+            extra_args+=(--force-fallback)
+          fi
+
+          python tools/run_douyin_free_kc_daily.py \
+            --provider free \
+            --install-downloader-deps \
+            --limit "$KC_LIMIT" \
+            --recent-hours 720 \
+            --target-min-duration-seconds 60 \
+            --max-duration-seconds 300 \
+            --search-max 50 \
+            --feed-pages 20 \
+            --download-candidate-multiplier 8 \
+            --min-selected-videos "$KC_LIMIT" \
+            --direct-search \
+            --direct-download \
+            --yt-dlp-download \
+            --direct-download-timeout-seconds 45 \
+            --direct-download-max-urls 1 \
+            --yt-dlp-timeout-seconds 60 \
+            --downloader-link-timeout-seconds 60 \
+            --downloader-timeout-seconds 600 \
+            --downloader-concurrency 4 \
+            --work-root work/douyin_free_daily \
+            --kc-work-dir work/auto_kc_douyin_free \
+            --output-dir "$KC_OUTPUT_DIR" \
+            --encoder libx264 \
+            --threads 2 \
+            "${extra_args[@]}"
+
       - name: Download selected videos from prior free run
-        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.selected_artifact_run_id != '' && github.event.inputs.kc_artifact_run_id == '' }}
+        if: ${{ always() && github.event_name == 'workflow_dispatch' && github.event.inputs.selected_artifact_run_id != '' && github.event.inputs.kc_artifact_run_id == '' }}
+        continue-on-error: true
         uses: actions/download-artifact@v5
         with:
           name: douyin-free-selected-videos
@@ -154,7 +236,8 @@ jobs:
           path: work/douyin_free_daily/latest/selected
 
       - name: Download reports from prior free run
-        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.selected_artifact_run_id != '' && github.event.inputs.kc_artifact_run_id == '' }}
+        if: ${{ always() && github.event_name == 'workflow_dispatch' && github.event.inputs.selected_artifact_run_id != '' && github.event.inputs.kc_artifact_run_id == '' }}
+        continue-on-error: true
         uses: actions/download-artifact@v5
         with:
           name: douyin-free-daily-reports
@@ -163,9 +246,8 @@ jobs:
           path: work/douyin_free_daily/latest/reports
 
       - name: Prepare limited prior selected videos
-        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.selected_artifact_run_id != '' && github.event.inputs.kc_artifact_run_id == '' }}
-        env:
-          KC_LIMIT: ${{ inputs.limit || '5' }}
+        if: ${{ always() && github.event_name == 'workflow_dispatch' && github.event.inputs.selected_artifact_run_id != '' && github.event.inputs.kc_artifact_run_id == '' }}
+        continue-on-error: true
         run: |
           python - <<'PY'
           import os
@@ -196,7 +278,8 @@ jobs:
           PY
 
       - name: Package prior selected videos as KC
-        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.selected_artifact_run_id != '' && github.event.inputs.kc_artifact_run_id == '' }}
+        if: ${{ always() && github.event_name == 'workflow_dispatch' && github.event.inputs.selected_artifact_run_id != '' && github.event.inputs.kc_artifact_run_id == '' }}
+        continue-on-error: true
         run: |
           extra_args=()
           if [[ "${{ github.event.inputs.force_fallback }}" == "true" || -z "${DEEPSEEK_API_KEY}" ]]; then
@@ -213,7 +296,8 @@ jobs:
             "${extra_args[@]}"
 
       - name: Download KC videos from prior run
-        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.kc_artifact_run_id != '' }}
+        if: ${{ always() && github.event_name == 'workflow_dispatch' && github.event.inputs.kc_artifact_run_id != '' }}
+        continue-on-error: true
         uses: actions/download-artifact@v5
         with:
           name: kc-entertain-videos
@@ -222,7 +306,8 @@ jobs:
           path: work/prior_kc_artifact
 
       - name: Stage prior KC videos by date
-        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.kc_artifact_run_id != '' }}
+        if: ${{ always() && github.event_name == 'workflow_dispatch' && github.event.inputs.kc_artifact_run_id != '' }}
+        continue-on-error: true
         run: |
           mkdir -p "$KC_OUTPUT_DIR" work/auto_kc_douyin_free
           outputs_file="work/auto_kc_douyin_free/last_run_outputs.txt"
@@ -235,25 +320,115 @@ jobs:
           count="$(find "$KC_OUTPUT_DIR" -maxdepth 1 -type f -name '*.mp4' | wc -l)"
           echo "Staged $count KC video(s) into $KC_OUTPUT_DIR"
 
-      - name: Upload all KC videos and prepare Git-safe copies
-        if: ${{ success() && (github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true') }}
+      - name: Check available KC videos
+        id: available_kc
+        if: ${{ always() && (github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true') }}
         continue-on-error: true
         run: |
-          python tools/publish_kc_videos.py \
+          mkdir -p "$KC_OUTPUT_DIR"
+          count="$(find "$KC_OUTPUT_DIR" -maxdepth 1 -type f -name '*.mp4' | wc -l | tr -d ' ')"
+          echo "count=$count" >> "$GITHUB_OUTPUT"
+          if (( count >= KC_LIMIT )); then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          fi
+          echo "Available KC videos: $count/$KC_LIMIT"
+
+      - name: Find latest successful KC Artifact
+        id: kc_fallback
+        if: ${{ always() && steps.available_kc.outputs.ready != 'true' && (github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true') }}
+        continue-on-error: true
+        uses: actions/github-script@v8
+        with:
+          retries: 3
+          script: |
+            const { owner, repo } = context.repo;
+            const response = await github.rest.actions.listWorkflowRuns({
+              owner,
+              repo,
+              workflow_id: 'douyin-free-kc-daily.yml',
+              status: 'success',
+              per_page: 30,
+            });
+            for (const run of response.data.workflow_runs) {
+              if (String(run.id) === String(context.runId)) continue;
+              const artifacts = await github.rest.actions.listWorkflowRunArtifacts({
+                owner,
+                repo,
+                run_id: run.id,
+                per_page: 100,
+              });
+              const artifact = artifacts.data.artifacts.find((item) =>
+                item.name === 'kc-entertain-videos' && !item.expired && item.size_in_bytes > 0
+              );
+              if (artifact) {
+                core.info(`Using KC Artifact from successful run ${run.id}`);
+                core.setOutput('run_id', String(run.id));
+                core.setOutput('artifact_id', String(artifact.id));
+                return;
+              }
+            }
+            core.warning('No usable prior KC Artifact was found.');
+            core.setOutput('run_id', '');
+
+      - name: Download latest successful KC Artifact
+        if: ${{ always() && steps.available_kc.outputs.ready != 'true' && steps.kc_fallback.outputs.run_id != '' }}
+        continue-on-error: true
+        uses: actions/download-artifact@v5
+        with:
+          name: kc-entertain-videos
+          run-id: ${{ steps.kc_fallback.outputs.run_id }}
+          github-token: ${{ github.token }}
+          path: work/fallback_kc_artifact
+
+      - name: Prepare exactly five KC videos
+        if: ${{ always() && (github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true') }}
+        continue-on-error: true
+        env:
+          FALLBACK_RUN_ID: ${{ steps.kc_fallback.outputs.run_id }}
+        run: |
+          fallback_args=()
+          if [[ -d work/fallback_kc_artifact ]]; then
+            fallback_args+=(--fallback-dir work/fallback_kc_artifact)
+          fi
+          python tools/prepare_kc_delivery.py \
             --output-dir "$KC_OUTPUT_DIR" \
-            --output-date "$KC_OUTPUT_DATE" \
-            --git-max-bytes "$KC_GIT_MAX_BYTES" \
-            --compression-target-bytes 94371840 \
-            --backup-dir "work/kc_oversized_originals/${KC_OUTPUT_DATE}" \
-            --compression-work-dir work/kc_publish_tmp \
-            --summary-file work/kc_publish_summary.json \
-            --webdav-base-url "https://dav.jianguoyun.com/dav/" \
-            --webdav-root "我的坚果云/KCdesk/Ops" \
-            --webdav-category "KC娱乐" \
-            --webdav-upload-concurrency 3
+            --outputs-file work/auto_kc_douyin_free/last_run_outputs.txt \
+            --summary-file work/kc_delivery_summary.json \
+            --limit "$KC_LIMIT" \
+            --fallback-run-id "$FALLBACK_RUN_ID" \
+            "${fallback_args[@]}"
+
+      - name: Upload all KC videos and prepare Git-safe copies
+        if: ${{ always() && (github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true') }}
+        continue-on-error: true
+        run: |
+          for attempt in 1 2; do
+            python tools/publish_kc_videos.py \
+              --output-dir "$KC_OUTPUT_DIR" \
+              --output-date "$KC_OUTPUT_DATE" \
+              --git-max-bytes "$KC_GIT_MAX_BYTES" \
+              --compression-target-bytes 94371840 \
+              --backup-dir "work/kc_oversized_originals/${KC_OUTPUT_DATE}" \
+              --compression-work-dir work/kc_publish_tmp \
+              --summary-file work/kc_publish_summary.json \
+              --webdav-base-url "https://dav.jianguoyun.com/dav/" \
+              --webdav-root "我的坚果云/KCdesk/Ops" \
+              --webdav-category "KC娱乐" \
+              --webdav-upload-concurrency 3
+            uploaded="$(python -c 'import json; print(json.load(open("work/kc_publish_summary.json"))["webdav_uploaded_count"])' 2>/dev/null || echo 0)"
+            if (( uploaded >= KC_LIMIT )); then
+              break
+            fi
+            if [[ "$attempt" != "2" ]]; then
+              echo "WebDAV uploaded $uploaded/$KC_LIMIT; retrying once."
+              sleep 15
+            fi
+          done
 
       - name: Commit KC videos to main
-        if: ${{ success() && (github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true') }}
+        if: ${{ always() && (github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true') }}
         continue-on-error: true
         run: |
           shopt -s nullglob
@@ -299,6 +474,7 @@ jobs:
 
       - name: Prepare KC artifact payload
         if: always()
+        continue-on-error: true
         run: |
           rm -rf work/kc_artifact
           mkdir -p "work/kc_artifact/${KC_OUTPUT_DATE}"
@@ -325,12 +501,15 @@ jobs:
           name: douyin-free-daily-reports
           path: |
             work/douyin_free_daily/latest/reports
+            work/tikhub_primary_reports
             work/douyin_free_daily/latest/kc_daily_summary.*
             work/auto_kc_douyin_free/last_run_summary.md
             work/auto_kc_douyin_free/last_run_outputs.txt
+            work/kc_delivery_summary.json
             work/kc_publish_summary.json
           if-no-files-found: ignore
           retention-days: 14
+        continue-on-error: true
 
       - name: Upload selected videos
         if: always()
@@ -340,6 +519,7 @@ jobs:
           path: work/douyin_free_daily/latest/selected
           if-no-files-found: ignore
           retention-days: 7
+        continue-on-error: true
 
       - name: Upload KC videos
         if: always()
@@ -349,3 +529,32 @@ jobs:
           path: work/kc_artifact
           if-no-files-found: ignore
           retention-days: 14
+        continue-on-error: true
+
+      - name: Verify daily delivery
+        if: ${{ always() && (github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true') }}
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          limit = max(1, int(os.environ.get("KC_LIMIT", "5")))
+          output_dir = Path(os.environ["KC_OUTPUT_DIR"])
+          videos = sorted(output_dir.glob("*.mp4"))
+          publish_path = Path("work/kc_publish_summary.json")
+          uploaded = 0
+          remote_directory = ""
+          if publish_path.exists():
+              publish = json.loads(publish_path.read_text(encoding="utf-8"))
+              uploaded = int(publish.get("webdav_uploaded_count", 0))
+              remote_directory = str(publish.get("remote_directory", ""))
+
+          print(f"Final KC files: {len(videos)}/{limit}")
+          print(f"Final Jianguoyun uploads: {uploaded}/{limit}")
+          print(f"Remote directory: {remote_directory}")
+          if len(videos) < limit or uploaded < limit:
+              raise SystemExit(
+                  f"Daily delivery incomplete after all fallbacks: files={len(videos)}, uploads={uploaded}, required={limit}"
+              )
+          PY

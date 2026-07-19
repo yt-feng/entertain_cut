@@ -22,6 +22,13 @@ import httpx
 ROOT = Path(__file__).resolve().parents[1]
 VIDEO_EXTENSIONS = {".mp4", ".mov", ".m4v", ".mkv", ".webm"}
 TIKHUB_VIDEO_SEARCH_URL = "https://api.tikhub.io/api/v1/douyin/search/fetch_video_search_v2"
+TIKHUB_VIDEO_SEARCH_ENDPOINTS = (
+    ("video_v2", TIKHUB_VIDEO_SEARCH_URL),
+    ("video_v1", "https://api.tikhub.io/api/v1/douyin/search/fetch_video_search_v1"),
+    ("general_v1", "https://api.tikhub.io/api/v1/douyin/search/fetch_general_search_v1"),
+)
+RETRYABLE_TIKHUB_STATUS_CODES = {408, 409, 425, 429, 500, 502, 503, 504}
+FATAL_TIKHUB_STATUS_CODES = {401, 402, 403}
 DEEPSEEK_URL = "https://api.deepseek.com/chat/completions"
 PROCESSED_MANIFEST = ROOT / "outputs" / "kc_entertain" / "processed_aweme_ids.json"
 
@@ -267,6 +274,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--pages-per-keyword", type=int, default=1)
     parser.add_argument("--tikhub-filter-duration", default="auto", help="TikHub filter_duration; auto, 0, 0-1, 1-5, or 5-10000.")
     parser.add_argument("--request-timeout-seconds", type=int, default=45)
+    parser.add_argument("--search-retry-attempts", type=int, default=2)
     parser.add_argument("--download-timeout-seconds", type=int, default=120)
     parser.add_argument("--download-max-urls", type=int, default=3)
     parser.add_argument("--processed-manifest", default=str(PROCESSED_MANIFEST))
@@ -292,6 +300,7 @@ def fetch_candidates(
     seen: set[str] = set()
     request_count = 0
     max_search_requests = max(0, int(args.max_search_requests))
+    preferred_endpoint = TIKHUB_VIDEO_SEARCH_ENDPOINTS[0][0]
     headers = {
         "Authorization": f"Bearer {api_key}",
         "Content-Type": "application/json",
@@ -319,10 +328,29 @@ def fetch_candidates(
                     "backtrace": backtrace,
                 }
                 try:
-                    request_count += 1
-                    response = client.post(TIKHUB_VIDEO_SEARCH_URL, json=payload)
-                    response.raise_for_status()
-                    data = response.json()
+                    result = request_tikhub_search(
+                        client,
+                        payload,
+                        keyword=keyword,
+                        page=page + 1,
+                        preferred_endpoint=preferred_endpoint,
+                        request_count=request_count,
+                        max_search_requests=max_search_requests,
+                        retry_attempts=max(1, int(args.search_retry_attempts)),
+                        run_info=run_info,
+                    )
+                    request_count = int(result["request_count"])
+                    data = result.get("data")
+                    if not isinstance(data, dict):
+                        message = str(result.get("error") or "TikHub search returned no usable response")
+                        run_info["errors"].append(
+                            f"TikHub search failed keyword={keyword!r} page={page + 1}: {message}"
+                        )
+                        if result.get("fatal"):
+                            run_info["tikhub_fatal_error"] = message
+                            return candidates
+                        break
+                    preferred_endpoint = str(result.get("endpoint") or preferred_endpoint)
                     write_json(discovery_dir / f"tikhub_{safe_slug(keyword)}_{page + 1}.json", data)
                     page_items = 0
                     for aweme in iter_aweme_infos(data):
@@ -342,6 +370,8 @@ def fetch_candidates(
                             "cursor": cursor,
                             "publish_time": payload["publish_time"],
                             "filter_duration": payload["filter_duration"],
+                            "endpoint": preferred_endpoint,
+                            "request_count": request_count,
                         }
                     )
                     next_cursor = find_first_value(data, {"cursor"})
@@ -358,6 +388,160 @@ def fetch_candidates(
                     print(message, flush=True)
                     break
     return candidates
+
+
+def request_tikhub_search(
+    client: httpx.Client,
+    payload: dict[str, Any],
+    *,
+    keyword: str,
+    page: int,
+    preferred_endpoint: str,
+    request_count: int,
+    max_search_requests: int,
+    retry_attempts: int,
+    run_info: dict[str, Any],
+) -> dict[str, Any]:
+    """Try current and compatible TikHub search endpoints within one request budget."""
+    endpoints = ordered_search_endpoints(preferred_endpoint)
+    last_error = "No TikHub endpoint was attempted"
+    attempts_log = run_info.setdefault("tikhub_attempts", [])
+
+    for endpoint_name, endpoint_url in endpoints:
+        endpoint_payload = compatible_search_payload(payload, endpoint_name)
+        for retry_index in range(max(1, retry_attempts)):
+            if max_search_requests and request_count >= max_search_requests:
+                return {
+                    "data": None,
+                    "endpoint": endpoint_name,
+                    "request_count": request_count,
+                    "error": f"TikHub request budget exhausted after {request_count} calls: {last_error}",
+                    "fatal": False,
+                }
+
+            request_count += 1
+            attempt: dict[str, Any] = {
+                "keyword": keyword,
+                "page": page,
+                "endpoint": endpoint_name,
+                "request_number": request_count,
+                "retry": retry_index + 1,
+            }
+            try:
+                response = client.post(endpoint_url, json=endpoint_payload)
+            except (httpx.TimeoutException, httpx.TransportError) as exc:
+                last_error = f"{type(exc).__name__}: {exc}"
+                attempt.update({"outcome": "transport_error", "error": last_error})
+                attempts_log.append(attempt)
+                if retry_index + 1 < max(1, retry_attempts):
+                    sleep_before_retry(retry_index)
+                    continue
+                break
+
+            attempt["http_status"] = response.status_code
+            if 200 <= response.status_code < 300:
+                try:
+                    data = response.json()
+                except ValueError as exc:
+                    last_error = f"Invalid JSON response: {exc}"
+                    attempt.update({"outcome": "invalid_json", "response": response_preview(response)})
+                    attempts_log.append(attempt)
+                    if retry_index + 1 < max(1, retry_attempts):
+                        sleep_before_retry(retry_index)
+                        continue
+                    break
+
+                envelope_error = tikhub_envelope_error(data)
+                if not envelope_error:
+                    attempt["outcome"] = "success"
+                    attempts_log.append(attempt)
+                    return {
+                        "data": data,
+                        "endpoint": endpoint_name,
+                        "request_count": request_count,
+                        "error": "",
+                        "fatal": False,
+                    }
+                last_error = envelope_error
+                attempt.update({"outcome": "api_error", "response": compact_response_data(data)})
+                attempts_log.append(attempt)
+                break
+
+            last_error = f"HTTP {response.status_code}: {response_preview(response)}"
+            attempt.update({"outcome": "http_error", "response": response_preview(response)})
+            attempts_log.append(attempt)
+            if response.status_code in FATAL_TIKHUB_STATUS_CODES:
+                return {
+                    "data": None,
+                    "endpoint": endpoint_name,
+                    "request_count": request_count,
+                    "error": last_error,
+                    "fatal": True,
+                }
+            if response.status_code in RETRYABLE_TIKHUB_STATUS_CODES and retry_index + 1 < max(1, retry_attempts):
+                sleep_before_retry(retry_index)
+                continue
+            break
+
+    return {
+        "data": None,
+        "endpoint": endpoints[-1][0],
+        "request_count": request_count,
+        "error": last_error,
+        "fatal": False,
+    }
+
+
+def ordered_search_endpoints(preferred_endpoint: str) -> list[tuple[str, str]]:
+    endpoints = list(TIKHUB_VIDEO_SEARCH_ENDPOINTS)
+    return sorted(endpoints, key=lambda item: 0 if item[0] == preferred_endpoint else 1)
+
+
+def compatible_search_payload(payload: dict[str, Any], endpoint_name: str) -> dict[str, Any]:
+    compatible = dict(payload)
+    if endpoint_name == "general_v1":
+        compatible["content_type"] = "0"
+    return compatible
+
+
+def sleep_before_retry(retry_index: int) -> None:
+    time.sleep(min(2 ** retry_index, 4))
+
+
+def response_preview(response: httpx.Response) -> str:
+    try:
+        return json.dumps(compact_response_data(response.json()), ensure_ascii=False)[:1000]
+    except ValueError:
+        return normalize_space(response.text)[:1000] or "empty response body"
+
+
+def compact_response_data(data: Any) -> Any:
+    if not isinstance(data, dict):
+        return str(data)[:1000]
+    keys = ("code", "status_code", "message", "message_zh", "detail", "request_id")
+    compact = {key: data.get(key) for key in keys if data.get(key) not in (None, "")}
+    nested = data.get("data")
+    if isinstance(nested, dict):
+        nested_compact = {key: nested.get(key) for key in keys if nested.get(key) not in (None, "")}
+        if nested_compact:
+            compact["data"] = nested_compact
+    return compact or {"response": normalize_space(json.dumps(data, ensure_ascii=False))[:800]}
+
+
+def tikhub_envelope_error(data: Any) -> str:
+    if not isinstance(data, dict):
+        return "TikHub response was not a JSON object"
+    code = data.get("code")
+    if code not in (None, 0, "0", 200, "200"):
+        return f"TikHub API code {code}: {compact_response_data(data)}"
+    nested = data.get("data")
+    if code in (200, "200") and nested is None:
+        return f"TikHub returned an empty data payload: {compact_response_data(data)}"
+    if isinstance(nested, dict):
+        status_code = nested.get("status_code")
+        if status_code not in (None, 0, "0"):
+            return f"Douyin upstream status {status_code}: {compact_response_data(data)}"
+    return ""
 
 
 def iter_aweme_infos(data: Any) -> list[dict[str, Any]]:
