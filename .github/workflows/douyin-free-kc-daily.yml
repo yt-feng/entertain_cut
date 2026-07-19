@@ -172,7 +172,7 @@ jobs:
 
       - name: Check primary KC result
         id: primary_kc_check
-        if: ${{ always() && (github.event_name != 'workflow_dispatch' || (github.event.inputs.search_only != 'true' && github.event.inputs.selected_artifact_run_id == '' && github.event.inputs.kc_artifact_run_id == '')) }}
+        if: ${{ !cancelled() && (github.event_name != 'workflow_dispatch' || (github.event.inputs.search_only != 'true' && github.event.inputs.selected_artifact_run_id == '' && github.event.inputs.kc_artifact_run_id == '')) }}
         continue-on-error: true
         run: |
           mkdir -p "$KC_OUTPUT_DIR"
@@ -186,7 +186,7 @@ jobs:
           echo "Primary KC result: $count/$KC_LIMIT video(s)"
 
       - name: Try free Cookie source when TikHub is unavailable
-        if: ${{ always() && steps.primary_kc_check.outputs.ready != 'true' && (github.event_name != 'workflow_dispatch' || (github.event.inputs.search_only != 'true' && github.event.inputs.selected_artifact_run_id == '' && github.event.inputs.kc_artifact_run_id == '')) }}
+        if: ${{ !cancelled() && steps.primary_kc_check.outputs.ready != 'true' && (github.event_name != 'workflow_dispatch' || (github.event.inputs.search_only != 'true' && github.event.inputs.selected_artifact_run_id == '' && github.event.inputs.kc_artifact_run_id == '')) }}
         continue-on-error: true
         run: |
           if [[ -d work/douyin_free_daily/latest/reports ]]; then
@@ -226,7 +226,7 @@ jobs:
             "${extra_args[@]}"
 
       - name: Download selected videos from prior free run
-        if: ${{ always() && github.event_name == 'workflow_dispatch' && github.event.inputs.selected_artifact_run_id != '' && github.event.inputs.kc_artifact_run_id == '' }}
+        if: ${{ !cancelled() && github.event_name == 'workflow_dispatch' && github.event.inputs.selected_artifact_run_id != '' && github.event.inputs.kc_artifact_run_id == '' }}
         continue-on-error: true
         uses: actions/download-artifact@v5
         with:
@@ -236,7 +236,7 @@ jobs:
           path: work/douyin_free_daily/latest/selected
 
       - name: Download reports from prior free run
-        if: ${{ always() && github.event_name == 'workflow_dispatch' && github.event.inputs.selected_artifact_run_id != '' && github.event.inputs.kc_artifact_run_id == '' }}
+        if: ${{ !cancelled() && github.event_name == 'workflow_dispatch' && github.event.inputs.selected_artifact_run_id != '' && github.event.inputs.kc_artifact_run_id == '' }}
         continue-on-error: true
         uses: actions/download-artifact@v5
         with:
@@ -246,7 +246,7 @@ jobs:
           path: work/douyin_free_daily/latest/reports
 
       - name: Prepare limited prior selected videos
-        if: ${{ always() && github.event_name == 'workflow_dispatch' && github.event.inputs.selected_artifact_run_id != '' && github.event.inputs.kc_artifact_run_id == '' }}
+        if: ${{ !cancelled() && github.event_name == 'workflow_dispatch' && github.event.inputs.selected_artifact_run_id != '' && github.event.inputs.kc_artifact_run_id == '' }}
         continue-on-error: true
         run: |
           python - <<'PY'
@@ -278,7 +278,7 @@ jobs:
           PY
 
       - name: Package prior selected videos as KC
-        if: ${{ always() && github.event_name == 'workflow_dispatch' && github.event.inputs.selected_artifact_run_id != '' && github.event.inputs.kc_artifact_run_id == '' }}
+        if: ${{ !cancelled() && github.event_name == 'workflow_dispatch' && github.event.inputs.selected_artifact_run_id != '' && github.event.inputs.kc_artifact_run_id == '' }}
         continue-on-error: true
         run: |
           extra_args=()
@@ -296,7 +296,7 @@ jobs:
             "${extra_args[@]}"
 
       - name: Download KC videos from prior run
-        if: ${{ always() && github.event_name == 'workflow_dispatch' && github.event.inputs.kc_artifact_run_id != '' }}
+        if: ${{ !cancelled() && github.event_name == 'workflow_dispatch' && github.event.inputs.kc_artifact_run_id != '' }}
         continue-on-error: true
         uses: actions/download-artifact@v5
         with:
@@ -306,7 +306,7 @@ jobs:
           path: work/prior_kc_artifact
 
       - name: Stage prior KC videos by date
-        if: ${{ always() && github.event_name == 'workflow_dispatch' && github.event.inputs.kc_artifact_run_id != '' }}
+        if: ${{ !cancelled() && github.event_name == 'workflow_dispatch' && github.event.inputs.kc_artifact_run_id != '' }}
         continue-on-error: true
         run: |
           mkdir -p "$KC_OUTPUT_DIR" work/auto_kc_douyin_free
@@ -322,7 +322,7 @@ jobs:
 
       - name: Check available KC videos
         id: available_kc
-        if: ${{ always() && (github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true') }}
+        if: ${{ !cancelled() && (github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true') }}
         continue-on-error: true
         run: |
           mkdir -p "$KC_OUTPUT_DIR"
@@ -335,73 +335,18 @@ jobs:
           fi
           echo "Available KC videos: $count/$KC_LIMIT"
 
-      - name: Find latest successful KC Artifact
-        id: kc_fallback
-        if: ${{ always() && steps.available_kc.outputs.ready != 'true' && (github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true') }}
+      - name: Keep exactly five current-run KC videos
+        if: ${{ !cancelled() && (github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true') }}
         continue-on-error: true
-        uses: actions/github-script@v8
-        with:
-          retries: 3
-          script: |
-            const { owner, repo } = context.repo;
-            const response = await github.rest.actions.listWorkflowRuns({
-              owner,
-              repo,
-              workflow_id: 'douyin-free-kc-daily.yml',
-              status: 'success',
-              per_page: 30,
-            });
-            for (const run of response.data.workflow_runs) {
-              if (String(run.id) === String(context.runId)) continue;
-              const artifacts = await github.rest.actions.listWorkflowRunArtifacts({
-                owner,
-                repo,
-                run_id: run.id,
-                per_page: 100,
-              });
-              const artifact = artifacts.data.artifacts.find((item) =>
-                item.name === 'kc-entertain-videos' && !item.expired && item.size_in_bytes > 0
-              );
-              if (artifact) {
-                core.info(`Using KC Artifact from successful run ${run.id}`);
-                core.setOutput('run_id', String(run.id));
-                core.setOutput('artifact_id', String(artifact.id));
-                return;
-              }
-            }
-            core.warning('No usable prior KC Artifact was found.');
-            core.setOutput('run_id', '');
-
-      - name: Download latest successful KC Artifact
-        if: ${{ always() && steps.available_kc.outputs.ready != 'true' && steps.kc_fallback.outputs.run_id != '' }}
-        continue-on-error: true
-        uses: actions/download-artifact@v5
-        with:
-          name: kc-entertain-videos
-          run-id: ${{ steps.kc_fallback.outputs.run_id }}
-          github-token: ${{ github.token }}
-          path: work/fallback_kc_artifact
-
-      - name: Prepare exactly five KC videos
-        if: ${{ always() && (github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true') }}
-        continue-on-error: true
-        env:
-          FALLBACK_RUN_ID: ${{ steps.kc_fallback.outputs.run_id }}
         run: |
-          fallback_args=()
-          if [[ -d work/fallback_kc_artifact ]]; then
-            fallback_args+=(--fallback-dir work/fallback_kc_artifact)
-          fi
           python tools/prepare_kc_delivery.py \
             --output-dir "$KC_OUTPUT_DIR" \
             --outputs-file work/auto_kc_douyin_free/last_run_outputs.txt \
             --summary-file work/kc_delivery_summary.json \
-            --limit "$KC_LIMIT" \
-            --fallback-run-id "$FALLBACK_RUN_ID" \
-            "${fallback_args[@]}"
+            --limit "$KC_LIMIT"
 
       - name: Upload all KC videos and prepare Git-safe copies
-        if: ${{ always() && (github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true') }}
+        if: ${{ !cancelled() && (github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true') }}
         continue-on-error: true
         run: |
           for attempt in 1 2; do
@@ -428,7 +373,7 @@ jobs:
           done
 
       - name: Commit KC videos to main
-        if: ${{ always() && (github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true') }}
+        if: ${{ !cancelled() && (github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true') }}
         continue-on-error: true
         run: |
           shopt -s nullglob
@@ -473,7 +418,7 @@ jobs:
           fi
 
       - name: Prepare KC artifact payload
-        if: always()
+        if: ${{ !cancelled() }}
         continue-on-error: true
         run: |
           rm -rf work/kc_artifact
@@ -495,7 +440,7 @@ jobs:
           fi
 
       - name: Upload reports
-        if: always()
+        if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v5
         with:
           name: douyin-free-daily-reports
@@ -512,7 +457,7 @@ jobs:
         continue-on-error: true
 
       - name: Upload selected videos
-        if: always()
+        if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v5
         with:
           name: douyin-free-selected-videos
@@ -522,7 +467,7 @@ jobs:
         continue-on-error: true
 
       - name: Upload KC videos
-        if: always()
+        if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v5
         with:
           name: kc-entertain-videos
@@ -532,7 +477,7 @@ jobs:
         continue-on-error: true
 
       - name: Verify daily delivery
-        if: ${{ always() && (github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true') }}
+        if: ${{ !cancelled() && (github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true') }}
         run: |
           python - <<'PY'
           import json

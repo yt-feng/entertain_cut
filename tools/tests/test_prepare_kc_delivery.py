@@ -14,59 +14,46 @@ SPEC.loader.exec_module(delivery)
 
 
 class PrepareKcDeliveryTests(unittest.TestCase):
-    def test_restores_five_videos_and_ignores_oversized_backups(self) -> None:
+    def test_missing_current_videos_are_not_filled_from_elsewhere(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)
             output_dir = root / "output"
-            fallback_dir = root / "artifact" / "2026-07-18"
-            backup_dir = fallback_dir / "oversized-originals"
-            fallback_dir.mkdir(parents=True)
-            backup_dir.mkdir()
-            for index in range(5):
-                (fallback_dir / f"video-{index}.mp4").write_bytes(bytes([index + 1]) * (index + 1))
-            (backup_dir / "should-not-copy.mp4").write_bytes(b"backup")
-
-            report = delivery.prepare_delivery(
-                output_dir=output_dir,
-                fallback_dir=root / "artifact",
-                outputs_file=root / "work" / "outputs.txt",
-                limit=5,
-                fallback_run_id="123",
-            )
-
-            self.assertTrue(report["ready"])
-            self.assertEqual(report["selected_count"], 5)
-            self.assertEqual(report["reused_count"], 5)
-            self.assertNotIn("should-not-copy.mp4", {path.name for path in output_dir.iterdir()})
-
-    def test_keeps_fresh_videos_and_only_fills_missing_slots(self) -> None:
-        with tempfile.TemporaryDirectory() as temp_dir:
-            root = Path(temp_dir)
-            output_dir = root / "output"
-            fallback_dir = root / "artifact"
             output_dir.mkdir()
-            fallback_dir.mkdir()
-            fresh = []
+            current = []
             for index in range(2):
-                path = output_dir / f"fresh-{index}.mp4"
-                path.write_bytes(b"fresh" + bytes([index]))
-                fresh.append(path)
-            for index in range(5):
-                (fallback_dir / f"fallback-{index}.mp4").write_bytes(b"old" + bytes([index]))
+                path = output_dir / f"current-{index}.mp4"
+                path.write_bytes(bytes([index + 1]))
+                current.append(path)
             outputs_file = root / "work" / "outputs.txt"
             outputs_file.parent.mkdir()
-            outputs_file.write_text("".join(f"{path}\n" for path in fresh), encoding="utf-8")
+            outputs_file.write_text("".join(f"{path}\n" for path in current), encoding="utf-8")
 
             report = delivery.prepare_delivery(
                 output_dir=output_dir,
-                fallback_dir=fallback_dir,
                 outputs_file=outputs_file,
                 limit=5,
             )
 
-            self.assertEqual(report["fresh_count"], 2)
-            self.assertEqual(report["reused_count"], 3)
-            self.assertEqual(len(delivery.root_videos(output_dir)), 5)
+            self.assertFalse(report["ready"])
+            self.assertEqual(report["selected_count"], 2)
+            self.assertFalse(report["automatic_history_fallback"])
+            self.assertEqual(len(delivery.root_videos(output_dir)), 2)
+
+    def test_empty_current_run_stays_empty(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            output_dir = root / "output"
+            outputs_file = root / "work" / "outputs.txt"
+
+            report = delivery.prepare_delivery(
+                output_dir=output_dir,
+                outputs_file=outputs_file,
+                limit=5,
+            )
+
+            self.assertFalse(report["ready"])
+            self.assertEqual(report["selected_count"], 0)
+            self.assertEqual(outputs_file.read_text(encoding="utf-8"), "")
 
     def test_prunes_extra_outputs_using_last_run_order(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -84,7 +71,6 @@ class PrepareKcDeliveryTests(unittest.TestCase):
 
             report = delivery.prepare_delivery(
                 output_dir=output_dir,
-                fallback_dir=None,
                 outputs_file=outputs_file,
                 limit=5,
             )
