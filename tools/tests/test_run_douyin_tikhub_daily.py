@@ -222,6 +222,18 @@ class TavilyHotContextTests(unittest.TestCase):
         self.assertTrue(context["available"])
         self.assertEqual(context["sources"], ["douyin_search_metadata"])
 
+    def test_tavily_headline_entities_rank_before_names_buried_in_snippets(self) -> None:
+        items = [
+            {"title": "最新孟子义实时滚动快讯", "snippet": "杨紫旧闻回顾"},
+            {"title": "何与- 最新何与实时滚动快讯", "snippet": ""},
+            {"title": "聚合所有张真源相关热门新闻快讯", "snippet": ""},
+            {"title": "《地球超新鲜2》新老嘉宾混搭", "snippet": ""},
+        ]
+
+        terms = tikhub.extract_hot_terms(items)
+
+        self.assertEqual(terms[:4], ["孟子义", "何与", "张真源", "地球超新鲜2"])
+
 
 if __name__ == "__main__":
     unittest.main()

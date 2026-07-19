@@ -1116,6 +1116,18 @@ def dedupe_hot_items(items: list[dict[str, str]]) -> list[dict[str, str]]:
 
 def extract_hot_terms(items: list[dict[str, str]]) -> list[str]:
     terms: list[str] = []
+    for item in items:
+        title = normalize_space(str(item.get("title") or ""))
+        terms.extend(entity for entity in KNOWN_ENTITIES if entity in title)
+        terms.extend(re.findall(r"《([^》]{2,12})》", title))
+        terms.extend(re.findall(r"#([^#\s，。！？、]{2,12})", title))
+        for pattern in (
+            r"^(?:最新)?([\u4e00-\u9fff]{2,4})(?:\s*[-—]|实时滚动|相关热门)",
+            r"聚合所有([\u4e00-\u9fff]{2,4})相关",
+        ):
+            match = re.search(pattern, title)
+            if match:
+                terms.append(match.group(1))
     joined = "\n".join(f"{item.get('title', '')} {item.get('snippet', '')}" for item in items)
     for entity in KNOWN_ENTITIES:
         if entity in joined:
