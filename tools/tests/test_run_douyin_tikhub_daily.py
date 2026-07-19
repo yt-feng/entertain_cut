@@ -159,15 +159,19 @@ class TikHubSearchBudgetTests(unittest.TestCase):
 
 
 class TavilyHotContextTests(unittest.TestCase):
-    def test_tavily_uses_one_basic_news_search_for_the_last_day(self) -> None:
+    def test_tavily_uses_one_china_focused_general_search_for_the_last_day(self) -> None:
         client = FakeClient(
             [
                 httpx.Response(
                     200,
                     request=httpx.Request("POST", tikhub.TAVILY_SEARCH_URL),
                     json={
-                        "answer": "杨紫与《国色芳华》成为娱乐热议话题。",
                         "results": [
+                            {
+                                "title": "World Cup final",
+                                "content": "Argentina and Spain prepare for the match.",
+                                "url": "https://example.com/sports",
+                            },
                             {
                                 "title": "杨紫新剧引发热议",
                                 "content": "相关片段登上热搜。",
@@ -188,12 +192,35 @@ class TavilyHotContextTests(unittest.TestCase):
             items = tikhub.fetch_tavily_context(client, 10, context)
 
         self.assertEqual(len(client.calls), 1)
-        self.assertEqual(client.calls[0][1]["topic"], "news")
+        self.assertEqual(client.calls[0][1]["topic"], "general")
+        self.assertEqual(client.calls[0][1]["country"], "china")
         self.assertEqual(client.calls[0][1]["time_range"], "day")
         self.assertEqual(client.calls[0][1]["search_depth"], "basic")
+        self.assertEqual(client.calls[0][1]["include_domains"], tikhub.TAVILY_ENTERTAINMENT_DOMAINS)
         self.assertEqual(context["tavily_usage"]["credits"], 1)
         self.assertEqual(context["sources"], ["tavily"])
-        self.assertEqual(len(items), 2)
+        self.assertEqual(context["tavily_discarded_result_count"], 1)
+        self.assertEqual(len(items), 1)
+
+    def test_douyin_candidates_supply_hot_terms_when_external_search_is_empty(self) -> None:
+        candidates = [
+            {
+                "title": "#杨紫 新剧《国色芳华》名场面 #我要上热门",
+                "like_count": 50_000,
+                "comment_count": 500,
+            },
+            {"title": "#赵丽颖 红毯采访", "like_count": 20_000, "comment_count": 200},
+        ]
+        context = {"terms": [], "items": [], "sources": []}
+
+        tikhub.enrich_hot_context_from_candidates(context, candidates)
+
+        self.assertIn("杨紫", context["douyin_terms"])
+        self.assertIn("国色芳华", context["douyin_terms"])
+        self.assertIn("赵丽颖", context["douyin_terms"])
+        self.assertNotIn("我要上热门", context["douyin_terms"])
+        self.assertTrue(context["available"])
+        self.assertEqual(context["sources"], ["douyin_search_metadata"])
 
 
 if __name__ == "__main__":

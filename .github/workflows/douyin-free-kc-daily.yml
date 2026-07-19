@@ -17,6 +17,11 @@ on:
         required: true
         type: boolean
         default: false
+      hot_context_only:
+        description: "Only test the Tavily 24-hour entertainment hot-context query"
+        required: true
+        type: boolean
+        default: false
       selected_artifact_run_id:
         description: "Optional prior run id containing douyin-free-selected-videos; used for KC render test"
         required: false
@@ -34,7 +39,43 @@ permissions:
   actions: read
 
 jobs:
+  tavily-hot-context-smoke:
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.hot_context_only }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      PYTHONUNBUFFERED: "1"
+      TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Install httpx
+        run: python -m pip install --retries 5 --timeout 60 httpx
+
+      - name: Fetch and validate Tavily entertainment context
+        run: |
+          python tools/run_douyin_tikhub_daily.py \
+            --hot-context-only \
+            --hot-context-provider tavily \
+            --work-dir work/tavily_hot_context_smoke
+
+      - name: Upload Tavily context report
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v5
+        with:
+          name: tavily-hot-context-report
+          path: work/tavily_hot_context_smoke/reports/hot_context.json
+          if-no-files-found: error
+          retention-days: 7
+
   douyin-free-kc-daily:
+    if: ${{ github.event_name != 'workflow_dispatch' || inputs.hot_context_only != true }}
     runs-on: ubuntu-latest
     timeout-minutes: 240
 

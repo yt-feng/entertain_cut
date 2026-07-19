@@ -29,6 +29,39 @@ TIKHUB_VIDEO_SEARCH_ENDPOINTS = (
 )
 TIKHUB_SEARCH_UNIT_PRICE_USD = 0.01
 TAVILY_SEARCH_URL = "https://api.tavily.com/search"
+TAVILY_ENTERTAINMENT_DOMAINS = ["weibo.com", "sina.com.cn", "qq.com", "163.com", "sohu.com"]
+HOT_CONTEXT_RELEVANCE_TERMS = [
+    "娱乐",
+    "明星",
+    "内娱",
+    "艺人",
+    "演员",
+    "歌手",
+    "偶像",
+    "综艺",
+    "电视剧",
+    "电影",
+    "剧集",
+    "新剧",
+    "热播剧",
+    "演唱会",
+    "红毯",
+    "官宣",
+    "工作室",
+]
+GENERIC_HOT_TERMS = {
+    "上热门",
+    "我要上热门",
+    "抖音小助手",
+    "抖音来客官方助推官",
+    "DOU+上热门",
+    "DOU+小助手",
+    "娱乐",
+    "明星",
+    "综艺",
+    "电视剧",
+    "电影",
+}
 RETRYABLE_TIKHUB_STATUS_CODES = {408, 409, 425, 429, 500, 502, 503, 504}
 FATAL_TIKHUB_STATUS_CODES = {401, 402, 403}
 DEEPSEEK_URL = "https://api.deepseek.com/chat/completions"
@@ -183,19 +216,25 @@ def main() -> int:
         )
     except ValueError as exc:
         raise SystemExit(str(exc)) from exc
+
+    work_dir = project_path(args.work_dir)
+    reports_dir = work_dir / "reports"
+    if args.hot_context_only:
+        reports_dir.mkdir(parents=True, exist_ok=True)
+        hot_context = collect_hot_context(args, reports_dir)
+        print(json.dumps(hot_context, ensure_ascii=False, indent=2), flush=True)
+        return 0 if hot_context.get("terms") else 2
+
     api_key = os.environ.get("TIKHUB_API_KEY", "").strip()
     if not api_key:
         raise SystemExit("TIKHUB_API_KEY is required for TikHub source discovery.")
 
-    work_dir = project_path(args.work_dir)
     discovery_dir = work_dir / "discovery"
     selected_dir = work_dir / "selected"
-    reports_dir = work_dir / "reports"
     downloads_dir = work_dir / "downloads" / "tikhub"
     for path in (discovery_dir, selected_dir, reports_dir, downloads_dir):
         path.mkdir(parents=True, exist_ok=True)
 
-    reports_dir = work_dir / "reports"
     processed_manifest = project_path(args.processed_manifest)
     processed_ids = load_processed_ids(processed_manifest)
     hot_context = collect_hot_context(args, reports_dir)
@@ -232,6 +271,9 @@ def main() -> int:
     }
 
     candidates = fetch_candidates(args, api_key, keywords, discovery_dir, run_info)
+    enrich_hot_context_from_candidates(hot_context, candidates)
+    run_info["hot_context"] = hot_context
+    write_json(reports_dir / "hot_context.json", hot_context)
     used_search_requests = len(run_info.get("tikhub_attempts", []))
     run_info["search_budget"].update(
         {
@@ -312,6 +354,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--output-date", default="")
     parser.add_argument("--hot-context", action=argparse.BooleanOptionalAction, default=True)
     parser.add_argument("--hot-context-provider", choices=["auto", "tavily", "legacy"], default="auto")
+    parser.add_argument("--hot-context-only", action="store_true")
     parser.add_argument("--hot-context-max-items", type=int, default=24)
     parser.add_argument("--deepseek-candidate-review", action=argparse.BooleanOptionalAction, default=True)
     parser.add_argument("--deepseek-candidate-review-count", type=int, default=30)
@@ -807,19 +850,19 @@ def fetch_tavily_context(
         context["errors"].append({"source": "tavily", "error": "TAVILY_API_KEY is not configured"})
         return []
     beijing_today = dt.datetime.now(dt.timezone(dt.timedelta(hours=8))).date().isoformat()
-    query = (
-        f"{beijing_today} 过去24小时中国内地娱乐圈最热门话题，"
-        "请明确列出相关明星姓名、影视剧名、综艺名和热议事件"
-    )
+    query = f"{beijing_today} 今日内娱明星热搜 综艺热播剧 娱乐圈热议"
     payload = {
         "query": query,
-        "topic": "news",
+        "topic": "general",
+        "country": "china",
         "time_range": "day",
         "search_depth": "basic",
         "max_results": min(10, max(1, max_items)),
-        "include_answer": "basic",
+        "include_answer": False,
         "include_raw_content": False,
         "include_images": False,
+        "include_usage": True,
+        "include_domains": TAVILY_ENTERTAINMENT_DOMAINS,
     }
     try:
         response = client.post(
@@ -836,23 +879,18 @@ def fetch_tavily_context(
     usage = data.get("usage") if isinstance(data, dict) else None
     context["tavily_usage"] = {
         "credits": int_or_zero(usage.get("credits")) if isinstance(usage, dict) else 0,
+        "request_count": 1,
         "response_time": data.get("response_time") if isinstance(data, dict) else None,
         "request_id": data.get("request_id") if isinstance(data, dict) else None,
     }
     items: list[dict[str, str]] = []
-    answer = normalize_space(str(data.get("answer") or "")) if isinstance(data, dict) else ""
-    if answer:
-        items.append(
-            {
-                "source": "tavily",
-                "query": query,
-                "title": "过去24小时娱乐热点摘要",
-                "snippet": answer[:1000],
-                "url": "",
-            }
-        )
-    for value in data.get("results") or [] if isinstance(data, dict) else []:
+    discarded_count = 0
+    results = (data.get("results") or []) if isinstance(data, dict) else []
+    for value in results:
         if not isinstance(value, dict):
+            continue
+        if not tavily_entertainment_result(value):
+            discarded_count += 1
             continue
         published_date = normalize_space(str(value.get("published_date") or ""))
         content = normalize_space(str(value.get("content") or ""))
@@ -867,9 +905,21 @@ def fetch_tavily_context(
         )
         if len(items) >= max_items:
             break
+    context["tavily_discarded_result_count"] = discarded_count
     if items:
         context["sources"].append("tavily")
+    else:
+        context["errors"].append(
+            {"source": "tavily", "query": query, "error": "No China entertainment result passed relevance checks"}
+        )
     return items
+
+
+def tavily_entertainment_result(value: dict[str, Any]) -> bool:
+    text = normalize_space(f"{value.get('title', '')} {value.get('content', '')}")
+    return any(term in text for term in HOT_CONTEXT_RELEVANCE_TERMS) or any(
+        entity in text for entity in KNOWN_ENTITIES
+    )
 
 
 def fetch_hotspot_assistant_context(
@@ -1080,6 +1130,38 @@ def extract_hot_terms(items: list[dict[str, str]]) -> list[str]:
     for match in re.findall(r"[\u4e00-\u9fff]{2,8}(?:开播|定档|杀青|路透|热播|收官|官宣|热议)", joined):
         terms.append(match)
     return dedupe_keep_order([normalize_space(term).strip("《》#：:，。") for term in terms if len(term.strip()) >= 2])
+
+
+def extract_douyin_hot_terms(candidates: list[dict[str, Any]], max_terms: int = 20) -> list[str]:
+    terms: list[str] = []
+    ranked = sorted(
+        candidates,
+        key=lambda item: (int_or_zero(item.get("like_count")), int_or_zero(item.get("comment_count"))),
+        reverse=True,
+    )
+    for item in ranked[:80]:
+        text = candidate_text(item)
+        terms.extend(entity for entity in KNOWN_ENTITIES if entity in text)
+        terms.extend(re.findall(r"《([^》]{2,16})》", text))
+        terms.extend(re.findall(r"#([^#\s，。！？、@]{2,16})", text))
+    cleaned = []
+    for term in terms:
+        value = normalize_space(str(term)).strip("《》#：:，。")
+        if 2 <= len(value) <= 16 and value not in GENERIC_HOT_TERMS:
+            cleaned.append(value)
+    return dedupe_keep_order(cleaned)[: max(1, max_terms)]
+
+
+def enrich_hot_context_from_candidates(hot_context: dict[str, Any], candidates: list[dict[str, Any]]) -> None:
+    external_terms = [str(term) for term in hot_context.get("terms", []) if str(term).strip()]
+    douyin_terms = extract_douyin_hot_terms(candidates)
+    hot_context["external_terms"] = external_terms
+    hot_context["douyin_terms"] = douyin_terms
+    hot_context["terms"] = dedupe_keep_order(external_terms + douyin_terms)[:20]
+    if douyin_terms:
+        hot_context.setdefault("sources", []).append("douyin_search_metadata")
+    hot_context["sources"] = dedupe_keep_order(hot_context.get("sources", []))
+    hot_context["available"] = bool(hot_context.get("items") or douyin_terms)
 
 
 def plan_search_keywords(args: argparse.Namespace, seeds: list[str], hot_context: dict[str, Any]) -> list[str]:
