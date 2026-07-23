@@ -1,7 +1,106 @@
 {
-  "updated_at": "2026-07-22T00:00:00.678301+00:00",
-  "count": 60,
+  "updated_at": "2026-07-23T00:05:03.240223+00:00",
+  "count": 65,
   "items": [
+    {
+      "aweme_id": "7664916935947119498",
+      "url": "https://www.iesdouyin.com/share/video/7664916935947119498/?region=US&mid=7664916934802393919&u_code=0&did=MS4wLjABAAAAsj_gQfZVhzsK6oOw8luEBhPsbng46tjUd4G2IzL8dkpibDvAFJfRkEB_7RYe7KY-&iid=MS4wLjABAAAA7uLTIwoiwjdIgXr1zvvpLfWI0JGxE9KRgbh1mT_SOjF93-aUbBxGPOqVBmvBHgay&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=Ke5SV9Cb0mEL_2gIC7DMEZT2fx.YK5fVcAPRR4Mv714-&share_version=320900&ts=1784765071&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "关于今天，我有很多想和你分享 #AI#恋综#致命心动",
+      "author": "致命心动",
+      "like_count": 43593,
+      "comment_count": 1975,
+      "share_count": 4694,
+      "duration_ms": 267667,
+      "create_time_iso": "2026-07-22T03:23:43+00:00",
+      "known_entities": [
+        "AI",
+        "恋综",
+        "致命心动"
+      ],
+      "verified_entities": [],
+      "quality_score": 240.241,
+      "output_date": "2026-07-23",
+      "selected_at": "2026-07-23T00:05:03.240223+00:00"
+    },
+    {
+      "aweme_id": "7665198270070754560",
+      "url": "https://www.iesdouyin.com/share/video/7665198270070754560/?region=US&mid=7665198350324550427&u_code=0&did=MS4wLjABAAAACcXSBEnrrkBQV2KcnnClF6_BH-wvH5cVDSJSG-6_GwZp4bubIeAYJGmgDfWLFuoy&iid=MS4wLjABAAAAwFienDB8QV_Yy15WB0F-3lPxR2mfCD_D7t-nM7w3koxE3e7xxNCrq4rUWt6HrkjU&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=6kPrqqjK_suZ3RSXgEZMMXvJJs8q6VZVG5V4RfY0piM-&share_version=320900&ts=1784765057&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "老刑警的职业素养到底有多高！#剧集悬案  #跟酷第一视角走进悬案宇宙 👖",
+      "author": "童言电影",
+      "like_count": 58110,
+      "comment_count": 374,
+      "share_count": 971,
+      "duration_ms": 204801,
+      "create_time_iso": "2026-07-22T04:04:14+00:00",
+      "known_entities": [
+        "悬案旅馆案",
+        "剧集悬案",
+        "跟酷第一视角走进悬案宇宙",
+        "悬案"
+      ],
+      "verified_entities": [],
+      "quality_score": 223.713,
+      "output_date": "2026-07-23",
+      "selected_at": "2026-07-23T00:05:03.240223+00:00"
+    },
+    {
+      "aweme_id": "7665328648593510395",
+      "url": "https://www.iesdouyin.com/share/video/7665328648593510395/?region=US&mid=7265582784826492930&u_code=0&did=MS4wLjABAAAADwLn7jy_R27NUQpCcG4Q3eIrR5nxFAVUbYtPLYpFpPMx4E8MlukYZFcpQdDMAU0W&iid=MS4wLjABAAAAv29Qy9tPrO3ljD9Qtwxqwcf-W8EFmJOlLNTncG4ePXd_-6zbLZjv7ZA6YeZosFsh&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=qZd.9Jiu5CbFoBSARwj5Hlv1VEmUhruJco2FaOXVAek-&share_version=320900&ts=1784765067&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "在银基动物王国遇到佟丽娅啦 #银基动物王国 #佟丽娅 #偶遇 #明星",
+      "author": "快乐加载100%",
+      "like_count": 21185,
+      "comment_count": 1751,
+      "share_count": 5188,
+      "duration_ms": 15734,
+      "create_time_iso": "2026-07-22T12:30:03+00:00",
+      "known_entities": [
+        "银基动物王国",
+        "佟丽娅"
+      ],
+      "verified_entities": [],
+      "quality_score": 207.955,
+      "output_date": "2026-07-23",
+      "selected_at": "2026-07-23T00:05:03.240223+00:00"
+    },
+    {
+      "aweme_id": "7665046355745229937",
+      "url": "https://www.iesdouyin.com/share/video/7665046355745229937/?region=US&mid=7665046174822665000&u_code=0&did=MS4wLjABAAAACcXSBEnrrkBQV2KcnnClF6_BH-wvH5cVDSJSG-6_GwZp4bubIeAYJGmgDfWLFuoy&iid=MS4wLjABAAAAwFienDB8QV_Yy15WB0F-3lPxR2mfCD_D7t-nM7w3koxE3e7xxNCrq4rUWt6HrkjU&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=UdWgPd5a6S9ZetXP10PnmjUPOXwXQsz5X5U5.iF3w7A-&share_version=320900&ts=1784765057&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "上个班差点把自己搭进去#终于等到悬案王传君出场了 #剧集悬案 #曾美慧孜",
+      "author": "剧集悬案（7月22日开播版",
+      "like_count": 3260,
+      "comment_count": 18,
+      "share_count": 12,
+      "duration_ms": 50643,
+      "create_time_iso": "2026-07-22T12:00:00+00:00",
+      "known_entities": [
+        "悬案旅馆案",
+        "剧集悬案",
+        "王传君",
+        "悬案"
+      ],
+      "verified_entities": [],
+      "quality_score": 153.77,
+      "output_date": "2026-07-23",
+      "selected_at": "2026-07-23T00:05:03.240223+00:00"
+    },
+    {
+      "aweme_id": "7665214172023831418",
+      "url": "https://www.iesdouyin.com/share/video/7665214172023831418/?region=US&mid=7581732159070128129&u_code=0&did=MS4wLjABAAAACcXSBEnrrkBQV2KcnnClF6_BH-wvH5cVDSJSG-6_GwZp4bubIeAYJGmgDfWLFuoy&iid=MS4wLjABAAAAwFienDB8QV_Yy15WB0F-3lPxR2mfCD_D7t-nM7w3koxE3e7xxNCrq4rUWt6HrkjU&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=6StEsmleHmmME2T4SUbmvy7DoJJMzMPkEbPbs4RexSQ-&share_version=320900&ts=1784765069&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "神仙姐姐刘亦菲一席长裙亮相活动，美得像仙女下凡！镜头吻过她的脸，美得不像凡人像光阴宠溺的神迹#刘亦菲 #神仙姐姐 #美出高级感 #娱乐评论大赏 #这谁顶得住啊",
+      "author": "辰诺娱乐圈",
+      "like_count": 18166,
+      "comment_count": 143,
+      "share_count": 3541,
+      "duration_ms": 8522,
+      "create_time_iso": "2026-07-22T05:05:50+00:00",
+      "known_entities": [
+        "刘亦菲"
+      ],
+      "verified_entities": [],
+      "quality_score": 152.242,
+      "output_date": "2026-07-23",
+      "selected_at": "2026-07-23T00:05:03.240223+00:00"
+    },
     {
       "aweme_id": "7664862922069363994",
       "url": "https://www.iesdouyin.com/share/video/7664862922069363994/?region=US&mid=7664863002499681065&u_code=0&did=MS4wLjABAAAAAUu8Ih9fq47v_q0a3MWoyOK__a1sZMB4l9IbMC4_Wcg&iid=MS4wLjABAAAAaWEUqWnL1caQu95SF2x9wCxnmI5Rmg2gi9DKUU4A9pI&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=MhsKnmjw3pqFNkvRA6wb5vnNqiNgtmU5Ze69yRbuobU-&share_version=320900&ts=1784678336&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
