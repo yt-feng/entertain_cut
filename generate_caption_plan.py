@@ -9,10 +9,9 @@ import os
 import re
 from pathlib import Path
 from typing import Any
-from urllib.request import Request, urlopen
 
+from deepseek_api import request_deepseek_json
 
-DEEPSEEK_URL = "https://api.deepseek.com/chat/completions"
 
 
 DEFAULT_TITLE_LINES = ["跟着浪姐学英语", "乘风2026终于等到曾沛慈"]
@@ -164,9 +163,7 @@ def ask_deepseek(
     context_note: str,
     duration: float,
 ) -> dict[str, Any]:
-    payload = {
-        "model": "deepseek-chat",
-        "messages": [
+    messages = [
             {
                 "role": "system",
                 "content": (
@@ -219,23 +216,8 @@ ASR transcript:
 {json.dumps(transcript, ensure_ascii=False, indent=2)}
 """,
             },
-        ],
-        "temperature": 0.2,
-        "response_format": {"type": "json_object"},
-    }
-    req = Request(
-        DEEPSEEK_URL,
-        data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
-        headers={
-            "Content-Type": "application/json",
-            "Authorization": f"Bearer {api_key}",
-        },
-        method="POST",
-    )
-    with urlopen(req, timeout=120) as resp:
-        response = json.loads(resp.read().decode("utf-8"))
-    content = response["choices"][0]["message"]["content"]
-    return parse_json_object(content)
+        ]
+    return request_deepseek_json(api_key, messages, temperature=0.2, max_tokens=8192)
 
 
 def normalize_plan(plan: dict[str, Any], duration: float) -> dict[str, Any]:
@@ -332,20 +314,6 @@ def valid_phrases(text: str, phrases: Any, *, case_insensitive: bool = False) ->
         if needle in haystack:
             result.append(phrase)
     return result[:2]
-
-
-def parse_json_object(text: str) -> dict[str, Any]:
-    text = text.strip()
-    if text.startswith("```"):
-        text = re.sub(r"^```(?:json)?\s*", "", text)
-        text = re.sub(r"\s*```$", "", text)
-    try:
-        return json.loads(text)
-    except json.JSONDecodeError:
-        match = re.search(r"\{.*\}", text, flags=re.S)
-        if not match:
-            raise
-        return json.loads(match.group(0))
 
 
 def normalize_space(text: str) -> str:

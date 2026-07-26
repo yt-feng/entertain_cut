@@ -158,6 +158,51 @@ class TikHubSearchBudgetTests(unittest.TestCase):
         self.assertEqual(planned[5:], seeds[:5])
 
 
+class DeepSeekCandidateReviewTests(unittest.TestCase):
+    def test_review_uses_shared_json_client_and_applies_editor_score(self) -> None:
+        args = SimpleNamespace(
+            deepseek_candidate_review=True,
+            deepseek_candidate_review_count=30,
+            limit=1,
+            download_candidate_multiplier=1,
+        )
+        selected = [
+            {
+                "aweme_id": "123",
+                "title": "杨紫新剧名场面",
+                "author": "娱乐现场",
+                "like_count": 20_000,
+                "comment_count": 500,
+                "share_count": 100,
+                "duration_ms": 60_000,
+                "create_time_iso": "2026-07-26T00:00:00Z",
+                "quality_score": 50,
+            }
+        ]
+        report = {
+            "items": [
+                {
+                    "aweme_id": "123",
+                    "editor_score": 80,
+                    "comment_hook": "演技是否出圈",
+                    "reason": "明星和剧名明确",
+                    "verified_entities": ["杨紫"],
+                    "discard": False,
+                }
+            ]
+        }
+
+        with mock.patch.dict("os.environ", {"DEEPSEEK_API_KEY": "test-key"}), mock.patch.object(
+            tikhub, "request_deepseek_json", return_value=report
+        ) as request_json:
+            result = tikhub.deepseek_candidate_review(args, selected, {"terms": [], "items": []}, {})
+
+        messages = request_json.call_args.args[1]
+        self.assertIn("JSON", messages[0]["content"])
+        self.assertEqual(result[0]["deepseek_editor_score"], 80)
+        self.assertEqual(result[0]["verified_entities"], ["杨紫"])
+
+
 class TavilyHotContextTests(unittest.TestCase):
     def test_tavily_uses_one_china_focused_general_search_for_the_last_day(self) -> None:
         client = FakeClient(

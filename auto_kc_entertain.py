@@ -21,8 +21,8 @@ from urllib.request import Request, urlopen
 
 from PIL import Image, ImageChops, ImageStat
 
+from deepseek_api import deepseek_model, request_deepseek_json
 
-DEEPSEEK_URL = "https://api.deepseek.com/chat/completions"
 VIDEO_EXTENSIONS = {".mp4", ".mov", ".m4v", ".mkv"}
 WHISPER_MODEL = Path(os.environ.get("WHISPER_MODEL", "/Users/ytfeng/Models/whisper/ggml-small.bin")).expanduser()
 MAIN_RATIO = 1080 / 796
@@ -368,9 +368,7 @@ def process_one(
 
 
 def ask_deepseek(api_key: str, analysis: dict[str, Any]) -> dict[str, Any]:
-    payload = {
-        "model": "deepseek-chat",
-        "messages": [
+    messages = [
             {
                 "role": "system",
                 "content": (
@@ -428,20 +426,8 @@ Each subtitle object must contain:
 start, end, zh, en, zh_highlights, en_highlights.
 """,
             },
-        ],
-        "temperature": 0.25,
-        "response_format": {"type": "json_object"},
-    }
-    req = Request(
-        DEEPSEEK_URL,
-        data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
-        headers={"Content-Type": "application/json", "Authorization": f"Bearer {api_key}"},
-        method="POST",
-    )
-    with urlopen(req, timeout=120) as resp:
-        data = json.loads(resp.read().decode("utf-8"))
-    content = data["choices"][0]["message"]["content"]
-    return parse_json_object(content)
+        ]
+    return request_deepseek_json(api_key, messages, temperature=0.25, max_tokens=8192)
 
 
 def polish_transcript_with_deepseek(
@@ -452,9 +438,7 @@ def polish_transcript_with_deepseek(
     visual_text: dict[str, Any],
     fact_evidence: dict[str, Any],
 ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
-    payload = {
-        "model": "deepseek-chat",
-        "messages": [
+    messages = [
             {
                 "role": "system",
                 "content": (
@@ -504,27 +488,15 @@ corrected_transcript: list of objects with start, end, text.
 corrections: list of objects with from, to, reason.
 """,
             },
-        ],
-        "temperature": 0.1,
-        "response_format": {"type": "json_object"},
-    }
-    req = Request(
-        DEEPSEEK_URL,
-        data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
-        headers={"Content-Type": "application/json", "Authorization": f"Bearer {api_key}"},
-        method="POST",
-    )
-    with urlopen(req, timeout=120) as resp:
-        data = json.loads(resp.read().decode("utf-8"))
-    content = data["choices"][0]["message"]["content"]
-    report = parse_json_object(content)
+        ]
+    report = request_deepseek_json(api_key, messages, temperature=0.1, max_tokens=8192)
     corrected = normalize_polished_transcript(report, transcript)
     corrections = report.get("corrections", [])
     if not isinstance(corrections, list):
         corrections = []
     polish_report = {
         "available": True,
-        "engine": "deepseek-chat",
+        "engine": deepseek_model(),
         "corrections": corrections[:50],
         "fact_check_evidence": fact_evidence,
     }
@@ -1714,20 +1686,6 @@ def valid_phrases(text: str, phrases: Any, *, case_insensitive: bool = False) ->
 def pick_highlights(text: str) -> list[str]:
     phrases = re.findall(r"[\u4e00-\u9fffA-Za-z0-9]{2,6}", text)
     return phrases[:2]
-
-
-def parse_json_object(text: str) -> dict[str, Any]:
-    text = text.strip()
-    if text.startswith("```"):
-        text = re.sub(r"^```(?:json)?\s*", "", text)
-        text = re.sub(r"\s*```$", "", text)
-    try:
-        return json.loads(text)
-    except json.JSONDecodeError:
-        match = re.search(r"\{.*\}", text, flags=re.S)
-        if not match:
-            raise
-        return json.loads(match.group(0))
 
 
 def safe_slug(text: str) -> str:

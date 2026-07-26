@@ -11,6 +11,7 @@ import math
 import os
 import re
 import shutil
+import sys
 import time
 from pathlib import Path
 from typing import Any
@@ -20,6 +21,12 @@ import httpx
 
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from deepseek_api import request_deepseek_json
+
+
 VIDEO_EXTENSIONS = {".mp4", ".mov", ".m4v", ".mkv", ".webm"}
 TIKHUB_VIDEO_SEARCH_URL = "https://api.tikhub.io/api/v1/douyin/search/fetch_video_search_v2"
 TIKHUB_VIDEO_SEARCH_ENDPOINTS = (
@@ -64,7 +71,6 @@ GENERIC_HOT_TERMS = {
 }
 RETRYABLE_TIKHUB_STATUS_CODES = {408, 409, 425, 429, 500, 502, 503, 504}
 FATAL_TIKHUB_STATUS_CODES = {401, 402, 403}
-DEEPSEEK_URL = "https://api.deepseek.com/chat/completions"
 PROCESSED_MANIFEST = ROOT / "outputs" / "kc_entertain" / "processed_aweme_ids.json"
 
 HOT_CONTEXT_QUERIES = [
@@ -1292,9 +1298,7 @@ def deepseek_candidate_review(
         }
         for item in review_items
     ]
-    payload = {
-        "model": "deepseek-chat",
-        "messages": [
+    messages = [
             {
                 "role": "system",
                 "content": (
@@ -1303,7 +1307,8 @@ def deepseek_candidate_review(
                     "Prefer 10k+ likes, allow 1k+ likes only when the topic is clearly strong. "
                     "Reject face-to-camera bloggers/commentators explaining entertainment news. "
                     "Do not reward unknown low-context clips, generic compilations, wallpaper/card videos, or dummy reversal bait. "
-                    "Use only the provided hot-context/search evidence and metadata; do not invent names."
+                    "Use only the provided hot-context/search evidence and metadata; do not invent names. "
+                    "Return one valid JSON object only, with a top-level items array."
                 ),
             },
             {
@@ -1322,26 +1327,32 @@ def deepseek_candidate_review(
                         "hot_context_terms": hot_context.get("terms", []),
                         "hot_context_items": hot_context.get("items", [])[:10],
                         "candidates": compact_items,
+                        "output_json_schema": {
+                            "items": [
+                                {
+                                    "aweme_id": "candidate id",
+                                    "editor_score": "number from 0 to 100",
+                                    "comment_hook": "short discussion hook",
+                                    "reason": "short selection reason",
+                                    "verified_entities": ["supported entity names"],
+                                    "discard": False,
+                                }
+                            ]
+                        },
                     },
                     ensure_ascii=False,
                     indent=2,
                 ),
             },
-        ],
-        "temperature": 0.15,
-        "response_format": {"type": "json_object"},
-    }
+        ]
     try:
-        with httpx.Client(timeout=httpx.Timeout(connect=15, read=90, write=20, pool=15)) as client:
-            response = client.post(
-                DEEPSEEK_URL,
-                headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
-                json=payload,
-            )
-            response.raise_for_status()
-            data = response.json()
-        content = data["choices"][0]["message"]["content"]
-        report = parse_json_object(content)
+        report = request_deepseek_json(
+            api_key,
+            messages,
+            temperature=0.15,
+            max_tokens=8192,
+            timeout=90,
+        )
     except Exception as exc:  # noqa: BLE001
         run_info.setdefault("errors", []).append(f"DeepSeek candidate review failed: {exc}")
         return selected[: review_return_count(args)]
@@ -1727,21 +1738,6 @@ def split_terms(raw: str) -> list[str]:
 def safe_slug(value: str) -> str:
     slug = re.sub(r"[^0-9A-Za-z_.\-\u4e00-\u9fff]+", "_", value).strip("_")
     return slug[:40] or "keyword"
-
-
-def parse_json_object(text: str) -> dict[str, Any]:
-    text = str(text or "").strip()
-    if text.startswith("```"):
-        text = re.sub(r"^```(?:json)?\s*", "", text)
-        text = re.sub(r"\s*```$", "", text)
-    try:
-        data = json.loads(text)
-    except json.JSONDecodeError:
-        match = re.search(r"\{.*\}", text, flags=re.S)
-        if not match:
-            raise
-        data = json.loads(match.group(0))
-    return data if isinstance(data, dict) else {}
 
 
 def normalize_space(text: str) -> str:

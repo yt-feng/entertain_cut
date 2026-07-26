@@ -22,6 +22,11 @@ on:
         required: true
         type: boolean
         default: false
+      deepseek_api_only:
+        description: "Only test the current DeepSeek model and JSON request format"
+        required: true
+        type: boolean
+        default: false
       selected_artifact_run_id:
         description: "Optional prior run id containing douyin-free-selected-videos; used for KC render test"
         required: false
@@ -74,8 +79,28 @@ jobs:
           if-no-files-found: error
           retention-days: 7
 
+  deepseek-api-smoke:
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.deepseek_api_only }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      PYTHONUNBUFFERED: "1"
+      DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+      DEEPSEEK_MODEL: deepseek-v4-flash
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Validate DeepSeek API
+        run: python tools/deepseek_api_smoke.py
+
   douyin-free-kc-daily:
-    if: ${{ github.event_name != 'workflow_dispatch' || inputs.hot_context_only != true }}
+    if: ${{ github.event_name != 'workflow_dispatch' || (inputs.hot_context_only != true && inputs.deepseek_api_only != true) }}
     runs-on: ubuntu-latest
     timeout-minutes: 240
 
@@ -85,6 +110,7 @@ jobs:
       TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
       DOUYIN_COOKIE: ${{ secrets.DOUYIN_COOKIE }}
       DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+      DEEPSEEK_MODEL: deepseek-v4-flash
       BING_SEARCH_API_KEY: ${{ secrets.BING_SEARCH_API_KEY }}
       BING_SEARCH_ENDPOINT: ${{ secrets.BING_SEARCH_ENDPOINT }}
       HOTSPOT_ASSISTANT_API_URL: ${{ secrets.HOTSPOT_ASSISTANT_API_URL }}

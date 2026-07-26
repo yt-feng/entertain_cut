@@ -264,6 +264,8 @@ python3 render_entertain_vertical.py
 
 - DeepSeek API key 不写入脚本和 JSON
 - 只通过 `DEEPSEEK_API_KEY` 环境变量使用
+- GitHub Actions 固定使用 `deepseek-v4-flash` 非思考 JSON 模式；可用 `DEEPSEEK_MODEL` 覆盖模型名
+- 手动运行 `Douyin Free Selected KC Daily` 并勾选 `deepseek_api_only`，可只验证一次 DeepSeek API，不搜索或处理视频
 - `work/caption_plan.json` 只保存字幕内容，不保存密钥
 
 ## 当前输出
