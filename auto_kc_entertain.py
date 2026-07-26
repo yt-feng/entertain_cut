@@ -24,6 +24,17 @@ from PIL import Image, ImageChops, ImageStat
 from deepseek_api import deepseek_model, request_deepseek_json
 
 VIDEO_EXTENSIONS = {".mp4", ".mov", ".m4v", ".mkv"}
+TAVILY_SEARCH_URL = "https://api.tavily.com/search"
+TAVILY_FACT_DOMAINS = [
+    "weibo.com",
+    "sina.com.cn",
+    "qq.com",
+    "163.com",
+    "sohu.com",
+    "iqiyi.com",
+    "youku.com",
+    "mgtv.com",
+]
 WHISPER_MODEL = Path(os.environ.get("WHISPER_MODEL", "/Users/ytfeng/Models/whisper/ggml-small.bin")).expanduser()
 MAIN_RATIO = 1080 / 796
 ROOT_DIR = Path(__file__).resolve().parent
@@ -104,6 +115,13 @@ def main() -> None:
     parser.add_argument("--latest", action="store_true", help="Only process the newest video in input-dir.")
     parser.add_argument("--force", action="store_true", help="Reprocess videos even if their content hash was already rendered.")
     parser.add_argument("--force-fallback", action="store_true", help="Skip DeepSeek and use local fallback captions.")
+    parser.add_argument("--target-count", type=int, default=0, help="Stop after this many successful outputs; 0 processes all.")
+    parser.add_argument(
+        "--require-deepseek-quality",
+        action=argparse.BooleanOptionalAction,
+        default=False,
+        help="Skip a source unless transcript/title quality checks pass through DeepSeek.",
+    )
     parser.add_argument("--landscape-crop", default="", help="Override crop as width:height:x:y.")
     parser.add_argument("--metadata-file", type=Path, default=None, help="Optional selected-video metadata JSON, e.g. Douyin selected.json.")
     args = parser.parse_args()
@@ -126,11 +144,15 @@ def main() -> None:
         return
 
     api_key = read_api_key(args.api_key_dir)
+    if args.require_deepseek_quality and not api_key:
+        raise SystemExit("DEEPSEEK_API_KEY is required when --require-deepseek-quality is enabled.")
     metadata_index = load_source_metadata(args.metadata_file, args.input_dir)
     manifest = load_manifest(args.work_dir)
     outputs: list[Path] = []
     existing_outputs: list[Path] = []
     for source in sources:
+        if args.target_count > 0 and len(outputs) + len(existing_outputs) >= args.target_count:
+            break
         output = process_one(source, args, api_key, manifest, metadata_for_source(source, metadata_index))
         if output is not None:
             outputs.append(output)
@@ -159,12 +181,10 @@ def find_sources(source: Path | None, input_dir: Path, *, latest_only: bool) -> 
         return [source]
     if not input_dir.exists():
         return []
-    videos = sorted(
-        [path for path in input_dir.iterdir() if path.is_file() and path.suffix.lower() in VIDEO_EXTENSIONS],
-        key=lambda path: path.stat().st_mtime,
-        reverse=True,
-    )
-    return videos[:1] if latest_only else videos
+    videos = [path for path in input_dir.iterdir() if path.is_file() and path.suffix.lower() in VIDEO_EXTENSIONS]
+    if latest_only:
+        return sorted(videos, key=lambda path: path.stat().st_mtime, reverse=True)[:1]
+    return sorted(videos, key=lambda path: path.name)
 
 
 def reveal_in_finder(paths: list[Path]) -> None:
@@ -278,6 +298,7 @@ def process_one(
                 raw_transcript,
                 visual_text,
                 fact_evidence,
+                source_metadata,
             )
         except Exception as exc:  # noqa: BLE001 - raw ASR should still keep one-click rendering unblocked.
             polish_report = {"available": False, "reason": f"DeepSeek polish failed: {exc}", "corrections": []}
@@ -289,18 +310,53 @@ def process_one(
         polish_report = {"available": False, "reason": "--force-fallback enabled", "corrections": []}
         print("Skipping DeepSeek transcript polish because --force-fallback is enabled.")
     write_polished_transcript(asr_dir, transcript, polish_report)
+    if args.require_deepseek_quality and raw_transcript and not polish_report.get("available"):
+        return skip_quality_source(task_dir, "transcript_polish", str(polish_report.get("reason") or "unavailable"))
 
     analysis = build_analysis(source, media, transcript, visual_text, polish_report, visual_layout, fact_evidence, source_metadata)
     plan = fallback_plan(source.stem, transcript, duration, source_metadata)
+    plan_issues: list[str] = []
+    title_audited = False
     announce("5/7 根据当前视频重新生成 KC 娱乐包装方案")
     if api_key and not args.force_fallback:
         try:
             plan = ask_deepseek(api_key, analysis)
-        except Exception as exc:  # noqa: BLE001 - fallback should keep one-click rendering unblocked.
-            print(f"DeepSeek plan failed, using fallback captions: {exc}")
+            plan_issues = plan_accuracy_issues(plan, analysis)
+            audit = audit_deepseek_plan(api_key, analysis, plan, plan_issues)
+            title_audited = True
+            plan, audit_issues = apply_title_audit(plan, audit)
+            plan_issues = audit_issues + plan_accuracy_issues(plan, analysis)
+            if plan_issues:
+                print(f"DeepSeek title quality check requested one revision: {'; '.join(plan_issues)}", flush=True)
+                plan = revise_deepseek_plan(api_key, analysis, plan, plan_issues)
+                plan_issues = plan_accuracy_issues(plan, analysis)
+                if not plan_issues:
+                    final_audit = audit_deepseek_plan(api_key, analysis, plan, [])
+                    plan, audit_issues = apply_title_audit(plan, final_audit)
+                    plan_issues = audit_issues + plan_accuracy_issues(plan, analysis)
+        except Exception as exc:  # noqa: BLE001 - strict cloud mode skips this source below.
+            print(f"DeepSeek title plan or audit failed: {exc}")
+            plan_issues = [f"DeepSeek plan failed: {exc}"]
     elif not api_key:
         print("No DeepSeek key found; using fallback captions.")
-    plan = normalize_plan(plan, source.stem, transcript, duration, source_metadata)
+        plan_issues = ["No DeepSeek key found"]
+    if args.require_deepseek_quality and plan_issues:
+        return skip_quality_source(task_dir, "title_plan", "; ".join(plan_issues))
+    plan = normalize_plan(
+        plan,
+        source.stem,
+        transcript,
+        duration,
+        source_metadata,
+        use_faithful_transcript=bool(args.require_deepseek_quality and transcript),
+        quality_report={
+            "deepseek_model": deepseek_model(),
+            "transcript_polished": bool(polish_report.get("available")) or not raw_transcript,
+            "title_audited": title_audited,
+            "title_evidence_validated": not plan_issues,
+            "tavily_fact_check": bool(fact_evidence.get("tavily_usage", {}).get("request_count")),
+        },
+    )
 
     plan_path = task_dir / "caption_plan.json"
     plan_path.write_text(json.dumps(plan, ensure_ascii=False, indent=2), encoding="utf-8")
@@ -367,6 +423,18 @@ def process_one(
     return output
 
 
+def skip_quality_source(task_dir: Path, stage: str, reason: str) -> None:
+    report = {
+        "skipped": True,
+        "stage": stage,
+        "reason": normalize_space(reason)[:1000],
+        "recorded_at": datetime.now().isoformat(timespec="seconds"),
+    }
+    (task_dir / "quality_skip.json").write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(f"::warning::Skipping source that did not pass {stage}: {report['reason']}", flush=True)
+    return None
+
+
 def ask_deepseek(api_key: str, analysis: dict[str, Any]) -> dict[str, Any]:
     messages = [
             {
@@ -382,6 +450,9 @@ def ask_deepseek(api_key: str, analysis: dict[str, Any]) -> dict[str, Any]:
                     "or replace the original platform captions/watermarks. "
                     "Fix obvious ASR mistakes from context. Use verified_entities, known_entities, search evidence, "
                     "and hot-context metadata to avoid wrong celebrity/show/film names. "
+                    "A title anchor must appear in source_metadata, corrected transcript, OCR text, or verified_entities. "
+                    "Tavily evidence may confirm spelling and context but cannot prove that an unseen person appears in the clip. "
+                    "Every title claim must be directly supported by the supplied source evidence. "
                     "Never use dummy title templates such as 前一秒正常/下一秒反转 or 前面还正常/下一秒反转. "
                     "Return strict JSON only."
                 ),
@@ -405,6 +476,9 @@ Methodology:
 - Avoid soft generic title lines such as "这段太有梗", "反应全是真", "质感拉满", "重点来了", unless no concrete person/topic/twist exists.
 - Do not use dummy reversal templates: "前一秒正常/下一秒反转", "前面还正常/下一秒反转", "看到后面才懂".
 - If source_metadata includes verified_entities or known_entities, prefer those spellings for people, shows, dramas and films.
+- title_anchor must be the exact person/show/topic named by the source. Do not introduce a celebrity absent from source metadata, corrected transcript and OCR.
+- title_evidence must contain 1-3 exact short quotes copied from source_metadata, corrected transcript or OCR that support both title lines.
+- Do not claim crying, controversy, reversal, an official announcement, elimination, romance or conflict unless those facts appear in the source evidence.
 - Keep titles short enough for mobile: each title line preferably 3-9 Chinese characters, maximum 12 Chinese characters. Shorter and sharper is better.
 - Make top_badge, side_badge, caption_badge, sticker_bottom, and lower_ribbon different roles, not repeated copies.
 - sticker_top must be 1-6 uppercase English letters or digits only, such as HOT, NEW, TOP, 90, AI. No emoji, punctuation, or Chinese.
@@ -419,7 +493,7 @@ Methodology:
 - output_name must be a short Chinese file stem. It may start with KC娱乐_, but does not need to.
 
 Return JSON only with exactly these top-level keys:
-output_name, title_lines, title_highlights, top_badge, side_badge, caption_badge,
+output_name, title_anchor, title_evidence, title_lines, title_highlights, top_badge, side_badge, caption_badge,
 sticker_top, sticker_bottom, lower_ribbon, packaging_brief, dedupe_notes, subtitles.
 
 Each subtitle object must contain:
@@ -430,6 +504,213 @@ start, end, zh, en, zh_highlights, en_highlights.
     return request_deepseek_json(api_key, messages, temperature=0.25, max_tokens=8192)
 
 
+def revise_deepseek_plan(
+    api_key: str,
+    analysis: dict[str, Any],
+    previous_plan: dict[str, Any],
+    issues: list[str],
+) -> dict[str, Any]:
+    messages = [
+        {
+            "role": "system",
+            "content": (
+                "You are KC娱乐's final factual copy editor. Correct the proposed packaging plan using only the "
+                "trusted source snapshot. Return one valid JSON object only. Never add a person, event, emotion, "
+                "controversy or outcome that is not explicitly supported. Keep all required plan fields."
+            ),
+        },
+        {
+            "role": "user",
+            "content": json.dumps(
+                {
+                    "validation_issues": issues,
+                    "previous_plan": previous_plan,
+                    "trusted_source_snapshot": trusted_source_snapshot(analysis),
+                    "required_top_level_keys": [
+                        "output_name",
+                        "title_anchor",
+                        "title_evidence",
+                        "title_lines",
+                        "title_highlights",
+                        "top_badge",
+                        "side_badge",
+                        "caption_badge",
+                        "sticker_top",
+                        "sticker_bottom",
+                        "lower_ribbon",
+                        "packaging_brief",
+                        "dedupe_notes",
+                        "subtitles",
+                    ],
+                    "instruction": (
+                        "Rewrite the title and any unsupported copy. title_evidence must contain 1-3 exact short "
+                        "quotes from source_metadata, transcript_text or visual_text. Preserve usable timed subtitles."
+                    ),
+                },
+                ensure_ascii=False,
+                indent=2,
+            ),
+        },
+    ]
+    return request_deepseek_json(api_key, messages, temperature=0.1, max_tokens=8192)
+
+
+def audit_deepseek_plan(
+    api_key: str,
+    analysis: dict[str, Any],
+    proposed_plan: dict[str, Any],
+    deterministic_issues: list[str],
+) -> dict[str, Any]:
+    messages = [
+        {
+            "role": "system",
+            "content": (
+                "You are an independent factual reviewer for KC娱乐 short-video titles. Check whether the named "
+                "person/topic, action, emotion, timing and conclusion are all supported by the trusted source. "
+                "Tavily can confirm spelling/context but cannot prove an unseen person is in the clip. Be conservative. "
+                "Return one valid JSON object only."
+            ),
+        },
+        {
+            "role": "user",
+            "content": json.dumps(
+                {
+                    "trusted_source_snapshot": trusted_source_snapshot(analysis),
+                    "proposed_plan": proposed_plan,
+                    "deterministic_issues": deterministic_issues,
+                    "output_json_schema": {
+                        "valid": True,
+                        "issues": ["unsupported or exaggerated claim"],
+                        "corrected_plan": {},
+                    },
+                    "rules": [
+                        "Reject a celebrity name absent from metadata, corrected transcript, OCR and verified_entities.",
+                        "Reject crying, conflict, reversal, romance, official announcement or outcome claims without evidence.",
+                        "title_evidence must quote source_metadata, transcript_text or visual_text exactly.",
+                        "If invalid, return a complete corrected_plan preserving all timed subtitle and packaging fields.",
+                    ],
+                },
+                ensure_ascii=False,
+                indent=2,
+            ),
+        },
+    ]
+    return request_deepseek_json(api_key, messages, temperature=0, max_tokens=8192)
+
+
+def apply_title_audit(
+    proposed_plan: dict[str, Any],
+    audit: dict[str, Any],
+) -> tuple[dict[str, Any], list[str]]:
+    if audit.get("valid") is True:
+        return proposed_plan, []
+    issues = audit.get("issues")
+    normalized_issues = (
+        [normalize_space(str(value)) for value in issues if normalize_space(str(value))]
+        if isinstance(issues, list)
+        else []
+    )
+    corrected_plan = audit.get("corrected_plan")
+    if isinstance(corrected_plan, dict) and corrected_plan:
+        if normalized_issues:
+            print(f"DeepSeek factual title audit corrected: {'; '.join(normalized_issues)}", flush=True)
+        return corrected_plan, []
+    return proposed_plan, normalized_issues or ["independent title audit rejected the plan without a correction"]
+
+
+def plan_accuracy_issues(plan: dict[str, Any], analysis: dict[str, Any]) -> list[str]:
+    issues: list[str] = []
+    title_lines = plan.get("title_lines")
+    if not isinstance(title_lines, list) or len(title_lines) != 2:
+        return ["title_lines must contain exactly two strings"]
+    title_lines = [normalize_space(str(value)) for value in title_lines]
+    if not all(title_lines):
+        issues.append("title_lines contains an empty line")
+    if any(len(line) > 12 for line in title_lines):
+        issues.append("each title line must be at most 12 characters")
+
+    trusted_text = trusted_source_text(analysis)
+    compact_trusted = compact_evidence_text(trusted_text)
+    title_text = "".join(title_lines)
+    anchor = normalize_space(str(plan.get("title_anchor") or ""))
+    if not anchor:
+        issues.append("title_anchor is missing")
+    elif anchor in {"这段", "这个", "视频", "明星", "娱乐", "话题", "评论区"}:
+        issues.append(f"title_anchor is too generic: {anchor}")
+    elif compact_evidence_text(anchor) not in compact_trusted:
+        issues.append(f"title_anchor is unsupported by the source: {anchor}")
+    elif compact_evidence_text(anchor) not in compact_evidence_text(title_text):
+        issues.append("title_lines do not contain title_anchor")
+
+    evidence = plan.get("title_evidence")
+    if not isinstance(evidence, list) or not evidence:
+        issues.append("title_evidence is missing")
+    else:
+        supported_quotes = [
+            str(value)
+            for value in evidence
+            if len(compact_evidence_text(value)) >= 2 and compact_evidence_text(value) in compact_trusted
+        ]
+        if not supported_quotes:
+            issues.append("title_evidence does not quote the source")
+
+    for named_anchor in TITLE_ANCHORS:
+        if named_anchor in title_text and compact_evidence_text(named_anchor) not in compact_trusted:
+            issues.append(f"title names unsupported person: {named_anchor}")
+
+    claim_support = {
+        "哭崩": ["哭", "落泪", "眼泪", "泪目", "哽咽"],
+        "吵开": ["评论", "争议", "热议", "吵", "讨论"],
+        "吵翻": ["评论", "争议", "热议", "吵", "讨论"],
+        "反差": ["反差", "没想到", "居然", "竟然", "却", "原来"],
+        "官宣": ["官宣", "宣布", "正式发布"],
+        "淘汰": ["淘汰", "出局", "离开舞台"],
+        "恋情": ["恋情", "恋爱", "情侣", "男友", "女友"],
+    }
+    for claim, support_terms in claim_support.items():
+        if claim in title_text and not any(term in trusted_text for term in support_terms):
+            issues.append(f"title claim lacks source support: {claim}")
+    if any(phrase in title_text for phrase in DUMMY_TITLE_PHRASES):
+        issues.append("title uses a banned generic reversal template")
+    return list(dict.fromkeys(issues))
+
+
+def trusted_source_snapshot(analysis: dict[str, Any]) -> dict[str, Any]:
+    metadata = analysis.get("source_metadata") if isinstance(analysis.get("source_metadata"), dict) else {}
+    visual_text = analysis.get("visual_text") if isinstance(analysis.get("visual_text"), dict) else {}
+    fact_evidence = analysis.get("fact_check_evidence") if isinstance(analysis.get("fact_check_evidence"), dict) else {}
+    return {
+        "stem": analysis.get("stem", ""),
+        "source_metadata": metadata,
+        "transcript_text": analysis.get("transcript_text", ""),
+        "visual_text": visual_text.get("text", ""),
+        "verified_entities": metadata.get("verified_entities", []),
+        "known_entities": metadata.get("known_entities", []),
+        "fact_check_evidence": fact_evidence.get("items", [])[:8],
+    }
+
+
+def trusted_source_text(analysis: dict[str, Any]) -> str:
+    snapshot = trusted_source_snapshot(analysis)
+    metadata = snapshot["source_metadata"] if isinstance(snapshot["source_metadata"], dict) else {}
+    return normalize_space(
+        " ".join(
+            [
+                str(snapshot.get("stem") or ""),
+                metadata_search_text(metadata),
+                " ".join(str(value) for value in snapshot.get("verified_entities", []) if value),
+                " ".join(str(value) for value in snapshot.get("known_entities", []) if value),
+                str(snapshot.get("transcript_text") or ""),
+                str(snapshot.get("visual_text") or ""),
+            ]
+        )
+    )
+
+
+def compact_evidence_text(value: Any) -> str:
+    return re.sub(r"[^\u4e00-\u9fffA-Za-z0-9]+", "", str(value or "")).lower()
+
+
 def polish_transcript_with_deepseek(
     api_key: str,
     source: Path,
@@ -437,6 +718,7 @@ def polish_transcript_with_deepseek(
     transcript: list[dict[str, Any]],
     visual_text: dict[str, Any],
     fact_evidence: dict[str, Any],
+    source_metadata: dict[str, Any],
 ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     messages = [
             {
@@ -464,6 +746,7 @@ Source metadata:
     "duration": round(float(media["duration"]), 3),
     "width": int(media["width"]),
     "height": int(media["height"]),
+    "douyin_metadata": compact_source_metadata(source_metadata),
     "visual_text": visual_text,
     "fact_check_evidence": fact_evidence,
 }, ensure_ascii=False, indent=2)}
@@ -512,20 +795,33 @@ def collect_fact_check_evidence(
 ) -> dict[str, Any]:
     queries = fact_check_queries(source, transcript, visual_text, source_metadata or {})
     evidence: dict[str, Any] = {"available": False, "queries": queries, "items": [], "errors": []}
-    for query in queries:
+    if queries:
         try:
-            items = search_fact_evidence(query)
-        except Exception as exc:  # noqa: BLE001 - fact-check search should never block rendering.
-            evidence["errors"].append({"query": query, "error": str(exc)})
-            continue
-        evidence["items"].extend(items)
-        if len(evidence["items"]) >= 8:
-            break
+            tavily_items, tavily_usage = search_tavily_fact_evidence(queries)
+            evidence["tavily_usage"] = tavily_usage
+            evidence["items"].extend(tavily_items)
+        except Exception as exc:  # noqa: BLE001 - legacy search still provides a fallback.
+            evidence["errors"].append({"source": "tavily", "query": queries[0], "error": str(exc)})
+    if not evidence["items"]:
+        for query in queries:
+            try:
+                items = search_fact_evidence(query)
+            except Exception as exc:  # noqa: BLE001 - fact-check search should never block rendering.
+                evidence["errors"].append({"query": query, "error": str(exc)})
+                continue
+            evidence["items"].extend(items)
+            if len(evidence["items"]) >= 8:
+                break
     evidence["items"] = dedupe_evidence_items(evidence["items"])[:8]
     evidence["available"] = bool(evidence["items"])
     write_fact_check_evidence(task_dir, evidence)
     if evidence["available"]:
-        print(f"Fact-check evidence collected: {len(evidence['items'])} item(s).", flush=True)
+        tavily_credits = int((evidence.get("tavily_usage") or {}).get("credits") or 0)
+        print(
+            f"Fact-check evidence collected: {len(evidence['items'])} item(s), "
+            f"Tavily credits={tavily_credits}.",
+            flush=True,
+        )
     else:
         print("Fact-check evidence unavailable; continuing with filename + ASR context.", flush=True)
     return evidence
@@ -580,6 +876,67 @@ def fact_check_queries(
         if query and query not in result:
             result.append(query)
     return result[:4]
+
+
+def search_tavily_fact_evidence(
+    queries: list[str],
+    *,
+    opener: Any | None = None,
+) -> tuple[list[dict[str, str]], dict[str, Any]]:
+    api_key = os.environ.get("TAVILY_API_KEY", "").strip()
+    if not api_key:
+        return [], {"configured": False, "request_count": 0, "credits": 0}
+    query = "核实娱乐短视频中的人物、节目和事件：" + "；".join(queries[:2])
+    payload = {
+        "query": query,
+        "topic": "general",
+        "country": "china",
+        "time_range": "month",
+        "search_depth": "basic",
+        "max_results": 6,
+        "include_answer": False,
+        "include_raw_content": False,
+        "include_images": False,
+        "include_usage": True,
+        "include_domains": TAVILY_FACT_DOMAINS,
+    }
+    request = Request(
+        TAVILY_SEARCH_URL,
+        data=json.dumps(payload, ensure_ascii=False).encode("utf-8"),
+        headers={"Content-Type": "application/json", "Authorization": f"Bearer {api_key}"},
+        method="POST",
+    )
+    open_request = opener or urlopen
+    with open_request(request, timeout=30) as response:
+        data = json.loads(response.read().decode("utf-8", errors="replace"))
+
+    usage = data.get("usage") if isinstance(data, dict) else None
+    usage_report = {
+        "configured": True,
+        "request_count": 1,
+        "credits": int(usage.get("credits") or 0) if isinstance(usage, dict) else 0,
+        "request_id": data.get("request_id") if isinstance(data, dict) else None,
+        "response_time": data.get("response_time") if isinstance(data, dict) else None,
+    }
+    items: list[dict[str, str]] = []
+    for value in (data.get("results") or []) if isinstance(data, dict) else []:
+        if not isinstance(value, dict):
+            continue
+        published_date = normalize_space(str(value.get("published_date") or ""))
+        content = normalize_space(str(value.get("content") or ""))
+        title = normalize_space(str(value.get("title") or ""))
+        if not title and not content:
+            continue
+        items.append(
+            {
+                "engine": "tavily",
+                "query": query,
+                "title": title[:160],
+                "snippet": normalize_space(f"{published_date} {content}")[:420],
+                "url": str(value.get("url") or "")[:260],
+            }
+        )
+    return items[:6], usage_report
 
 
 def search_fact_evidence(query: str) -> list[dict[str, str]]:
@@ -873,6 +1230,9 @@ def normalize_plan(
     transcript: list[dict[str, Any]],
     duration: float,
     source_metadata: dict[str, Any] | None = None,
+    *,
+    use_faithful_transcript: bool = False,
+    quality_report: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     fallback = fallback_plan(source_stem, transcript, duration, source_metadata)
     title_lines = plan.get("title_lines")
@@ -915,10 +1275,18 @@ def normalize_plan(
     if not subtitles:
         subtitles = fallback["subtitles"]
     subtitles = ensure_subtitle_coverage(subtitles, duration, plan, fallback, source_metadata or {})
+    subtitle_source = "deepseek_plan"
+    faithful_subtitles = transcript_subtitles(transcript, duration) if use_faithful_transcript else []
+    if faithful_subtitles:
+        subtitles = faithful_subtitles
+        subtitle_source = "deepseek_polished_whisper"
 
-    output_name = safe_filename(str(plan.get("output_name") or fallback["output_name"]))
+    output_name = safe_filename(f"KC娱乐_{''.join(title_lines)}")
+    title_evidence = plan.get("title_evidence") if isinstance(plan.get("title_evidence"), list) else []
     return {
         "output_name": output_name,
+        "title_anchor": normalize_space(str(plan.get("title_anchor") or "")),
+        "title_evidence": [normalize_space(str(value)) for value in title_evidence if normalize_space(str(value))][:3],
         "title_lines": title_lines,
         "title_highlights": valid_phrases(" ".join(title_lines), title_highlight_candidates),
         "top_badge": normalize_space(str(plan.get("top_badge", fallback["top_badge"]))) or fallback["top_badge"],
@@ -929,8 +1297,37 @@ def normalize_plan(
         "lower_ribbon": normalize_space(str(plan.get("lower_ribbon", fallback["lower_ribbon"]))) or fallback["lower_ribbon"],
         "packaging_brief": normalize_space(str(plan.get("packaging_brief", fallback["packaging_brief"]))),
         "dedupe_notes": normalize_space(str(plan.get("dedupe_notes", fallback["dedupe_notes"]))),
+        "subtitle_source": subtitle_source,
+        "quality_report": quality_report or {},
         "subtitles": subtitles,
     }
+
+
+def transcript_subtitles(
+    transcript: list[dict[str, Any]],
+    duration: float,
+) -> list[dict[str, Any]]:
+    transcript_text = "".join(str(item.get("text") or "") for item in transcript)
+    if len(re.findall(r"[\u4e00-\u9fff]", transcript_text)) < 4:
+        return []
+    target_blocks = max(4, min(10, int(round(max(duration, 1.0) / 8.0))))
+    subtitles: list[dict[str, Any]] = []
+    for idx, chunk in enumerate(chunk_transcript(transcript, duration, target_blocks=target_blocks), start=1):
+        text = clean_asr_text(" ".join(str(item.get("text") or "") for item in chunk["items"]))
+        if not text:
+            continue
+        subtitles.append(
+            {
+                "index": idx,
+                "start": round(float(chunk["start"]), 3),
+                "end": round(float(chunk["end"]), 3),
+                "zh": text,
+                "en": "",
+                "zh_highlights": pick_highlights(text),
+                "en_highlights": [],
+            }
+        )
+    return subtitles
 
 
 def ensure_subtitle_coverage(
@@ -1019,7 +1416,7 @@ def build_analysis(
         "source_frame_samples": visual_text.get("frames", []),
         "visual_text": visual_text,
         "visual_layout": visual_layout,
-        "source_metadata": source_metadata or {},
+        "source_metadata": compact_source_metadata(source_metadata or {}),
         "fact_check_evidence": fact_evidence,
         "transcript_polish": polish_report,
         "transcript_text": transcript_text,
@@ -1357,6 +1754,36 @@ def metadata_search_text(source_metadata: dict[str, Any]) -> str:
             for key in ("title", "desc", "caption", "author", "source_keyword")
         )
     )
+
+
+def compact_source_metadata(source_metadata: dict[str, Any]) -> dict[str, Any]:
+    scalar_keys = (
+        "aweme_id",
+        "title",
+        "desc",
+        "caption",
+        "author",
+        "source_keyword",
+        "like_count",
+        "comment_count",
+        "share_count",
+        "create_time_iso",
+        "deepseek_comment_hook",
+        "deepseek_reason",
+    )
+    list_keys = (
+        "known_entities",
+        "verified_entities",
+        "primary_celebrities",
+        "hot_context_matches",
+        "commentability_terms",
+    )
+    result = {key: source_metadata.get(key) for key in scalar_keys if source_metadata.get(key) not in (None, "")}
+    for key in list_keys:
+        value = source_metadata.get(key)
+        if isinstance(value, list):
+            result[key] = value[:12]
+    return result
 
 
 def clean_video_description(text: str) -> str:

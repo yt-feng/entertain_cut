@@ -209,6 +209,19 @@ KNOWN_ENTITIES = [
     "五十公里桃花坞",
     "无限超越班",
 ]
+NON_PERSON_ENTITIES = {
+    "乘风",
+    "浪姐",
+    "披荆斩棘",
+    "奔跑吧",
+    "中餐厅",
+    "王牌对王牌",
+    "花儿与少年",
+    "歌手",
+    "五十公里桃花坞",
+    "无限超越班",
+}
+CELEBRITY_ENTITIES = {entity for entity in KNOWN_ENTITIES if entity not in NON_PERSON_ENTITIES}
 
 
 def main() -> int:
@@ -302,6 +315,11 @@ def main() -> int:
         hot_context,
     )
     selected = deepseek_candidate_review(args, selected, hot_context, run_info)
+    selected = diversify_candidates(
+        selected,
+        max_per_celebrity=max(1, int(args.max_videos_per_celebrity)),
+        run_info=run_info,
+    )
     write_reports(reports_dir, keywords, candidates, selected, run_info)
 
     if not selected:
@@ -311,7 +329,9 @@ def main() -> int:
     downloaded_ids = download_selected(args, selected, downloads_dir, selected_dir, run_info)
     successful_ids = selected_aweme_ids(selected_dir)
     if successful_ids:
-        selected = [item for item in selected if str(item.get("aweme_id") or "") in successful_ids][: args.limit]
+        selected = [
+            item for item in selected if str(item.get("aweme_id") or "") in successful_ids
+        ][: download_target_count(args)]
         rewrite_selected_dir(selected_dir, selected)
         update_processed_manifest(processed_manifest, selected, args, run_info)
     record_selected_files(selected_dir, run_info)
@@ -319,7 +339,11 @@ def main() -> int:
     write_reports(reports_dir, keywords, candidates, selected, run_info)
 
     selected_file_count = count_selected_files(selected_dir)
-    print(f"TikHub selected files: {selected_file_count}/{args.limit} (minimum {args.min_selected_videos})", flush=True)
+    print(
+        f"TikHub selected files: {selected_file_count}/{download_target_count(args)} "
+        f"(publish target {args.limit}, minimum {args.min_selected_videos})",
+        flush=True,
+    )
     if selected_file_count < min(max(1, args.limit), max(1, args.min_selected_videos)):
         run_info["minimum_not_met"] = (
             f"Only {selected_file_count}/{args.limit} selected videos downloaded; "
@@ -356,6 +380,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--search-retry-attempts", type=int, default=2)
     parser.add_argument("--download-timeout-seconds", type=int, default=120)
     parser.add_argument("--download-max-urls", type=int, default=3)
+    parser.add_argument("--download-reserve-count", type=int, default=2)
+    parser.add_argument("--max-videos-per-celebrity", type=int, default=2)
     parser.add_argument("--processed-manifest", default=str(PROCESSED_MANIFEST))
     parser.add_argument("--output-date", default="")
     parser.add_argument("--hot-context", action=argparse.BooleanOptionalAction, default=True)
@@ -843,6 +869,14 @@ def collect_hot_context(args: argparse.Namespace, reports_dir: Path) -> dict[str
     context["terms"] = extract_hot_terms(context["items"])[:20]
     context["available"] = bool(context["items"])
     write_json(reports_dir / "hot_context.json", context)
+    tavily_usage = context.get("tavily_usage") if isinstance(context.get("tavily_usage"), dict) else {}
+    print(
+        "Hot context: "
+        f"provider={provider} available={context['available']} items={len(context['items'])} "
+        f"terms={len(context['terms'])} tavily_credits={int_or_zero(tavily_usage.get('credits'))} "
+        f"errors={len(context['errors'])}",
+        flush=True,
+    )
     return context
 
 
@@ -1289,6 +1323,7 @@ def deepseek_candidate_review(
             "duration_seconds": duration_seconds(item),
             "create_time": item.get("create_time_iso"),
             "known_entities": item.get("known_entities", []),
+            "primary_celebrities": item.get("primary_celebrities", []),
             "hot_context_matches": item.get("hot_context_matches", []),
             "commentability_terms": item.get("commentability_terms", []),
             "explainer_terms": item.get("explainer_terms", []),
@@ -1323,6 +1358,7 @@ def deepseek_candidate_review(
                             "只要娱乐明星/综艺/影视切片，不要单个博主露脸讲解、娱评、盘点、吃瓜解说。",
                             "标题或描述像模板、卡点、壁纸、无水印素材的降权。",
                             "时长只是软偏好，不是硬性淘汰。",
+                            "识别每条视频的主要明星；最终同一明星最多出现2条。",
                         ],
                         "hot_context_terms": hot_context.get("terms", []),
                         "hot_context_items": hot_context.get("items", [])[:10],
@@ -1334,6 +1370,7 @@ def deepseek_candidate_review(
                                     "editor_score": "number from 0 to 100",
                                     "comment_hook": "short discussion hook",
                                     "reason": "short selection reason",
+                                    "primary_celebrities": ["celebrity names explicitly supported by metadata"],
                                     "verified_entities": ["supported entity names"],
                                     "discard": False,
                                 }
@@ -1373,6 +1410,13 @@ def deepseek_candidate_review(
         item["deepseek_editor_score"] = editor_score
         item["deepseek_comment_hook"] = normalize_space(str(review.get("comment_hook") or ""))[:80]
         item["deepseek_reason"] = normalize_space(str(review.get("reason") or ""))[:160]
+        primary_celebrities = review.get("primary_celebrities")
+        if isinstance(primary_celebrities, list):
+            item["primary_celebrities"] = [
+                normalize_space(str(entity))
+                for entity in primary_celebrities
+                if likely_person_entity(normalize_space(str(entity)))
+            ][:8]
         verified = review.get("verified_entities")
         if isinstance(verified, list):
             item["verified_entities"] = [normalize_space(str(entity)) for entity in verified if normalize_space(str(entity))][:8]
@@ -1394,6 +1438,76 @@ def deepseek_candidate_review(
 
 def review_return_count(args: argparse.Namespace) -> int:
     return max(0, max(int(args.limit), int(args.limit) * max(1, int(args.download_candidate_multiplier))))
+
+
+def download_target_count(args: argparse.Namespace) -> int:
+    return max(1, int(args.limit)) + max(0, int(args.download_reserve_count))
+
+
+def diversify_candidates(
+    candidates: list[dict[str, Any]],
+    *,
+    max_per_celebrity: int,
+    run_info: dict[str, Any] | None = None,
+) -> list[dict[str, Any]]:
+    max_per_celebrity = max(1, int(max_per_celebrity))
+    counts: dict[str, int] = {}
+    accepted: list[dict[str, Any]] = []
+    skipped: list[dict[str, Any]] = []
+    for item in candidates:
+        celebrities = candidate_celebrity_entities(item)
+        blocked = [name for name in celebrities if counts.get(name, 0) >= max_per_celebrity]
+        if blocked:
+            skipped.append(
+                {
+                    "aweme_id": str(item.get("aweme_id") or ""),
+                    "title": str(item.get("title") or "")[:160],
+                    "blocked_celebrities": blocked,
+                }
+            )
+            continue
+        item["primary_celebrities"] = celebrities
+        accepted.append(item)
+        for name in celebrities:
+            counts[name] = counts.get(name, 0) + 1
+
+    if run_info is not None:
+        run_info["celebrity_diversity"] = {
+            "max_videos_per_celebrity": max_per_celebrity,
+            "accepted_count": len(accepted),
+            "skipped_count": len(skipped),
+            "celebrity_counts": counts,
+            "skipped": skipped[:30],
+        }
+    return accepted
+
+
+def candidate_celebrity_entities(item: dict[str, Any]) -> list[str]:
+    result: list[str] = []
+    primary_values = item.get("primary_celebrities")
+    if isinstance(primary_values, list):
+        result.extend(normalize_space(str(value)) for value in primary_values if likely_person_entity(str(value)))
+
+    verified_values = item.get("verified_entities")
+    if not result and isinstance(verified_values, list):
+        result.extend(str(value) for value in verified_values if str(value) in CELEBRITY_ENTITIES)
+
+    known_values = item.get("known_entities")
+    if isinstance(known_values, list):
+        result.extend(str(value) for value in known_values if str(value) in CELEBRITY_ENTITIES)
+
+    text = candidate_text(item)
+    result.extend(entity for entity in CELEBRITY_ENTITIES if entity in text)
+    return dedupe_keep_order([value for value in result if value])
+
+
+def likely_person_entity(value: str) -> bool:
+    value = normalize_space(value)
+    if value in CELEBRITY_ENTITIES:
+        return True
+    if value in NON_PERSON_ENTITIES or not re.fullmatch(r"[\u4e00-\u9fff]{2,4}", value):
+        return False
+    return not any(term in value for term in ("电影", "电视", "综艺", "剧集", "节目", "演唱会", "工作室"))
 
 
 def candidate_text(item: dict[str, Any]) -> str:
@@ -1504,6 +1618,7 @@ def update_processed_manifest(
             "create_time_iso": item.get("create_time_iso", ""),
             "known_entities": item.get("known_entities", []),
             "verified_entities": item.get("verified_entities", []),
+            "primary_celebrities": item.get("primary_celebrities", []),
             "quality_score": item.get("quality_score", 0),
             "output_date": args.output_date,
             "selected_at": selected_at,
@@ -1536,9 +1651,10 @@ def download_selected(
         "Accept": "*/*",
     }
     timeout = httpx.Timeout(connect=20, read=60, write=60, pool=20)
+    target_count = download_target_count(args)
     with httpx.Client(headers=headers, timeout=timeout, follow_redirects=True) as client:
         for idx, item in enumerate(selected, 1):
-            if count_selected_files(selected_dir) >= args.limit:
+            if count_selected_files(selected_dir) >= target_count:
                 break
             aweme_id = str(item.get("aweme_id") or f"rank{idx}")
             urls = [url for url in item.get("download_urls") or [] if isinstance(url, str)]
@@ -1611,6 +1727,7 @@ def write_reports(
             "quality_score",
             "known_entities",
             "verified_entities",
+            "primary_celebrities",
             "hot_context_matches",
             "commentability_terms",
             "clip_type",
@@ -1627,7 +1744,13 @@ def write_reports(
         for idx, item in enumerate(selected, 1):
             row = {key: item.get(key, "") for key in fieldnames}
             row["rank"] = idx
-            for key in ("known_entities", "verified_entities", "hot_context_matches", "commentability_terms"):
+            for key in (
+                "known_entities",
+                "verified_entities",
+                "primary_celebrities",
+                "hot_context_matches",
+                "commentability_terms",
+            ):
                 if isinstance(row.get(key), list):
                     row[key] = "|".join(str(value) for value in row[key])
             writer.writerow(row)

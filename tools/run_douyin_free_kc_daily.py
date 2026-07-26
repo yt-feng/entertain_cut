@@ -7,6 +7,7 @@ import argparse
 import datetime as dt
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -16,6 +17,9 @@ from typing import Any
 
 
 ROOT = Path(__file__).resolve().parents[1]
+TOOLS_DIR = Path(__file__).resolve().parent
+if str(TOOLS_DIR) not in sys.path:
+    sys.path.insert(0, str(TOOLS_DIR))
 VIDEO_EXTENSIONS = {".mp4", ".mov", ".m4v", ".mkv", ".webm"}
 DEFAULT_SEED_KEYWORDS = ",".join(
     [
@@ -213,6 +217,9 @@ def main() -> int:
         "primary_min_likes": args.primary_min_likes,
         "fallback_min_likes": args.fallback_min_likes,
         "target_min_duration_seconds": args.target_min_duration_seconds,
+        "reserve_selected_videos": args.reserve_selected_videos,
+        "max_videos_per_celebrity": args.max_videos_per_celebrity,
+        "require_deepseek_quality": args.require_deepseek_quality,
         "python": python_bin,
         "run_dir": str(run_dir),
         "selected_dir": str(run_dir / "selected"),
@@ -259,6 +266,10 @@ def main() -> int:
             str(args.tikhub_download_timeout_seconds),
             "--download-max-urls",
             str(args.tikhub_download_max_urls),
+            "--download-reserve-count",
+            str(args.reserve_selected_videos),
+            "--max-videos-per-celebrity",
+            str(args.max_videos_per_celebrity),
             "--processed-manifest",
             str(args.processed_manifest),
             "--output-date",
@@ -284,7 +295,7 @@ def main() -> int:
             "--work-dir",
             str(run_dir),
             "--limit",
-            str(args.limit),
+            str(args.limit + max(0, args.reserve_selected_videos)),
             "--recent-hours",
             str(args.recent_hours),
             "--max-duration-seconds",
@@ -324,6 +335,7 @@ def main() -> int:
         if args.yt_dlp_download:
             discovery_cmd.append("--yt-dlp-download")
     run(discovery_cmd, summary)
+    enforce_selected_diversity(run_dir, args.max_videos_per_celebrity, summary)
 
     selected_dir = run_dir / "selected"
     selected_files = sorted(path for path in selected_dir.glob("*") if path.suffix.lower() in VIDEO_EXTENSIONS)
@@ -372,11 +384,15 @@ def main() -> int:
         args.encoder,
         "--threads",
         str(args.threads),
+        "--target-count",
+        str(args.limit),
     ]
     if args.force:
         kc_cmd.append("--force")
     if args.force_fallback:
         kc_cmd.append("--force-fallback")
+    if args.require_deepseek_quality:
+        kc_cmd.append("--require-deepseek-quality")
     run(kc_cmd, summary)
 
     outputs_list = kc_work_dir / "last_run_outputs.txt"
@@ -404,6 +420,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--search-max", type=int, default=30)
     parser.add_argument("--feed-pages", type=int, default=60)
     parser.add_argument("--download-candidate-multiplier", type=int, default=8)
+    parser.add_argument("--reserve-selected-videos", type=int, default=2)
+    parser.add_argument("--max-videos-per-celebrity", type=int, default=2)
     parser.add_argument("--min-selected-videos", type=int, default=5)
     parser.add_argument("--downloader-link-timeout-seconds", type=int, default=60)
     parser.add_argument("--downloader-concurrency", type=int, default=4)
@@ -440,10 +458,52 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--threads", type=int, default=4)
     parser.add_argument("--force", action="store_true")
     parser.add_argument("--force-fallback", action="store_true")
+    parser.add_argument("--require-deepseek-quality", action=argparse.BooleanOptionalAction, default=False)
     parser.add_argument("--search-only", action="store_true", help="Download selected videos and skip KC packaging.")
     parser.add_argument("--skip-kc", action="store_true", help="Alias for skipping KC packaging after download.")
     parser.add_argument("--install-downloader-deps", action="store_true")
     return parser.parse_args()
+
+
+def enforce_selected_diversity(
+    run_dir: Path,
+    max_videos_per_celebrity: int,
+    summary: dict[str, Any],
+) -> None:
+    metadata_path = run_dir / "reports" / "selected.json"
+    selected_dir = run_dir / "selected"
+    if not metadata_path.exists() or not selected_dir.exists():
+        return
+    try:
+        metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return
+    if not isinstance(metadata, list):
+        return
+
+    from run_douyin_tikhub_daily import diversify_candidates
+
+    diversity_info: dict[str, Any] = {}
+    accepted = diversify_candidates(
+        metadata,
+        max_per_celebrity=max(1, int(max_videos_per_celebrity)),
+        run_info=diversity_info,
+    )
+    accepted_ids = {str(item.get("aweme_id") or "") for item in accepted if item.get("aweme_id")}
+    removed_files: list[str] = []
+    if accepted_ids:
+        for path in selected_dir.iterdir():
+            if not path.is_file() or path.suffix.lower() not in VIDEO_EXTENSIONS:
+                continue
+            aweme_ids = re.findall(r"\d{15,}", path.name)
+            if aweme_ids and not any(aweme_id in accepted_ids for aweme_id in aweme_ids):
+                removed_files.append(path.name)
+                path.unlink()
+    metadata_path.write_text(json.dumps(accepted, ensure_ascii=False, indent=2), encoding="utf-8")
+    summary["celebrity_diversity"] = {
+        **diversity_info.get("celebrity_diversity", {}),
+        "removed_files": removed_files,
+    }
 
 
 def resolve_source_provider(provider: str) -> str:

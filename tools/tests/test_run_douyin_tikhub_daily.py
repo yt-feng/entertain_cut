@@ -186,6 +186,7 @@ class DeepSeekCandidateReviewTests(unittest.TestCase):
                     "editor_score": 80,
                     "comment_hook": "演技是否出圈",
                     "reason": "明星和剧名明确",
+                    "primary_celebrities": ["杨紫"],
                     "verified_entities": ["杨紫"],
                     "discard": False,
                 }
@@ -200,7 +201,45 @@ class DeepSeekCandidateReviewTests(unittest.TestCase):
         messages = request_json.call_args.args[1]
         self.assertIn("JSON", messages[0]["content"])
         self.assertEqual(result[0]["deepseek_editor_score"], 80)
+        self.assertEqual(result[0]["primary_celebrities"], ["杨紫"])
         self.assertEqual(result[0]["verified_entities"], ["杨紫"])
+
+
+class CelebrityDiversityTests(unittest.TestCase):
+    def test_third_video_for_same_celebrity_is_skipped(self) -> None:
+        candidates = [
+            {"aweme_id": "1", "title": "王一博舞台", "quality_score": 100},
+            {"aweme_id": "2", "title": "王一博采访", "quality_score": 90},
+            {"aweme_id": "3", "title": "王一博红毯", "quality_score": 80},
+            {"aweme_id": "4", "title": "肖战舞台", "quality_score": 70},
+        ]
+        run_info: dict = {}
+
+        selected = tikhub.diversify_candidates(candidates, max_per_celebrity=2, run_info=run_info)
+
+        self.assertEqual([item["aweme_id"] for item in selected], ["1", "2", "4"])
+        self.assertEqual(run_info["celebrity_diversity"]["celebrity_counts"]["王一博"], 2)
+        self.assertEqual(run_info["celebrity_diversity"]["skipped_count"], 1)
+
+    def test_deepseek_primary_celebrity_supports_names_outside_static_list(self) -> None:
+        candidates = [
+            {"aweme_id": str(index), "title": "综艺片段", "primary_celebrities": ["颜安"]}
+            for index in range(1, 4)
+        ]
+
+        selected = tikhub.diversify_candidates(candidates, max_per_celebrity=2)
+
+        self.assertEqual([item["aweme_id"] for item in selected], ["1", "2"])
+
+    def test_short_show_title_is_not_mistaken_for_a_celebrity(self) -> None:
+        candidates = [
+            {"aweme_id": str(index), "title": "影视片段", "verified_entities": ["赴山海"]}
+            for index in range(1, 4)
+        ]
+
+        selected = tikhub.diversify_candidates(candidates, max_per_celebrity=2)
+
+        self.assertEqual([item["aweme_id"] for item in selected], ["1", "2", "3"])
 
 
 class TavilyHotContextTests(unittest.TestCase):

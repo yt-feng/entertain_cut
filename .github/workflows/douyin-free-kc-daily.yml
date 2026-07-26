@@ -27,6 +27,11 @@ on:
         required: true
         type: boolean
         default: false
+      quality_api_only:
+        description: "Only test Tavily fact evidence and grounded DeepSeek titles"
+        required: true
+        type: boolean
+        default: false
       selected_artifact_run_id:
         description: "Optional prior run id containing douyin-free-selected-videos; used for KC render test"
         required: false
@@ -104,8 +109,38 @@ jobs:
       - name: Validate DeepSeek API
         run: python tools/deepseek_api_smoke.py
 
+  kc-quality-api-smoke:
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.quality_api_only }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      PYTHONUNBUFFERED: "1"
+      DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+      DEEPSEEK_MODEL: deepseek-v4-flash
+      TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
+    steps:
+      - name: Checkout quality code
+        uses: actions/checkout@v6
+        with:
+          sparse-checkout: |
+            auto_kc_entertain.py
+            deepseek_api.py
+            tools/kc_quality_api_smoke.py
+          sparse-checkout-cone-mode: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Install Pillow
+        run: python -m pip install --retries 5 --timeout 60 pillow
+
+      - name: Validate Tavily and grounded DeepSeek title
+        run: python tools/kc_quality_api_smoke.py
+
   douyin-free-kc-daily:
-    if: ${{ github.event_name != 'workflow_dispatch' || (inputs.hot_context_only != true && inputs.deepseek_api_only != true) }}
+    if: ${{ github.event_name != 'workflow_dispatch' || (inputs.hot_context_only != true && inputs.deepseek_api_only != true && inputs.quality_api_only != true) }}
     runs-on: ubuntu-latest
     timeout-minutes: 240
 
@@ -215,6 +250,8 @@ jobs:
           fi
           if [[ "${{ github.event.inputs.force_fallback }}" == "true" || -z "${DEEPSEEK_API_KEY}" ]]; then
             extra_args+=(--force-fallback)
+          else
+            extra_args+=(--require-deepseek-quality)
           fi
 
           python tools/run_douyin_free_kc_daily.py \
@@ -227,6 +264,8 @@ jobs:
             --max-duration-seconds 300 \
             --search-max 50 \
             --download-candidate-multiplier 8 \
+            --reserve-selected-videos 2 \
+            --max-videos-per-celebrity 2 \
             --min-selected-videos "$KC_LIMIT" \
             --tikhub-max-search-requests 10 \
             --tikhub-daily-budget-usd 0.10 \
@@ -272,6 +311,8 @@ jobs:
           extra_args=()
           if [[ "${{ github.event.inputs.force_fallback }}" == "true" || -z "${DEEPSEEK_API_KEY}" ]]; then
             extra_args+=(--force-fallback)
+          else
+            extra_args+=(--require-deepseek-quality)
           fi
 
           python tools/run_douyin_free_kc_daily.py \
@@ -284,6 +325,8 @@ jobs:
             --search-max 50 \
             --feed-pages 20 \
             --download-candidate-multiplier 8 \
+            --reserve-selected-videos 2 \
+            --max-videos-per-celebrity 2 \
             --min-selected-videos "$KC_LIMIT" \
             --direct-search \
             --direct-download \
@@ -360,6 +403,8 @@ jobs:
           extra_args=()
           if [[ "${{ github.event.inputs.force_fallback }}" == "true" || -z "${DEEPSEEK_API_KEY}" ]]; then
             extra_args+=(--force-fallback)
+          else
+            extra_args+=(--require-deepseek-quality)
           fi
 
           python auto_kc_entertain.py \
@@ -367,6 +412,7 @@ jobs:
             --metadata-file work/douyin_free_daily/latest/reports/selected.json \
             --output-dir "$KC_OUTPUT_DIR" \
             --work-dir work/auto_kc_douyin_free \
+            --target-count "$KC_LIMIT" \
             --encoder libx264 \
             --threads 2 \
             "${extra_args[@]}"
@@ -515,17 +561,33 @@ jobs:
             cp "$originals_dir"/*.mp4 "work/kc_artifact/${KC_OUTPUT_DATE}/oversized-originals/" 2>/dev/null || true
           fi
 
+      - name: Prepare quality reports
+        if: ${{ !cancelled() }}
+        run: |
+          rm -rf work/douyin_reports_artifact
+          mkdir -p work/douyin_reports_artifact/current
+          if [[ -d work/douyin_free_daily/latest/reports ]]; then
+            cp -aL work/douyin_free_daily/latest/reports/. work/douyin_reports_artifact/current/
+          fi
+          if [[ -d work/tikhub_primary_reports ]]; then
+            mkdir -p work/douyin_reports_artifact/tikhub_primary
+            cp -aL work/tikhub_primary_reports/. work/douyin_reports_artifact/tikhub_primary/
+          fi
+
       - name: Upload reports
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v5
         with:
           name: douyin-free-daily-reports
           path: |
-            work/douyin_free_daily/latest/reports
-            work/tikhub_primary_reports
+            work/douyin_reports_artifact
             work/douyin_free_daily/latest/kc_daily_summary.*
             work/auto_kc_douyin_free/last_run_summary.md
             work/auto_kc_douyin_free/last_run_outputs.txt
+            work/auto_kc_douyin_free/**/caption_plan.json
+            work/auto_kc_douyin_free/**/transcript_polished.json
+            work/auto_kc_douyin_free/**/fact_check_evidence.json
+            work/auto_kc_douyin_free/**/quality_skip.json
             work/kc_delivery_summary.json
             work/kc_publish_summary.json
           if-no-files-found: ignore

@@ -266,6 +266,10 @@ python3 render_entertain_vertical.py
 - 只通过 `DEEPSEEK_API_KEY` 环境变量使用
 - GitHub Actions 固定使用 `deepseek-v4-flash` 非思考 JSON 模式；可用 `DEEPSEEK_MODEL` 覆盖模型名
 - 手动运行 `Douyin Free Selected KC Daily` 并勾选 `deepseek_api_only`，可只验证一次 DeepSeek API，不搜索或处理视频
+- 每日选片对同一明星硬限制最多 2 条，并准备 2 条备用候选供质量检查失败时补位
+- Tavily 每天先做 1 次热点搜索，再对实际尝试包装的每条视频最多做 1 次人物/节目/事件核验
+- 云端质量模式要求 DeepSeek 校正 Whisper，标题再经过独立事实审稿，标题锚点和证据必须能回溯到来源；不合格素材跳过并换备用候选
+- 手动勾选 `quality_api_only` 可只验证 Tavily 事实证据与 DeepSeek 标题证据链，不搜索或处理视频
 - `work/caption_plan.json` 只保存字幕内容，不保存密钥
 
 ## 当前输出
