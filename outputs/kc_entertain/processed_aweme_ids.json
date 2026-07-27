@@ -1,7 +1,177 @@
 {
-  "updated_at": "2026-07-26T00:04:39.669401+00:00",
-  "count": 80,
+  "updated_at": "2026-07-27T00:04:21.294848+00:00",
+  "count": 87,
   "items": [
+    {
+      "aweme_id": "7666743458027504485",
+      "url": "https://www.iesdouyin.com/share/video/7666743458027504485/?region=US&mid=7666743411369642815&u_code=0&did=MS4wLjABAAAAzLoXvff1dQk_jBb36jpG32n964cxJLlSdUPS5rcYRj78hfz2ho2tpXXCJanxuM7x&iid=MS4wLjABAAAA4ixE47ukWdQFzQjbOAV_hDIoKQJl24HdR6xsuyW8mjV9qR7EZg60RXaRUmgt3OxV&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=79N0lblllThqhwisisvSVcWsOePUqnFiGmJXwZKRWbQ-&share_version=320900&ts=1785110592&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "现在就出发4三亚录制上班路透～#王楚然 #白敬亭 #范丞丞 #王安宇 #现在就出发4",
+      "author": "有料大明星",
+      "like_count": 14547,
+      "comment_count": 1277,
+      "share_count": 16111,
+      "duration_ms": 19400,
+      "create_time_iso": "2026-07-26T08:00:14+00:00",
+      "known_entities": [
+        "范丞丞",
+        "白敬亭"
+      ],
+      "verified_entities": [
+        "白敬亭",
+        "范丞丞",
+        "现在就出发4"
+      ],
+      "primary_celebrities": [
+        "白敬亭",
+        "范丞丞"
+      ],
+      "quality_score": 258.64799999999997,
+      "output_date": "2026-07-27",
+      "selected_at": "2026-07-27T00:04:21.294848+00:00"
+    },
+    {
+      "aweme_id": "7666807159058216613",
+      "url": "https://www.iesdouyin.com/share/video/7666807159058216613/?region=US&mid=7666807094855338786&u_code=0&did=MS4wLjABAAAAIGSjBpkfzsWc7bpxEWhPSPV6738jOApqBnmCnqNEyds&iid=MS4wLjABAAAAHpZlEC2R0mqm3bVd7hmU5hlAySdaE_wzxpQ0jTXPiuw&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=NLxoODANyySIhlYJP5fBJDm.GDj69Gcqn3y5qat6peI-&share_version=320900&ts=1785110601&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "社会心理学视角深度解析王一博第三名 王一博珠海赛车成绩获得GT3 AM +组别季军，王一博珠海赛车神图史诗级别致感拉满，深度剖析王一博赛车片段细节，王一博或许不是全场最快的车手，但是他是让所有人愿意跑得更快的理由。#王一博 #红绿小磕糖",
+      "author": "🍭红绿·小磕糖",
+      "like_count": 15519,
+      "comment_count": 544,
+      "share_count": 556,
+      "duration_ms": 225467,
+      "create_time_iso": "2026-07-26T12:07:26+00:00",
+      "known_entities": [
+        "王一博"
+      ],
+      "verified_entities": [
+        "王一博"
+      ],
+      "primary_celebrities": [
+        "王一博"
+      ],
+      "quality_score": 257.543,
+      "output_date": "2026-07-27",
+      "selected_at": "2026-07-27T00:04:21.294848+00:00"
+    },
+    {
+      "aweme_id": "7666771087606222107",
+      "url": "https://www.iesdouyin.com/share/video/7666771087606222107/?region=US&mid=7666771148016831278&u_code=0&did=MS4wLjABAAAAIGSjBpkfzsWc7bpxEWhPSPV6738jOApqBnmCnqNEyds&iid=MS4wLjABAAAAHpZlEC2R0mqm3bVd7hmU5hlAySdaE_wzxpQ0jTXPiuw&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=K6P93MDMT6h1vFcuFxwH4rokzUtx6e7fEpHWLjPopRg-&share_version=320900&ts=1785110601&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "王一博完美实现雨道超车！又站上领奖台！所在组别夺得季军，采访表示希望所有车手顺利安全完赛",
+      "author": "潮新闻",
+      "like_count": 17124,
+      "comment_count": 656,
+      "share_count": 939,
+      "duration_ms": 30440,
+      "create_time_iso": "2026-07-26T09:47:33+00:00",
+      "known_entities": [
+        "王一博"
+      ],
+      "verified_entities": [
+        "王一博"
+      ],
+      "primary_celebrities": [
+        "王一博"
+      ],
+      "quality_score": 244.339,
+      "output_date": "2026-07-27",
+      "selected_at": "2026-07-27T00:04:21.294848+00:00"
+    },
+    {
+      "aweme_id": "7666655296344870170",
+      "url": "https://www.iesdouyin.com/share/video/7666655296344870170/?region=US&mid=7255573479536216887&u_code=0&did=MS4wLjABAAAAWU20ZL0Vjpys6WifGIVT2U_fTDewUOe-SXM6Dx-4ORir-hLBuXoGEjWJxOrSgMLi&iid=MS4wLjABAAAAdV2zULwwHdg94bRvZERyfJSLw3U4VTmV2sxysCEAv3orxbeBFBg5CKzyS6JrxIqd&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=TEhjGizepZfyWzwmU_XXKehbuSVeq7N3.Mc5zNMLLIM-&share_version=320900&ts=1785110598&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#你好星期六校园风清凉一夏  #孟子义官宣加入好6团  夏日造型清爽亮相！好6团何炅、檀健次、李雪琴、孟子义、王鹤棣、丁程鑫、杨迪、吴泽林 全员集结， 一同迎接趣味挑战收获满满欢笑！见证更多夏日名场面！#你好星期六",
+      "author": "湖南卫视",
+      "like_count": 6685,
+      "comment_count": 1087,
+      "share_count": 366,
+      "duration_ms": 18575,
+      "create_time_iso": "2026-07-26T02:18:12+00:00",
+      "known_entities": [
+        "檀健次",
+        "王鹤棣",
+        "何炅",
+        "杨迪",
+        "你好星期六"
+      ],
+      "verified_entities": [
+        "你好星期六",
+        "孟子义"
+      ],
+      "primary_celebrities": [
+        "孟子义",
+        "檀健次",
+        "王鹤棣",
+        "何炅",
+        "杨迪"
+      ],
+      "quality_score": 239.917,
+      "output_date": "2026-07-27",
+      "selected_at": "2026-07-27T00:04:21.294848+00:00"
+    },
+    {
+      "aweme_id": "7666698805055589658",
+      "url": "https://www.iesdouyin.com/share/video/7666698805055589658/?region=US&mid=7666698780448164650&u_code=0&did=MS4wLjABAAAAWU20ZL0Vjpys6WifGIVT2U_fTDewUOe-SXM6Dx-4ORir-hLBuXoGEjWJxOrSgMLi&iid=MS4wLjABAAAAdV2zULwwHdg94bRvZERyfJSLw3U4VTmV2sxysCEAv3orxbeBFBg5CKzyS6JrxIqd&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=q3LdfDwfhL4jwnL7pJ_hHjbp_DUOPGfN20KVFIQzrAM-&share_version=320900&ts=1785110598&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "好六终于从女神这要到名分了，好六正式官宣孟子义成为常驻嘉宾#孟子义 #好6",
+      "author": "互联网学姐",
+      "like_count": 35009,
+      "comment_count": 566,
+      "share_count": 2830,
+      "duration_ms": 33878,
+      "create_time_iso": "2026-07-26T05:07:01+00:00",
+      "known_entities": [
+        "你好星期六"
+      ],
+      "verified_entities": [
+        "你好星期六",
+        "孟子义"
+      ],
+      "primary_celebrities": [
+        "孟子义"
+      ],
+      "quality_score": 224.6,
+      "output_date": "2026-07-27",
+      "selected_at": "2026-07-27T00:04:21.294848+00:00"
+    },
+    {
+      "aweme_id": "7666666963468406051",
+      "url": "https://www.iesdouyin.com/share/video/7666666963468406051/?region=US&mid=7666667051158866724&u_code=0&did=MS4wLjABAAAAWU20ZL0Vjpys6WifGIVT2U_fTDewUOe-SXM6Dx-4ORir-hLBuXoGEjWJxOrSgMLi&iid=MS4wLjABAAAAdV2zULwwHdg94bRvZERyfJSLw3U4VTmV2sxysCEAv3orxbeBFBg5CKzyS6JrxIqd&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=OIB_BUupv_bCdL8YcpjWunHRpO9yYO1cIxf1JTFV.Og-&share_version=320900&ts=1785110598&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#孟子义官宣加入好6团  欢迎#孟子义  加入好6团！鲜活热烈是她与生俱来的特质，青涩懵懂是成长赠予的印记，长久沉淀让她愈发沉稳坚定，自信会化作她独有的底色，很幸运能记录子义的成长，期待她的精彩表现！#你好星期六",
+      "author": "湖南卫视",
+      "like_count": 3743,
+      "comment_count": 542,
+      "share_count": 187,
+      "duration_ms": 143777,
+      "create_time_iso": "2026-07-26T03:03:31+00:00",
+      "known_entities": [
+        "你好星期六"
+      ],
+      "verified_entities": [],
+      "primary_celebrities": [],
+      "quality_score": 177.757,
+      "output_date": "2026-07-27",
+      "selected_at": "2026-07-27T00:04:21.294848+00:00"
+    },
+    {
+      "aweme_id": "7666625043993035178",
+      "url": "https://www.iesdouyin.com/share/video/7666625043993035178/?region=US&mid=7666624886013446938&u_code=0&did=MS4wLjABAAAAWU20ZL0Vjpys6WifGIVT2U_fTDewUOe-SXM6Dx-4ORir-hLBuXoGEjWJxOrSgMLi&iid=MS4wLjABAAAAdV2zULwwHdg94bRvZERyfJSLw3U4VTmV2sxysCEAv3orxbeBFBg5CKzyS6JrxIqd&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=ff.u1eYLG5rCFHluXbI8I2TerLnSdslxmdnU7qscDbk-&share_version=320900&ts=1785110598&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "檀健次：那是另外的价钱😂\n檀健次没有偶像包袱，但有卧底包袱#综艺名场面 #檀健次 #天选综艺人 #你好星期六檀健次 #李亦非#李亦非",
+      "author": "想去深圳散心的葡萄柚𝓙𝓒-𝓣",
+      "like_count": 1186,
+      "comment_count": 34,
+      "share_count": 37,
+      "duration_ms": 64552,
+      "create_time_iso": "2026-07-26T00:20:44+00:00",
+      "known_entities": [
+        "檀健次",
+        "你好星期六"
+      ],
+      "verified_entities": [],
+      "primary_celebrities": [
+        "檀健次"
+      ],
+      "quality_score": 163.281,
+      "output_date": "2026-07-27",
+      "selected_at": "2026-07-27T00:04:21.294848+00:00"
+    },
     {
       "aweme_id": "7666227362748566790",
       "url": "https://www.iesdouyin.com/share/video/7666227362748566790/?region=US&mid=7666227313708731163&u_code=0&did=MS4wLjABAAAAx7quHZgb5uX5LlYxX83cqv96YZr_RBTNMyWVBc_oe8Er2xvR-t6ylqTcDUFdSpmD&iid=MS4wLjABAAAA5yJvegqcSI-3ZTpWB3z2gb34qSzuJ9kfMDWroklNv7z7bUo3alJ6VMQ0Lv-bgilz&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=HMMHB9xmP4FEUGl4e3fg1ykbL0zUn6bU6WjZ8G2cOe0-&share_version=320900&ts=1785024220&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
