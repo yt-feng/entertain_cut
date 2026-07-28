@@ -325,16 +325,26 @@ def main() -> int:
         strong_before_fallback,
         max_per_celebrity=max(1, int(args.max_videos_per_celebrity)),
     )
+    diverse_primary_before_fallback = [
+        item
+        for item in diverse_strong_before_fallback
+        if int_or_zero(item.get("engagement_tier_rank")) >= 3
+    ]
     run_info["multiplatform_fallback"] = {
         "enabled": bool(args.multiplatform_fallback),
         "required_strong_candidates": download_target_count(args),
         "douyin_strong_candidates": len(strong_before_fallback),
         "douyin_diverse_strong_candidates": len(diverse_strong_before_fallback),
+        "douyin_diverse_primary_candidates": len(diverse_primary_before_fallback),
         "triggered": False,
     }
     if (
         args.multiplatform_fallback
-        and len(diverse_strong_before_fallback) < download_target_count(args)
+        and needs_multiplatform_fallback(
+            diverse_strong_before_fallback,
+            publish_limit=max(1, int(args.limit)),
+            reserve_target=download_target_count(args),
+        )
         and not run_info.get("tikhub_fatal_error")
     ):
         run_info["multiplatform_fallback"]["triggered"] = True
@@ -720,6 +730,18 @@ def plan_multiplatform_searches(hot_context: dict[str, Any]) -> list[tuple[str, 
         seen.add(key)
         result.append(key)
     return result
+
+
+def needs_multiplatform_fallback(
+    diverse_candidates: list[dict[str, Any]],
+    *,
+    publish_limit: int,
+    reserve_target: int,
+) -> bool:
+    primary_count = sum(
+        int_or_zero(item.get("engagement_tier_rank")) >= 3 for item in diverse_candidates
+    )
+    return len(diverse_candidates) < max(1, reserve_target) or primary_count < max(1, publish_limit)
 
 
 def normalize_platform_response(
@@ -1456,67 +1478,86 @@ def fetch_tavily_context(
         context["errors"].append({"source": "tavily", "error": "TAVILY_API_KEY is not configured"})
         return []
     beijing_today = dt.datetime.now(dt.timezone(dt.timedelta(hours=8))).date().isoformat()
-    query = f"{beijing_today} 今日内娱明星热搜 综艺热播剧 娱乐圈热议"
-    payload = {
-        "query": query,
-        "topic": "general",
-        "country": "china",
-        "time_range": "day",
-        "search_depth": "basic",
-        "max_results": min(10, max(1, max_items)),
-        "include_answer": False,
-        "include_raw_content": False,
-        "include_images": False,
-        "include_usage": True,
-        "include_domains": TAVILY_ENTERTAINMENT_DOMAINS,
-    }
-    try:
-        response = client.post(
-            TAVILY_SEARCH_URL,
-            json=payload,
-            headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
-        )
-        response.raise_for_status()
-        data = response.json()
-    except Exception as exc:  # noqa: BLE001
-        context["errors"].append({"source": "tavily", "query": query, "error": str(exc)})
-        return []
-
-    usage = data.get("usage") if isinstance(data, dict) else None
-    context["tavily_usage"] = {
-        "credits": int_or_zero(usage.get("credits")) if isinstance(usage, dict) else 0,
-        "request_count": 1,
-        "response_time": data.get("response_time") if isinstance(data, dict) else None,
-        "request_id": data.get("request_id") if isinstance(data, dict) else None,
-    }
     items: list[dict[str, str]] = []
     discarded_count = 0
-    results = (data.get("results") or []) if isinstance(data, dict) else []
-    for value in results:
-        if not isinstance(value, dict):
+    usage_summary: dict[str, Any] = {"credits": 0, "request_count": 0, "requests": []}
+    queries = [
+        f"{beijing_today} 今日内娱明星热搜 综艺热播剧 娱乐圈热议",
+        "今日微博热搜 娱乐明星 演唱会 红毯 综艺 新剧",
+    ]
+    for query in queries:
+        payload = {
+            "query": query,
+            "topic": "general",
+            "country": "china",
+            "time_range": "day",
+            "search_depth": "basic",
+            "max_results": min(10, max(1, max_items)),
+            "include_answer": False,
+            "include_raw_content": False,
+            "include_images": False,
+            "include_usage": True,
+            "include_domains": TAVILY_ENTERTAINMENT_DOMAINS,
+        }
+        try:
+            response = client.post(
+                TAVILY_SEARCH_URL,
+                json=payload,
+                headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
+            )
+            response.raise_for_status()
+            data = response.json()
+        except Exception as exc:  # noqa: BLE001
+            usage_summary["request_count"] += 1
+            usage_summary["requests"].append({"query": query, "error": normalize_space(str(exc))[:300]})
+            context["errors"].append({"source": "tavily", "query": query, "error": str(exc)})
             continue
-        if not tavily_entertainment_result(value):
-            discarded_count += 1
-            continue
-        published_date = normalize_space(str(value.get("published_date") or ""))
-        content = normalize_space(str(value.get("content") or ""))
-        items.append(
+
+        usage = data.get("usage") if isinstance(data, dict) else None
+        credits = int_or_zero(usage.get("credits")) if isinstance(usage, dict) else 0
+        usage_summary["credits"] += credits
+        usage_summary["request_count"] += 1
+        usage_summary["requests"].append(
             {
-                "source": "tavily",
                 "query": query,
-                "title": normalize_space(str(value.get("title") or ""))[:240],
-                "snippet": normalize_space(f"{published_date} {content}")[:1000],
-                "url": str(value.get("url") or "")[:500],
+                "credits": credits,
+                "response_time": data.get("response_time") if isinstance(data, dict) else None,
+                "request_id": data.get("request_id") if isinstance(data, dict) else None,
             }
         )
-        if len(items) >= max_items:
+        results = (data.get("results") or []) if isinstance(data, dict) else []
+        for value in results:
+            if not isinstance(value, dict):
+                continue
+            if not tavily_entertainment_result(value):
+                discarded_count += 1
+                continue
+            published_date = normalize_space(str(value.get("published_date") or ""))
+            content = normalize_space(str(value.get("content") or ""))
+            items.append(
+                {
+                    "source": "tavily",
+                    "query": query,
+                    "title": normalize_space(str(value.get("title") or ""))[:240],
+                    "snippet": normalize_space(f"{published_date} {content}")[:1000],
+                    "url": str(value.get("url") or "")[:500],
+                }
+            )
+            if len(items) >= max_items:
+                break
+        if items:
             break
+    context["tavily_usage"] = usage_summary
     context["tavily_discarded_result_count"] = discarded_count
     if items:
         context["sources"].append("tavily")
     else:
         context["errors"].append(
-            {"source": "tavily", "query": query, "error": "No China entertainment result passed relevance checks"}
+            {
+                "source": "tavily",
+                "queries": queries,
+                "error": "No China entertainment result passed relevance checks",
+            }
         )
     return items
 
@@ -1925,6 +1966,7 @@ def deepseek_candidate_review(
                     "for Bilibili, accept the supplied equivalent high-play/high-interaction tier. "
                     "Reject face-to-camera bloggers/commentators explaining entertainment news. "
                     "Do not reward unknown low-context clips, generic compilations, wallpaper/card videos, or dummy reversal bait. "
+                    "Evaluate every supplied candidate and return exactly one verdict for every candidate; do not omit IDs. "
                     "Use only the provided hot-context/search evidence and metadata; do not invent names. "
                     "Return one valid JSON object only, with a top-level items array."
                 ),
@@ -1933,7 +1975,7 @@ def deepseek_candidate_review(
                 "role": "user",
                 "content": json.dumps(
                     {
-                        "goal": "Pick daily KC娱乐 source videos. Need 5 new videos when possible.",
+                        "goal": "Audit and rank every KC娱乐 source candidate, keeping quality reserves for 5 final videos.",
                         "selection_rules": [
                             "必须是过去24小时内发布；同档互动接近时优先更新鲜的。",
                             "至少千赞，优先万赞；B站可采用候选中已标记的高播放+高互动等价档。",
@@ -1943,6 +1985,7 @@ def deepseek_candidate_review(
                             "标题或描述像模板、卡点、壁纸、无水印素材的降权。",
                             "时长只是软偏好，不是硬性淘汰。",
                             "识别每条视频的主要明星；最终同一明星最多出现2条。",
+                            "必须逐条返回所有候选ID；不合格的标 discard=true，不能直接省略。",
                         ],
                         "hot_context_terms": hot_context.get("terms", []),
                         "hot_context_items": hot_context.get("items", [])[:10],
@@ -1990,6 +2033,7 @@ def deepseek_candidate_review(
         item = by_id.get(aweme_id)
         if not item:
             continue
+        item["deepseek_reviewed"] = True
         editor_score = float_or_zero(review.get("editor_score"))
         item["deepseek_editor_score"] = editor_score
         item["deepseek_comment_hook"] = normalize_space(str(review.get("comment_hook") or ""))[:80]
@@ -2021,6 +2065,7 @@ def deepseek_candidate_review(
         accepted,
         key=lambda item: (
             not bool(item.get("deepseek_discard")),
+            bool(item.get("deepseek_reviewed")),
             int_or_zero(item.get("engagement_tier_rank")),
             float(item.get("quality_score") or 0),
             float(item.get("deepseek_editor_score") or 0),

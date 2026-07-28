@@ -175,6 +175,26 @@ class TikHubSearchBudgetTests(unittest.TestCase):
         self.assertEqual({platform for platform, _ in jobs}, {"kuaishou", "bilibili"})
         self.assertIn(("kuaishou", "杨紫 明星"), jobs)
 
+    def test_multiplatform_runs_when_there_are_enough_reserves_but_too_few_primary_clips(self) -> None:
+        candidates = [
+            {"engagement_tier_rank": 3},
+            *({"engagement_tier_rank": 2} for _ in range(7)),
+        ]
+
+        self.assertTrue(
+            tikhub.needs_multiplatform_fallback(candidates, publish_limit=5, reserve_target=8)
+        )
+
+    def test_multiplatform_stays_idle_for_five_primary_and_three_strong_reserves(self) -> None:
+        candidates = [
+            *({"engagement_tier_rank": 3} for _ in range(5)),
+            *({"engagement_tier_rank": 2} for _ in range(3)),
+        ]
+
+        self.assertFalse(
+            tikhub.needs_multiplatform_fallback(candidates, publish_limit=5, reserve_target=8)
+        )
+
 
 class TikHubCandidateSelectionTests(unittest.TestCase):
     def test_current_candidates_fill_by_engagement_tier_without_old_video(self) -> None:
@@ -411,6 +431,36 @@ class DeepSeekCandidateReviewTests(unittest.TestCase):
 
         self.assertEqual([item["aweme_id"] for item in result], ["keep"])
 
+    def test_reviewed_choice_ranks_before_unreviewed_reserve(self) -> None:
+        args = SimpleNamespace(
+            deepseek_candidate_review=True,
+            deepseek_candidate_review_count=30,
+            limit=1,
+            download_candidate_multiplier=2,
+        )
+        selected = [
+            {
+                "aweme_id": "unreviewed",
+                "title": "群星串烧",
+                "quality_score": 300,
+                "engagement_tier_rank": 2,
+            },
+            {
+                "aweme_id": "reviewed",
+                "title": "杨紫综艺现场",
+                "quality_score": 100,
+                "engagement_tier_rank": 2,
+            },
+        ]
+        report = {"items": [{"aweme_id": "reviewed", "editor_score": 80, "discard": False}]}
+
+        with mock.patch.dict("os.environ", {"DEEPSEEK_API_KEY": "test-key"}), mock.patch.object(
+            tikhub, "request_deepseek_json", return_value=report
+        ):
+            result = tikhub.deepseek_candidate_review(args, selected, {"terms": [], "items": []}, {})
+
+        self.assertEqual([item["aweme_id"] for item in result], ["reviewed", "unreviewed"])
+
 
 class CelebrityDiversityTests(unittest.TestCase):
     def test_third_video_for_same_celebrity_is_skipped(self) -> None:
@@ -512,6 +562,34 @@ class TavilyHotContextTests(unittest.TestCase):
         self.assertNotIn("我要上热门", context["douyin_terms"])
         self.assertTrue(context["available"])
         self.assertEqual(context["sources"], ["douyin_search_metadata"])
+
+    def test_tavily_uses_second_hot_query_when_first_query_has_no_entertainment_result(self) -> None:
+        client = FakeClient(
+            [
+                httpx.Response(
+                    200,
+                    request=httpx.Request("POST", tikhub.TAVILY_SEARCH_URL),
+                    json={"results": [{"title": "财经新闻", "content": "市场行情"}], "usage": {"credits": 1}},
+                ),
+                httpx.Response(
+                    200,
+                    request=httpx.Request("POST", tikhub.TAVILY_SEARCH_URL),
+                    json={
+                        "results": [{"title": "杨紫新剧热议", "content": "演员片段登上热搜"}],
+                        "usage": {"credits": 1},
+                    },
+                ),
+            ]
+        )
+        context: dict = {"errors": [], "sources": []}
+
+        with mock.patch.dict("os.environ", {"TAVILY_API_KEY": "test-key"}):
+            items = tikhub.fetch_tavily_context(client, 10, context)
+
+        self.assertEqual(len(client.calls), 2)
+        self.assertEqual(len(items), 1)
+        self.assertEqual(context["tavily_usage"]["credits"], 2)
+        self.assertEqual(context["tavily_usage"]["request_count"], 2)
 
     def test_tavily_headline_entities_rank_before_names_buried_in_snippets(self) -> None:
         items = [
