@@ -1,7 +1,211 @@
 {
-  "updated_at": "2026-07-28T00:06:54.034387+00:00",
-  "count": 89,
+  "updated_at": "2026-07-28T08:10:35.963580+00:00",
+  "count": 97,
   "items": [
+    {
+      "aweme_id": "7667146750456515859",
+      "content_id": "7667146750456515859",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7667146750456515859/?region=CN&mid=7667146772199770926&u_code=h79k346733&did=MS4wLjABAAAA-HeLa1mf2R8ZPgdtce5a1JZrGSKlAtqwii6zuOq-tTlHI2zu9IifdLrlTNtHpfCr&iid=MS4wLjABAAAAO4o5_j8DOfRm9bo0wX5SQCOKnONXnOk7hMGTunznCrfzuaHXDoOyoUrradbwJbdh&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=lwHpn1qRSG.Q_5ADIkuiZjBF8EYSSgljWTtkYOyV8eI-&share_version=390700&ts=1785223585&from_aid=1128&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "杨幂：恋爱得谈，就需要狼狗型#杨幂 #花儿与少年 #芒果综艺名场面",
+      "author": "芒果TV",
+      "like_count": 12652,
+      "comment_count": 1108,
+      "share_count": 18013,
+      "duration_ms": 18344,
+      "create_time_iso": "2026-07-27T12:35:00+00:00",
+      "known_entities": [
+        "杨幂",
+        "花儿与少年",
+        "芒果综艺名场面"
+      ],
+      "verified_entities": [
+        "杨幂",
+        "花儿与少年",
+        "芒果综艺名场面"
+      ],
+      "primary_celebrities": [
+        "杨幂"
+      ],
+      "quality_score": 282.245,
+      "output_date": "2026-07-28",
+      "selected_at": "2026-07-28T08:10:35.963580+00:00"
+    },
+    {
+      "aweme_id": "7667183401950173114",
+      "content_id": "7667183401950173114",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7667183401950173114/?region=US&mid=7667183370136341300&u_code=0&did=MS4wLjABAAAAIH7sp13F78uQxU2E8YiZsyYrJ-kTHDHigReugGZalbl3DkkXj3kdLDhTHmsQKU_O&iid=MS4wLjABAAAACaKzfTHj3iMt5PeW5RV77kfX_JyeEPNdeWMT2VryhUoKOkzwlptRbb9RirDeN3Pk&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=Io09VqIiDfRPdbGQulmShTvroDkLyXHwF.EmoJhs.Rs-&share_version=320900&ts=1785223734&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "谢霆锋演唱会泪如雨下不只是谢贤离去 #名人轶事#名品#名人#明星",
+      "author": "寒导杂货铺",
+      "like_count": 5127,
+      "comment_count": 333,
+      "share_count": 127,
+      "duration_ms": 201802,
+      "create_time_iso": "2026-07-27T22:15:00+00:00",
+      "known_entities": [
+        "名人轶事",
+        "名品",
+        "名人"
+      ],
+      "verified_entities": [
+        "名人轶事"
+      ],
+      "primary_celebrities": [
+        "谢霆锋"
+      ],
+      "quality_score": 239.185,
+      "output_date": "2026-07-28",
+      "selected_at": "2026-07-28T08:10:35.963580+00:00"
+    },
+    {
+      "aweme_id": "7667390955188754011",
+      "content_id": "7667390955188754011",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7667390955188754011/?region=US&mid=6876745059375598349&u_code=0&did=MS4wLjABAAAAIH7sp13F78uQxU2E8YiZsyYrJ-kTHDHigReugGZalbl3DkkXj3kdLDhTHmsQKU_O&iid=MS4wLjABAAAACaKzfTHj3iMt5PeW5RV77kfX_JyeEPNdeWMT2VryhUoKOkzwlptRbb9RirDeN3Pk&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=piygnP8fVxBx419kgtHTuhkwpKQ2Bc2lkRJ7OOd57dk-&share_version=320900&ts=1785223734&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "第一次离你那么近那么近，还跟你合影了，我终于圆梦啦😍要感谢郭富城国际歌迷会，才能和我的偶像这么近距离接触、合影，太开心啦🥰🥰🥳🥳#郭富城杭州演唱会 #郭富城国际歌迷会 #近距离看明星",
+      "author": "陈陈",
+      "like_count": 5786,
+      "comment_count": 123,
+      "share_count": 110,
+      "duration_ms": 15000,
+      "create_time_iso": "2026-07-28T01:52:52+00:00",
+      "known_entities": [
+        "郭富城杭州演唱会",
+        "郭富城国际歌迷会",
+        "近距离看明星"
+      ],
+      "verified_entities": [
+        "郭富城杭州演唱会",
+        "郭富城国际歌迷会"
+      ],
+      "primary_celebrities": [
+        "郭富城"
+      ],
+      "quality_score": 215.674,
+      "output_date": "2026-07-28",
+      "selected_at": "2026-07-28T08:10:35.963580+00:00"
+    },
+    {
+      "aweme_id": "7667424770606505082",
+      "content_id": "7667424770606505082",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7667424770606505082/?region=US&mid=7667424750439762730&u_code=0&did=MS4wLjABAAAAGIHgcR1TjrLHbStyv7EskVRT7l4pWSVIlqwpGzZ0wbghtrUrq6ZxWtj9r37m2Cfs&iid=MS4wLjABAAAAOf4rz7MGlJTOpqH5-aILA6_7e0F6RY_p_c3Rck42O7pDoHHDe17O-pWwDsMuA-nw&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=0vYckI2PMTxdJhDhlMD2zAZhKxkjec80KsG6sd3Z2IM-&share_version=320900&ts=1785223616&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#张柏芝 黑色套装现身线下活动 真不敢相信大儿子都19岁了 这46岁状态如何？",
+      "author": "娱乐圈小蜜",
+      "like_count": 7772,
+      "comment_count": 431,
+      "share_count": 509,
+      "duration_ms": 12100,
+      "create_time_iso": "2026-07-28T04:04:05+00:00",
+      "known_entities": [
+        "张柏芝"
+      ],
+      "verified_entities": [
+        "张柏芝"
+      ],
+      "primary_celebrities": [
+        "张柏芝"
+      ],
+      "quality_score": 214.554,
+      "output_date": "2026-07-28",
+      "selected_at": "2026-07-28T08:10:35.963580+00:00"
+    },
+    {
+      "aweme_id": "7667181168320332991",
+      "content_id": "7667181168320332991",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7667181168320332991/?region=CN&mid=7667181153756924726&u_code=h3c1d3h8&did=MS4wLjABAAAAJK1sRSzeExfZ7Xf1h89hsXKzcK8-C47d1ukrsb5Km9U&iid=MS4wLjABAAAAGIa8WVHydcIke5d1F5yzentHa-wsb0BJHUKvv4HT4gE&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=1XaFU6thJhgwKEghVZGX5vA6llAXUuZy3OKQ6vDIpp0-&share_version=390700&ts=1785217853&from_aid=1128&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "群星对唱完整版#一开口就震惊全场 #经典永流传再忆经典 #港台经典回忆杀 #粤语综艺节目",
+      "author": "大綜藝",
+      "like_count": 2261,
+      "comment_count": 301,
+      "share_count": 568,
+      "duration_ms": 231874,
+      "create_time_iso": "2026-07-27T12:18:47+00:00",
+      "known_entities": [
+        "一开口就震惊全场",
+        "经典永流传再忆经典",
+        "港台经典回忆杀",
+        "粤语综艺节目"
+      ],
+      "verified_entities": [],
+      "primary_celebrities": [],
+      "quality_score": 202.268,
+      "output_date": "2026-07-28",
+      "selected_at": "2026-07-28T08:10:35.963580+00:00"
+    },
+    {
+      "aweme_id": "7667248074335516334",
+      "content_id": "7667248074335516334",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/note/7667248074335516334/?region=CN&mid=7657020018779244596&u_code=27901b8fa1ak&did=MS4wLjABAAAAw8pF4n7bLcAU4Q-9AMABynrhuGyDC4X3Cs-2O_9FeqvQE7uCW6v9XqD3atR5jBo1&iid=MS4wLjABAAAAdlp2nU2kJwbLgaU8kvo-5fSdWOfovMf0aOnFmTUBlmlLI72aInsk79n6tilQBKjC&with_sec_did=1&video_share_track_ver=&titleType=title&schema_type=37&share_sign=vBYQtj6Yzm6vIZx3Pn3yO3ahXiaYirbGCQvpRpL0jj8-&share_version=390600&ts=1785223207&from_aid=1128&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "好欢螺你赢了，这确实是霸霸级别！#檀健次#谢却山#综艺#热点#因为一个片段看了整部剧",
+      "author": "小炭火-刘又又",
+      "like_count": 2109,
+      "comment_count": 56,
+      "share_count": 159,
+      "duration_ms": 33000,
+      "create_time_iso": "2026-07-27T16:38:24+00:00",
+      "known_entities": [
+        "檀健次"
+      ],
+      "verified_entities": [
+        "檀健次"
+      ],
+      "primary_celebrities": [
+        "檀健次"
+      ],
+      "quality_score": 180.167,
+      "output_date": "2026-07-28",
+      "selected_at": "2026-07-28T08:10:35.963580+00:00"
+    },
+    {
+      "aweme_id": "7667423745955733115",
+      "content_id": "7667423745955733115",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7667423745955733115/?region=US&mid=7667423667168529152&u_code=0&did=MS4wLjABAAAA1LGVipmzRGorHG-k5DF7KiY0HU6m_vrn0Vb60Q_SPPg&iid=MS4wLjABAAAAo-jv_ruVJGC1_g-6fvogl_GQKGmBVULxAjtEJhKjj6k&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=o4n9weRnUcsmWoymPy4BT.QomZUtr_6CQtpudfZaXeU-&share_version=320900&ts=1785223607&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "张柏芝亮相北京珠宝活动，状态绝佳，自带独特气场，美人与珠宝相得益彰。\n#张柏芝 #星耀盛典高奢秀 #永远走在时尚最前端",
+      "author": "Lucas和Quintus ．",
+      "like_count": 2045,
+      "comment_count": 255,
+      "share_count": 53,
+      "duration_ms": 46100,
+      "create_time_iso": "2026-07-28T04:00:06+00:00",
+      "known_entities": [
+        "张柏芝"
+      ],
+      "verified_entities": [],
+      "primary_celebrities": [],
+      "quality_score": 175.205,
+      "output_date": "2026-07-28",
+      "selected_at": "2026-07-28T08:10:35.963580+00:00"
+    },
+    {
+      "aweme_id": "7667437624907216355",
+      "content_id": "7667437624907216355",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7667437624907216355/?region=CN&mid=6869039075412674567&u_code=11e28f9k7&did=MS4wLjABAAAAvVwYB_pONpqwK9Cvd2LXoaQ2B71z_5rT1hui3IVCu07vzdKbge_yiiimHN58V_Y9&iid=MS4wLjABAAAAXfdkz50HD7n_tMqE4Hfs7-j9zv4eIrFA-wP6mdrBapJOHUoqeJokNhRdiGRojiu9&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=oNtktOthngu4Bq4X9fSlYd4ZJN3ZG75QafG..FHIpi8-&share_version=390700&ts=1785223526&from_aid=1128&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "我喜欢味精，我喜欢魏菁 #女明星红毯 #女明星活动现场 #红毯 #中华传媒 #美出高级感 选美冠军魏菁出席活动",
+      "author": "中国名媛",
+      "like_count": 3348,
+      "comment_count": 19,
+      "share_count": 382,
+      "duration_ms": 5667,
+      "create_time_iso": "2026-07-28T04:53:58+00:00",
+      "known_entities": [
+        "女明星红毯",
+        "女明星活动现场",
+        "红毯",
+        "中华传媒",
+        "美出高级感"
+      ],
+      "verified_entities": [],
+      "primary_celebrities": [],
+      "quality_score": 169.367,
+      "output_date": "2026-07-28",
+      "selected_at": "2026-07-28T08:10:35.963580+00:00"
+    },
     {
       "aweme_id": "7667195606402422592",
       "url": "https://www.iesdouyin.com/share/video/7667195606402422592/?region=US&mid=7667195600164621107&u_code=0&did=MS4wLjABAAAAh7vPkCiHKFvdbwk1y9sKrY-3NCQILSRudJitSMyYxfxHXHuSsq4u8Hov7jAJrV4L&iid=MS4wLjABAAAAhNnNlbXkINvNjANmFsdFjOepv5irVS-oGVfZwXgNFPv8Da-Rw7kWI0hg4C0muKRD&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=TKS1f4KdrUfmUNVk58sL9PAl4malIt1e5Sxy8FLZgcU-&share_version=320900&ts=1785197195&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
