@@ -36,7 +36,7 @@ TIKHUB_VIDEO_SEARCH_ENDPOINTS = (
     ("general_v1", "https://api.tikhub.io/api/v1/douyin/search/fetch_general_search_v1"),
 )
 TIKHUB_KUAISHOU_SEARCH_URL = "https://api.tikhub.io/api/v1/kuaishou/app/search_comprehensive"
-TIKHUB_BILIBILI_SEARCH_URL = "https://api.tikhub.io/api/v1/bilibili/app/fetch_search_by_type"
+TIKHUB_BILIBILI_SEARCH_URL = "https://api.tikhub.io/api/v1/bilibili/web/fetch_general_search"
 BILIBILI_PUBLIC_VIEW_URL = "https://api.bilibili.com/x/web-interface/view"
 TIKHUB_SEARCH_UNIT_PRICE_USD = 0.01
 TAVILY_SEARCH_URL = "https://api.tavily.com/search"
@@ -59,6 +59,18 @@ HOT_CONTEXT_RELEVANCE_TERMS = [
     "红毯",
     "官宣",
     "工作室",
+]
+HOT_CONTEXT_NEGATIVE_TITLE_TERMS = [
+    "世界杯",
+    "足球",
+    "篮球",
+    "球员",
+    "球队",
+    "总统",
+    "国务卿",
+    "选举",
+    "股市",
+    "财经",
 ]
 GENERIC_HOT_TERMS = {
     "上热门",
@@ -640,12 +652,15 @@ def fetch_multiplatform_candidates(
                 }
             else:
                 endpoint = TIKHUB_BILIBILI_SEARCH_URL
+                now_timestamp = int(dt.datetime.now(dt.timezone.utc).timestamp())
                 params = {
                     "keyword": keyword,
-                    "search_type": "video",
-                    "cursor": "",
+                    "order": "click",
+                    "page": 1,
                     "page_size": 30,
-                    "order": 2,
+                    "duration": 1,
+                    "pubtime_begin_s": max(0, now_timestamp - max(1, int(args.recent_hours)) * 3600),
+                    "pubtime_end_s": now_timestamp,
                 }
 
             attempt: dict[str, Any] = {
@@ -686,7 +701,7 @@ def fetch_multiplatform_candidates(
                     "keyword": keyword,
                     "count": len(items),
                     "sort": "most_likes" if platform == "kuaishou" else "most_plays",
-                    "publish_time": "one_day" if platform == "kuaishou" else "post_filter_24h",
+                    "publish_time": "one_day" if platform == "kuaishou" else "exact_server_window",
                 }
             )
 
@@ -788,7 +803,7 @@ def looks_like_platform_video(platform: str, value: dict[str, Any]) -> bool:
             for key in ("caption", "title", "photourl", "photo_url", "playurl", "play_url", "duration")
         )
         if not has_id and "id" in lowered:
-            has_id = any(
+            has_id = bool(lowered.get("caption") or lowered.get("title")) and any(
                 key in lowered
                 for key in ("photourl", "photo_url", "playurl", "play_url", "duration", "likecount", "like_count")
             )
@@ -1563,10 +1578,12 @@ def fetch_tavily_context(
 
 
 def tavily_entertainment_result(value: dict[str, Any]) -> bool:
-    text = normalize_space(f"{value.get('title', '')} {value.get('content', '')}")
-    return any(term in text for term in HOT_CONTEXT_RELEVANCE_TERMS) or any(
-        entity in text for entity in KNOWN_ENTITIES
-    )
+    title = normalize_space(str(value.get("title") or ""))
+    text = normalize_space(f"{title} {value.get('content', '')}")
+    celebrity_match = any(entity in text for entity in CELEBRITY_ENTITIES)
+    if any(term in title for term in HOT_CONTEXT_NEGATIVE_TITLE_TERMS) and not celebrity_match:
+        return False
+    return celebrity_match or any(term in title for term in HOT_CONTEXT_RELEVANCE_TERMS)
 
 
 def fetch_hotspot_assistant_context(

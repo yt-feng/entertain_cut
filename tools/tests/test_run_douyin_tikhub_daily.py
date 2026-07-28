@@ -174,6 +174,7 @@ class TikHubSearchBudgetTests(unittest.TestCase):
         self.assertEqual(len(jobs), 5)
         self.assertEqual({platform for platform, _ in jobs}, {"kuaishou", "bilibili"})
         self.assertIn(("kuaishou", "杨紫 明星"), jobs)
+        self.assertTrue(tikhub.TIKHUB_BILIBILI_SEARCH_URL.endswith("/bilibili/web/fetch_general_search"))
 
     def test_multiplatform_runs_when_there_are_enough_reserves_but_too_few_primary_clips(self) -> None:
         candidates = [
@@ -590,6 +591,14 @@ class TavilyHotContextTests(unittest.TestCase):
         self.assertEqual(len(items), 1)
         self.assertEqual(context["tavily_usage"]["credits"], 2)
         self.assertEqual(context["tavily_usage"]["request_count"], 2)
+
+    def test_world_cup_story_is_not_mistaken_for_chinese_entertainment(self) -> None:
+        result = {
+            "title": "2026年世界杯",
+            "content": "美国歌手和明星球员出席开幕式，总统也将到场。",
+        }
+
+        self.assertFalse(tikhub.tavily_entertainment_result(result))
 
     def test_tavily_headline_entities_rank_before_names_buried_in_snippets(self) -> None:
         items = [
