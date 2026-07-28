@@ -55,6 +55,24 @@ class PrepareKcDeliveryTests(unittest.TestCase):
             self.assertEqual(report["selected_count"], 0)
             self.assertEqual(outputs_file.read_text(encoding="utf-8"), "")
 
+    def test_unlisted_previous_run_files_do_not_fill_current_run(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            output_dir = root / "output"
+            output_dir.mkdir()
+            current = output_dir / "current.mp4"
+            previous = output_dir / "previous.mp4"
+            current.write_bytes(b"current")
+            previous.write_bytes(b"previous")
+            outputs_file = root / "outputs.txt"
+            outputs_file.write_text(f"{current}\n", encoding="utf-8")
+
+            report = delivery.prepare_delivery(output_dir=output_dir, outputs_file=outputs_file, limit=2)
+
+            self.assertFalse(report["ready"])
+            self.assertEqual(report["selected_count"], 1)
+            self.assertFalse(previous.exists())
+
     def test_prunes_extra_outputs_using_last_run_order(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)

@@ -8,10 +8,11 @@ import json
 import os
 import shutil
 import subprocess
+import xml.etree.ElementTree as ET
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from typing import Any
-from urllib.parse import quote
+from urllib.parse import quote, unquote, urlparse
 
 
 DEFAULT_GIT_MAX_BYTES = 99 * 1024 * 1024
@@ -37,6 +38,7 @@ def main() -> int:
         webdav_upload_concurrency=args.webdav_upload_concurrency,
         webdav_user=os.environ.get("JIANGUOYUN_WEBDAV_USER", "").strip(),
         webdav_password=os.environ.get("JIANGUOYUN_WEBDAV_PASSWORD", "").strip(),
+        webdav_prune_extra=args.webdav_prune_extra,
     )
     args.summary_file.parent.mkdir(parents=True, exist_ok=True)
     args.summary_file.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
@@ -67,6 +69,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--webdav-base-url", default=DEFAULT_WEBDAV_BASE_URL)
     parser.add_argument("--webdav-root", default=DEFAULT_WEBDAV_ROOT)
     parser.add_argument("--webdav-category", default=DEFAULT_WEBDAV_CATEGORY)
+    parser.add_argument("--webdav-prune-extra", action=argparse.BooleanOptionalAction, default=False)
     parser.add_argument(
         "--webdav-upload-concurrency",
         type=int,
@@ -89,6 +92,7 @@ def process_directory(
     webdav_user: str,
     webdav_password: str,
     webdav_upload_concurrency: int = DEFAULT_WEBDAV_UPLOAD_CONCURRENCY,
+    webdav_prune_extra: bool = False,
 ) -> dict[str, Any]:
     output_dir = output_dir.resolve()
     videos = sorted(path for path in output_dir.glob("*.mp4") if path.is_file())
@@ -124,6 +128,21 @@ def process_directory(
         webdav_password,
         concurrency=webdav_upload_concurrency,
     )
+    all_uploaded = bool(videos) and all(bool(upload_results.get(video, {}).get("success")) for video in videos)
+    if webdav_prune_extra and all_uploaded:
+        prune_result = prune_extra_webdav_videos(
+            remote_directory_url,
+            {video.name for video in videos},
+            webdav_user,
+            webdav_password,
+        )
+    else:
+        prune_result = {
+            "attempted": False,
+            "success": not webdav_prune_extra,
+            "reason": "disabled" if not webdav_prune_extra else "not all current videos uploaded",
+            "deleted": [],
+        }
 
     report: dict[str, Any] = {
         "output_date": output_date,
@@ -133,6 +152,7 @@ def process_directory(
         "remote_directory": remote_directory_url,
         "webdav_directory": directory_result,
         "webdav_upload_concurrency": max(1, webdav_upload_concurrency),
+        "webdav_prune": prune_result,
         "files": [],
     }
 
@@ -312,6 +332,93 @@ def upload_webdav_file(
         "url": url,
         "error": "" if success else result.get("error", "HTTP upload failed"),
     }
+
+
+def prune_extra_webdav_videos(
+    remote_directory_url: str,
+    expected_names: set[str],
+    username: str,
+    password: str,
+) -> dict[str, Any]:
+    listing = list_webdav_videos(remote_directory_url, username, password)
+    if not listing.get("success"):
+        return {"attempted": True, "success": False, "deleted": [], "listing": listing}
+    extras = sorted(set(listing.get("names", [])) - expected_names)
+    deleted: list[str] = []
+    errors: list[dict[str, Any]] = []
+    for name in extras:
+        url = remote_directory_url.rstrip("/") + "/" + quote(name, safe="")
+        result = run_curl(["--request", "DELETE", url], username, password, timeout_seconds=120)
+        if result.get("http_status") in {200, 204, 404}:
+            deleted.append(name)
+            print(f"Removed superseded Jianguoyun file: {name}")
+        else:
+            errors.append({"name": name, **result})
+    return {
+        "attempted": True,
+        "success": not errors,
+        "deleted": deleted,
+        "errors": errors,
+        "listed_count": len(listing.get("names", [])),
+    }
+
+
+def list_webdav_videos(remote_directory_url: str, username: str, password: str) -> dict[str, Any]:
+    if not shutil.which("curl"):
+        return {"success": False, "reason": "curl is unavailable", "names": []}
+    command = [
+        "curl",
+        "--silent",
+        "--show-error",
+        "--retry",
+        "2",
+        "--retry-all-errors",
+        "--connect-timeout",
+        "20",
+        "--max-time",
+        "120",
+        "--user",
+        f"{username}:{password}",
+        "--request",
+        "PROPFIND",
+        "--header",
+        "Depth: 1",
+        "--output",
+        "-",
+        "--write-out",
+        "\n%{http_code}",
+        remote_directory_url,
+    ]
+    try:
+        completed = subprocess.run(command, check=False, capture_output=True, text=True, timeout=150)
+    except (OSError, subprocess.TimeoutExpired) as exc:
+        return {"success": False, "reason": str(exc), "names": []}
+    body, separator, raw_status = completed.stdout.rpartition("\n")
+    http_status = int(raw_status) if separator and raw_status.isdigit() else 0
+    if http_status not in {200, 207}:
+        return {
+            "success": False,
+            "reason": f"PROPFIND failed with HTTP {http_status or 'transport error'}",
+            "error": completed.stderr.strip()[-1000:],
+            "names": [],
+        }
+    try:
+        names = parse_webdav_video_names(body)
+    except ET.ParseError as exc:
+        return {"success": False, "reason": f"invalid PROPFIND XML: {exc}", "names": []}
+    return {"success": True, "http_status": http_status, "names": names}
+
+
+def parse_webdav_video_names(xml_text: str) -> list[str]:
+    root = ET.fromstring(xml_text)
+    names: list[str] = []
+    for href_node in root.findall(".//{DAV:}href"):
+        href = str(href_node.text or "")
+        path = unquote(urlparse(href).path).rstrip("/")
+        name = path.rsplit("/", 1)[-1] if path else ""
+        if name.lower().endswith(".mp4") and name not in names:
+            names.append(name)
+    return names
 
 
 def run_curl(

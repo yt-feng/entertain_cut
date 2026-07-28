@@ -150,10 +150,21 @@ def main() -> None:
     manifest = load_manifest(args.work_dir)
     outputs: list[Path] = []
     existing_outputs: list[Path] = []
+    source_failures: list[dict[str, Any]] = []
     for source in sources:
         if args.target_count > 0 and len(outputs) + len(existing_outputs) >= args.target_count:
             break
-        output = process_one(source, args, api_key, manifest, metadata_for_source(source, metadata_index))
+        try:
+            output = process_one(source, args, api_key, manifest, metadata_for_source(source, metadata_index))
+        except Exception as exc:  # noqa: BLE001 - one malformed source must not abort reserve candidates.
+            failure = write_source_failure(args.work_dir, source, exc)
+            source_failures.append(failure)
+            print(
+                f"::warning::Skipping source after {failure['exception_type']}: "
+                f"{source.name}: {failure['reason']}",
+                flush=True,
+            )
+            continue
         if output is not None:
             outputs.append(output)
         elif not args.force:
@@ -161,7 +172,7 @@ def main() -> None:
             if existing_output is not None:
                 existing_outputs.append(existing_output)
     save_manifest(args.work_dir, manifest)
-    write_run_summary(args.work_dir, sources, outputs, existing_outputs)
+    write_run_summary(args.work_dir, sources, outputs, existing_outputs, source_failures)
     reveal_in_finder(outputs + existing_outputs)
 
     if outputs:
@@ -174,6 +185,12 @@ def main() -> None:
             print(f"  {output}")
     else:
         print("No new videos to process. Use --force to regenerate existing outputs.")
+    delivered_count = len(outputs) + len(existing_outputs)
+    if args.target_count > 0 and delivered_count < args.target_count:
+        raise SystemExit(
+            f"KC packaging produced {delivered_count}/{args.target_count} videos after trying "
+            f"{len(sources)} current-run sources."
+        )
 
 
 def find_sources(source: Path | None, input_dir: Path, *, latest_only: bool) -> list[Path]:
@@ -317,6 +334,7 @@ def process_one(
     plan = fallback_plan(source.stem, transcript, duration, source_metadata)
     plan_issues: list[str] = []
     title_audited = False
+    title_revision_count = 0
     announce("5/7 根据当前视频重新生成 KC 娱乐包装方案")
     if api_key and not args.force_fallback:
         try:
@@ -326,8 +344,13 @@ def process_one(
             title_audited = True
             plan, audit_issues = apply_title_audit(plan, audit)
             plan_issues = audit_issues + plan_accuracy_issues(plan, analysis)
-            if plan_issues:
-                print(f"DeepSeek title quality check requested one revision: {'; '.join(plan_issues)}", flush=True)
+            while plan_issues and title_revision_count < 2:
+                title_revision_count += 1
+                print(
+                    f"DeepSeek title quality check requested revision {title_revision_count}/2: "
+                    f"{'; '.join(plan_issues)}",
+                    flush=True,
+                )
                 plan = revise_deepseek_plan(api_key, analysis, plan, plan_issues)
                 plan_issues = plan_accuracy_issues(plan, analysis)
                 if not plan_issues:
@@ -355,6 +378,7 @@ def process_one(
             "title_audited": title_audited,
             "title_evidence_validated": not plan_issues,
             "tavily_fact_check": bool(fact_evidence.get("tavily_usage", {}).get("request_count")),
+            "title_revision_count": title_revision_count,
         },
     )
 
@@ -435,6 +459,20 @@ def skip_quality_source(task_dir: Path, stage: str, reason: str) -> None:
     return None
 
 
+def write_source_failure(work_dir: Path, source: Path, exc: Exception) -> dict[str, Any]:
+    report = {
+        "source": source.name,
+        "exception_type": type(exc).__name__,
+        "reason": normalize_space(str(exc))[:2000],
+        "recorded_at": datetime.now().isoformat(timespec="seconds"),
+    }
+    failure_dir = work_dir / "source_failures"
+    failure_dir.mkdir(parents=True, exist_ok=True)
+    report_path = failure_dir / f"{safe_slug(source.stem)}.json"
+    report_path.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+    return report
+
+
 def ask_deepseek(api_key: str, analysis: dict[str, Any]) -> dict[str, Any]:
     messages = [
             {
@@ -513,10 +551,11 @@ def revise_deepseek_plan(
     messages = [
         {
             "role": "system",
-            "content": (
-                "You are KC娱乐's final factual copy editor. Correct the proposed packaging plan using only the "
-                "trusted source snapshot. Return one valid JSON object only. Never add a person, event, emotion, "
-                "controversy or outcome that is not explicitly supported. Keep all required plan fields."
+                "content": (
+                    "You are KC娱乐's final factual copy editor. Correct the proposed packaging plan using only the "
+                    "trusted source snapshot. Return one valid JSON object only. Never add a person, event, emotion, "
+                    "controversy or outcome that is not explicitly supported. Keep all required plan fields. "
+                    "Each of the two title lines must contain at most 12 characters, including punctuation."
             ),
         },
         {
@@ -544,7 +583,8 @@ def revise_deepseek_plan(
                     ],
                     "instruction": (
                         "Rewrite the title and any unsupported copy. title_evidence must contain 1-3 exact short "
-                        "quotes from source_metadata, transcript_text or visual_text. Preserve usable timed subtitles."
+                        "quotes from source_metadata, transcript_text or visual_text. Preserve usable timed subtitles. "
+                        "Return exactly two title lines and make each line at most 12 characters."
                     ),
                 },
                 ensure_ascii=False,
@@ -1725,6 +1765,7 @@ def index_source_metadata(data: Any) -> dict[str, dict[str, Any]]:
             continue
         keys = [
             str(item.get("aweme_id") or ""),
+            str(item.get("content_id") or ""),
             str(item.get("id") or ""),
             str(item.get("file") or ""),
             str(item.get("filename") or ""),
@@ -1744,6 +1785,10 @@ def metadata_for_source(source: Path, metadata_index: dict[str, dict[str, Any]])
     for aweme_id in re.findall(r"\d{15,}", source.name):
         if aweme_id in metadata_index:
             return metadata_index[aweme_id]
+    for content_id, metadata in metadata_index.items():
+        safe_id = re.sub(r"[^0-9A-Za-z_.-]+", "_", content_id).strip("_.")
+        if len(safe_id) >= 4 and safe_id in source.name:
+            return metadata
     return {}
 
 
@@ -1759,6 +1804,8 @@ def metadata_search_text(source_metadata: dict[str, Any]) -> str:
 def compact_source_metadata(source_metadata: dict[str, Any]) -> dict[str, Any]:
     scalar_keys = (
         "aweme_id",
+        "content_id",
+        "platform",
         "title",
         "desc",
         "caption",
@@ -1767,6 +1814,10 @@ def compact_source_metadata(source_metadata: dict[str, Any]) -> dict[str, Any]:
         "like_count",
         "comment_count",
         "share_count",
+        "play_count",
+        "engagement_tier",
+        "engagement_signal",
+        "age_hours",
         "create_time_iso",
         "deepseek_comment_hook",
         "deepseek_reason",
@@ -1820,6 +1871,7 @@ def write_run_summary(
     sources: list[Path],
     outputs: list[Path],
     existing_outputs: list[Path],
+    source_failures: list[dict[str, Any]] | None = None,
 ) -> None:
     work_dir.mkdir(parents=True, exist_ok=True)
     outputs_path = work_dir / "last_run_outputs.txt"
@@ -1836,6 +1888,7 @@ def write_run_summary(
         f"- 扫描视频数：{len(sources)}",
         f"- 新生成成片数：{len(outputs)}",
         f"- 已存在成片数：{len(existing_outputs)}",
+        f"- 单片异常跳过数：{len(source_failures or [])}",
         "",
         "## 成片",
     ]
@@ -2049,7 +2102,12 @@ def probe_media(path: Path) -> dict[str, float]:
             width = int(stream.get("width", 0))
             height = int(stream.get("height", 0))
             break
-    return {"duration": float(data["format"]["duration"]), "width": float(width), "height": float(height)}
+    duration = float(data["format"]["duration"])
+    if duration <= 0 or width <= 0 or height <= 0:
+        raise ValueError(
+            f"source has no decodable video stream: duration={duration:.3f}, width={width}, height={height}"
+        )
+    return {"duration": duration, "width": float(width), "height": float(height)}
 
 
 def whisper_cli() -> str:

@@ -260,15 +260,17 @@ jobs:
             --recent-hours 24 \
             --primary-min-likes 10000 \
             --fallback-min-likes 1000 \
+            --emergency-min-likes 1000 \
             --target-min-duration-seconds 60 \
             --max-duration-seconds 300 \
             --search-max 50 \
             --download-candidate-multiplier 8 \
-            --reserve-selected-videos 2 \
+            --reserve-selected-videos 3 \
             --max-videos-per-celebrity 2 \
             --min-selected-videos "$KC_LIMIT" \
-            --tikhub-max-search-requests 10 \
-            --tikhub-daily-budget-usd 0.10 \
+            --tikhub-max-search-requests 15 \
+            --tikhub-douyin-search-requests 10 \
+            --tikhub-daily-budget-usd 0.15 \
             --tikhub-filter-duration auto \
             --hot-context \
             --hot-context-provider tavily \
@@ -320,12 +322,15 @@ jobs:
             --install-downloader-deps \
             --limit "$KC_LIMIT" \
             --recent-hours 24 \
+            --primary-min-likes 10000 \
+            --fallback-min-likes 1000 \
+            --emergency-min-likes 1000 \
             --target-min-duration-seconds 60 \
             --max-duration-seconds 300 \
             --search-max 50 \
             --feed-pages 20 \
             --download-candidate-multiplier 8 \
-            --reserve-selected-videos 2 \
+            --reserve-selected-videos 3 \
             --max-videos-per-celebrity 2 \
             --min-selected-videos "$KC_LIMIT" \
             --direct-search \
@@ -471,6 +476,11 @@ jobs:
         if: ${{ !cancelled() && (github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true') }}
         continue-on-error: true
         run: |
+          ready="$(python -c 'import json; print(str(bool(json.load(open("work/kc_delivery_summary.json")).get("ready"))).lower())' 2>/dev/null || echo false)"
+          if [[ "$ready" != "true" ]]; then
+            echo "Current run did not produce five videos; skipping partial WebDAV upload."
+            exit 0
+          fi
           for attempt in 1 2; do
             python tools/publish_kc_videos.py \
               --output-dir "$KC_OUTPUT_DIR" \
@@ -483,6 +493,7 @@ jobs:
               --webdav-base-url "https://dav.jianguoyun.com/dav/" \
               --webdav-root "我的坚果云/KCdesk/Ops" \
               --webdav-category "KC娱乐" \
+              --webdav-prune-extra \
               --webdav-upload-concurrency 3
             uploaded="$(python -c 'import json; print(json.load(open("work/kc_publish_summary.json"))["webdav_uploaded_count"])' 2>/dev/null || echo 0)"
             if (( uploaded >= KC_LIMIT )); then
@@ -498,6 +509,12 @@ jobs:
         if: ${{ !cancelled() && (github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true') }}
         continue-on-error: true
         run: |
+          ready="$(python -c 'import json; print(str(bool(json.load(open("work/kc_delivery_summary.json")).get("ready"))).lower())' 2>/dev/null || echo false)"
+          uploaded="$(python -c 'import json; print(json.load(open("work/kc_publish_summary.json"))["webdav_uploaded_count"])' 2>/dev/null || echo 0)"
+          if [[ "$ready" != "true" || "$uploaded" -lt "$KC_LIMIT" ]]; then
+            echo "Daily delivery is incomplete; skipping the Git commit."
+            exit 0
+          fi
           shopt -s nullglob
           videos=("$KC_OUTPUT_DIR"/*.mp4)
           if [[ "${#videos[@]}" -eq 0 ]]; then
@@ -507,6 +524,7 @@ jobs:
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -u -- "$KC_OUTPUT_DIR"
           safe_count=0
           skipped_count=0
           for video in "${videos[@]}"; do
@@ -588,6 +606,7 @@ jobs:
             work/auto_kc_douyin_free/**/transcript_polished.json
             work/auto_kc_douyin_free/**/fact_check_evidence.json
             work/auto_kc_douyin_free/**/quality_skip.json
+            work/auto_kc_douyin_free/source_failures/*.json
             work/kc_delivery_summary.json
             work/kc_publish_summary.json
           if-no-files-found: ignore

@@ -170,21 +170,11 @@ def main() -> int:
         args.recent_hours,
         args.primary_min_likes,
         args.fallback_min_likes,
+        args.emergency_min_likes,
         args.max_duration_seconds,
         args.must_include_terms,
         args.exclude_terms,
     )
-    if not args.search_only and len(selected) < max(requested_limit, minimum_download_count):
-        selected = backfill_candidates(
-            selected,
-            candidates,
-            candidate_limit,
-            args.recent_hours,
-            args.fallback_min_likes,
-            args.max_duration_seconds,
-            args.exclude_terms,
-        )
-        run_info["candidate_backfill_count"] = len(selected)
     write_reports(reports_dir, hot_items, keywords, candidates, selected, run_info)
 
     if not selected:
@@ -201,17 +191,17 @@ def main() -> int:
                 flush=True,
             )
         remaining = [item for item in selected if str(item.get("aweme_id") or "") not in downloaded_ids]
-        if count_selected_files(selected_dir) >= minimum_download_count:
+        if count_selected_files(selected_dir) >= requested_limit:
             remaining = []
         if remaining and args.yt_dlp_download:
-            downloaded_ids.update(download_selected_ytdlp(args, download_dir, selected_dir, remaining, selected, minimum_download_count, run_info))
+            downloaded_ids.update(download_selected_ytdlp(args, download_dir, selected_dir, remaining, selected, requested_limit, run_info))
             remaining = [item for item in selected if str(item.get("aweme_id") or "") not in downloaded_ids]
             print(
                 f"yt-dlp selected files: {count_selected_files(selected_dir)}/{requested_limit} "
                 f"(minimum {minimum_download_count})",
                 flush=True,
             )
-            if count_selected_files(selected_dir) >= minimum_download_count:
+            if count_selected_files(selected_dir) >= requested_limit:
                 remaining = []
         if remaining and args.downloader_fallback:
             download_selected_with_downloader(
@@ -222,7 +212,7 @@ def main() -> int:
                 download_config_path,
                 remaining,
                 selected,
-                minimum_download_count,
+                requested_limit,
                 run_info,
             )
             print(
@@ -266,6 +256,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--recent-hours", type=int, default=24)
     parser.add_argument("--primary-min-likes", type=int, default=10_000)
     parser.add_argument("--fallback-min-likes", type=int, default=1_000)
+    parser.add_argument("--emergency-min-likes", type=int, default=1_000)
     parser.add_argument("--feed-pages", type=int, default=20)
     parser.add_argument("--feed-min-pages", type=int, default=3)
     parser.add_argument("--feed-count", type=int, default=30)
@@ -746,6 +737,7 @@ def select_candidates(
     recent_hours: int,
     primary_min_likes: int,
     fallback_min_likes: int,
+    emergency_min_likes: int,
     max_duration_seconds: int,
     must_include_terms: str = "",
     exclude_terms: str = "",
@@ -756,7 +748,7 @@ def select_candidates(
         short_candidates = [
             item for item in candidates if not item_duration_ms(item) or item_duration_ms(item) <= max_duration_ms
         ]
-        scoped_candidates = short_candidates if short_candidates else candidates
+        scoped_candidates = short_candidates
     else:
         scoped_candidates = candidates
 
@@ -765,8 +757,7 @@ def select_candidates(
     if exclude_terms_list:
         scoped_candidates = [item for item in scoped_candidates if not matches_any_term(item, exclude_terms_list)]
     if include_terms:
-        included = [item for item in scoped_candidates if matches_any_term(item, include_terms)]
-        scoped_candidates = included
+        scoped_candidates = [item for item in scoped_candidates if matches_any_term(item, include_terms)]
 
     recent: list[dict[str, Any]] = []
     for item in scoped_candidates:
@@ -774,19 +765,29 @@ def select_candidates(
         if created and recent_hours > 0 and 0 <= now - created <= recent_hours * 3600:
             recent.append(item)
 
-    def threshold_pool(pool: list[dict[str, Any]]) -> list[dict[str, Any]]:
-        primary_pool = [item for item in pool if as_int(item.get("like_count")) >= primary_min_likes]
-        fallback_pool = [item for item in pool if as_int(item.get("like_count")) >= fallback_min_likes]
-        if len(primary_pool) >= max(1, limit):
-            return primary_pool
-        if len(fallback_pool) >= max(1, limit):
-            return fallback_pool
-        return pool
+    emergency_min_likes = min(max(0, int(emergency_min_likes)), max(0, int(fallback_min_likes)))
+    if recent_hours > 0:
+        scoped_candidates = recent
+    scoped_candidates = [
+        item for item in scoped_candidates if as_int(item.get("like_count")) >= emergency_min_likes
+    ]
+    for item in scoped_candidates:
+        likes = as_int(item.get("like_count"))
+        if likes >= primary_min_likes:
+            item["engagement_tier"] = "primary"
+            item["engagement_tier_rank"] = 3
+        elif likes >= fallback_min_likes:
+            item["engagement_tier"] = "fallback"
+            item["engagement_tier_rank"] = 2
+        else:
+            item["engagement_tier"] = "emergency"
+            item["engagement_tier_rank"] = 1
 
     def ranked(pool: list[dict[str, Any]]) -> list[dict[str, Any]]:
         return sorted(
             pool,
             key=lambda item: (
+                as_int(item.get("engagement_tier_rank")),
                 as_int(item.get("like_count")),
                 as_int(item.get("comment_count")) + as_int(item.get("share_count")),
                 as_int(item.get("play_count")),
@@ -794,57 +795,7 @@ def select_candidates(
             reverse=True,
         )
 
-    selected: list[dict[str, Any]] = []
-    seen_ids: set[str] = set()
-    pools = [recent, scoped_candidates] if recent_hours > 0 else [scoped_candidates]
-    for pool in pools:
-        for item in ranked(threshold_pool(pool)):
-            aweme_id = str(item.get("aweme_id") or "")
-            if aweme_id in seen_ids:
-                continue
-            selected.append(item)
-            if aweme_id:
-                seen_ids.add(aweme_id)
-            if len(selected) >= max(0, limit):
-                return selected
-    return selected
-
-
-def backfill_candidates(
-    selected: list[dict[str, Any]],
-    candidates: list[dict[str, Any]],
-    limit: int,
-    recent_hours: int,
-    fallback_min_likes: int,
-    max_duration_seconds: int,
-    exclude_terms: str,
-) -> list[dict[str, Any]]:
-    existing_keys = {candidate_key(item) for item in selected}
-    filled = list(selected)
-    broad_candidates = select_candidates(
-        candidates,
-        limit,
-        recent_hours,
-        fallback_min_likes,
-        0,
-        max_duration_seconds,
-        "",
-        exclude_terms,
-    )
-    for item in broad_candidates:
-        key = candidate_key(item)
-        if key in existing_keys:
-            continue
-        item["_free_daily_backfill"] = True
-        filled.append(item)
-        existing_keys.add(key)
-        if len(filled) >= max(0, limit):
-            break
-    return filled
-
-
-def candidate_key(item: dict[str, Any]) -> str:
-    return str(item.get("aweme_id") or item.get("url") or item.get("title") or id(item))
+    return ranked(scoped_candidates)[: max(0, limit)]
 
 
 def split_terms(raw: str) -> list[str]:
@@ -852,7 +803,7 @@ def split_terms(raw: str) -> list[str]:
 
 
 def matches_any_term(item: dict[str, Any], terms: list[str]) -> bool:
-    text = " ".join(str(item.get(key) or "") for key in ("title", "author", "source_keyword", "aweme_id"))
+    text = " ".join(str(item.get(key) or "") for key in ("title", "author"))
     return any(term in text for term in terms)
 
 

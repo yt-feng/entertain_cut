@@ -46,7 +46,7 @@ def prepare_delivery(
 ) -> dict[str, Any]:
     output_dir.mkdir(parents=True, exist_ok=True)
     preferred = read_preferred_outputs(outputs_file, output_dir)
-    current = preferred + [path for path in root_videos(output_dir) if path not in preferred]
+    current = preferred
     selected = current[:limit]
     selected_set = {path.resolve() for path in selected}
     removed: list[str] = []

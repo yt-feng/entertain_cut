@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.util
+import datetime as dt
 import unittest
 from pathlib import Path
 from types import SimpleNamespace
@@ -147,15 +148,196 @@ class TikHubSearchBudgetTests(unittest.TestCase):
 
         self.assertEqual(planned, seeds)
 
-    def test_hot_terms_keep_half_the_plan_for_broad_keywords(self) -> None:
+    def test_broad_keywords_receive_eighty_percent_of_search_budget(self) -> None:
         args = SimpleNamespace(max_search_requests=10)
-        seeds = ["娱乐", "明星", "娱乐圈", "综艺", "热播剧 演员", "明星 评论区"]
+        seeds = ["娱乐", "明星", "娱乐圈", "综艺", "热播剧 演员", "明星 评论区", "明星 采访", "明星 舞台"]
         hot_context = {"terms": ["杨紫", "赵丽颖", "刘亦菲", "白鹿", "王一博", "肖战"]}
 
         planned = tikhub.plan_search_keywords(args, seeds, hot_context)
 
-        self.assertEqual(planned[:5], ["杨紫 热议", "赵丽颖 热议", "刘亦菲 热议", "白鹿 热议", "王一博 热议"])
-        self.assertEqual(planned[5:], seeds[:5])
+        self.assertEqual(planned[:2], ["杨紫 热议", "赵丽颖 热议"])
+        self.assertEqual(planned[2:], seeds)
+
+    def test_fifteen_request_budget_reserves_five_for_other_platforms(self) -> None:
+        args = SimpleNamespace(max_search_requests=15, douyin_search_requests=10)
+        seeds = [f"明星话题{index}" for index in range(12)]
+
+        planned = tikhub.plan_search_keywords(args, seeds, {"terms": ["杨紫", "赵丽颖"]})
+
+        self.assertEqual(len(planned), 10)
+        self.assertEqual(planned[:2], ["杨紫 热议", "赵丽颖 热议"])
+        self.assertEqual(planned[2:], seeds[:8])
+
+    def test_multiplatform_jobs_cover_metric_sorted_kuaishou_and_bilibili(self) -> None:
+        jobs = tikhub.plan_multiplatform_searches({"terms": ["杨紫"]})
+
+        self.assertEqual(len(jobs), 5)
+        self.assertEqual({platform for platform, _ in jobs}, {"kuaishou", "bilibili"})
+        self.assertIn(("kuaishou", "杨紫 明星"), jobs)
+
+
+class TikHubCandidateSelectionTests(unittest.TestCase):
+    def test_current_candidates_fill_by_engagement_tier_without_old_video(self) -> None:
+        now = int(dt.datetime.now(dt.timezone.utc).timestamp())
+        candidates = [
+            {"aweme_id": "primary", "title": "明星舞台", "like_count": 20_000, "create_time": now - 60},
+            {"aweme_id": "fallback", "title": "明星采访", "like_count": 1_500, "create_time": now - 120},
+            {"aweme_id": "emergency", "title": "明星红毯", "like_count": 600, "create_time": now - 180},
+            {"aweme_id": "too-low", "title": "明星直播", "like_count": 399, "create_time": now - 240},
+            {"aweme_id": "old", "title": "明星名场面", "like_count": 100_000, "create_time": now - 90_000},
+        ]
+
+        selected = tikhub.select_candidates(
+            candidates,
+            10,
+            24,
+            10_000,
+            1_000,
+            400,
+            0,
+            60,
+            300,
+            "明星",
+            "",
+            set(),
+            {"terms": []},
+        )
+
+        self.assertEqual([item["aweme_id"] for item in selected], ["primary", "fallback", "emergency"])
+        self.assertEqual([item["engagement_tier"] for item in selected], ["primary", "fallback", "emergency"])
+
+    def test_search_keyword_alone_is_not_entertainment_evidence(self) -> None:
+        now = int(dt.datetime.now(dt.timezone.utc).timestamp())
+        candidates = [
+            {
+                "aweme_id": "math",
+                "title": "王虹导师讲数学题",
+                "author": "学习课堂",
+                "source_keyword": "娱乐 明星",
+                "like_count": 30_000,
+                "create_time": now - 60,
+            }
+        ]
+
+        selected = tikhub.select_candidates(
+            candidates,
+            5,
+            24,
+            10_000,
+            1_000,
+            1_000,
+            0,
+            60,
+            300,
+            "娱乐,明星,演员,综艺",
+            "",
+            set(),
+            {"terms": []},
+        )
+
+        self.assertEqual(selected, [])
+
+    def test_bilibili_high_play_and_interaction_is_equivalent_to_high_likes(self) -> None:
+        tier = tikhub.classify_engagement(
+            {
+                "platform": "bilibili",
+                "like_count": 800,
+                "play_count": 600_000,
+                "comment_count": 1_000,
+                "share_count": 300,
+                "collect_count": 300,
+            },
+            primary_min_likes=10_000,
+            fallback_min_likes=1_000,
+            emergency_min_likes=1_000,
+        )
+
+        self.assertEqual(tier[0:2], ("primary", 3))
+
+
+class MultiPlatformNormalizationTests(unittest.TestCase):
+    def test_kuaishou_response_normalizes_freshness_metrics_and_direct_url(self) -> None:
+        now_ms = int(dt.datetime.now(dt.timezone.utc).timestamp() * 1000)
+        payload = {
+            "code": 200,
+            "data": {
+                "feeds": [
+                    {
+                        "photoId": "3x-test",
+                        "caption": "杨紫综艺名场面",
+                        "timestamp": now_ms,
+                        "duration": 65_000,
+                        "likeCount": "1.2万",
+                        "commentCount": 900,
+                        "playUrl": "https://cdn.example.com/video.mp4",
+                        "user": {"name": "娱乐现场"},
+                    }
+                ]
+            },
+        }
+
+        items = tikhub.normalize_platform_response(
+            "kuaishou", payload, "明星 娱乐", Path("kuaishou.json")
+        )
+
+        self.assertEqual(len(items), 1)
+        self.assertEqual(items[0]["platform"], "kuaishou")
+        self.assertEqual(items[0]["like_count"], 12_000)
+        self.assertEqual(items[0]["duration_ms"], 65_000)
+        self.assertEqual(items[0]["download_urls"], ["https://cdn.example.com/video.mp4"])
+        self.assertTrue(items[0]["url"].endswith("/3x-test"))
+
+    def test_bilibili_response_builds_page_url_and_parses_metrics(self) -> None:
+        now = int(dt.datetime.now(dt.timezone.utc).timestamp())
+        payload = {
+            "code": 200,
+            "data": {
+                "item": [
+                    {
+                        "bvid": "BV1TEST",
+                        "title": "<em>赵丽颖</em>新剧片段",
+                        "author": "影视现场",
+                        "pubdate": now,
+                        "duration": "01:20",
+                        "play": "32.5万",
+                    }
+                ]
+            },
+        }
+
+        items = tikhub.normalize_platform_response(
+            "bilibili", payload, "热播剧 演员", Path("bilibili.json")
+        )
+
+        self.assertEqual(len(items), 1)
+        self.assertEqual(items[0]["title"], "赵丽颖新剧片段")
+        self.assertEqual(items[0]["play_count"], 325_000)
+        self.assertEqual(items[0]["duration_ms"], 80_000)
+        self.assertEqual(items[0]["url"], "https://www.bilibili.com/video/BV1TEST")
+
+    def test_bilibili_app_aid_result_is_also_recognized(self) -> None:
+        payload = {
+            "code": 200,
+            "data": {
+                "items": [
+                    {
+                        "goto": "av",
+                        "param": "123456",
+                        "title": "杨紫综艺现场",
+                        "ptime": int(dt.datetime.now(dt.timezone.utc).timestamp()),
+                        "play": 200_000,
+                        "danmaku": 500,
+                    }
+                ]
+            },
+        }
+
+        items = tikhub.normalize_platform_response(
+            "bilibili", payload, "明星 娱乐", Path("bilibili.json")
+        )
+
+        self.assertEqual(items[0]["content_id"], "av123456")
+        self.assertEqual(items[0]["url"], "https://www.bilibili.com/video/av123456")
 
 
 class DeepSeekCandidateReviewTests(unittest.TestCase):
@@ -203,6 +385,31 @@ class DeepSeekCandidateReviewTests(unittest.TestCase):
         self.assertEqual(result[0]["deepseek_editor_score"], 80)
         self.assertEqual(result[0]["primary_celebrities"], ["杨紫"])
         self.assertEqual(result[0]["verified_entities"], ["杨紫"])
+
+    def test_review_discard_is_a_hard_filter(self) -> None:
+        args = SimpleNamespace(
+            deepseek_candidate_review=True,
+            deepseek_candidate_review_count=30,
+            limit=1,
+            download_candidate_multiplier=2,
+        )
+        selected = [
+            {"aweme_id": "keep", "title": "杨紫综艺现场", "quality_score": 80},
+            {"aweme_id": "drop", "title": "导师讲数学题", "quality_score": 90},
+        ]
+        report = {
+            "items": [
+                {"aweme_id": "keep", "editor_score": 80, "discard": False},
+                {"aweme_id": "drop", "editor_score": 10, "discard": True},
+            ]
+        }
+
+        with mock.patch.dict("os.environ", {"DEEPSEEK_API_KEY": "test-key"}), mock.patch.object(
+            tikhub, "request_deepseek_json", return_value=report
+        ):
+            result = tikhub.deepseek_candidate_review(args, selected, {"terms": [], "items": []}, {})
+
+        self.assertEqual([item["aweme_id"] for item in result], ["keep"])
 
 
 class CelebrityDiversityTests(unittest.TestCase):

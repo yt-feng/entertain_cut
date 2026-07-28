@@ -31,6 +31,16 @@ class PublishKcVideosTests(unittest.TestCase):
         self.assertTrue(publish.is_git_safe(99, 100))
         self.assertFalse(publish.is_git_safe(100, 100))
 
+    def test_webdav_listing_extracts_only_video_names(self) -> None:
+        xml = """<?xml version="1.0" encoding="utf-8"?>
+        <d:multistatus xmlns:d="DAV:">
+          <d:response><d:href>/dav/KC%E5%A8%B1%E4%B9%90/</d:href></d:response>
+          <d:response><d:href>/dav/KC%E5%A8%B1%E4%B9%90/KC%E5%A8%B1%E4%B9%90_%E6%97%A7%E7%89%88.mp4</d:href></d:response>
+          <d:response><d:href>/dav/KC%E5%A8%B1%E4%B9%90/report.json</d:href></d:response>
+        </d:multistatus>"""
+
+        self.assertEqual(publish.parse_webdav_video_names(xml), ["KC娱乐_旧版.mp4"])
+
     def test_bitrate_targets_room_for_audio_and_container(self) -> None:
         bitrate = publish.calculate_video_bitrate_kbps(90 * 1024 * 1024, 180, 96)
         self.assertGreater(bitrate, 3_500)

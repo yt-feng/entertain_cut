@@ -7,7 +7,6 @@ import argparse
 import datetime as dt
 import json
 import os
-import re
 import shutil
 import subprocess
 import sys
@@ -216,6 +215,7 @@ def main() -> int:
         "recent_hours": args.recent_hours,
         "primary_min_likes": args.primary_min_likes,
         "fallback_min_likes": args.fallback_min_likes,
+        "emergency_min_likes": args.emergency_min_likes,
         "target_min_duration_seconds": args.target_min_duration_seconds,
         "reserve_selected_videos": args.reserve_selected_videos,
         "max_videos_per_celebrity": args.max_videos_per_celebrity,
@@ -244,6 +244,8 @@ def main() -> int:
             str(args.primary_min_likes),
             "--fallback-min-likes",
             str(args.fallback_min_likes),
+            "--emergency-min-likes",
+            str(args.emergency_min_likes),
             "--min-duration-seconds",
             str(args.min_duration_seconds),
             "--target-min-duration-seconds",
@@ -256,6 +258,8 @@ def main() -> int:
             str(args.tikhub_pages_per_keyword),
             "--max-search-requests",
             str(args.tikhub_max_search_requests),
+            "--douyin-search-requests",
+            str(args.tikhub_douyin_search_requests),
             "--daily-budget-usd",
             str(args.tikhub_daily_budget_usd),
             "--tikhub-filter-duration",
@@ -266,6 +270,8 @@ def main() -> int:
             str(args.tikhub_download_timeout_seconds),
             "--download-max-urls",
             str(args.tikhub_download_max_urls),
+            "--yt-dlp-timeout-seconds",
+            str(args.yt_dlp_timeout_seconds),
             "--download-reserve-count",
             str(args.reserve_selected_videos),
             "--max-videos-per-celebrity",
@@ -298,6 +304,12 @@ def main() -> int:
             str(args.limit + max(0, args.reserve_selected_videos)),
             "--recent-hours",
             str(args.recent_hours),
+            "--primary-min-likes",
+            str(args.primary_min_likes),
+            "--fallback-min-likes",
+            str(args.fallback_min_likes),
+            "--emergency-min-likes",
+            str(args.emergency_min_likes),
             "--max-duration-seconds",
             str(args.max_duration_seconds),
             "--search-max",
@@ -401,6 +413,8 @@ def main() -> int:
         kc_outputs = [line.strip() for line in outputs_list.read_text(encoding="utf-8").splitlines() if line.strip()]
     summary["kc_output_count"] = len(kc_outputs)
     summary["kc_outputs"] = kc_outputs
+    if source_provider == "tikhub" and len(kc_outputs) >= max(1, int(args.limit)):
+        commit_processed_manifest_after_success(run_dir, args.processed_manifest, args.output_date, summary)
     write_summary(run_dir, summary)
     print(f"KC outputs: {len(kc_outputs)}")
     print(f"Run directory: {run_dir}")
@@ -414,13 +428,14 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--recent-hours", type=int, default=720)
     parser.add_argument("--primary-min-likes", type=int, default=10_000)
     parser.add_argument("--fallback-min-likes", type=int, default=1_000)
+    parser.add_argument("--emergency-min-likes", type=int, default=1_000)
     parser.add_argument("--min-duration-seconds", type=int, default=0)
     parser.add_argument("--target-min-duration-seconds", type=int, default=60)
     parser.add_argument("--max-duration-seconds", type=int, default=300)
     parser.add_argument("--search-max", type=int, default=30)
     parser.add_argument("--feed-pages", type=int, default=60)
     parser.add_argument("--download-candidate-multiplier", type=int, default=8)
-    parser.add_argument("--reserve-selected-videos", type=int, default=2)
+    parser.add_argument("--reserve-selected-videos", type=int, default=3)
     parser.add_argument("--max-videos-per-celebrity", type=int, default=2)
     parser.add_argument("--min-selected-videos", type=int, default=5)
     parser.add_argument("--downloader-link-timeout-seconds", type=int, default=60)
@@ -430,8 +445,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--direct-download-max-urls", type=int, default=1)
     parser.add_argument("--yt-dlp-timeout-seconds", type=int, default=60)
     parser.add_argument("--tikhub-pages-per-keyword", type=int, default=1)
-    parser.add_argument("--tikhub-max-search-requests", type=int, default=10)
-    parser.add_argument("--tikhub-daily-budget-usd", type=float, default=0.10)
+    parser.add_argument("--tikhub-max-search-requests", type=int, default=15)
+    parser.add_argument("--tikhub-douyin-search-requests", type=int, default=10)
+    parser.add_argument("--tikhub-daily-budget-usd", type=float, default=0.15)
     parser.add_argument("--tikhub-filter-duration", default="auto")
     parser.add_argument("--tikhub-request-timeout-seconds", type=int, default=45)
     parser.add_argument("--tikhub-download-timeout-seconds", type=int, default=120)
@@ -481,7 +497,7 @@ def enforce_selected_diversity(
     if not isinstance(metadata, list):
         return
 
-    from run_douyin_tikhub_daily import diversify_candidates
+    from run_douyin_tikhub_daily import diversify_candidates, safe_file_id
 
     diversity_info: dict[str, Any] = {}
     accepted = diversify_candidates(
@@ -490,13 +506,13 @@ def enforce_selected_diversity(
         run_info=diversity_info,
     )
     accepted_ids = {str(item.get("aweme_id") or "") for item in accepted if item.get("aweme_id")}
+    accepted_file_ids = {safe_file_id(value) for value in accepted_ids}
     removed_files: list[str] = []
     if accepted_ids:
         for path in selected_dir.iterdir():
             if not path.is_file() or path.suffix.lower() not in VIDEO_EXTENSIONS:
                 continue
-            aweme_ids = re.findall(r"\d{15,}", path.name)
-            if aweme_ids and not any(aweme_id in accepted_ids for aweme_id in aweme_ids):
+            if not any(file_id in path.name for file_id in accepted_file_ids):
                 removed_files.append(path.name)
                 path.unlink()
     metadata_path.write_text(json.dumps(accepted, ensure_ascii=False, indent=2), encoding="utf-8")
@@ -504,6 +520,32 @@ def enforce_selected_diversity(
         **diversity_info.get("celebrity_diversity", {}),
         "removed_files": removed_files,
     }
+
+
+def commit_processed_manifest_after_success(
+    run_dir: Path,
+    processed_manifest: Path,
+    output_date: str,
+    summary: dict[str, Any],
+) -> None:
+    metadata_path = run_dir / "reports" / "selected.json"
+    try:
+        selected = json.loads(metadata_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        selected = []
+    if not isinstance(selected, list) or not selected:
+        return
+
+    from run_douyin_tikhub_daily import update_processed_manifest
+
+    update_info: dict[str, Any] = {}
+    update_processed_manifest(
+        project_path(processed_manifest),
+        selected,
+        argparse.Namespace(output_date=output_date),
+        update_info,
+    )
+    summary["processed_manifest_updated"] = update_info.get("processed_manifest_updated", {})
 
 
 def resolve_source_provider(provider: str) -> str:

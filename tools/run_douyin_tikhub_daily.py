@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Discover and download recent high-like Douyin entertainment videos via TikHub."""
+"""Discover and download fresh, high-engagement entertainment videos via TikHub."""
 
 from __future__ import annotations
 
@@ -11,6 +11,7 @@ import math
 import os
 import re
 import shutil
+import subprocess
 import sys
 import time
 from pathlib import Path
@@ -34,6 +35,9 @@ TIKHUB_VIDEO_SEARCH_ENDPOINTS = (
     ("video_v1", "https://api.tikhub.io/api/v1/douyin/search/fetch_video_search_v1"),
     ("general_v1", "https://api.tikhub.io/api/v1/douyin/search/fetch_general_search_v1"),
 )
+TIKHUB_KUAISHOU_SEARCH_URL = "https://api.tikhub.io/api/v1/kuaishou/app/search_comprehensive"
+TIKHUB_BILIBILI_SEARCH_URL = "https://api.tikhub.io/api/v1/bilibili/app/fetch_search_by_type"
+BILIBILI_PUBLIC_VIEW_URL = "https://api.bilibili.com/x/web-interface/view"
 TIKHUB_SEARCH_UNIT_PRICE_USD = 0.01
 TAVILY_SEARCH_URL = "https://api.tavily.com/search"
 TAVILY_ENTERTAINMENT_DOMAINS = ["weibo.com", "sina.com.cn", "qq.com", "163.com", "sohu.com"]
@@ -275,6 +279,10 @@ def main() -> int:
             "unit_price_usd": TIKHUB_SEARCH_UNIT_PRICE_USD,
             "budget_max_requests": budget_max_search_requests,
             "effective_max_requests": args.max_search_requests,
+            "douyin_search_requests": min(
+                max(0, int(args.douyin_search_requests)),
+                max(0, int(args.max_search_requests)),
+            ),
         },
         "processed_manifest": str(processed_manifest),
         "processed_id_count": len(processed_ids),
@@ -285,7 +293,12 @@ def main() -> int:
             "max_duration_seconds": args.max_duration_seconds,
             "primary_min_likes": args.primary_min_likes,
             "fallback_min_likes": args.fallback_min_likes,
+            "emergency_min_likes": args.emergency_min_likes,
             "tikhub_filter_duration": resolve_duration_filter(args),
+            "multiplatform_equivalent": {
+                "primary": "10000 likes, or Bilibili 500000 plays and 1500 interactions",
+                "fallback": "1000 likes, or Bilibili 100000 plays and 300 interactions",
+            },
         },
     }
 
@@ -293,6 +306,51 @@ def main() -> int:
     enrich_hot_context_from_candidates(hot_context, candidates)
     run_info["hot_context"] = hot_context
     write_json(reports_dir / "hot_context.json", hot_context)
+    strong_before_fallback = select_candidates(
+        candidates,
+        download_target_count(args),
+        args.recent_hours,
+        args.primary_min_likes,
+        args.fallback_min_likes,
+        args.fallback_min_likes,
+        args.min_duration_seconds,
+        args.target_min_duration_seconds,
+        args.max_duration_seconds,
+        args.must_include_terms,
+        args.exclude_terms,
+        processed_ids,
+        hot_context,
+    )
+    diverse_strong_before_fallback = diversify_candidates(
+        strong_before_fallback,
+        max_per_celebrity=max(1, int(args.max_videos_per_celebrity)),
+    )
+    run_info["multiplatform_fallback"] = {
+        "enabled": bool(args.multiplatform_fallback),
+        "required_strong_candidates": download_target_count(args),
+        "douyin_strong_candidates": len(strong_before_fallback),
+        "douyin_diverse_strong_candidates": len(diverse_strong_before_fallback),
+        "triggered": False,
+    }
+    if (
+        args.multiplatform_fallback
+        and len(diverse_strong_before_fallback) < download_target_count(args)
+        and not run_info.get("tikhub_fatal_error")
+    ):
+        run_info["multiplatform_fallback"]["triggered"] = True
+        candidates.extend(
+            fetch_multiplatform_candidates(
+                args,
+                api_key,
+                hot_context,
+                discovery_dir,
+                run_info,
+                existing_candidates=candidates,
+            )
+        )
+        enrich_hot_context_from_candidates(hot_context, candidates)
+        run_info["hot_context"] = hot_context
+        write_json(reports_dir / "hot_context.json", hot_context)
     used_search_requests = len(run_info.get("tikhub_attempts", []))
     run_info["search_budget"].update(
         {
@@ -306,6 +364,7 @@ def main() -> int:
         args.recent_hours,
         args.primary_min_likes,
         args.fallback_min_likes,
+        args.emergency_min_likes,
         args.min_duration_seconds,
         args.target_min_duration_seconds,
         args.max_duration_seconds,
@@ -327,13 +386,17 @@ def main() -> int:
         return 0
 
     downloaded_ids = download_selected(args, selected, downloads_dir, selected_dir, run_info)
-    successful_ids = selected_aweme_ids(selected_dir)
+    successful_ids = downloaded_ids
     if successful_ids:
         selected = [
             item for item in selected if str(item.get("aweme_id") or "") in successful_ids
         ][: download_target_count(args)]
         rewrite_selected_dir(selected_dir, selected)
-        update_processed_manifest(processed_manifest, selected, args, run_info)
+        run_info["processed_manifest_pending"] = {
+            "path": str(processed_manifest),
+            "candidate_count": len(selected),
+            "reason": "committed by the wrapper only after five KC outputs succeed",
+        }
     record_selected_files(selected_dir, run_info)
     run_info["downloaded_ids"] = sorted(downloaded_ids)
     write_reports(reports_dir, keywords, candidates, selected, run_info)
@@ -363,15 +426,17 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--recent-hours", type=int, default=720)
     parser.add_argument("--primary-min-likes", type=int, default=10_000)
     parser.add_argument("--fallback-min-likes", type=int, default=1_000)
+    parser.add_argument("--emergency-min-likes", type=int, default=1_000)
     parser.add_argument("--min-duration-seconds", type=int, default=0)
     parser.add_argument("--target-min-duration-seconds", type=int, default=60)
     parser.add_argument("--max-duration-seconds", type=int, default=300)
     parser.add_argument("--download-candidate-multiplier", type=int, default=4)
-    parser.add_argument("--max-search-requests", type=int, default=10)
+    parser.add_argument("--max-search-requests", type=int, default=15)
+    parser.add_argument("--douyin-search-requests", type=int, default=10)
     parser.add_argument(
         "--daily-budget-usd",
         type=float,
-        default=0.10,
+        default=0.15,
         help="Hard TikHub search budget; every endpoint attempt counts against it. Use 0 to disable the dollar cap.",
     )
     parser.add_argument("--pages-per-keyword", type=int, default=1)
@@ -381,6 +446,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--download-timeout-seconds", type=int, default=120)
     parser.add_argument("--download-max-urls", type=int, default=3)
     parser.add_argument("--download-reserve-count", type=int, default=2)
+    parser.add_argument("--yt-dlp-timeout-seconds", type=int, default=180)
+    parser.add_argument("--multiplatform-fallback", action=argparse.BooleanOptionalAction, default=True)
     parser.add_argument("--max-videos-per-celebrity", type=int, default=2)
     parser.add_argument("--processed-manifest", default=str(PROCESSED_MANIFEST))
     parser.add_argument("--output-date", default="")
@@ -520,6 +587,469 @@ def fetch_candidates(
                     print(message, flush=True)
                     break
     return candidates
+
+
+def fetch_multiplatform_candidates(
+    args: argparse.Namespace,
+    api_key: str,
+    hot_context: dict[str, Any],
+    discovery_dir: Path,
+    run_info: dict[str, Any],
+    *,
+    existing_candidates: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    """Use the remaining TikHub budget for metric-sorted Kuaishou and Bilibili search."""
+    attempts_log = run_info.setdefault("tikhub_attempts", [])
+    max_requests = max(0, int(args.max_search_requests))
+    remaining = max_requests - len(attempts_log) if max_requests else 0
+    fallback_info = run_info.setdefault("multiplatform_fallback", {})
+    fallback_info["available_requests"] = max(0, remaining)
+    fallback_info["searches"] = []
+    if remaining <= 0:
+        fallback_info["reason"] = "TikHub request budget exhausted by Douyin search"
+        return []
+
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json",
+        "User-Agent": "kc-entertain-daily/1.0",
+    }
+    timeout = httpx.Timeout(connect=15, read=args.request_timeout_seconds, write=20, pool=15)
+    discovered: list[dict[str, Any]] = []
+    with httpx.Client(headers=headers, timeout=timeout, follow_redirects=True) as client:
+        for platform, keyword in plan_multiplatform_searches(hot_context):
+            if len(attempts_log) >= max_requests:
+                break
+            if platform == "kuaishou":
+                endpoint = TIKHUB_KUAISHOU_SEARCH_URL
+                params: dict[str, Any] = {
+                    "keyword": keyword,
+                    "sort_type": "most_likes",
+                    "publish_time": "one_day",
+                    "duration": "all",
+                }
+            else:
+                endpoint = TIKHUB_BILIBILI_SEARCH_URL
+                params = {
+                    "keyword": keyword,
+                    "search_type": "video",
+                    "cursor": "",
+                    "page_size": 30,
+                    "order": 2,
+                }
+
+            attempt: dict[str, Any] = {
+                "keyword": keyword,
+                "page": 1,
+                "platform": platform,
+                "endpoint": f"{platform}_search",
+                "request_number": len(attempts_log) + 1,
+                "retry": 1,
+            }
+            try:
+                response = client.get(endpoint, params=params)
+                attempt["http_status"] = response.status_code
+                response.raise_for_status()
+                data = response.json()
+                envelope_error = tikhub_envelope_error(data)
+                if envelope_error:
+                    raise ValueError(envelope_error)
+            except (httpx.HTTPError, ValueError) as exc:
+                attempt.update({"outcome": "error", "error": normalize_space(str(exc))[:1000]})
+                attempts_log.append(attempt)
+                run_info.setdefault("errors", []).append(
+                    f"TikHub {platform} search failed keyword={keyword!r}: {exc}"
+                )
+                if isinstance(exc, httpx.HTTPStatusError) and exc.response.status_code in FATAL_TIKHUB_STATUS_CODES:
+                    run_info["tikhub_fatal_error"] = str(exc)
+                    break
+                continue
+
+            attempts_log.append({**attempt, "outcome": "success"})
+            raw_path = discovery_dir / f"tikhub_{platform}_{safe_slug(keyword)}.json"
+            write_json(raw_path, data)
+            items = normalize_platform_response(platform, data, keyword, raw_path)
+            discovered.extend(items)
+            fallback_info["searches"].append(
+                {
+                    "platform": platform,
+                    "keyword": keyword,
+                    "count": len(items),
+                    "sort": "most_likes" if platform == "kuaishou" else "most_plays",
+                    "publish_time": "one_day" if platform == "kuaishou" else "post_filter_24h",
+                }
+            )
+
+        enrich_bilibili_candidates(discovered, args.recent_hours, run_info)
+
+    seen: set[str] = set()
+    for item in existing_candidates:
+        seen.update(candidate_identity(item))
+    unique: list[dict[str, Any]] = []
+    for item in discovered:
+        identity = candidate_identity(item)
+        if not identity or not identity.isdisjoint(seen):
+            continue
+        seen.update(identity)
+        unique.append(item)
+    fallback_info["candidate_count"] = len(unique)
+    fallback_info["used_requests"] = max(0, len(attempts_log) - (max_requests - remaining))
+    return unique
+
+
+def plan_multiplatform_searches(hot_context: dict[str, Any]) -> list[tuple[str, str]]:
+    hot_terms = [
+        normalize_space(str(term))
+        for term in hot_context.get("terms", []) or []
+        if normalize_space(str(term)) not in GENERIC_HOT_TERMS
+    ]
+    hot_query = f"{hot_terms[0]} 明星" if hot_terms else "明星 娱乐"
+    jobs = [
+        ("kuaishou", "明星 娱乐"),
+        ("bilibili", "明星 娱乐"),
+        ("kuaishou", hot_query),
+        ("bilibili", "综艺 名场面"),
+        ("kuaishou", "热播剧 演员"),
+    ]
+    seen: set[tuple[str, str]] = set()
+    result: list[tuple[str, str]] = []
+    for platform, keyword in jobs:
+        key = (platform, normalize_space(keyword))
+        if key in seen:
+            continue
+        seen.add(key)
+        result.append(key)
+    return result
+
+
+def normalize_platform_response(
+    platform: str,
+    data: Any,
+    source_keyword: str,
+    source_file: Path,
+) -> list[dict[str, Any]]:
+    result: list[dict[str, Any]] = []
+    seen: set[str] = set()
+    for record in iter_platform_video_records(platform, data):
+        item = normalize_platform_video(platform, record, source_keyword, source_file)
+        content_id = str(item.get("aweme_id") or "")
+        if not content_id or content_id in seen:
+            continue
+        seen.add(content_id)
+        result.append(item)
+    return result
+
+
+def iter_platform_video_records(platform: str, data: Any) -> list[dict[str, Any]]:
+    records: list[dict[str, Any]] = []
+
+    def walk(value: Any) -> None:
+        if isinstance(value, dict):
+            if looks_like_platform_video(platform, value):
+                records.append(value)
+            for child in value.values():
+                walk(child)
+        elif isinstance(value, list):
+            for child in value:
+                walk(child)
+
+    walk(data)
+    return records
+
+
+def looks_like_platform_video(platform: str, value: dict[str, Any]) -> bool:
+    lowered = {str(key).lower(): child for key, child in value.items()}
+    if platform == "kuaishou":
+        has_id = any(key in lowered for key in ("photo_id", "photoid", "photoidstr"))
+        has_video_data = any(
+            key in lowered
+            for key in ("caption", "title", "photourl", "photo_url", "playurl", "play_url", "duration")
+        )
+        if not has_id and "id" in lowered:
+            has_id = any(
+                key in lowered
+                for key in ("photourl", "photo_url", "playurl", "play_url", "duration", "likecount", "like_count")
+            )
+        return has_id and has_video_data
+    bvid = str(lowered.get("bvid") or lowered.get("param") or "")
+    goto = str(lowered.get("goto") or "").lower()
+    uri = str(lowered.get("uri") or "").lower()
+    has_video_id = (
+        bvid.upper().startswith("BV")
+        or "bvid" in lowered
+        or (bool(bvid) and goto in {"av", "video"})
+        or "bilibili://video/" in uri
+    )
+    return bool(has_video_id and (lowered.get("title") or lowered.get("name")))
+
+
+def normalize_platform_video(
+    platform: str,
+    record: dict[str, Any],
+    source_keyword: str,
+    source_file: Path,
+) -> dict[str, Any]:
+    if platform == "kuaishou":
+        content_id = str(
+            find_value_by_alias(record, {"photo_id", "photoid", "photoidstr", "id"}, recursive=False) or ""
+        )
+        title = clean_search_title(
+            find_value_by_alias(record, {"caption", "title", "photo_caption", "photocaption"})
+        )
+        page_url = f"https://www.kuaishou.com/short-video/{quote(content_id)}" if content_id else ""
+    else:
+        raw_id = find_value_by_alias(record, {"bvid", "param"}, recursive=False)
+        content_id = str(raw_id or "")
+        if not content_id.upper().startswith("BV"):
+            bvid = find_value_by_alias(record, {"bvid"})
+            content_id = str(bvid or content_id)
+        if content_id and not content_id.upper().startswith(("BV", "AV")):
+            content_id = f"av{content_id}"
+        title = clean_search_title(find_value_by_alias(record, {"title", "name"}))
+        page_url = f"https://www.bilibili.com/video/{quote(content_id)}" if content_id else ""
+
+    create_time = normalize_timestamp(
+        find_value_by_alias(
+            record,
+            {"create_time", "createtime", "timestamp", "pubdate", "ptime", "publish_time", "publishtime"},
+        )
+    )
+    author_value = find_value_by_alias(
+        record,
+        {"nickname", "user_name", "username", "author", "owner_name", "up_name", "upname"},
+    )
+    if author_value in (None, ""):
+        author_value = find_value_by_alias(record, {"user", "owner", "user_info", "userinfo"})
+    if isinstance(author_value, dict):
+        author_value = find_value_by_alias(
+            author_value,
+            {"nickname", "user_name", "username", "name", "owner_name", "up_name", "upname"},
+        )
+    author = normalize_space(str(author_value or ""))
+    duration_value, duration_key = find_value_and_key_by_alias(
+        record,
+        {"duration", "duration_ms", "durationms", "video_duration", "photoduration"},
+    )
+    return {
+        "aweme_id": content_id,
+        "content_id": content_id,
+        "platform": platform,
+        "title": title,
+        "url": page_url,
+        "download_urls": extract_platform_video_urls(record),
+        "duration_ms": normalize_duration_ms(duration_value, duration_key, platform),
+        "like_count": parse_metric_count(
+            find_value_by_alias(record, {"like_count", "likecount", "likes", "like", "digg_count"})
+        ),
+        "comment_count": parse_metric_count(
+            find_value_by_alias(record, {"comment_count", "commentcount", "comments", "reply", "danmaku"})
+        ),
+        "share_count": parse_metric_count(
+            find_value_by_alias(record, {"share_count", "sharecount", "shares", "share"})
+        ),
+        "collect_count": parse_metric_count(
+            find_value_by_alias(record, {"collect_count", "collectcount", "favorite", "favorites"})
+        ),
+        "play_count": parse_metric_count(
+            find_value_by_alias(record, {"play_count", "playcount", "view_count", "viewcount", "views", "play"})
+        ),
+        "create_time": create_time,
+        "create_time_iso": timestamp_iso(create_time),
+        "author": author,
+        "source_keyword": source_keyword,
+        "source_file": str(source_file),
+        "provider": "tikhub",
+    }
+
+
+def enrich_bilibili_candidates(
+    candidates: list[dict[str, Any]],
+    recent_hours: int,
+    run_info: dict[str, Any],
+    *,
+    max_items: int = 20,
+) -> None:
+    logs: list[dict[str, Any]] = []
+    run_info["bilibili_public_detail"] = logs
+    now = dt.datetime.now(dt.timezone.utc).timestamp()
+    bilibili = [item for item in candidates if item.get("platform") == "bilibili"]
+    bilibili.sort(key=lambda item: int_or_zero(item.get("play_count")), reverse=True)
+    consecutive_failures = 0
+    public_headers = {
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36"
+        ),
+        "Referer": "https://www.bilibili.com/",
+    }
+    timeout = httpx.Timeout(connect=10, read=20, write=10, pool=10)
+    with httpx.Client(headers=public_headers, timeout=timeout, follow_redirects=True) as client:
+        for item in bilibili[: max(1, max_items)]:
+            created = int_or_zero(item.get("create_time"))
+            if created and recent_hours > 0 and not 0 <= now - created <= recent_hours * 3600:
+                continue
+            content_id = str(item.get("content_id") or item.get("aweme_id") or "")
+            detail_params: dict[str, str]
+            if content_id.upper().startswith("BV"):
+                detail_params = {"bvid": content_id}
+            elif content_id.lower().startswith("av") and content_id[2:].isdigit():
+                detail_params = {"aid": content_id[2:]}
+            else:
+                continue
+            try:
+                response = client.get(BILIBILI_PUBLIC_VIEW_URL, params=detail_params)
+                response.raise_for_status()
+                payload = response.json()
+                detail = payload.get("data") if isinstance(payload, dict) else None
+                if not isinstance(detail, dict) or payload.get("code") not in (0, "0"):
+                    raise ValueError(
+                        f"Bilibili detail code={payload.get('code') if isinstance(payload, dict) else '?'}"
+                    )
+            except (httpx.HTTPError, ValueError) as exc:
+                consecutive_failures += 1
+                logs.append(
+                    {"content_id": content_id, "status": "failed", "error": normalize_space(str(exc))[:300]}
+                )
+                if consecutive_failures >= 3:
+                    break
+                continue
+
+            consecutive_failures = 0
+            stats = first_dict(detail.get("stat"))
+            owner = first_dict(detail.get("owner"))
+            canonical_id = str(detail.get("bvid") or content_id)
+            item.update(
+                {
+                    "aweme_id": canonical_id,
+                    "content_id": canonical_id,
+                    "url": f"https://www.bilibili.com/video/{quote(canonical_id)}",
+                    "title": clean_search_title(detail.get("title")) or item.get("title", ""),
+                    "author": normalize_space(str(owner.get("name") or item.get("author") or "")),
+                    "duration_ms": max(0, int_or_zero(detail.get("duration"))) * 1000,
+                    "like_count": int_or_zero(stats.get("like")),
+                    "comment_count": int_or_zero(stats.get("reply")) + int_or_zero(stats.get("danmaku")),
+                    "share_count": int_or_zero(stats.get("share")),
+                    "collect_count": int_or_zero(stats.get("favorite")),
+                    "play_count": int_or_zero(stats.get("view")),
+                    "create_time": normalize_timestamp(detail.get("pubdate")),
+                }
+            )
+            item["create_time_iso"] = timestamp_iso(int_or_zero(item.get("create_time")))
+            logs.append({"content_id": content_id, "status": "enriched"})
+
+
+def find_value_by_alias(value: Any, aliases: set[str], *, recursive: bool = True) -> Any:
+    found, _ = find_value_and_key_by_alias(value, aliases, recursive=recursive)
+    return found
+
+
+def find_value_and_key_by_alias(
+    value: Any,
+    aliases: set[str],
+    *,
+    recursive: bool = True,
+) -> tuple[Any, str]:
+    lowered_aliases = {alias.lower() for alias in aliases}
+    if isinstance(value, dict):
+        for key, child in value.items():
+            if str(key).lower() in lowered_aliases and child not in (None, "", [], {}):
+                return child, str(key)
+        if recursive:
+            for child in value.values():
+                found, key = find_value_and_key_by_alias(child, lowered_aliases, recursive=True)
+                if found not in (None, "", [], {}):
+                    return found, key
+    elif recursive and isinstance(value, list):
+        for child in value:
+            found, key = find_value_and_key_by_alias(child, lowered_aliases, recursive=True)
+            if found not in (None, "", [], {}):
+                return found, key
+    return None, ""
+
+
+def extract_platform_video_urls(record: dict[str, Any]) -> list[str]:
+    urls: list[str] = []
+    video_keys = {
+        "playurl",
+        "play_url",
+        "photourl",
+        "photo_url",
+        "mainmvurls",
+        "main_mv_urls",
+        "downloadurl",
+        "download_url",
+        "h265url",
+        "h265_url",
+    }
+
+    def collect(value: Any, *, inside_video_field: bool = False) -> None:
+        if isinstance(value, str):
+            if inside_video_field and value.startswith(("http://", "https://")):
+                urls.append(value)
+            return
+        if isinstance(value, list):
+            for child in value:
+                collect(child, inside_video_field=inside_video_field)
+            return
+        if not isinstance(value, dict):
+            return
+        for key, child in value.items():
+            key_lower = str(key).lower()
+            collect(child, inside_video_field=inside_video_field or key_lower in video_keys)
+
+    collect(record)
+    return dedupe_keep_order(urls)
+
+
+def clean_search_title(value: Any) -> str:
+    text = re.sub(r"<[^>]+>", "", str(value or ""))
+    return normalize_space(text.replace("&quot;", '"').replace("&amp;", "&"))
+
+
+def normalize_timestamp(value: Any) -> int:
+    if isinstance(value, str) and not re.fullmatch(r"\d+(?:\.\d+)?", value.strip()):
+        try:
+            parsed = dt.datetime.fromisoformat(value.strip().replace("Z", "+00:00"))
+            if parsed.tzinfo is None:
+                parsed = parsed.replace(tzinfo=dt.timezone.utc)
+            return int(parsed.timestamp())
+        except ValueError:
+            return 0
+    timestamp = parse_metric_count(value)
+    while timestamp > 10_000_000_000:
+        timestamp //= 1000
+    return timestamp
+
+
+def normalize_duration_ms(value: Any, key: str, platform: str) -> int:
+    if isinstance(value, str) and ":" in value:
+        try:
+            parts = [int(part) for part in value.strip().split(":")]
+        except ValueError:
+            return 0
+        seconds = 0
+        for part in parts:
+            seconds = seconds * 60 + part
+        return max(0, seconds) * 1000
+    numeric = parse_metric_count(value)
+    if numeric <= 0:
+        return 0
+    if "ms" in key.lower() or platform == "kuaishou":
+        return numeric
+    return numeric * 1000
+
+
+def parse_metric_count(value: Any) -> int:
+    if isinstance(value, bool):
+        return int(value)
+    if isinstance(value, (int, float)):
+        return max(0, int(value))
+    text = normalize_space(str(value or "")).replace(",", "").replace("+", "")
+    match = re.search(r"([0-9]+(?:\.[0-9]+)?)\s*([万亿]?)", text)
+    if not match:
+        return 0
+    multiplier = {"": 1, "万": 10_000, "亿": 100_000_000}[match.group(2)]
+    return max(0, int(float(match.group(1)) * multiplier))
 
 
 def request_tikhub_search(
@@ -672,7 +1202,7 @@ def tikhub_envelope_error(data: Any) -> str:
     if isinstance(nested, dict):
         status_code = nested.get("status_code")
         if status_code not in (None, 0, "0"):
-            return f"Douyin upstream status {status_code}: {compact_response_data(data)}"
+            return f"Upstream status {status_code}: {compact_response_data(data)}"
     return ""
 
 
@@ -716,6 +1246,8 @@ def normalize_aweme(aweme: dict[str, Any], source_keyword: str, source_dir: Path
         share_url = f"https://www.douyin.com/video/{aweme_id}"
     return {
         "aweme_id": aweme_id,
+        "content_id": aweme_id,
+        "platform": "douyin",
         "title": title,
         "url": str(share_url),
         "download_urls": extract_video_urls(aweme),
@@ -762,6 +1294,7 @@ def select_candidates(
     recent_hours: int,
     primary_min_likes: int,
     fallback_min_likes: int,
+    emergency_min_likes: int,
     min_duration_seconds: int,
     target_min_duration_seconds: int,
     max_duration_seconds: int,
@@ -782,42 +1315,48 @@ def select_candidates(
             for item in scoped
             if not item.get("duration_ms") or int_or_zero(item.get("duration_ms")) <= max_duration_ms
         ]
-    include_terms = split_terms(must_include_terms)
+    include_terms = dedupe_keep_order(
+        split_terms(must_include_terms)
+        + [normalize_space(str(term)) for term in hot_context.get("terms", []) or []]
+    )
     exclude_terms_list = split_terms(exclude_terms)
     if exclude_terms_list:
         scoped = [item for item in scoped if not matches_any_term(item, exclude_terms_list)]
     if include_terms:
-        included = [item for item in scoped if matches_any_term(item, include_terms)]
-        scoped = included if included else scoped
+        scoped = [item for item in scoped if matches_any_term(item, include_terms)]
 
     recent = []
     now = dt.datetime.now(dt.timezone.utc).timestamp()
     for item in scoped:
         created = int_or_zero(item.get("create_time"))
-        if not created or recent_hours <= 0 or 0 <= now - created <= recent_hours * 3600:
+        if recent_hours <= 0 or (created and 0 <= now - created <= recent_hours * 3600):
             recent.append(item)
-    scoped = recent if recent else scoped
+    if recent_hours > 0:
+        scoped = recent
 
-    quality_pool = [item for item in scoped if int_or_zero(item.get("like_count")) >= fallback_min_likes]
-    primary_pool = [item for item in quality_pool if int_or_zero(item.get("like_count")) >= primary_min_likes]
-    ranked_pool = primary_pool if len(primary_pool) >= max(1, limit) else quality_pool
-    ranked_pool = [item for item in ranked_pool if not likely_face_explainer(item)]
+    emergency_min_likes = min(max(0, int(emergency_min_likes)), max(0, int(fallback_min_likes)))
+    ranked_pool = [item for item in scoped if not likely_face_explainer(item)]
     hot_terms = [str(term) for term in hot_context.get("terms", []) if str(term).strip()]
-    anchored_pool = [
-        item
-        for item in ranked_pool
-        if matched_known_entities(item, hot_terms)
-        or int_or_zero(item.get("like_count")) >= primary_min_likes * 5
-        or int_or_zero(item.get("comment_count")) >= 100
-    ]
-    if len(anchored_pool) >= max(1, min(limit, 5)):
-        ranked_pool = anchored_pool
 
+    eligible: list[dict[str, Any]] = []
     for item in ranked_pool:
+        tier, tier_rank, signal = classify_engagement(
+            item,
+            primary_min_likes=primary_min_likes,
+            fallback_min_likes=fallback_min_likes,
+            emergency_min_likes=emergency_min_likes,
+        )
+        if tier_rank <= 0:
+            continue
+        item["engagement_tier"] = tier
+        item["engagement_tier_rank"] = tier_rank
+        item["engagement_signal"] = signal
         score_candidate(item, hot_terms, primary_min_likes, target_min_duration_seconds)
+        eligible.append(item)
     return sorted(
-        ranked_pool,
+        eligible,
         key=lambda item: (
+            int_or_zero(item.get("engagement_tier_rank")),
             float(item.get("quality_score") or 0),
             int_or_zero(item.get("like_count")),
             int_or_zero(item.get("comment_count")) + int_or_zero(item.get("share_count")),
@@ -825,6 +1364,33 @@ def select_candidates(
         ),
         reverse=True,
     )[: max(0, limit)]
+
+
+def classify_engagement(
+    item: dict[str, Any],
+    *,
+    primary_min_likes: int,
+    fallback_min_likes: int,
+    emergency_min_likes: int,
+) -> tuple[str, int, str]:
+    likes = int_or_zero(item.get("like_count"))
+    plays = int_or_zero(item.get("play_count"))
+    interactions = (
+        int_or_zero(item.get("comment_count"))
+        + int_or_zero(item.get("share_count"))
+        + int_or_zero(item.get("collect_count"))
+    )
+    if likes >= max(0, int(primary_min_likes)):
+        return "primary", 3, f"likes={likes}"
+    if item.get("platform") == "bilibili" and plays >= 500_000 and interactions >= 1_500:
+        return "primary", 3, f"plays={plays}, interactions={interactions}"
+    if likes >= max(0, int(fallback_min_likes)):
+        return "fallback", 2, f"likes={likes}"
+    if item.get("platform") == "bilibili" and plays >= 100_000 and interactions >= 300:
+        return "fallback", 2, f"plays={plays}, interactions={interactions}"
+    if likes >= max(0, int(emergency_min_likes)):
+        return "emergency", 1, f"likes={likes}"
+    return "ineligible", 0, f"likes={likes}, plays={plays}, interactions={interactions}"
 
 
 def collect_hot_context(args: argparse.Namespace, reports_dir: Path) -> dict[str, Any]:
@@ -1230,8 +1796,12 @@ def plan_search_keywords(args: argparse.Namespace, seeds: list[str], hot_context
     broad_keywords = dedupe_keep_order(seeds)
     if not broad_keywords:
         broad_keywords = ["娱乐", "明星", "娱乐圈", "综艺", "热播剧 演员"]
-    request_limit = max(1, int(args.max_search_requests) or 5)
-    broad_reserve = min(len(broad_keywords), max(1, request_limit // 2))
+    overall_limit = max(1, int(args.max_search_requests) or 5)
+    request_limit = min(
+        overall_limit,
+        max(1, int(getattr(args, "douyin_search_requests", overall_limit)) or overall_limit),
+    )
+    broad_reserve = min(len(broad_keywords), max(1, math.ceil(request_limit * 0.8)))
     keywords = hot_keywords[: request_limit - broad_reserve] + broad_keywords[:broad_reserve]
     keywords.extend(hot_keywords[request_limit - broad_reserve :])
     keywords.extend(broad_keywords[broad_reserve:])
@@ -1257,12 +1827,17 @@ def score_candidate(
     explainer_terms = [term for term in EXPLAINER_TERMS if term.lower() in text.lower()]
     clip_cues = [term for term in STAR_CLIP_CUES if term in text]
     comment_ratio = comments / max(1, likes)
+    created = int_or_zero(item.get("create_time"))
+    now = dt.datetime.now(dt.timezone.utc).timestamp()
+    age_hours = max(0.0, (now - created) / 3600) if created else 999.0
+    freshness_score = max(0.0, 18.0 - age_hours * 0.75)
 
     score = math.log10(max(likes, 1)) * 18
     score += math.log10(max(comments, 1)) * 12
     score += math.log10(max(shares, 1)) * 6
     score += math.log10(max(plays, 1)) * 2
     score += min(18, comment_ratio * 180)
+    score += freshness_score
     if likes >= primary_min_likes:
         score += 14
     if known:
@@ -1288,6 +1863,8 @@ def score_candidate(
         score += 10
 
     item["quality_score"] = round(score, 3)
+    item["age_hours"] = round(age_hours, 2)
+    item["freshness_score"] = round(freshness_score, 3)
     item["known_entities"] = known[:8]
     item["hot_context_matches"] = hot_matches[:8]
     item["commentability_terms"] = comment_terms[:8]
@@ -1315,13 +1892,18 @@ def deepseek_candidate_review(
     compact_items = [
         {
             "aweme_id": item.get("aweme_id"),
+            "platform": item.get("platform", "douyin"),
             "title": item.get("title"),
             "author": item.get("author"),
             "likes": item.get("like_count"),
             "comments": item.get("comment_count"),
             "shares": item.get("share_count"),
+            "plays": item.get("play_count"),
+            "engagement_tier": item.get("engagement_tier"),
+            "engagement_signal": item.get("engagement_signal"),
             "duration_seconds": duration_seconds(item),
             "create_time": item.get("create_time_iso"),
+            "age_hours": item.get("age_hours"),
             "known_entities": item.get("known_entities", []),
             "primary_celebrities": item.get("primary_celebrities", []),
             "hot_context_matches": item.get("hot_context_matches", []),
@@ -1339,7 +1921,8 @@ def deepseek_candidate_review(
                 "content": (
                     "You are KC娱乐's cloud source-selection editor. "
                     "Choose videos with real entertainment heat, recognizable stars/shows/films, and comment potential. "
-                    "Prefer 10k+ likes, allow 1k+ likes only when the topic is clearly strong. "
+                    "Prefer the freshest 10k+ like clips. Allow 1k+ likes only when the topic is clearly strong; "
+                    "for Bilibili, accept the supplied equivalent high-play/high-interaction tier. "
                     "Reject face-to-camera bloggers/commentators explaining entertainment news. "
                     "Do not reward unknown low-context clips, generic compilations, wallpaper/card videos, or dummy reversal bait. "
                     "Use only the provided hot-context/search evidence and metadata; do not invent names. "
@@ -1352,7 +1935,8 @@ def deepseek_candidate_review(
                     {
                         "goal": "Pick daily KC娱乐 source videos. Need 5 new videos when possible.",
                         "selection_rules": [
-                            "至少千赞，优先万赞。",
+                            "必须是过去24小时内发布；同档互动接近时优先更新鲜的。",
+                            "至少千赞，优先万赞；B站可采用候选中已标记的高播放+高互动等价档。",
                             "明星/综艺/影视实体越明确越好。",
                             "能刺激评论区讨论的优先：争议、反差、对比、演技/妆造/番位/CP、路人评价、名场面。",
                             "只要娱乐明星/综艺/影视切片，不要单个博主露脸讲解、娱评、盘点、吃瓜解说。",
@@ -1421,13 +2005,23 @@ def deepseek_candidate_review(
         if isinstance(verified, list):
             item["verified_entities"] = [normalize_space(str(entity)) for entity in verified if normalize_space(str(entity))][:8]
         if bool(review.get("discard")):
+            item["deepseek_discard"] = True
             item["quality_score"] = float(item.get("quality_score") or 0) - 80
         else:
+            item["deepseek_discard"] = False
             item["quality_score"] = float(item.get("quality_score") or 0) + editor_score * 0.45
     run_info["deepseek_candidate_review"] = report
+    accepted = [item for item in selected if not bool(item.get("deepseek_discard"))]
+    run_info["deepseek_candidate_review_summary"] = {
+        "reviewed_count": len(review_map),
+        "accepted_count": len(accepted),
+        "discarded_count": len(selected) - len(accepted),
+    }
     return sorted(
-        selected,
+        accepted,
         key=lambda item: (
+            not bool(item.get("deepseek_discard")),
+            int_or_zero(item.get("engagement_tier_rank")),
             float(item.get("quality_score") or 0),
             float(item.get("deepseek_editor_score") or 0),
             int_or_zero(item.get("like_count")),
@@ -1537,7 +2131,13 @@ def likely_star_clip(item: dict[str, Any]) -> bool:
 
 
 def candidate_identity(item: dict[str, Any]) -> set[str]:
-    values = {str(item.get("aweme_id") or "").strip(), str(item.get("url") or "").strip()}
+    content_id = str(item.get("content_id") or item.get("aweme_id") or "").strip()
+    platform = str(item.get("platform") or "douyin").strip()
+    values = {
+        content_id,
+        f"{platform}:{content_id}" if content_id else "",
+        str(item.get("url") or "").strip(),
+    }
     return {value for value in values if value}
 
 
@@ -1608,6 +2208,8 @@ def update_processed_manifest(
             continue
         existing[aweme_id] = {
             "aweme_id": aweme_id,
+            "content_id": item.get("content_id", aweme_id),
+            "platform": item.get("platform", "douyin"),
             "url": item.get("url", ""),
             "title": item.get("title", ""),
             "author": item.get("author", ""),
@@ -1657,18 +2259,18 @@ def download_selected(
             if count_selected_files(selected_dir) >= target_count:
                 break
             aweme_id = str(item.get("aweme_id") or f"rank{idx}")
+            platform = str(item.get("platform") or "douyin")
+            file_id = safe_file_id(aweme_id)
             urls = [url for url in item.get("download_urls") or [] if isinstance(url, str)]
             urls = urls[: max(1, args.download_max_urls)]
-            if not urls:
-                stats.append({"aweme_id": aweme_id, "status": "no_download_url"})
-                continue
             for url_idx, url in enumerate(urls, 1):
-                target = downloads_dir / f"{idx:02d}_{aweme_id}.mp4"
+                target = downloads_dir / f"{idx:02d}_{platform}_{file_id}.mp4"
                 temp_target = target.with_suffix(".mp4.part")
                 started = time.monotonic()
                 bytes_written = 0
                 try:
-                    with client.stream("GET", url) as response:
+                    referer = "https://www.kuaishou.com/" if platform == "kuaishou" else "https://www.douyin.com/"
+                    with client.stream("GET", url, headers={"Referer": referer}) as response:
                         response.raise_for_status()
                         with temp_target.open("wb") as handle:
                             for chunk in response.iter_bytes():
@@ -1687,7 +2289,9 @@ def download_selected(
                     stats.append(
                         {
                             "aweme_id": aweme_id,
+                            "platform": platform,
                             "status": "downloaded",
+                            "method": "direct_url",
                             "url_index": url_idx,
                             "bytes": bytes_written,
                             "path": str(target),
@@ -1697,10 +2301,86 @@ def download_selected(
                 except Exception as exc:  # noqa: BLE001
                     if temp_target.exists():
                         temp_target.unlink()
-                    stats.append({"aweme_id": aweme_id, "status": "failed", "url_index": url_idx, "error": str(exc)})
+                    stats.append(
+                        {
+                            "aweme_id": aweme_id,
+                            "platform": platform,
+                            "status": "failed",
+                            "method": "direct_url",
+                            "url_index": url_idx,
+                            "error": str(exc),
+                        }
+                    )
+            if aweme_id not in downloaded and str(item.get("url") or "").startswith(("http://", "https://")):
+                target = downloads_dir / f"{idx:02d}_{platform}_{file_id}.mp4"
+                page_result = download_page_video(
+                    str(item.get("url")),
+                    target,
+                    timeout_seconds=max(30, int(args.yt_dlp_timeout_seconds)),
+                )
+                page_result.update({"aweme_id": aweme_id, "platform": platform, "method": "yt_dlp"})
+                stats.append(page_result)
+                if page_result.get("status") == "downloaded":
+                    selected_dir.mkdir(parents=True, exist_ok=True)
+                    shutil.copy2(target, selected_dir / target.name)
+                    downloaded.add(aweme_id)
             if aweme_id not in downloaded:
                 run_info["errors"].append(f"TikHub download failed aweme_id={aweme_id}")
     return downloaded
+
+
+def download_page_video(url: str, target: Path, *, timeout_seconds: int) -> dict[str, Any]:
+    target.parent.mkdir(parents=True, exist_ok=True)
+    if target.exists():
+        target.unlink()
+    command = [
+        sys.executable,
+        "-m",
+        "yt_dlp",
+        "--no-playlist",
+        "--no-progress",
+        "--no-warnings",
+        "--retries",
+        "3",
+        "--fragment-retries",
+        "3",
+        "--socket-timeout",
+        "30",
+        "--merge-output-format",
+        "mp4",
+        "--format",
+        "bv*+ba/b",
+        "--output",
+        str(target),
+        url,
+    ]
+    try:
+        completed = subprocess.run(
+            command,
+            check=False,
+            capture_output=True,
+            text=True,
+            timeout=max(30, timeout_seconds),
+        )
+    except (OSError, subprocess.TimeoutExpired) as exc:
+        cleanup_download_parts(target)
+        return {"status": "failed", "error": normalize_space(str(exc))[:500]}
+    if completed.returncode != 0 or not target.exists() or target.stat().st_size <= 0:
+        error = normalize_space(completed.stderr or completed.stdout or f"yt-dlp exit {completed.returncode}")
+        cleanup_download_parts(target)
+        return {"status": "failed", "error": error[:500]}
+    return {"status": "downloaded", "bytes": target.stat().st_size, "path": str(target)}
+
+
+def cleanup_download_parts(target: Path) -> None:
+    for path in target.parent.glob(f"{target.name}*"):
+        if path.is_file():
+            path.unlink()
+
+
+def safe_file_id(value: str) -> str:
+    cleaned = re.sub(r"[^0-9A-Za-z_.-]+", "_", str(value or "")).strip("_.")
+    return cleaned[:80] or "video"
 
 
 def write_reports(
@@ -1718,12 +2398,17 @@ def write_reports(
     with (reports_dir / "selected.csv").open("w", encoding="utf-8", newline="") as handle:
         fieldnames = [
             "rank",
+            "platform",
             "aweme_id",
             "like_count",
             "comment_count",
             "share_count",
             "play_count",
             "duration_ms",
+            "engagement_tier",
+            "engagement_signal",
+            "age_hours",
+            "freshness_score",
             "quality_score",
             "known_entities",
             "verified_entities",
@@ -1755,7 +2440,7 @@ def write_reports(
                     row[key] = "|".join(str(value) for value in row[key])
             writer.writerow(row)
     with (reports_dir / "summary.md").open("w", encoding="utf-8") as handle:
-        handle.write("# TikHub Douyin Daily\n\n")
+        handle.write("# TikHub Entertainment Daily\n\n")
         handle.write(f"- Keywords: {', '.join(keywords)}\n")
         handle.write(f"- Candidates: {len(candidates)}\n")
         handle.write(f"- Selected: {len(selected)}\n")
@@ -1766,7 +2451,9 @@ def write_reports(
         for idx, item in enumerate(selected, 1):
             handle.write(
                 f"{idx}. {item.get('title') or item.get('aweme_id')} "
+                f"platform={item.get('platform', 'douyin')} "
                 f"likes={item.get('like_count')} comments={item.get('comment_count')} "
+                f"plays={item.get('play_count')} tier={item.get('engagement_tier', '')} "
                 f"score={item.get('quality_score')} duration={duration_seconds(item)}s "
                 f"type={item.get('clip_type', '')} keyword={item.get('source_keyword')}\n"
                 f"   {item.get('url')}\n"
@@ -1803,11 +2490,17 @@ def rewrite_selected_dir(selected_dir: Path, selected: list[dict[str, Any]]) -> 
     temp_dir.mkdir(parents=True, exist_ok=True)
     for idx, item in enumerate(selected, 1):
         aweme_id = str(item.get("aweme_id") or "")
-        matches = [path for path in selected_dir.glob("*") if path.is_file() and (not aweme_id or aweme_id in path.name)]
+        platform = str(item.get("platform") or "douyin")
+        file_id = safe_file_id(aweme_id)
+        matches = [
+            path
+            for path in selected_dir.glob("*")
+            if path.is_file() and (not aweme_id or file_id in path.name)
+        ]
         if not matches:
             continue
         source = matches[0]
-        shutil.copy2(source, temp_dir / f"{idx:02d}_{aweme_id or source.stem}{source.suffix}")
+        shutil.copy2(source, temp_dir / f"{idx:02d}_{platform}_{file_id or source.stem}{source.suffix}")
     for path in selected_dir.glob("*"):
         if path.is_file():
             path.unlink()
@@ -1850,7 +2543,7 @@ def find_first_value(data: Any, keys: set[str]) -> Any:
 
 
 def matches_any_term(item: dict[str, Any], terms: list[str]) -> bool:
-    text = " ".join(str(item.get(key) or "") for key in ("title", "author", "source_keyword", "aweme_id"))
+    text = " ".join(str(item.get(key) or "") for key in ("title", "author"))
     return any(term in text for term in terms)
 
 

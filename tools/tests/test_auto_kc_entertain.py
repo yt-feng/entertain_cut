@@ -3,6 +3,8 @@ from __future__ import annotations
 import importlib.util
 import json
 import os
+import subprocess
+import sys
 import tempfile
 import unittest
 from pathlib import Path
@@ -119,6 +121,71 @@ class TitleAccuracyTests(unittest.TestCase):
 
         self.assertIs(returned_plan, plan)
         self.assertEqual(issues, ["第二行结论缺少直接证据"])
+
+    def test_batch_continues_after_one_source_raises(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            first = root / "01_bad.mp4"
+            second = root / "02_good.mp4"
+            output = root / "output.mp4"
+            first.write_bytes(b"bad")
+            second.write_bytes(b"good")
+            failure = {
+                "source": first.name,
+                "exception_type": "CalledProcessError",
+                "reason": "ffmpeg failed",
+            }
+            argv = [
+                "auto_kc_entertain.py",
+                "--input-dir",
+                str(root),
+                "--output-dir",
+                str(root / "outputs"),
+                "--work-dir",
+                str(root / "work"),
+                "--target-count",
+                "1",
+            ]
+            with (
+                mock.patch.object(sys, "argv", argv),
+                mock.patch.object(auto_kc, "check_runtime"),
+                mock.patch.object(auto_kc, "find_sources", return_value=[first, second]),
+                mock.patch.object(auto_kc, "read_api_key", return_value="test-key"),
+                mock.patch.object(auto_kc, "load_source_metadata", return_value={}),
+                mock.patch.object(auto_kc, "load_manifest", return_value={}),
+                mock.patch.object(
+                    auto_kc,
+                    "process_one",
+                    side_effect=[subprocess.CalledProcessError(1, ["ffmpeg"]), output],
+                ) as process_one,
+                mock.patch.object(auto_kc, "write_source_failure", return_value=failure),
+                mock.patch.object(auto_kc, "save_manifest"),
+                mock.patch.object(auto_kc, "write_run_summary") as write_summary,
+                mock.patch.object(auto_kc, "reveal_in_finder"),
+            ):
+                auto_kc.main()
+
+        self.assertEqual(process_one.call_count, 2)
+        self.assertEqual(write_summary.call_args.args[4], [failure])
+
+    def test_probe_rejects_audio_only_file(self) -> None:
+        completed = subprocess.CompletedProcess(
+            args=["ffprobe"],
+            returncode=0,
+            stdout=json.dumps({"format": {"duration": "12.0"}, "streams": [{"codec_type": "audio"}]}),
+        )
+        with mock.patch.object(auto_kc.subprocess, "run", return_value=completed):
+            with self.assertRaisesRegex(ValueError, "no decodable video stream"):
+                auto_kc.probe_media(Path("audio-only.mp4"))
+
+
+class SourceMetadataTests(unittest.TestCase):
+    def test_bilibili_content_id_in_filename_resolves_metadata(self) -> None:
+        metadata = {"BV1TEST": {"content_id": "BV1TEST", "title": "杨紫综艺现场"}}
+
+        result = auto_kc.metadata_for_source(Path("01_bilibili_BV1TEST.mp4"), metadata)
+
+        self.assertEqual(result["title"], "杨紫综艺现场")
 
 
 class TavilyFactCheckTests(unittest.TestCase):
