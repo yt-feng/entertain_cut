@@ -518,7 +518,9 @@ class TavilyHotContextTests(unittest.TestCase):
                                 "title": "杨紫新剧引发热议",
                                 "content": "相关片段登上热搜。",
                                 "url": "https://example.com/news",
-                                "published_date": "2026-07-19",
+                                "published_date": dt.datetime.now(
+                                    dt.timezone(dt.timedelta(hours=8))
+                                ).date().isoformat(),
                             }
                         ],
                         "usage": {"credits": 1},
@@ -599,6 +601,32 @@ class TavilyHotContextTests(unittest.TestCase):
         }
 
         self.assertFalse(tikhub.tavily_entertainment_result(result))
+
+    def test_stale_hourly_report_and_static_topic_page_are_rejected(self) -> None:
+        now = dt.datetime(2026, 7, 28, 17, 0, tzinfo=dt.timezone(dt.timedelta(hours=8)))
+
+        self.assertFalse(
+            tikhub.tavily_recent_result(
+                {"title": "新浪明星热点小时报丨2026年07月27日13时"},
+                now=now,
+            )
+        )
+        self.assertFalse(
+            tikhub.tavily_recent_result(
+                {"title": "胡歌 - 最新胡歌实时滚动快讯，聚合所有胡歌热门新闻"},
+                now=now,
+            )
+        )
+
+    def test_current_hourly_report_is_accepted(self) -> None:
+        now = dt.datetime(2026, 7, 28, 17, 0, tzinfo=dt.timezone(dt.timedelta(hours=8)))
+
+        self.assertTrue(
+            tikhub.tavily_recent_result(
+                {"title": "新浪明星热点小时报丨2026年07月28日13时"},
+                now=now,
+            )
+        )
 
     def test_tavily_headline_entities_rank_before_names_buried_in_snippets(self) -> None:
         items = [

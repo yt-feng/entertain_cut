@@ -72,6 +72,12 @@ HOT_CONTEXT_NEGATIVE_TITLE_TERMS = [
     "股市",
     "财经",
 ]
+HOT_CONTEXT_STATIC_TITLE_TERMS = [
+    "明星专题",
+    "电视专题",
+    "实时滚动快讯",
+    "聚合所有",
+]
 GENERIC_HOT_TERMS = {
     "上热门",
     "我要上热门",
@@ -1544,7 +1550,7 @@ def fetch_tavily_context(
         for value in results:
             if not isinstance(value, dict):
                 continue
-            if not tavily_entertainment_result(value):
+            if not tavily_entertainment_result(value) or not tavily_recent_result(value):
                 discarded_count += 1
                 continue
             published_date = normalize_space(str(value.get("published_date") or ""))
@@ -1584,6 +1590,54 @@ def tavily_entertainment_result(value: dict[str, Any]) -> bool:
     if any(term in title for term in HOT_CONTEXT_NEGATIVE_TITLE_TERMS) and not celebrity_match:
         return False
     return celebrity_match or any(term in title for term in HOT_CONTEXT_RELEVANCE_TERMS)
+
+
+def tavily_recent_result(
+    value: dict[str, Any],
+    *,
+    now: dt.datetime | None = None,
+    recent_hours: int = 24,
+) -> bool:
+    title = normalize_space(str(value.get("title") or ""))
+    if any(term in title for term in HOT_CONTEXT_STATIC_TITLE_TERMS):
+        return False
+    beijing_tz = dt.timezone(dt.timedelta(hours=8))
+    reference = now or dt.datetime.now(beijing_tz)
+    if reference.tzinfo is None:
+        reference = reference.replace(tzinfo=beijing_tz)
+    else:
+        reference = reference.astimezone(beijing_tz)
+
+    published = normalize_space(str(value.get("published_date") or ""))
+    if published:
+        try:
+            if re.fullmatch(r"\d{4}-\d{2}-\d{2}", published):
+                return dt.date.fromisoformat(published) == reference.date()
+            parsed = dt.datetime.fromisoformat(published.replace("Z", "+00:00"))
+            if parsed.tzinfo is None:
+                parsed = parsed.replace(tzinfo=beijing_tz)
+            age = reference - parsed.astimezone(beijing_tz)
+            return dt.timedelta(0) <= age <= dt.timedelta(hours=max(1, recent_hours))
+        except ValueError:
+            pass
+
+    dated_hour = re.search(r"(20\d{2})年(\d{1,2})月(\d{1,2})日(\d{1,2})时", title)
+    if dated_hour:
+        try:
+            parsed = dt.datetime(*(int(part) for part in dated_hour.groups()), tzinfo=beijing_tz)
+        except ValueError:
+            return False
+        age = reference - parsed
+        return dt.timedelta(0) <= age <= dt.timedelta(hours=max(1, recent_hours))
+
+    dated_day = re.search(r"(20\d{2})年(\d{1,2})月(\d{1,2})日", title)
+    if dated_day:
+        try:
+            parsed_date = dt.date(*(int(part) for part in dated_day.groups()))
+        except ValueError:
+            return False
+        return parsed_date == reference.date()
+    return True
 
 
 def fetch_hotspot_assistant_context(
