@@ -25,6 +25,7 @@ DEFAULT_WEBDAV_UPLOAD_CONCURRENCY = 3
 
 def main() -> int:
     args = parse_args()
+    previous_webdav_sizes = load_previous_webdav_sizes(args.summary_file)
     report = process_directory(
         output_dir=args.output_dir,
         output_date=args.output_date,
@@ -39,6 +40,7 @@ def main() -> int:
         webdav_user=os.environ.get("JIANGUOYUN_WEBDAV_USER", "").strip(),
         webdav_password=os.environ.get("JIANGUOYUN_WEBDAV_PASSWORD", "").strip(),
         webdav_prune_extra=args.webdav_prune_extra,
+        previous_webdav_sizes=previous_webdav_sizes,
     )
     args.summary_file.parent.mkdir(parents=True, exist_ok=True)
     args.summary_file.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
@@ -46,7 +48,10 @@ def main() -> int:
     print(
         "KC publish summary: "
         f"{report['git_ready_count']} Git-ready, "
-        f"{report['webdav_uploaded_count']} WebDAV upload(s), "
+        f"{report['webdav_verified_count']} WebDAV verified "
+        f"({report['webdav_existing_count']} already present, "
+        f"{report['webdav_verified_after_attempt_count']} verified after PUT), "
+        f"{report['webdav_uploaded_count']} PUT(s) accepted this attempt, "
         f"{report['git_skipped_count']} Git skip(s)."
     )
     print(f"Summary: {args.summary_file}")
@@ -78,6 +83,37 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+def load_previous_webdav_sizes(summary_file: Path) -> dict[str, set[int]]:
+    if not summary_file.is_file():
+        return {}
+    try:
+        report = json.loads(summary_file.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+
+    sizes_by_name: dict[str, set[int]] = {}
+    for item in report.get("files", []):
+        if not isinstance(item, dict):
+            continue
+        name = str(item.get("name", ""))
+        if not name:
+            continue
+        raw_sizes = item.get("webdav_expected_sizes", [item.get("size_before")])
+        if not isinstance(raw_sizes, list):
+            raw_sizes = [raw_sizes]
+        sizes: set[int] = set()
+        for raw_size in raw_sizes:
+            try:
+                size = int(raw_size)
+            except (TypeError, ValueError):
+                continue
+            if size >= 0:
+                sizes.add(size)
+        if sizes:
+            sizes_by_name[name] = sizes
+    return sizes_by_name
+
+
 def process_directory(
     *,
     output_dir: Path,
@@ -93,6 +129,7 @@ def process_directory(
     webdav_password: str,
     webdav_upload_concurrency: int = DEFAULT_WEBDAV_UPLOAD_CONCURRENCY,
     webdav_prune_extra: bool = False,
+    previous_webdav_sizes: dict[str, set[int]] | None = None,
 ) -> dict[str, Any]:
     output_dir = output_dir.resolve()
     videos = sorted(path for path in output_dir.glob("*.mp4") if path.is_file())
@@ -120,6 +157,14 @@ def process_directory(
             }
             print("::warning::Jianguoyun WebDAV credentials are not configured; videos stay in Artifact.")
 
+    previous_webdav_sizes = previous_webdav_sizes or {}
+    expected_webdav_sizes: dict[Path, set[int]] = {}
+    for video in videos:
+        expected_webdav_sizes[video] = {
+            video.stat().st_size,
+            *previous_webdav_sizes.get(video.name, set()),
+        }
+
     upload_results = upload_all_webdav_files(
         videos,
         remote_directory_url,
@@ -127,6 +172,7 @@ def process_directory(
         webdav_user,
         webdav_password,
         concurrency=webdav_upload_concurrency,
+        expected_sizes=expected_webdav_sizes,
     )
     all_uploaded = bool(videos) and all(bool(upload_results.get(video, {}).get("success")) for video in videos)
     if webdav_prune_extra and all_uploaded:
@@ -164,6 +210,7 @@ def process_directory(
             "name": video.name,
             "path": str(video),
             "size_before": before_size,
+            "webdav_expected_sizes": sorted(expected_webdav_sizes.get(video, {before_size})),
             "oversized_original": not is_git_safe(before_size, git_max_bytes),
             "webdav": upload_results.get(
                 video,
@@ -222,7 +269,22 @@ def process_directory(
 
     report["git_ready_count"] = sum(bool(item.get("git_ready")) for item in report["files"])
     report["git_skipped_count"] = sum(not bool(item.get("git_ready")) for item in report["files"])
-    report["webdav_uploaded_count"] = sum(bool(item.get("webdav", {}).get("success")) for item in report["files"])
+    report["webdav_verified_count"] = sum(
+        bool(item.get("webdav", {}).get("success")) for item in report["files"]
+    )
+    report["webdav_existing_count"] = sum(
+        bool(item.get("webdav", {}).get("success"))
+        and not bool(item.get("webdav", {}).get("attempted"))
+        for item in report["files"]
+    )
+    report["webdav_verified_after_attempt_count"] = sum(
+        bool(item.get("webdav", {}).get("success"))
+        and bool(item.get("webdav", {}).get("attempted"))
+        for item in report["files"]
+    )
+    report["webdav_uploaded_count"] = sum(
+        bool(item.get("webdav", {}).get("put_success")) for item in report["files"]
+    )
     report["compression_success_count"] = sum(
         bool(item.get("compression", {}).get("success")) for item in report["files"]
     )
@@ -237,36 +299,164 @@ def upload_all_webdav_files(
     password: str,
     *,
     concurrency: int,
+    expected_sizes: dict[Path, set[int]],
 ) -> dict[Path, dict[str, Any]]:
     if not videos:
         return {}
     if not directory_result.get("ready"):
         reason = directory_result.get("reason", "WebDAV directory unavailable")
         return {
-            video: {"attempted": False, "success": False, "reason": reason}
+            video: {
+                "attempted": False,
+                "success": False,
+                "remote_verified": False,
+                "phase": "directory",
+                "reason": reason,
+            }
+            for video in videos
+        }
+
+    preflight = list_webdav_videos(remote_directory_url, username, password)
+    if not preflight.get("success"):
+        reason = preflight.get("reason", "WebDAV preflight listing failed")
+        print(f"::warning::Could not list Jianguoyun before upload: {reason}")
+        return {
+            video: {
+                "attempted": False,
+                "success": False,
+                "remote_verified": False,
+                "phase": "preflight",
+                "reason": reason,
+            }
             for video in videos
         }
 
     results: dict[Path, dict[str, Any]] = {}
-    workers = min(len(videos), max(1, int(concurrency)))
+    preflight_names = set(preflight.get("names", []))
+    missing_videos: list[Path] = []
+    for video in videos:
+        url = remote_directory_url.rstrip("/") + "/" + quote(video.name, safe="")
+        remote_size = matching_webdav_size(video, preflight, expected_sizes)
+        if remote_size is not None:
+            results[video] = {
+                "attempted": False,
+                "success": True,
+                "remote_verified": True,
+                "remote_size": remote_size,
+                "phase": "preflight",
+                "reason": "matching name and size already present on WebDAV",
+                "url": url,
+            }
+            print(f"Already present on Jianguoyun: {video.name} ({remote_size} bytes)")
+        else:
+            if video.name in preflight_names:
+                print(
+                    f"::warning::Jianguoyun has a non-matching copy of {video.name}: "
+                    f"remote={preflight.get('sizes', {}).get(video.name)!r}, "
+                    f"expected={sorted(expected_sizes.get(video, set()))}"
+                )
+            missing_videos.append(video)
+
+    if not missing_videos:
+        return results
+
+    workers = min(len(missing_videos), max(1, int(concurrency)))
     with ThreadPoolExecutor(max_workers=workers) as executor:
         futures = {
             executor.submit(upload_webdav_file, video, remote_directory_url, username, password): video
-            for video in videos
+            for video in missing_videos
         }
         for future in as_completed(futures):
             video = futures[future]
             try:
                 result = future.result()
             except Exception as exc:  # noqa: BLE001 - one upload must not block the daily run.
-                result = {"attempted": True, "success": False, "error": str(exc)}
+                result = {
+                    "attempted": True,
+                    "success": False,
+                    "put_success": False,
+                    "error": str(exc),
+                    "reason": f"PUT raised an exception: {exc}",
+                }
+            result["put_success"] = bool(result.get("put_success", result.get("success")))
             results[video] = result
-            if result.get("success"):
-                print(f"Uploaded to Jianguoyun: {video.name}")
+            if result.get("put_success"):
+                print(f"Jianguoyun accepted PUT: {video.name}")
             else:
                 reason = result.get("reason") or result.get("error") or "upload failed"
                 print(f"::warning::Jianguoyun upload did not complete for {video.name}: {reason}")
+
+    postflight = list_webdav_videos(remote_directory_url, username, password)
+    if not postflight.get("success"):
+        verification_reason = postflight.get("reason", "WebDAV post-upload listing failed")
+        print(f"::warning::Could not verify Jianguoyun after upload: {verification_reason}")
+        for video in missing_videos:
+            put_result = results[video]
+            put_reason = put_result.get("reason") or put_result.get("error") or "PUT result unavailable"
+            results[video] = {
+                **put_result,
+                "success": False,
+                "remote_verified": False,
+                "phase": "postflight",
+                "reason": f"{put_reason}; remote verification failed: {verification_reason}",
+            }
+        return results
+
+    for video in videos:
+        prior_result = results[video]
+        remote_size = matching_webdav_size(video, postflight, expected_sizes)
+        if remote_size is not None:
+            attempted = bool(prior_result.get("attempted"))
+            results[video] = {
+                **prior_result,
+                "success": True,
+                "remote_verified": True,
+                "remote_size": remote_size,
+                "phase": "postflight",
+                "reason": (
+                    "matching name and size present after upload attempt"
+                    if attempted
+                    else "matching name and size present before and after upload"
+                ),
+            }
+            print(f"Verified on Jianguoyun: {video.name} ({remote_size} bytes)")
+        else:
+            if prior_result.get("attempted"):
+                prior_reason = (
+                    prior_result.get("reason")
+                    or prior_result.get("error")
+                    or "PUT result unavailable"
+                )
+            else:
+                prior_reason = "preflight copy disappeared or changed size"
+            results[video] = {
+                **prior_result,
+                "success": False,
+                "remote_verified": False,
+                "phase": "postflight",
+                "reason": (
+                    f"{prior_reason}; remote size={postflight.get('sizes', {}).get(video.name)!r}, "
+                    f"expected={sorted(expected_sizes.get(video, set()))}"
+                ),
+            }
+            print(
+                f"::warning::Jianguoyun delivery is not verified for {video.name}: "
+                f"{results[video]['reason']}"
+            )
     return results
+
+
+def matching_webdav_size(
+    video: Path,
+    listing: dict[str, Any],
+    expected_sizes: dict[Path, set[int]],
+) -> int | None:
+    raw_size = listing.get("sizes", {}).get(video.name)
+    try:
+        remote_size = int(raw_size)
+    except (TypeError, ValueError):
+        return None
+    return remote_size if remote_size in expected_sizes.get(video, set()) else None
 
 
 def is_git_safe(size_bytes: int, git_max_bytes: int) -> bool:
@@ -324,13 +514,30 @@ def upload_webdav_file(
         password,
         timeout_seconds=3600,
     )
-    success = result["http_status"] in {200, 201, 204}
+    try:
+        http_status = int(result.get("http_status", 0))
+    except (TypeError, ValueError):
+        http_status = 0
+    curl_error = str(result.get("error", "")).strip()
+    returncode = result.get("returncode")
+    put_success = http_status in {200, 201, 204} and returncode in {None, 0}
+    if put_success:
+        reason = "PUT accepted"
+    elif http_status:
+        reason = f"PUT failed with HTTP {http_status}"
+    else:
+        reason = "PUT failed with a transport error"
+    if not put_success and curl_error:
+        reason = f"{reason}: {curl_error}"
     return {
         "attempted": True,
-        "success": success,
-        "http_status": result["http_status"],
+        "success": put_success,
+        "put_success": put_success,
+        "http_status": http_status,
+        "returncode": returncode,
         "url": url,
-        "error": "" if success else result.get("error", "HTTP upload failed"),
+        "error": "" if put_success else curl_error,
+        "reason": reason,
     }
 
 
@@ -365,7 +572,7 @@ def prune_extra_webdav_videos(
 
 def list_webdav_videos(remote_directory_url: str, username: str, password: str) -> dict[str, Any]:
     if not shutil.which("curl"):
-        return {"success": False, "reason": "curl is unavailable", "names": []}
+        return {"success": False, "reason": "curl is unavailable", "names": [], "sizes": {}}
     command = [
         "curl",
         "--silent",
@@ -392,33 +599,70 @@ def list_webdav_videos(remote_directory_url: str, username: str, password: str) 
     try:
         completed = subprocess.run(command, check=False, capture_output=True, text=True, timeout=150)
     except (OSError, subprocess.TimeoutExpired) as exc:
-        return {"success": False, "reason": str(exc), "names": []}
+        return {"success": False, "reason": str(exc), "names": [], "sizes": {}}
     body, separator, raw_status = completed.stdout.rpartition("\n")
     http_status = int(raw_status) if separator and raw_status.isdigit() else 0
     if http_status not in {200, 207}:
+        reason = (
+            f"PROPFIND failed with HTTP {http_status}"
+            if http_status
+            else "PROPFIND failed with a transport error"
+        )
         return {
             "success": False,
-            "reason": f"PROPFIND failed with HTTP {http_status or 'transport error'}",
+            "reason": reason,
             "error": completed.stderr.strip()[-1000:],
             "names": [],
+            "sizes": {},
         }
     try:
-        names = parse_webdav_video_names(body)
+        sizes = parse_webdav_video_entries(body)
     except ET.ParseError as exc:
-        return {"success": False, "reason": f"invalid PROPFIND XML: {exc}", "names": []}
-    return {"success": True, "http_status": http_status, "names": names}
+        return {
+            "success": False,
+            "reason": f"invalid PROPFIND XML: {exc}",
+            "names": [],
+            "sizes": {},
+        }
+    return {
+        "success": True,
+        "http_status": http_status,
+        "names": list(sizes),
+        "sizes": sizes,
+    }
 
 
 def parse_webdav_video_names(xml_text: str) -> list[str]:
+    return list(parse_webdav_video_entries(xml_text))
+
+
+def parse_webdav_video_entries(xml_text: str) -> dict[str, int | None]:
     root = ET.fromstring(xml_text)
-    names: list[str] = []
-    for href_node in root.findall(".//{DAV:}href"):
+    entries: dict[str, int | None] = {}
+    for response in root.findall(".//{DAV:}response"):
+        href_node = response.find("{DAV:}href")
+        if href_node is None:
+            continue
         href = str(href_node.text or "")
-        path = unquote(urlparse(href).path).rstrip("/")
+        path = unquote(urlparse(href).path)
+        if path.endswith("/"):
+            continue
         name = path.rsplit("/", 1)[-1] if path else ""
-        if name.lower().endswith(".mp4") and name not in names:
-            names.append(name)
-    return names
+        if not name.lower().endswith(".mp4"):
+            continue
+        size: int | None = None
+        size_node = response.find(".//{DAV:}getcontentlength")
+        if size_node is not None:
+            try:
+                parsed_size = int(str(size_node.text or ""))
+            except ValueError:
+                pass
+            else:
+                if parsed_size >= 0:
+                    size = parsed_size
+        if name not in entries or entries[name] is None:
+            entries[name] = size
+    return entries
 
 
 def run_curl(

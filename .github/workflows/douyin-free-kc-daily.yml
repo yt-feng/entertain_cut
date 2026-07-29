@@ -481,7 +481,11 @@ jobs:
             echo "Current run did not produce five videos; skipping partial WebDAV upload."
             exit 0
           fi
-          for attempt in 1 2; do
+          for attempt in 1 2 3; do
+            upload_concurrency=3
+            if (( attempt > 1 )); then
+              upload_concurrency=1
+            fi
             python tools/publish_kc_videos.py \
               --output-dir "$KC_OUTPUT_DIR" \
               --output-date "$KC_OUTPUT_DATE" \
@@ -494,14 +498,15 @@ jobs:
               --webdav-root "我的坚果云/KCdesk/Ops" \
               --webdav-category "KC娱乐" \
               --webdav-prune-extra \
-              --webdav-upload-concurrency 3
-            uploaded="$(python -c 'import json; print(json.load(open("work/kc_publish_summary.json"))["webdav_uploaded_count"])' 2>/dev/null || echo 0)"
-            if (( uploaded >= KC_LIMIT )); then
+              --webdav-upload-concurrency "$upload_concurrency"
+            verified="$(python -c 'import json; p=json.load(open("work/kc_publish_summary.json")); print(p.get("webdav_verified_count", p.get("webdav_uploaded_count", 0)))' 2>/dev/null || echo 0)"
+            if (( verified >= KC_LIMIT )); then
               break
             fi
-            if [[ "$attempt" != "2" ]]; then
-              echo "WebDAV uploaded $uploaded/$KC_LIMIT; retrying once."
-              sleep 15
+            if [[ "$attempt" != "3" ]]; then
+              retry_delay=$((attempt * 30))
+              echo "WebDAV verified $verified/$KC_LIMIT; retrying missing files in ${retry_delay}s."
+              sleep "$retry_delay"
             fi
           done
 
@@ -510,8 +515,8 @@ jobs:
         continue-on-error: true
         run: |
           ready="$(python -c 'import json; print(str(bool(json.load(open("work/kc_delivery_summary.json")).get("ready"))).lower())' 2>/dev/null || echo false)"
-          uploaded="$(python -c 'import json; print(json.load(open("work/kc_publish_summary.json"))["webdav_uploaded_count"])' 2>/dev/null || echo 0)"
-          if [[ "$ready" != "true" || "$uploaded" -lt "$KC_LIMIT" ]]; then
+          verified="$(python -c 'import json; p=json.load(open("work/kc_publish_summary.json")); print(p.get("webdav_verified_count", p.get("webdav_uploaded_count", 0)))' 2>/dev/null || echo 0)"
+          if [[ "$ready" != "true" || "$verified" -lt "$KC_LIMIT" ]]; then
             echo "Daily delivery is incomplete; skipping the Git commit."
             exit 0
           fi
@@ -645,18 +650,20 @@ jobs:
           output_dir = Path(os.environ["KC_OUTPUT_DIR"])
           videos = sorted(output_dir.glob("*.mp4"))
           publish_path = Path("work/kc_publish_summary.json")
-          uploaded = 0
+          verified = 0
           remote_directory = ""
           if publish_path.exists():
               publish = json.loads(publish_path.read_text(encoding="utf-8"))
-              uploaded = int(publish.get("webdav_uploaded_count", 0))
+              verified = int(
+                  publish.get("webdav_verified_count", publish.get("webdav_uploaded_count", 0))
+              )
               remote_directory = str(publish.get("remote_directory", ""))
 
           print(f"Final KC files: {len(videos)}/{limit}")
-          print(f"Final Jianguoyun uploads: {uploaded}/{limit}")
+          print(f"Final Jianguoyun verified: {verified}/{limit}")
           print(f"Remote directory: {remote_directory}")
-          if len(videos) < limit or uploaded < limit:
+          if len(videos) < limit or verified < limit:
               raise SystemExit(
-                  f"Daily delivery incomplete after all fallbacks: files={len(videos)}, uploads={uploaded}, required={limit}"
+                  f"Daily delivery incomplete after all fallbacks: files={len(videos)}, verified={verified}, required={limit}"
               )
           PY
