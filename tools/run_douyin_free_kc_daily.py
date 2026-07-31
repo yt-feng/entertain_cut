@@ -368,8 +368,13 @@ def main() -> int:
         print(f"Reports: {run_dir / 'reports'}")
         return 3
 
-    minimum_selected = min(max(1, int(args.limit)), max(1, int(args.min_selected_videos)))
-    if len(selected_files) < minimum_selected:
+    packaging_target = resolve_packaging_target(
+        selected_count=len(selected_files),
+        limit=args.limit,
+        minimum_selected=args.min_selected_videos,
+    )
+    if packaging_target <= 0:
+        minimum_selected = min(max(1, int(args.limit)), max(1, int(args.min_selected_videos)))
         summary["kc_skipped"] = f"only {len(selected_files)} selected videos; minimum is {minimum_selected}"
         write_summary(run_dir, summary)
         print(
@@ -379,6 +384,15 @@ def main() -> int:
         )
         print(f"Reports: {run_dir / 'reports'}")
         return 3
+
+    summary["kc_packaging_target"] = packaging_target
+    summary["kc_target_met"] = len(selected_files) >= max(1, int(args.limit))
+    if packaging_target < max(1, int(args.limit)):
+        print(
+            f"Packaging the {packaging_target} available selected video(s); "
+            f"the daily target is {max(1, int(args.limit))}.",
+            flush=True,
+        )
 
     output_dir.mkdir(parents=True, exist_ok=True)
     kc_cmd = [
@@ -397,7 +411,7 @@ def main() -> int:
         "--threads",
         str(args.threads),
         "--target-count",
-        str(args.limit),
+        str(packaging_target),
     ]
     if args.force:
         kc_cmd.append("--force")
@@ -413,7 +427,7 @@ def main() -> int:
         kc_outputs = [line.strip() for line in outputs_list.read_text(encoding="utf-8").splitlines() if line.strip()]
     summary["kc_output_count"] = len(kc_outputs)
     summary["kc_outputs"] = kc_outputs
-    if source_provider == "tikhub" and len(kc_outputs) >= max(1, int(args.limit)):
+    if source_provider == "tikhub" and len(kc_outputs) >= packaging_target:
         commit_processed_manifest_after_success(run_dir, args.processed_manifest, args.output_date, summary)
     write_summary(run_dir, summary)
     print(f"KC outputs: {len(kc_outputs)}")
@@ -552,6 +566,15 @@ def resolve_source_provider(provider: str) -> str:
     if provider != "auto":
         return provider
     return "tikhub" if os.environ.get("TIKHUB_API_KEY", "").strip() else "free"
+
+
+def resolve_packaging_target(*, selected_count: int, limit: int, minimum_selected: int) -> int:
+    target = max(1, int(limit))
+    minimum = min(target, max(1, int(minimum_selected)))
+    available = max(0, int(selected_count))
+    if available < minimum:
+        return 0
+    return min(target, available)
 
 
 def ensure_downloader(downloader_dir: Path, *, install_deps: bool, python_bin: str) -> None:

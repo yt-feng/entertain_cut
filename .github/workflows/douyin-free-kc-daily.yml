@@ -267,7 +267,7 @@ jobs:
             --download-candidate-multiplier 8 \
             --reserve-selected-videos 3 \
             --max-videos-per-celebrity 2 \
-            --min-selected-videos "$KC_LIMIT" \
+            --min-selected-videos 1 \
             --tikhub-max-search-requests 15 \
             --tikhub-douyin-search-requests 10 \
             --tikhub-daily-budget-usd 0.15 \
@@ -293,7 +293,17 @@ jobs:
         continue-on-error: true
         run: |
           mkdir -p "$KC_OUTPUT_DIR"
-          count="$(find "$KC_OUTPUT_DIR" -maxdepth 1 -type f -name '*.mp4' | wc -l | tr -d ' ')"
+          count="$(python - <<'PY'
+          import os
+          from pathlib import Path
+
+          from tools.prepare_kc_delivery import read_preferred_outputs
+
+          output_dir = Path(os.environ["KC_OUTPUT_DIR"])
+          outputs_file = Path("work/auto_kc_douyin_free/last_run_outputs.txt")
+          print(len(read_preferred_outputs(outputs_file, output_dir)))
+          PY
+          )"
           echo "count=$count" >> "$GITHUB_OUTPUT"
           if (( count >= KC_LIMIT )); then
             echo "ready=true" >> "$GITHUB_OUTPUT"
@@ -302,14 +312,28 @@ jobs:
           fi
           echo "Primary KC result: $count/$KC_LIMIT video(s)"
 
-      - name: Try free Cookie source when TikHub is unavailable
+      - name: Try free Cookie source to fill missing KC videos
         if: ${{ !cancelled() && steps.primary_kc_check.outputs.ready != 'true' && (github.event_name != 'workflow_dispatch' || (github.event.inputs.search_only != 'true' && github.event.inputs.selected_artifact_run_id == '' && github.event.inputs.kc_artifact_run_id == '')) }}
         continue-on-error: true
         run: |
+          rm -f work/tikhub_primary_outputs.txt
+          if [[ -f work/auto_kc_douyin_free/last_run_outputs.txt ]]; then
+            cp work/auto_kc_douyin_free/last_run_outputs.txt work/tikhub_primary_outputs.txt
+          fi
           if [[ -d work/douyin_free_daily/latest/reports ]]; then
             rm -rf work/tikhub_primary_reports
             cp -a work/douyin_free_daily/latest/reports work/tikhub_primary_reports
           fi
+          primary_count="${{ steps.primary_kc_check.outputs.count }}"
+          if [[ ! "$primary_count" =~ ^[0-9]+$ ]]; then
+            primary_count=0
+          fi
+          fallback_limit=$((KC_LIMIT - primary_count))
+          if (( fallback_limit < 1 )); then
+            echo "TikHub already produced the requested $KC_LIMIT video(s); free fallback is not needed."
+            exit 0
+          fi
+          echo "Free fallback will try to fill $fallback_limit missing KC video(s)."
           extra_args=()
           if [[ "${{ github.event.inputs.force_fallback }}" == "true" || -z "${DEEPSEEK_API_KEY}" ]]; then
             extra_args+=(--force-fallback)
@@ -320,7 +344,7 @@ jobs:
           python tools/run_douyin_free_kc_daily.py \
             --provider free \
             --install-downloader-deps \
-            --limit "$KC_LIMIT" \
+            --limit "$fallback_limit" \
             --recent-hours 24 \
             --primary-min-likes 10000 \
             --fallback-min-likes 1000 \
@@ -332,7 +356,7 @@ jobs:
             --download-candidate-multiplier 8 \
             --reserve-selected-videos 3 \
             --max-videos-per-celebrity 2 \
-            --min-selected-videos "$KC_LIMIT" \
+            --min-selected-videos 1 \
             --direct-search \
             --direct-download \
             --yt-dlp-download \
@@ -462,12 +486,13 @@ jobs:
           fi
           echo "Available KC videos: $count/$KC_LIMIT"
 
-      - name: Keep exactly five current-run KC videos
+      - name: Prepare current-run KC videos for delivery
         if: ${{ !cancelled() && (github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true') }}
         continue-on-error: true
         run: |
           python tools/prepare_kc_delivery.py \
             --output-dir "$KC_OUTPUT_DIR" \
+            --prepend-outputs-file work/tikhub_primary_outputs.txt \
             --outputs-file work/auto_kc_douyin_free/last_run_outputs.txt \
             --summary-file work/kc_delivery_summary.json \
             --limit "$KC_LIMIT"
@@ -476,9 +501,10 @@ jobs:
         if: ${{ !cancelled() && (github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true') }}
         continue-on-error: true
         run: |
-          ready="$(python -c 'import json; print(str(bool(json.load(open("work/kc_delivery_summary.json")).get("ready"))).lower())' 2>/dev/null || echo false)"
-          if [[ "$ready" != "true" ]]; then
-            echo "Current run did not produce five videos; skipping partial WebDAV upload."
+          deliverable="$(python -c 'import json; print(str(bool(json.load(open("work/kc_delivery_summary.json")).get("deliverable"))).lower())' 2>/dev/null || echo false)"
+          expected="$(python -c 'import json; print(int(json.load(open("work/kc_delivery_summary.json")).get("selected_count", 0)))' 2>/dev/null || echo 0)"
+          if [[ "$deliverable" != "true" || "$expected" -lt 1 ]]; then
+            echo "Current run did not produce any videos; skipping WebDAV upload."
             exit 0
           fi
           for attempt in 1 2 3; do
@@ -500,12 +526,12 @@ jobs:
               --webdav-prune-extra \
               --webdav-upload-concurrency "$upload_concurrency"
             verified="$(python -c 'import json; p=json.load(open("work/kc_publish_summary.json")); print(p.get("webdav_verified_count", p.get("webdav_uploaded_count", 0)))' 2>/dev/null || echo 0)"
-            if (( verified >= KC_LIMIT )); then
+            if (( verified >= expected )); then
               break
             fi
             if [[ "$attempt" != "3" ]]; then
               retry_delay=$((attempt * 30))
-              echo "WebDAV verified $verified/$KC_LIMIT; retrying missing files in ${retry_delay}s."
+              echo "WebDAV verified $verified/$expected available video(s); retrying missing files in ${retry_delay}s."
               sleep "$retry_delay"
             fi
           done
@@ -514,9 +540,10 @@ jobs:
         if: ${{ !cancelled() && (github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true') }}
         continue-on-error: true
         run: |
-          ready="$(python -c 'import json; print(str(bool(json.load(open("work/kc_delivery_summary.json")).get("ready"))).lower())' 2>/dev/null || echo false)"
+          deliverable="$(python -c 'import json; print(str(bool(json.load(open("work/kc_delivery_summary.json")).get("deliverable"))).lower())' 2>/dev/null || echo false)"
+          expected="$(python -c 'import json; print(int(json.load(open("work/kc_delivery_summary.json")).get("selected_count", 0)))' 2>/dev/null || echo 0)"
           verified="$(python -c 'import json; p=json.load(open("work/kc_publish_summary.json")); print(p.get("webdav_verified_count", p.get("webdav_uploaded_count", 0)))' 2>/dev/null || echo 0)"
-          if [[ "$ready" != "true" || "$verified" -lt "$KC_LIMIT" ]]; then
+          if [[ "$deliverable" != "true" || "$expected" -lt 1 || "$verified" -lt "$expected" ]]; then
             echo "Daily delivery is incomplete; skipping the Git commit."
             exit 0
           fi
@@ -649,6 +676,13 @@ jobs:
           limit = max(1, int(os.environ.get("KC_LIMIT", "5")))
           output_dir = Path(os.environ["KC_OUTPUT_DIR"])
           videos = sorted(output_dir.glob("*.mp4"))
+          delivery_path = Path("work/kc_delivery_summary.json")
+          expected = 0
+          target_met = False
+          if delivery_path.exists():
+              delivery = json.loads(delivery_path.read_text(encoding="utf-8"))
+              expected = int(delivery.get("selected_count", 0))
+              target_met = bool(delivery.get("target_met", delivery.get("ready", False)))
           publish_path = Path("work/kc_publish_summary.json")
           verified = 0
           remote_directory = ""
@@ -660,10 +694,15 @@ jobs:
               remote_directory = str(publish.get("remote_directory", ""))
 
           print(f"Final KC files: {len(videos)}/{limit}")
-          print(f"Final Jianguoyun verified: {verified}/{limit}")
+          print(f"Final Jianguoyun verified: {verified}/{expected} available video(s)")
           print(f"Remote directory: {remote_directory}")
-          if len(videos) < limit or verified < limit:
+          if expected < 1:
+              raise SystemExit("Daily delivery produced no current-run videos.")
+          if len(videos) < expected or verified < expected:
               raise SystemExit(
-                  f"Daily delivery incomplete after all fallbacks: files={len(videos)}, verified={verified}, required={limit}"
+                  f"Daily delivery incomplete after all fallbacks: files={len(videos)}, "
+                  f"verified={verified}, required={expected}"
               )
+          if not target_met:
+              print(f"::warning::Partial daily delivery accepted: {expected}/{limit} available video(s).")
           PY

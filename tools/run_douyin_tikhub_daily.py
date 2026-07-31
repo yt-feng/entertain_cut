@@ -423,7 +423,7 @@ def main() -> int:
         run_info["processed_manifest_pending"] = {
             "path": str(processed_manifest),
             "candidate_count": len(selected),
-            "reason": "committed by the wrapper only after five KC outputs succeed",
+            "reason": "committed by the wrapper after all selected KC outputs succeed",
         }
     record_selected_files(selected_dir, run_info)
     run_info["downloaded_ids"] = sorted(downloaded_ids)
