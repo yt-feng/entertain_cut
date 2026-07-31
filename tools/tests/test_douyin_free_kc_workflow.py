@@ -25,6 +25,10 @@ class DouyinFreeKcWorkflowContractTests(unittest.TestCase):
         self.assertNotIn("verified >= KC_LIMIT", self.workflow)
         self.assertNotIn('"$verified" -lt "$KC_LIMIT"', self.workflow)
 
+    def test_new_daily_output_directory_does_not_break_git_staging(self) -> None:
+        self.assertIn('if [[ -n "$(git ls-files -- "$KC_OUTPUT_DIR")" ]]; then', self.workflow)
+        self.assertIn('git add -u -- "$KC_OUTPUT_DIR"', self.workflow)
+
 
 if __name__ == "__main__":
     unittest.main()
