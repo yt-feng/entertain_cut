@@ -1,7 +1,153 @@
 {
-  "updated_at": "2026-08-02T00:49:02.295429+00:00",
-  "count": 105,
+  "updated_at": "2026-08-03T00:15:47.719711+00:00",
+  "count": 110,
   "items": [
+    {
+      "aweme_id": "7668634875922009394",
+      "content_id": "7668634875922009394",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7668634875922009394/?region=US&mid=6882038820796238606&u_code=0&did=MS4wLjABAAAAepxIkNkyDSjWj8l6sl1z7roVfnLOOe9MrJQimE8OsqyA8P0GEYhpbrMAQBKlTQXD&iid=MS4wLjABAAAAm8np9KAK-dNXes3C9z3_cCK45Dko2lnpIdAZyCVG8dCRMi8xcKv6nDe7E3Fsk_Ql&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=IETLTZ1NYp1rIolNgI_H_teoDvwsI4bnS8gWGLXeeVw-&share_version=320900&ts=1785715388&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "时间的参照物到底是什么呢？#电影功夫女足  #周星驰",
+      "author": "电影功夫女足",
+      "like_count": 525525,
+      "comment_count": 12891,
+      "share_count": 5051,
+      "duration_ms": 19567,
+      "create_time_iso": "2026-08-02T02:00:00+00:00",
+      "known_entities": [
+        "功夫女足",
+        "电影功夫女足",
+        "周星驰"
+      ],
+      "verified_entities": [
+        "电影功夫女足",
+        "周星驰"
+      ],
+      "primary_celebrities": [
+        "周星驰",
+        "迪丽热巴"
+      ],
+      "quality_score": 284.13599999999997,
+      "output_date": "2026-08-03",
+      "selected_at": "2026-08-03T00:15:47.719711+00:00"
+    },
+    {
+      "aweme_id": "7668636106182642970",
+      "content_id": "7668636106182642970",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7668636106182642970/?region=US&mid=7584028172271094564&u_code=0&did=MS4wLjABAAAAepxIkNkyDSjWj8l6sl1z7roVfnLOOe9MrJQimE8OsqyA8P0GEYhpbrMAQBKlTQXD&iid=MS4wLjABAAAAm8np9KAK-dNXes3C9z3_cCK45Dko2lnpIdAZyCVG8dCRMi8xcKv6nDe7E3Fsk_Ql&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=JW2.mD.4sGC.l8vitG1TSgGJahwlXYKorBFtnBDIR_A-&share_version=320900&ts=1785715388&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "你没看错，这真的不是特效。#电影功夫女足  #周星驰",
+      "author": "电影功夫女足",
+      "like_count": 294468,
+      "comment_count": 1896,
+      "share_count": 21131,
+      "duration_ms": 24426,
+      "create_time_iso": "2026-08-02T02:50:00+00:00",
+      "known_entities": [
+        "功夫女足",
+        "电影功夫女足",
+        "周星驰"
+      ],
+      "verified_entities": [
+        "电影功夫女足",
+        "周星驰"
+      ],
+      "primary_celebrities": [
+        "周星驰"
+      ],
+      "quality_score": 268.466,
+      "output_date": "2026-08-03",
+      "selected_at": "2026-08-03T00:15:47.719711+00:00"
+    },
+    {
+      "aweme_id": "7669328522629393393",
+      "content_id": "7669328522629393393",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7669328522629393393/?region=US&mid=7242302825829059389&u_code=0&did=MS4wLjABAAAADxD620Eq6uJtHJsC_Y6mPtElYgxsbfPCgtQuAJcw0Nt3meofOIhDsIJ8jEOMKJ_h&iid=MS4wLjABAAAAfHah6hqunW49gv9So5KXeSzUzzq5TDxPaOS_z2CXlqbRCyt2YBoUBGPrX76_GTz1&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=r5CzK7laUoHatr7Pn9byM1pOblVlP5lo5xGVwCKoRoI-&share_version=320900&ts=1785715398&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#陈伟霆 #曾舜晞 #陈瑶 应昊茗同框剧宣  各位状态如何？#九门 #九门北京路演",
+      "author": "娱乐圈小蜜",
+      "like_count": 39780,
+      "comment_count": 1140,
+      "share_count": 945,
+      "duration_ms": 13067,
+      "create_time_iso": "2026-08-02T07:11:36+00:00",
+      "known_entities": [
+        "陈伟霆",
+        "曾舜晞",
+        "陈瑶",
+        "九门",
+        "九门北京路演"
+      ],
+      "verified_entities": [
+        "九门",
+        "九门北京路演"
+      ],
+      "primary_celebrities": [
+        "陈伟霆",
+        "曾舜晞",
+        "陈瑶"
+      ],
+      "quality_score": 261.089,
+      "output_date": "2026-08-03",
+      "selected_at": "2026-08-03T00:15:47.719711+00:00"
+    },
+    {
+      "aweme_id": "7669369048434661618",
+      "content_id": "7669369048434661618",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7669369048434661618/?region=US&mid=7669369000421362475&u_code=0&did=MS4wLjABAAAAepxIkNkyDSjWj8l6sl1z7roVfnLOOe9MrJQimE8OsqyA8P0GEYhpbrMAQBKlTQXD&iid=MS4wLjABAAAAm8np9KAK-dNXes3C9z3_cCK45Dko2lnpIdAZyCVG8dCRMi8xcKv6nDe7E3Fsk_Ql&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=mwF7fAWZpEUB4gExeAGDZluVqQZW5r05nDLgkDxr0ug-&share_version=320900&ts=1785715388&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "这么甜的猫猫大王只能是我女朋友 #迪丽热巴 #钰珑 冠珠品牌活动#功夫女足",
+      "author": "美丽脸蛋专属剧粉",
+      "like_count": 19770,
+      "comment_count": 240,
+      "share_count": 1488,
+      "duration_ms": 20234,
+      "create_time_iso": "2026-08-02T09:48:52+00:00",
+      "known_entities": [
+        "迪丽热巴",
+        "功夫女足",
+        "钰珑"
+      ],
+      "verified_entities": [
+        "迪丽热巴",
+        "钰珑",
+        "功夫女足"
+      ],
+      "primary_celebrities": [
+        "迪丽热巴"
+      ],
+      "quality_score": 226.928,
+      "output_date": "2026-08-03",
+      "selected_at": "2026-08-03T00:15:47.719711+00:00"
+    },
+    {
+      "aweme_id": "7669251176672823994",
+      "content_id": "7669251176672823994",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7669251176672823994/?region=US&mid=6882038820796238606&u_code=0&did=MS4wLjABAAAAepxIkNkyDSjWj8l6sl1z7roVfnLOOe9MrJQimE8OsqyA8P0GEYhpbrMAQBKlTQXD&iid=MS4wLjABAAAAm8np9KAK-dNXes3C9z3_cCK45Dko2lnpIdAZyCVG8dCRMi8xcKv6nDe7E3Fsk_Ql&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=DYim7pptXLex2atSJxxCfEeghyxxFagbvgbvF0BzVq0-&share_version=320900&ts=1785715388&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "释小龙临时探班《功夫女足》 和 @电影功夫女足 一起 #合拍",
+      "author": "一剪梅",
+      "like_count": 4743,
+      "comment_count": 266,
+      "share_count": 41,
+      "duration_ms": 19621,
+      "create_time_iso": "2026-08-02T02:11:28+00:00",
+      "known_entities": [
+        "功夫女足",
+        "电影功夫女足",
+        "合拍"
+      ],
+      "verified_entities": [
+        "功夫女足",
+        "合拍"
+      ],
+      "primary_celebrities": [
+        "释小龙"
+      ],
+      "quality_score": 188.388,
+      "output_date": "2026-08-03",
+      "selected_at": "2026-08-03T00:15:47.719711+00:00"
+    },
     {
       "aweme_id": "7668922882840675185",
       "content_id": "7668922882840675185",
