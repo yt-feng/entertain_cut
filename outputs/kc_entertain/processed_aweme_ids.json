@@ -1,7 +1,151 @@
 {
-  "updated_at": "2026-08-03T00:15:47.719711+00:00",
-  "count": 110,
+  "updated_at": "2026-08-04T00:49:01.004416+00:00",
+  "count": 115,
   "items": [
+    {
+      "aweme_id": "5205316950132951420",
+      "content_id": "5205316950132951420",
+      "platform": "kuaishou",
+      "url": "https://www.kuaishou.com/short-video/5205316950132951420",
+      "title": "九位明星合唱《忘情牛肉面》 #马健涛 #忘情牛肉面 #薛之谦 #马頔",
+      "author": "苟师兄不emo",
+      "like_count": 10622,
+      "comment_count": 822,
+      "share_count": 4338,
+      "duration_ms": 60300,
+      "create_time_iso": "2026-08-03T05:19:39+00:00",
+      "known_entities": [
+        "薛之谦"
+      ],
+      "verified_entities": [
+        "薛之谦"
+      ],
+      "primary_celebrities": [
+        "薛之谦"
+      ],
+      "quality_score": 239.672,
+      "output_date": "2026-08-04",
+      "selected_at": "2026-08-04T00:49:01.004416+00:00"
+    },
+    {
+      "aweme_id": "7669802366098591027",
+      "content_id": "7669802366098591027",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7669802366098591027/?region=US&mid=7669802430587652870&u_code=0&did=MS4wLjABAAAAsj_gQfZVhzsK6oOw8luEBhPsbng46tjUd4G2IzL8dkpibDvAFJfRkEB_7RYe7KY-&iid=MS4wLjABAAAA7uLTIwoiwjdIgXr1zvvpLfWI0JGxE9KRgbh1mT_SOjF93-aUbBxGPOqVBmvBHgay&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=fnm.b_BJZmIRyNIAt3R7E1ErgMqwGKrWx9OiRGYT1vg-&share_version=320900&ts=1785802413&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "又是一年生日刊！祝侯明昊生日快乐~ 封面拍摄的那天，杂志编辑也让我录了一段简短的采访，聊聊印象中的#侯明昊 \n合作了这么久，其实很难用只字片语来概括他…\n镜头前他是那个能瞬间入戏、把自己交给角色的演员，热爱音乐、认真对待每一次舞台的歌手；镜头后他又很专注很努力，妆发工作的间隙，经常能看到他抓紧每一分钟背台词、开嗓练声精进自己……\n认真、专业、鲜活、可爱、真诚、内核强大，这些都是他，但也不是全部的他。\n我们彼此见过二十出头带点儿莽撞的青涩，到如今个人出道十周年，他褪去少年人的“毛边”，还依旧保有内心最干净的底色~\n十年是一道里程碑，翻过这一页，前方还有更大更亮的舞台~\n希望@侯明昊 永远有新的枝叶，向光生长~一起期待下一个十年！\n#侯明昊0803生日快乐 #明星化妆师 #我的motd #潮妆研究所",
+      "author": "化妆师潘以达😉",
+      "like_count": 8284,
+      "comment_count": 273,
+      "share_count": 464,
+      "duration_ms": 126201,
+      "create_time_iso": "2026-08-03T13:50:28+00:00",
+      "known_entities": [
+        "歌手",
+        "侯明昊",
+        "侯明昊0803生日快乐",
+        "明星化妆师",
+        "我的motd",
+        "潮妆研究所",
+        "采访"
+      ],
+      "verified_entities": [
+        "侯明昊",
+        "歌手",
+        "采访"
+      ],
+      "primary_celebrities": [
+        "侯明昊"
+      ],
+      "quality_score": 246.401,
+      "output_date": "2026-08-04",
+      "selected_at": "2026-08-04T00:49:01.004416+00:00"
+    },
+    {
+      "aweme_id": "5194339424611627455",
+      "content_id": "5194339424611627455",
+      "platform": "kuaishou",
+      "url": "https://www.kuaishou.com/short-video/5194339424611627455",
+      "title": "我就说这个系列里迟早混进来一个真的#翟潇闻 #张凌赫 #王俊凯 #暗恋 #素人 #老铁娱乐观察站",
+      "author": "追娱大明星",
+      "like_count": 5984,
+      "comment_count": 378,
+      "share_count": 337,
+      "duration_ms": 63733,
+      "create_time_iso": "2026-08-03T08:33:48+00:00",
+      "known_entities": [
+        "张凌赫",
+        "王俊凯"
+      ],
+      "verified_entities": [
+        "张凌赫",
+        "王俊凯"
+      ],
+      "primary_celebrities": [
+        "张凌赫",
+        "王俊凯"
+      ],
+      "quality_score": 229.658,
+      "output_date": "2026-08-04",
+      "selected_at": "2026-08-04T00:49:01.004416+00:00"
+    },
+    {
+      "aweme_id": "7669759338013084974",
+      "content_id": "7669759338013084974",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7669759338013084974/?region=US&mid=7669759369642298166&u_code=0&did=MS4wLjABAAAAsj_gQfZVhzsK6oOw8luEBhPsbng46tjUd4G2IzL8dkpibDvAFJfRkEB_7RYe7KY-&iid=MS4wLjABAAAA7uLTIwoiwjdIgXr1zvvpLfWI0JGxE9KRgbh1mT_SOjF93-aUbBxGPOqVBmvBHgay&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=5xz2y.AT8J16TxsVTNL122us.0ryjgHWvhgTPXyqfhc-&share_version=320900&ts=1785802413&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#张柏芝  在采访中透露自己是个独立的人，不喜欢被人养，但是被《喜剧之王》#周星驰  那句“我养你”的台词打动。#东方新娱乐",
+      "author": "东方娱乐番茄台",
+      "like_count": 2268,
+      "comment_count": 33,
+      "share_count": 77,
+      "duration_ms": 52501,
+      "create_time_iso": "2026-08-03T11:03:29+00:00",
+      "known_entities": [
+        "采访",
+        "喜剧之王",
+        "张柏芝"
+      ],
+      "verified_entities": [
+        "张柏芝",
+        "喜剧之王",
+        "采访"
+      ],
+      "primary_celebrities": [
+        "张柏芝"
+      ],
+      "quality_score": 201.432,
+      "output_date": "2026-08-04",
+      "selected_at": "2026-08-04T00:49:01.004416+00:00"
+    },
+    {
+      "aweme_id": "7669699500327977326",
+      "content_id": "7669699500327977326",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7669699500327977326/?region=US&mid=7542504131829254951&u_code=0&did=MS4wLjABAAAAtj8Fb0n8qotjashKUd1gSTon-GTGBtr4elD9e_Qz_My05Y14PT7lZ3HjditV57u2&iid=MS4wLjABAAAAcvrPvUVzqjbR6HhLkMVSnFkLncTfHcjfhwfh_I8JRAorG8W7xBxppvreF5XavqNM&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=6nbfLYVkQhdYsIglDso0HJ38Se7UV_x18Y3_OGwqr1Y-&share_version=320900&ts=1785802416&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "这一次属于他的时代回来了！八个神级舞台场景\n#蔡徐坤cr：微博上是kiki\n#蔡徐坤Thedeadman演唱会\n #坤式舞台美学\n#精选",
+      "author": "August-8月",
+      "like_count": 3871,
+      "comment_count": 27,
+      "share_count": 91,
+      "duration_ms": 13034,
+      "create_time_iso": "2026-08-03T07:11:12+00:00",
+      "known_entities": [
+        "蔡徐坤cr：微博上是kiki",
+        "蔡徐坤Thedeadman演唱会",
+        "坤式舞台美学",
+        "精选"
+      ],
+      "verified_entities": [
+        "蔡徐坤",
+        "演唱会"
+      ],
+      "primary_celebrities": [
+        "蔡徐坤"
+      ],
+      "quality_score": 189.483,
+      "output_date": "2026-08-04",
+      "selected_at": "2026-08-04T00:49:01.004416+00:00"
+    },
     {
       "aweme_id": "7668634875922009394",
       "content_id": "7668634875922009394",
