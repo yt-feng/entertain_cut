@@ -1,7 +1,126 @@
 {
-  "updated_at": "2026-08-04T00:49:01.004416+00:00",
-  "count": 115,
+  "updated_at": "2026-08-05T00:35:15.495598+00:00",
+  "count": 119,
   "items": [
+    {
+      "aweme_id": "7670060068288695558",
+      "content_id": "7670060068288695558",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7670060068288695558/?region=US&mid=7670060025938856742&u_code=0&did=MS4wLjABAAAA8uxaeROYj5KuBrSrAD9yKxx1jMs92beJN-YSon51g3eJExIWd4oid6LeG7gM4flj&iid=MS4wLjABAAAAcb41zHQbfmndMmBMqCbsTIUklrHg1W7YtAH7GNTz-wn8C46qbPjBsN9-vqh401Tb&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=Bs5yK0JoNB5qjH3r63t50xx2DbGQ_a1xusiE0m4Q1z0-&share_version=320900&ts=1785888201&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "林依晨的采访，完全是我理想中的女性力量。（采访素材来源：@新世相） #林依晨 #女性力量 #访谈 #女明星",
+      "author": "大板凳娱乐",
+      "like_count": 14900,
+      "comment_count": 118,
+      "share_count": 3718,
+      "duration_ms": 97873,
+      "create_time_iso": "2026-08-04T06:30:29+00:00",
+      "known_entities": [
+        "林依晨",
+        "女性力量",
+        "访谈",
+        "女明星"
+      ],
+      "verified_entities": [
+        "林依晨",
+        "女性力量",
+        "访谈"
+      ],
+      "primary_celebrities": [
+        "林依晨"
+      ],
+      "quality_score": 240.411,
+      "output_date": "2026-08-05",
+      "selected_at": "2026-08-05T00:35:15.495598+00:00"
+    },
+    {
+      "aweme_id": "7670221755390546107",
+      "content_id": "7670221755390546107",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7670221755390546107/?region=US&mid=7589922937692523318&u_code=0&did=MS4wLjABAAAAk9D81uPwv_iDHBwOu9fhv-B2xpamqHhJe6UG2GO62XM&iid=MS4wLjABAAAAGNNYsVGbSyoIVzUCAe0MzxQPFjZpd4xt12FHSF6UlH8&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=MBFSY739gvwzW_RBIyqAHWaxLMqeYkhyDsd1QWzoZ_k-&share_version=320900&ts=1785888191&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#明星路透 #郭宇欣 第一次见女明星，我还以为我看错了呢",
+      "author": "小手冰凉🐒",
+      "like_count": 1799,
+      "comment_count": 182,
+      "share_count": 247,
+      "duration_ms": 4967,
+      "create_time_iso": "2026-08-04T16:57:49+00:00",
+      "known_entities": [
+        "女明星",
+        "明星路透",
+        "郭宇欣"
+      ],
+      "verified_entities": [
+        "郭宇欣",
+        "明星路透"
+      ],
+      "primary_celebrities": [
+        "郭宇欣"
+      ],
+      "quality_score": 219.243,
+      "output_date": "2026-08-05",
+      "selected_at": "2026-08-05T00:35:15.495598+00:00"
+    },
+    {
+      "aweme_id": "7669970376268894201",
+      "content_id": "7669970376268894201",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7669970376268894201/?region=US&mid=7669970311521061686&u_code=0&did=MS4wLjABAAAAucXcckFkuWJ_bqK-xex5SyuDzhZA5tsxZUXt4BmfWZvRrreIL0HPUXxL1ulgVblI&iid=MS4wLjABAAAAt4BPuTOeAIV_KtqPNZ34rTFq6TEizOV819L-U0MVpmLkem5xE_19mjhov-4xdHt9&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=f8WDK9eq5zoQJ88mnmid1EUTBgiCUVThaw9TEL9eTBE-&share_version=320900&ts=1785888204&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "谁懂现场的震撼 全场为之沸腾 #蔡徐坤澳门演唱会 #蔡徐坤 #神级舞美 #感受舞台魅力",
+      "author": "Yaya🤎",
+      "like_count": 3827,
+      "comment_count": 77,
+      "share_count": 288,
+      "duration_ms": 157367,
+      "create_time_iso": "2026-08-04T00:42:21+00:00",
+      "known_entities": [
+        "蔡徐坤澳门演唱会",
+        "蔡徐坤",
+        "神级舞美",
+        "感受舞台魅力"
+      ],
+      "verified_entities": [
+        "蔡徐坤",
+        "蔡徐坤澳门演唱会",
+        "神级舞美"
+      ],
+      "primary_celebrities": [
+        "蔡徐坤"
+      ],
+      "quality_score": 218.24,
+      "output_date": "2026-08-05",
+      "selected_at": "2026-08-05T00:35:15.495598+00:00"
+    },
+    {
+      "aweme_id": "7670009302602207665",
+      "content_id": "7670009302602207665",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7670009302602207665/?region=US&mid=7661651922805328686&u_code=0&did=MS4wLjABAAAA8uxaeROYj5KuBrSrAD9yKxx1jMs92beJN-YSon51g3eJExIWd4oid6LeG7gM4flj&iid=MS4wLjABAAAAcb41zHQbfmndMmBMqCbsTIUklrHg1W7YtAH7GNTz-wn8C46qbPjBsN9-vqh401Tb&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=RVsTl.2NZw46shWimmczi3QD3.wtgODXSkB2kUcE4UY-&share_version=320900&ts=1785888201&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "事业可以为了家庭让步 #明星采访 #采访名场面 #杨幂 #古早 #甜妹",
+      "author": "王许梅太棒了",
+      "like_count": 1176,
+      "comment_count": 54,
+      "share_count": 112,
+      "duration_ms": 49300,
+      "create_time_iso": "2026-08-04T03:13:23+00:00",
+      "known_entities": [
+        "杨幂",
+        "明星采访",
+        "采访名场面",
+        "古早",
+        "甜妹"
+      ],
+      "verified_entities": [
+        "杨幂",
+        "明星采访",
+        "采访名场面"
+      ],
+      "primary_celebrities": [
+        "杨幂"
+      ],
+      "quality_score": 213.737,
+      "output_date": "2026-08-05",
+      "selected_at": "2026-08-05T00:35:15.495598+00:00"
+    },
     {
       "aweme_id": "5205316950132951420",
       "content_id": "5205316950132951420",
