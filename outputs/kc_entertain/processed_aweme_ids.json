@@ -1,7 +1,205 @@
 {
-  "updated_at": "2026-08-06T00:27:47.671745+00:00",
-  "count": 125,
+  "updated_at": "2026-08-07T02:08:56.490293+00:00",
+  "count": 133,
   "items": [
+    {
+      "aweme_id": "7670859583095773382",
+      "content_id": "7670859583095773382",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7670859583095773382/?region=US&mid=7667407209113864998&u_code=0&did=MS4wLjABAAAAMW08G8kCbiZx3vctNEfWRghqjZF5jMop7EtYQzwB5Kw&iid=MS4wLjABAAAAQDLWcPI-Fx4M4vvf0KJB8Ep1U5lepWBUjk0fOuy1ajw&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=QmWZb.4oX8akSBUkN.wUZ_JyCIHnyJv0oE59.0mNKgk-&share_version=320900&ts=1786067175&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "好喜欢这季跑男的火花 笑点密集爆炸😭  #黄旭熙 #奔跑吧 #王彦霖 #综艺名场面",
+      "author": "熙的搞笑存档",
+      "like_count": 36201,
+      "comment_count": 492,
+      "share_count": 10310,
+      "duration_ms": 82667,
+      "create_time_iso": "2026-08-06T10:12:56+00:00",
+      "known_entities": [
+        "奔跑吧",
+        "黄旭熙",
+        "王彦霖",
+        "综艺名场面",
+        "名场面"
+      ],
+      "verified_entities": [
+        "奔跑吧",
+        "黄旭熙",
+        "王彦霖",
+        "综艺名场面"
+      ],
+      "primary_celebrities": [
+        "黄旭熙",
+        "王彦霖"
+      ],
+      "quality_score": 290.96500000000003,
+      "output_date": "2026-08-07",
+      "selected_at": "2026-08-07T02:08:56.490293+00:00"
+    },
+    {
+      "aweme_id": "7670863246383032549",
+      "content_id": "7670863246383032549",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7670863246383032549/?region=US&mid=7670863209674361640&u_code=0&did=MS4wLjABAAAAHFdrTpizDHKfZ4fR5j1iTOH07sgmMDzE4uqR8LQyNvkOFmLJnu5je28RMTXV6qGz&iid=MS4wLjABAAAAVzWyq6y44pxhHoUKlLOv2GijXfiSbWh8ZDghnCXvkOmiz4T5BqErsX2NM2mNtGG7&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=MbBHLSC543qk8RgAU70rNdfEdE8bgwwcRT9n2SfDCpI-&share_version=320900&ts=1786067162&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "圈圈\n\n#吴添豪 #活人感一夏 #转场 #其实不是重逢",
+      "author": "吴添豪_",
+      "like_count": 18491,
+      "comment_count": 970,
+      "share_count": 324,
+      "duration_ms": 11667,
+      "create_time_iso": "2026-08-06T10:27:08+00:00",
+      "known_entities": [
+        "其实不是重逢",
+        "吴添豪",
+        "活人感一夏",
+        "转场"
+      ],
+      "verified_entities": [
+        "其实不是重逢",
+        "吴添豪",
+        "活人感一夏",
+        "转场"
+      ],
+      "primary_celebrities": [
+        "吴添豪"
+      ],
+      "quality_score": 245.25799999999998,
+      "output_date": "2026-08-07",
+      "selected_at": "2026-08-07T02:08:56.490293+00:00"
+    },
+    {
+      "aweme_id": "7670874323549142009",
+      "content_id": "7670874323549142009",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7670874323549142009/?region=US&mid=7670874283742055231&u_code=0&did=MS4wLjABAAAAXJM2mZzfSF2NnXQPpuBoLvEP6jb2TRDH8veA4FUQ6CewMvXs6OHHpJ3dyEpf5DI2&iid=MS4wLjABAAAAMqqes5JdygNhmwE_X1Sxax4JKPdAK77mMuk6qHNYV_8BYrkD3maKymF1m0HtIABG&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=BRin7AGFne2byAruLMeqzhJgTQtqdJaCoAIMZ3c.gic-&share_version=320900&ts=1786067164&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "上恋综也可以听妈妈的话#心动双重奏 #恋综 #有这么自信的男嘉宾进入恋综",
+      "author": "会火大明星",
+      "like_count": 5389,
+      "comment_count": 91,
+      "share_count": 4504,
+      "duration_ms": 54521,
+      "create_time_iso": "2026-08-06T11:10:06+00:00",
+      "known_entities": [
+        "心动双重奏"
+      ],
+      "verified_entities": [
+        "心动双重奏"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 197.18,
+      "output_date": "2026-08-07",
+      "selected_at": "2026-08-07T02:08:56.490293+00:00"
+    },
+    {
+      "aweme_id": "7670902834523413233",
+      "content_id": "7670902834523413233",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7670902834523413233/?region=US&mid=7670902803791743807&u_code=0&did=MS4wLjABAAAA5_xqDmsbiT5GtnxKWnsytAwtocYm7Vz9x7bDwGleAF3kaeBuvXjbqW1r9zK_wnfA&iid=MS4wLjABAAAAh_v90mIjgXqQY-o52VeuCQydcgAtexd8wNqYMUYCrA4&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=butk1eeM08Zp.6TdAZi57WvwoCRucX7.IR29qhPv4WY-&share_version=320900&ts=1786067181&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "爱人先爱己，你做到了#刘亦菲 #采访名场面 #女明星活动现场",
+      "author": "菲拟不可",
+      "like_count": 1312,
+      "comment_count": 47,
+      "share_count": 15,
+      "duration_ms": 25567,
+      "create_time_iso": "2026-08-06T13:00:44+00:00",
+      "known_entities": [
+        "刘亦菲",
+        "名场面"
+      ],
+      "verified_entities": [
+        "刘亦菲",
+        "名场面"
+      ],
+      "primary_celebrities": [
+        "刘亦菲"
+      ],
+      "quality_score": 186.369,
+      "output_date": "2026-08-07",
+      "selected_at": "2026-08-07T02:08:56.490293+00:00"
+    },
+    {
+      "aweme_id": "7670890016331182954",
+      "content_id": "7670890016331182954",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7670890016331182954/?region=US&mid=7670890020433152818&u_code=0&did=MS4wLjABAAAAXJM2mZzfSF2NnXQPpuBoLvEP6jb2TRDH8veA4FUQ6CewMvXs6OHHpJ3dyEpf5DI2&iid=MS4wLjABAAAAMqqes5JdygNhmwE_X1Sxax4JKPdAK77mMuk6qHNYV_8BYrkD3maKymF1m0HtIABG&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=K.HrNo5mGnB4UOtYU3.0REPZh6.BuBxKSE0SL6Wm_vY-&share_version=320900&ts=1786067164&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "芒果你还是太会选恋综男嘉宾了#心动双重奏#恋综#演员#恋综也是让短剧演员闯进去了",
+      "author": "青春磕颜家",
+      "like_count": 3816,
+      "comment_count": 50,
+      "share_count": 278,
+      "duration_ms": 56611,
+      "create_time_iso": "2026-08-06T12:11:00+00:00",
+      "known_entities": [
+        "心动双重奏"
+      ],
+      "verified_entities": [
+        "心动双重奏"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 183.284,
+      "output_date": "2026-08-07",
+      "selected_at": "2026-08-07T02:08:56.490293+00:00"
+    },
+    {
+      "aweme_id": "5245004919399823414",
+      "content_id": "5245004919399823414",
+      "platform": "kuaishou",
+      "url": "https://www.kuaishou.com/short-video/5245004919399823414",
+      "title": "这两位追起星来未必有Emily理智#鸠山美志 #莫云高 #九门 #南部档案",
+      "author": "芒果大明星",
+      "like_count": 6568,
+      "comment_count": 75,
+      "share_count": 1042,
+      "duration_ms": 77800,
+      "create_time_iso": "2026-08-06T09:34:43+00:00",
+      "known_entities": [],
+      "verified_entities": [],
+      "primary_celebrities": [],
+      "quality_score": 162.009,
+      "output_date": "2026-08-07",
+      "selected_at": "2026-08-07T02:08:56.490293+00:00"
+    },
+    {
+      "aweme_id": "7670835618218131130",
+      "content_id": "7670835618218131130",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7670835618218131130/?region=US&mid=7670835597922634505&u_code=0&did=MS4wLjABAAAA5_xqDmsbiT5GtnxKWnsytAwtocYm7Vz9x7bDwGleAF3kaeBuvXjbqW1r9zK_wnfA&iid=MS4wLjABAAAAh_v90mIjgXqQY-o52VeuCQydcgAtexd8wNqYMUYCrA4&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=OKq0TM9CCeUkvQVUpy2ZMo3r2XbtX9tRobIJourbp0A-&share_version=320900&ts=1786067181&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#谢霆锋#帅就完事了#采访",
+      "author": "锋味十足",
+      "like_count": 1765,
+      "comment_count": 149,
+      "share_count": 216,
+      "duration_ms": 62700,
+      "create_time_iso": "2026-08-06T08:39:55+00:00",
+      "known_entities": [],
+      "verified_entities": [],
+      "primary_celebrities": [
+        "谢霆锋"
+      ],
+      "quality_score": 161.638,
+      "output_date": "2026-08-07",
+      "selected_at": "2026-08-07T02:08:56.490293+00:00"
+    },
+    {
+      "aweme_id": "7670797252130159333",
+      "content_id": "7670797252130159333",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7670797252130159333/?region=US&mid=7670797201253288744&u_code=0&did=MS4wLjABAAAA5_xqDmsbiT5GtnxKWnsytAwtocYm7Vz9x7bDwGleAF3kaeBuvXjbqW1r9zK_wnfA&iid=MS4wLjABAAAAh_v90mIjgXqQY-o52VeuCQydcgAtexd8wNqYMUYCrA4&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=8aeDivPbmXTT5mHzFaXEken6gW2icnWagQ1BkwOne6Y-&share_version=320900&ts=1786067181&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "特别喜欢这次采访 很活跃的鹿鹿🤭 #采访 part1️⃣#鹿晗",
+      "author": "七号日落",
+      "like_count": 1600,
+      "comment_count": 42,
+      "share_count": 196,
+      "duration_ms": 165187,
+      "create_time_iso": "2026-08-06T06:11:02+00:00",
+      "known_entities": [],
+      "verified_entities": [],
+      "primary_celebrities": [
+        "鹿晗"
+      ],
+      "quality_score": 143.037,
+      "output_date": "2026-08-07",
+      "selected_at": "2026-08-07T02:08:56.490293+00:00"
+    },
     {
       "aweme_id": "7670380088856218890",
       "content_id": "7670380088856218890",
