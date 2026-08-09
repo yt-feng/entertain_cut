@@ -1,7 +1,158 @@
 {
-  "updated_at": "2026-08-08T00:03:14.192669+00:00",
-  "count": 141,
+  "updated_at": "2026-08-09T00:06:48.309019+00:00",
+  "count": 146,
   "items": [
+    {
+      "aweme_id": "7671326304911201147",
+      "content_id": "7671326304911201147",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7671326304911201147/?region=US&mid=7671326266989071158&u_code=0&did=MS4wLjABAAAAIubQGIXra2onSoDP8VMzSqiELebVt7af-33ljS6JAHiHsGI-g7EzCd8phuuI5Kya&iid=MS4wLjABAAAAAb4b-cqv53pVgTEWuZmKnpV2u3Fqv9SaKmPZt5tPvSnaKDhKhpQM8wirarj8UT21&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=kplq60ofyd_nVI6FmMBCyA2VCmDlsLjHJ362ZaWMz8w-&share_version=320900&ts=1786231796&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "@靠谱👟👔认准峰峰Fashion 姐姐清唱也好好听啊！\n#万妮达#花田错#清唱#歌手2026#抖音推广@万妮达Vinida @DOU+上热门 @DOU+小助手#歌手2026",
+      "author": "nd大王",
+      "like_count": 547889,
+      "comment_count": 2905,
+      "share_count": 117774,
+      "duration_ms": 65934,
+      "create_time_iso": "2026-08-08T02:00:00+00:00",
+      "known_entities": [
+        "歌手",
+        "歌手2026",
+        "万妮达",
+        "花田错",
+        "清唱",
+        "抖音推广"
+      ],
+      "verified_entities": [
+        "歌手2026",
+        "万妮达",
+        "花田错"
+      ],
+      "primary_celebrities": [
+        "万妮达"
+      ],
+      "quality_score": 298.857,
+      "output_date": "2026-08-09",
+      "selected_at": "2026-08-09T00:06:48.309019+00:00"
+    },
+    {
+      "aweme_id": "7671570073291285065",
+      "content_id": "7671570073291285065",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7671570073291285065/?region=US&mid=7671570053535566611&u_code=0&did=MS4wLjABAAAAIubQGIXra2onSoDP8VMzSqiELebVt7af-33ljS6JAHiHsGI-g7EzCd8phuuI5Kya&iid=MS4wLjABAAAAAb4b-cqv53pVgTEWuZmKnpV2u3Fqv9SaKmPZt5tPvSnaKDhKhpQM8wirarj8UT21&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=884zVrSOAUVfxJKaLHbQRNe1lFJec_paYpBEQF9ser0-&share_version=320900&ts=1786231796&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "都说毛阿敏的嗓子里住着一个交响乐团！#毛阿敏 #歌手2026",
+      "author": "亚古力嘛",
+      "like_count": 23564,
+      "comment_count": 3223,
+      "share_count": 3924,
+      "duration_ms": 59721,
+      "create_time_iso": "2026-08-08T08:09:59+00:00",
+      "known_entities": [
+        "歌手",
+        "歌手2026",
+        "毛阿敏"
+      ],
+      "verified_entities": [
+        "歌手2026",
+        "毛阿敏"
+      ],
+      "primary_celebrities": [
+        "毛阿敏"
+      ],
+      "quality_score": 278.358,
+      "output_date": "2026-08-09",
+      "selected_at": "2026-08-09T00:06:48.309019+00:00"
+    },
+    {
+      "aweme_id": "7671505377602950474",
+      "content_id": "7671505377602950474",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7671505377602950474/?region=US&mid=7671505378508606254&u_code=0&did=MS4wLjABAAAAIubQGIXra2onSoDP8VMzSqiELebVt7af-33ljS6JAHiHsGI-g7EzCd8phuuI5Kya&iid=MS4wLjABAAAAAb4b-cqv53pVgTEWuZmKnpV2u3Fqv9SaKmPZt5tPvSnaKDhKhpQM8wirarj8UT21&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=EbNgeX5hhczT8KI.38.O6_x88sKN73ja0HUum7qo_7s-&share_version=320900&ts=1786231796&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "rap混搭花腔新鲜感爆棚！#歌手2026歌王之战 #万妮达吴碧霞合作花田错 @万妮达Vinida  @吴碧霞  《花田错》#歌手2026 #歌手歌王之战舞台",
+      "author": "歌手2026",
+      "like_count": 25936,
+      "comment_count": 609,
+      "share_count": 5999,
+      "duration_ms": 106734,
+      "create_time_iso": "2026-08-08T03:58:55+00:00",
+      "known_entities": [
+        "歌手",
+        "歌手2026",
+        "万妮达",
+        "花田错",
+        "歌手2026歌王之战",
+        "万妮达吴碧霞合作花田错",
+        "歌手歌王之战舞台"
+      ],
+      "verified_entities": [
+        "歌手2026",
+        "万妮达",
+        "花田错",
+        "歌手2026歌王之战"
+      ],
+      "primary_celebrities": [
+        "万妮达",
+        "吴碧霞"
+      ],
+      "quality_score": 270.719,
+      "output_date": "2026-08-09",
+      "selected_at": "2026-08-09T00:06:48.309019+00:00"
+    },
+    {
+      "aweme_id": "7671517772258669413",
+      "content_id": "7671517772258669413",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7671517772258669413/?region=US&mid=7353696149166885642&u_code=0&did=MS4wLjABAAAAhzxJzVJnvwpS3R9jlrK4vCrlgoDyglNlMDz12p1rIGkhjCBgKWmkmPah3s9OX6vn&iid=MS4wLjABAAAAlUQFSjfmyzZ5Wq5e-TUSRkdb_4KPV_lbMrckYwfR0TsRqddz_urbFZj9UwxzV9oH&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=icDQOV8SwuFF9Sx81nCtbCh5ehGHHWZybZKlAhaSSGU-&share_version=320900&ts=1786231806&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "这段太搞笑了 #登陆少年 #综艺 #搞笑",
+      "author": "铲一颗小福星",
+      "like_count": 64811,
+      "comment_count": 1595,
+      "share_count": 9966,
+      "duration_ms": 25200,
+      "create_time_iso": "2026-08-08T04:47:01+00:00",
+      "known_entities": [
+        "登陆少年",
+        "搞笑"
+      ],
+      "verified_entities": [
+        "登陆少年",
+        "综艺",
+        "搞笑"
+      ],
+      "primary_celebrities": [
+        "登陆少年"
+      ],
+      "quality_score": 258.323,
+      "output_date": "2026-08-09",
+      "selected_at": "2026-08-09T00:06:48.309019+00:00"
+    },
+    {
+      "aweme_id": "7671482025287932570",
+      "content_id": "7671482025287932570",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7671482025287932570/?region=US&mid=7671481982164929323&u_code=0&did=MS4wLjABAAAAIubQGIXra2onSoDP8VMzSqiELebVt7af-33ljS6JAHiHsGI-g7EzCd8phuuI5Kya&iid=MS4wLjABAAAAAb4b-cqv53pVgTEWuZmKnpV2u3Fqv9SaKmPZt5tPvSnaKDhKhpQM8wirarj8UT21&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=BGrkqEmGEl8Qn.56I.IgoSziCNChsjOhJksK1nPCFQA-&share_version=320900&ts=1786231796&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#歌手2026歌王 恭喜@胡彦斌 夺得#歌手2026 歌王桂冠！他把这份荣誉献给每一位敢于追梦、持续歌唱的音乐人。正值立秋，愿大家播下的热爱终有回响，付出的努力皆有收获！#歌手2026歌王之战舞台  #歌手2026歌王之战",
+      "author": "歌手2026",
+      "like_count": 5875,
+      "comment_count": 499,
+      "share_count": 343,
+      "duration_ms": 118655,
+      "create_time_iso": "2026-08-08T02:28:18+00:00",
+      "known_entities": [
+        "歌手",
+        "歌手2026",
+        "歌手2026歌王之战"
+      ],
+      "verified_entities": [
+        "歌手2026",
+        "歌手2026歌王之战"
+      ],
+      "primary_celebrities": [
+        "胡彦斌"
+      ],
+      "quality_score": 237.445,
+      "output_date": "2026-08-09",
+      "selected_at": "2026-08-09T00:06:48.309019+00:00"
+    },
     {
       "aweme_id": "7671105625569270710",
       "content_id": "7671105625569270710",
