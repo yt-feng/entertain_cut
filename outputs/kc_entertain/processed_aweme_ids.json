@@ -1,7 +1,225 @@
 {
-  "updated_at": "2026-08-10T00:00:51.069147+00:00",
-  "count": 154,
+  "updated_at": "2026-08-11T00:07:53.906064+00:00",
+  "count": 162,
   "items": [
+    {
+      "aweme_id": "7672293341040304249",
+      "content_id": "7672293341040304249",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7672293341040304249/?region=US&mid=7672293307703118628&u_code=0&did=MS4wLjABAAAAY_pNnfy7GomrcTkP7rOedKKhjW8RsF-xzenmetP1shYR631pam7qpSSf3h4K4Shb&iid=MS4wLjABAAAAQ7wSU_-9FuPxUsVhhgYp9q1kVJAdU28yQ0KDYlatwWxrIq6J5T_fVk8OgqCNL5Qr&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=2UJAJb4o7tGdDvtpvvgf_GYJpRG2mFbMAwz5AuhBnu4-&share_version=320900&ts=1786405081&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "笑死我了我真的绷不住了？#亲爱的热爱的kk战队 #感谢以上明星出场 @电视剧亲爱的热爱的 @DOU+上热门 @抖加🔥上热门🔥dou+🔥热点宝 #会火 #上热门🔥 （mf@旎的一眸一笑 ）",
+      "author": "你不在.",
+      "like_count": 76133,
+      "comment_count": 2610,
+      "share_count": 75999,
+      "duration_ms": 143500,
+      "create_time_iso": "2026-08-10T06:56:38+00:00",
+      "known_entities": [
+        "亲爱的热爱的kk战队",
+        "感谢以上明星出场",
+        "会火",
+        "上热门🔥"
+      ],
+      "verified_entities": [
+        "亲爱的热爱的kk战队",
+        "会火"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 303.552,
+      "output_date": "2026-08-11",
+      "selected_at": "2026-08-11T00:07:53.906064+00:00"
+    },
+    {
+      "aweme_id": "7672350710108900627",
+      "content_id": "7672350710108900627",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7672350710108900627/?region=US&mid=7672350734612138778&u_code=0&did=MS4wLjABAAAAbMMiSVrCaicYVk2qQQs_ZlugUQ-G4MkzzFcO02CFjAnwJ3iyZ7NR7y6vCrUERjcj&iid=MS4wLjABAAAAknpRCz3yj7cuS-TPUx27kKUJ6gWn8OV3AjjLs40Al--n-u-bbPStZXND7aaHDPlV&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=oiEcTCwWlOoCjD5pvXouiI5LrezmX.wm9OjyTAVJEsg-&share_version=320900&ts=1786405088&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "我们短剧演员的百花奖红毯来啦，真的男帅女美！#短剧 #陈添祥 #张翅 #余茵 #百花奖短剧荣誉单元",
+      "author": "追娱大明星",
+      "like_count": 73813,
+      "comment_count": 4985,
+      "share_count": 12307,
+      "duration_ms": 51317,
+      "create_time_iso": "2026-08-10T10:39:20+00:00",
+      "known_entities": [
+        "短剧",
+        "陈添祥",
+        "张翅",
+        "余茵",
+        "百花奖短剧荣誉单元"
+      ],
+      "verified_entities": [
+        "短剧",
+        "百花奖短剧荣誉单元"
+      ],
+      "primary_celebrities": [
+        "陈添祥",
+        "张翅",
+        "余茵"
+      ],
+      "quality_score": 300.358,
+      "output_date": "2026-08-11",
+      "selected_at": "2026-08-11T00:07:53.906064+00:00"
+    },
+    {
+      "aweme_id": "7672261274880806159",
+      "content_id": "7672261274880806159",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7672261274880806159/?region=US&mid=7672261306728123145&u_code=0&did=MS4wLjABAAAABpWIPj71dnfZYrNJd_YApazD4xwJ9tE93-X4dUJv_W_oACeA5dw3ivylHc5F1fv1&iid=MS4wLjABAAAAHv7EW5kCH22xGSlpjjBkEuzkFZYk_cFjhkXVXAr95-SEoKPSEK7MGhAefnCHQ48y&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=T4rc6gkBy3ydYb7xgL.WQCVFgOicsgWWjMSpb.oWG0o-&share_version=320900&ts=1786405090&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "罗正和栗子壳能不能别再逗我笑了#罗正 #搞笑 #粉丝 #抓马 #路透",
+      "author": "追娱大明星",
+      "like_count": 47898,
+      "comment_count": 199,
+      "share_count": 6442,
+      "duration_ms": 56379,
+      "create_time_iso": "2026-08-10T04:52:18+00:00",
+      "known_entities": [
+        "罗正",
+        "搞笑",
+        "粉丝",
+        "抓马",
+        "路透"
+      ],
+      "verified_entities": [
+        "罗正",
+        "搞笑",
+        "路透"
+      ],
+      "primary_celebrities": [
+        "罗正"
+      ],
+      "quality_score": 276.958,
+      "output_date": "2026-08-11",
+      "selected_at": "2026-08-11T00:07:53.906064+00:00"
+    },
+    {
+      "aweme_id": "7672352209594406385",
+      "content_id": "7672352209594406385",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7672352209594406385/?region=US&mid=7534919361330382898&u_code=0&did=MS4wLjABAAAAY_pNnfy7GomrcTkP7rOedKKhjW8RsF-xzenmetP1shYR631pam7qpSSf3h4K4Shb&iid=MS4wLjABAAAAQ7wSU_-9FuPxUsVhhgYp9q1kVJAdU28yQ0KDYlatwWxrIq6J5T_fVk8OgqCNL5Qr&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=jTpthZuPnTfNo22Zb4ihfr1hMvNSzPA2gGOs2Lz4wzE-&share_version=320900&ts=1786405097&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "红毯上一直在照顾彼此啊诗幂🥺🥺 #第38届百花奖闭幕式#大众电影百花奖 #刘诗诗 #杨幂",
+      "author": "草莓牛奶味的Haru",
+      "like_count": 39460,
+      "comment_count": 643,
+      "share_count": 4786,
+      "duration_ms": 9734,
+      "create_time_iso": "2026-08-10T10:45:04+00:00",
+      "known_entities": [
+        "杨幂",
+        "刘诗诗",
+        "第38届百花奖闭幕式",
+        "大众电影百花奖"
+      ],
+      "verified_entities": [
+        "杨幂",
+        "刘诗诗",
+        "第38届百花奖闭幕式"
+      ],
+      "primary_celebrities": [
+        "杨幂",
+        "刘诗诗"
+      ],
+      "quality_score": 262.276,
+      "output_date": "2026-08-11",
+      "selected_at": "2026-08-11T00:07:53.906064+00:00"
+    },
+    {
+      "aweme_id": "7672356170464282714",
+      "content_id": "7672356170464282714",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7672356170464282714/?region=US&mid=7672356125638937387&u_code=0&did=MS4wLjABAAAAY_pNnfy7GomrcTkP7rOedKKhjW8RsF-xzenmetP1shYR631pam7qpSSf3h4K4Shb&iid=MS4wLjABAAAAQ7wSU_-9FuPxUsVhhgYp9q1kVJAdU28yQ0KDYlatwWxrIq6J5T_fVk8OgqCNL5Qr&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=dzc3sKAD3vey7PkHDPdEN0RtuzegHjGOJw13ncGZfOw-&share_version=320900&ts=1786405097&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "好闪的阵容！ #第38届大众电影百花奖    #第38届百花奖闭幕红毯 #电影惊蛰无声",
+      "author": "搜狐娱乐",
+      "like_count": 29087,
+      "comment_count": 1282,
+      "share_count": 898,
+      "duration_ms": 14600,
+      "create_time_iso": "2026-08-10T11:00:26+00:00",
+      "known_entities": [
+        "大众电影百花奖",
+        "第38届大众电影百花奖",
+        "第38届百花奖闭幕红毯"
+      ],
+      "verified_entities": [
+        "第38届大众电影百花奖",
+        "第38届百花奖闭幕红毯"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 261.071,
+      "output_date": "2026-08-11",
+      "selected_at": "2026-08-11T00:07:53.906064+00:00"
+    },
+    {
+      "aweme_id": "7672256118500285083",
+      "content_id": "7672256118500285083",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7672256118500285083/?region=US&mid=7672256082374921003&u_code=0&did=MS4wLjABAAAAJ04AsfaByH78iiTpS4KQk6Jm7pwAHdil6HfOHJhJBKX3uA-HJI1AsnwdHb4hn4EP&iid=MS4wLjABAAAA92_-DqFZBnzoN81MZq0Y5pY_nOU_9XzEn4-lwo9cfiib3TGmXkA-jZgjPvqrhY7d&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=XAxw0G1Ul.sFqeFW7XlMmxT2bs5cBUznYiNA1hCuLEo-&share_version=320900&ts=1786405092&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#刘德华 #采访名场面 #自律的天花板",
+      "author": "刘德华范",
+      "like_count": 14191,
+      "comment_count": 1493,
+      "share_count": 1697,
+      "duration_ms": 17234,
+      "create_time_iso": "2026-08-10T04:32:11+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "刘德华"
+      ],
+      "primary_celebrities": [
+        "刘德华"
+      ],
+      "quality_score": 214.376,
+      "output_date": "2026-08-11",
+      "selected_at": "2026-08-11T00:07:53.906064+00:00"
+    },
+    {
+      "aweme_id": "7672245683512209523",
+      "content_id": "7672245683512209523",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7672245683512209523/?region=US&mid=7672245609386068763&u_code=0&did=MS4wLjABAAAAJ04AsfaByH78iiTpS4KQk6Jm7pwAHdil6HfOHJhJBKX3uA-HJI1AsnwdHb4hn4EP&iid=MS4wLjABAAAA92_-DqFZBnzoN81MZq0Y5pY_nOU_9XzEn4-lwo9cfiib3TGmXkA-jZgjPvqrhY7d&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=y9doRv_5k9yMqmmYHc2ugqwKjQfXSrEN4k3CmWiIMG8-&share_version=320900&ts=1786405092&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#陈伟霆 你们就喜欢我美貌哈哈哈哈哈哈 #采访 #张启山",
+      "author": "威廉饱饱的小胡渣",
+      "like_count": 12601,
+      "comment_count": 2575,
+      "share_count": 7091,
+      "duration_ms": 15734,
+      "create_time_iso": "2026-08-10T03:51:41+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "陈伟霆"
+      ],
+      "primary_celebrities": [
+        "陈伟霆"
+      ],
+      "quality_score": 205.608,
+      "output_date": "2026-08-11",
+      "selected_at": "2026-08-11T00:07:53.906064+00:00"
+    },
+    {
+      "aweme_id": "7672088724687179043",
+      "content_id": "7672088724687179043",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7672088724687179043/?region=US&mid=7672088610771520283&u_code=0&did=MS4wLjABAAAAJ04AsfaByH78iiTpS4KQk6Jm7pwAHdil6HfOHJhJBKX3uA-HJI1AsnwdHb4hn4EP&iid=MS4wLjABAAAA92_-DqFZBnzoN81MZq0Y5pY_nOU_9XzEn4-lwo9cfiib3TGmXkA-jZgjPvqrhY7d&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=Zu8upJ3fljelFfdGg8yUFP_DkQgeBHtZz0uBM_ujkeo-&share_version=320900&ts=1786405092&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "丁禹兮的这句话，让我有点破防了 分享篇：采访完#丁禹兮 他的这句话让我当时真的有点破防！#天真小志 #影娱热点团 #抖音创作者大会",
+      "author": "天真小志",
+      "like_count": 5889,
+      "comment_count": 312,
+      "share_count": 515,
+      "duration_ms": 104351,
+      "create_time_iso": "2026-08-10T10:25:00+00:00",
+      "known_entities": [
+        "丁禹兮"
+      ],
+      "verified_entities": [
+        "丁禹兮"
+      ],
+      "primary_celebrities": [
+        "丁禹兮"
+      ],
+      "quality_score": 212.931,
+      "output_date": "2026-08-11",
+      "selected_at": "2026-08-11T00:07:53.906064+00:00"
+    },
     {
       "aweme_id": "7672003494768921871",
       "content_id": "7672003494768921871",
