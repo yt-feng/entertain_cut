@@ -1,7 +1,203 @@
 {
-  "updated_at": "2026-08-11T00:07:53.906064+00:00",
-  "count": 162,
+  "updated_at": "2026-08-12T00:11:35.955153+00:00",
+  "count": 170,
   "items": [
+    {
+      "aweme_id": "7672588403598331172",
+      "content_id": "7672588403598331172",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7672588403598331172/?region=US&mid=7672588361869101850&u_code=0&did=MS4wLjABAAAAkd7hFi1pWDU4Z72qRYULzw5smZOqY8dpJrQHxFcQLvM&iid=MS4wLjABAAAAWuiTiYuKFYYZTIa4gsVrzK8INSOJsrCHbMkcgfjvu74&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=3zZxbsh1RbGrFWiJJrrAZbFy26YYdNAIZQCBNiECDd4-&share_version=320900&ts=1786491748&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "为何杨紫百花奖没提名，却和张译莫言坐第一排？隐藏的身份曝光，才懂席位从来不止看奖项#杨紫  #易烊千玺  #萨日娜 #内容启发搜索 #影娱热点团",
+      "author": "细雨娱菌",
+      "like_count": 25121,
+      "comment_count": 684,
+      "share_count": 413,
+      "duration_ms": 56054,
+      "create_time_iso": "2026-08-11T02:01:41+00:00",
+      "known_entities": [
+        "杨紫",
+        "易烊千玺"
+      ],
+      "verified_entities": [
+        "杨紫",
+        "易烊千玺"
+      ],
+      "primary_celebrities": [
+        "杨紫",
+        "易烊千玺"
+      ],
+      "quality_score": 253.945,
+      "output_date": "2026-08-12",
+      "selected_at": "2026-08-12T00:11:35.955153+00:00"
+    },
+    {
+      "aweme_id": "7672731344295759123",
+      "content_id": "7672731344295759123",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7672731344295759123/?region=US&mid=7672731359040670514&u_code=0&did=MS4wLjABAAAAkd7hFi1pWDU4Z72qRYULzw5smZOqY8dpJrQHxFcQLvM&iid=MS4wLjABAAAAWuiTiYuKFYYZTIa4gsVrzK8INSOJsrCHbMkcgfjvu74&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=0bqXkZ7rxXo9tTLUBK1wxaKdRxbY1djea6CjUxENJpg-&share_version=320900&ts=1786491748&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "杨紫的含金量居然还有人质疑吗！？#杨紫 #百花奖 #白玉兰 #爽文 #杨紫坐第一排实至名归",
+      "author": "挖了个趣",
+      "like_count": 16756,
+      "comment_count": 241,
+      "share_count": 1074,
+      "duration_ms": 101240,
+      "create_time_iso": "2026-08-11T11:16:22+00:00",
+      "known_entities": [
+        "杨紫"
+      ],
+      "verified_entities": [
+        "杨紫"
+      ],
+      "primary_celebrities": [
+        "杨紫"
+      ],
+      "quality_score": 249.654,
+      "output_date": "2026-08-12",
+      "selected_at": "2026-08-12T00:11:35.955153+00:00"
+    },
+    {
+      "aweme_id": "7672701979110336118",
+      "content_id": "7672701979110336118",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7672701979110336118/?region=US&mid=7672701944850320154&u_code=0&did=MS4wLjABAAAAwKISG4HMBottzfQFnOFlyT7K06QhO3TD4HuZeJbORgMyeXcKfoID7GluVqb5PbyV&iid=MS4wLjABAAAAAVhnyXi7K6Mex7ZyugzJvCPKEWubYuROBUosfJdqoKCC_wF-UDxvvWGN0HX3GEL4&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=6.IjT20mz25YRqFoBGopjXyGjytI4fHZstoZL8T6Qe0-&share_version=320900&ts=1786491761&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "你最喜欢他演的哪个角色呢？ #九门",
+      "author": "晨歌影视娱乐",
+      "like_count": 10876,
+      "comment_count": 18150,
+      "share_count": 648,
+      "duration_ms": 19167,
+      "create_time_iso": "2026-08-11T09:22:21+00:00",
+      "known_entities": [],
+      "verified_entities": [],
+      "primary_celebrities": [],
+      "quality_score": 223.117,
+      "output_date": "2026-08-12",
+      "selected_at": "2026-08-12T00:11:35.955153+00:00"
+    },
+    {
+      "aweme_id": "7672566186105720100",
+      "content_id": "7672566186105720100",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7672566186105720100/?region=US&mid=7248523550725261372&u_code=0&did=MS4wLjABAAAAoDMezQ7xYnRTuGZKf_Cs09u0JhVw9EEBnr1Gt2cFvn8&iid=MS4wLjABAAAAeA96WfravAGmoD-wt_1YrqUB5aLVfvUWKDa5rC_0D30&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=rrXJZI2T96Y0crPH4I6GxrUqVWAI2A0XR936X8t7Igo-&share_version=320900&ts=1786491764&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#媒体原创 8月10日晚，第38届大众电影百花奖闭幕式上，香港演员卫诗雅凭借《破·地狱》斩获最佳女主角，接受采访时尽显野心，称自己是努力进军世界上所有影坛，她还表示，每一个电影工作者、每一位观众的意见，都极大鼓励了她，她会继续演好每一个角色，打动更多的人心。",
+      "author": "荔枝新闻",
+      "like_count": 16958,
+      "comment_count": 1933,
+      "share_count": 240,
+      "duration_ms": 60000,
+      "create_time_iso": "2026-08-11T00:35:31+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "卫诗雅"
+      ],
+      "primary_celebrities": [
+        "卫诗雅"
+      ],
+      "quality_score": 217.394,
+      "output_date": "2026-08-12",
+      "selected_at": "2026-08-12T00:11:35.955153+00:00"
+    },
+    {
+      "aweme_id": "7672598242496915163",
+      "content_id": "7672598242496915163",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7672598242496915163/?region=US&mid=7672598234644122409&u_code=0&did=MS4wLjABAAAAsYa60AVwnhQJnT1S-XiHP71UHEcqfY3dckU67nv8YqY&iid=MS4wLjABAAAA5iPVFSZNVhWSCEU_ToPuCiGT7Bp7k_jybg8faGuofwk&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=ch.gEvvdBCZbXEH6ajhR6tjPc9K73hDS.82UiRRBGLg-&share_version=320900&ts=1786491757&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "感觉这个刘耀文比千玺还骄傲哈哈哈哈 #易烊千玺 #刘耀文 #剪映",
+      "author": "娱乐圈小妖",
+      "like_count": 22038,
+      "comment_count": 102,
+      "share_count": 2553,
+      "duration_ms": 16742,
+      "create_time_iso": "2026-08-11T02:54:53+00:00",
+      "known_entities": [
+        "易烊千玺"
+      ],
+      "verified_entities": [
+        "易烊千玺"
+      ],
+      "primary_celebrities": [
+        "易烊千玺"
+      ],
+      "quality_score": 208.947,
+      "output_date": "2026-08-12",
+      "selected_at": "2026-08-12T00:11:35.955153+00:00"
+    },
+    {
+      "aweme_id": "7672629291754752742",
+      "content_id": "7672629291754752742",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7672629291754752742/?region=US&mid=7672629254014143242&u_code=0&did=MS4wLjABAAAAoDMezQ7xYnRTuGZKf_Cs09u0JhVw9EEBnr1Gt2cFvn8&iid=MS4wLjABAAAAeA96WfravAGmoD-wt_1YrqUB5aLVfvUWKDa5rC_0D30&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=T_qBJD4iTqe.r94pWBnYaXh.BxWU4H1hivmDI9Y0mmk-&share_version=320900&ts=1786491764&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "张大佛爷的采访 45岁的谢霆锋越看越帅，40岁的陈伟霆越看越可爱#全能艺人陈伟霆 #明星采访 #法拉利永远都是法拉利\n十年后的九门不负期待，很好看#九门#三叔  侵删",
+      "author": "🍂 W·Oct²³·Lib✨",
+      "like_count": 33458,
+      "comment_count": 934,
+      "share_count": 27873,
+      "duration_ms": 14767,
+      "create_time_iso": "2026-08-11T04:40:17+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "谢霆锋",
+        "陈伟霆"
+      ],
+      "primary_celebrities": [
+        "谢霆锋",
+        "陈伟霆"
+      ],
+      "quality_score": 203.59,
+      "output_date": "2026-08-12",
+      "selected_at": "2026-08-12T00:11:35.955153+00:00"
+    },
+    {
+      "aweme_id": "5244160493873889420",
+      "content_id": "5244160493873889420",
+      "platform": "kuaishou",
+      "url": "https://www.kuaishou.com/short-video/5244160493873889420",
+      "title": "迪丽热巴 #城市夜景 #迪丽热巴 #纪皖幽 #娱乐 @♡̶₊婧千~★₊(O2614363541) @ID 迪恩熙（接单推）(O4157604429) @你的洗衣粉儿(O4295793662) @Hello我是温迪ʸ(O1647417058) @皖璃知意(O4936536731) @余晏.铭(O2744884239) @回忆在想婧祎(O2340261806) @宇轩💢(O4576472544) @Dear＿迪⁸⁷时孟🎸(O2270708224) @铭牌祁念念y🎸(O5248317252) @女顶只认迪丽热巴(O1367645267) @迪夏初.[爱高雯版](O5450197144) @迪卿璇(O4349006223) @姜浅卿（限流期接代剪）(O4093098891) @睡眠羊.(O4891918471) @程棠(O1852970148) @1凌九(O5527713724) @悸筱迪(O2500895718) @An_嘉一口朱砂翅(O1555810251) @顶流.迪皖芸（迪云安一切）(O2096918022) @简.稚.柚.(O4631742514) @Hello.付黔(O3274010378) @冰北杯(O2660737408) @橘帆祎❄️⛄(O3275459434) @拽⃪姐⃪悸⃪茗⃪祎⃪、⃪(O2115360376) @慕谙刈（封评版）(O4064364526) @迪刈刈（配音榜多带带）(O3609609700) @悸妍提ʸ(O2470662394) @千念迪🦔(O4453583399) @迪妧歌（功夫女足）🦋(O1811247215) @萌妹子.刈婧妍^(O3421031131) @叶 桉 莞.【8.13🎂】(O2469923781) @青柠. GEM🈲（被邓紫棋翻牌版）(O4646881475) @滋爹-迪筱沅⁶⁰³(O2700015658) @绘旧页.(O3053474291) @祁潇懿(O2822630450) @1沈纵不娇纵(O4931680036) @ID巴个肉丸🍁²(O4576320152) @茉清祎i黎非(O5329734209) @lD迪菀姜^.(O3044989181) @是你的陈圈圈呀！(O4869437571) @𐙚˙宅鼠函羊✩‧₊(O2509489241) @流星雨.(O4056071672) @🆔小吱吱^.(O2865929005) @𐙚哼吻奕恒脸。！(O5160394838) @1简俞（潜力多带）(O4513079437) @K.痣判🍐(O1794728415) @-白鞠依.⛄️（大型交友版）(O3398357969) @早点睡(O2657631971) @1安芏芏（平桉芙小迷妹）(O1341336327) @𐙚˙1棋̒慕̒蓉̒ᴳ̒ᴱ̒ᴹ̒(O4491289441) @🆔咩咩(O2843007079) @苒宣祎(O2763506824) @Hello沈季瑜(O3523681953) @樱桃媞8号(O1035461114) @ID婧桉蔓、(O1526239370) @委屈就睡（ˊo̶̶̷ᴗo̶̶̷`）(O4631786030) @姜黎珚（莫小埋小迷妹）(O2455219094) @林一别再暗恋啦！(O362370300) @A.笙💤(O1044996876) @迪.凌玖（提子爆浆丸小迷妹）(O1618350489)",
+      "author": "纪皖幽",
+      "like_count": 2412,
+      "comment_count": 191,
+      "share_count": 80,
+      "duration_ms": 14933,
+      "create_time_iso": "2026-08-11T01:04:00+00:00",
+      "known_entities": [
+        "迪丽热巴",
+        "功夫女足"
+      ],
+      "verified_entities": [
+        "迪丽热巴"
+      ],
+      "primary_celebrities": [
+        "迪丽热巴"
+      ],
+      "quality_score": 190.498,
+      "output_date": "2026-08-12",
+      "selected_at": "2026-08-12T00:11:35.955153+00:00"
+    },
+    {
+      "aweme_id": "5198561550108479467",
+      "content_id": "5198561550108479467",
+      "platform": "kuaishou",
+      "url": "https://www.kuaishou.com/short-video/5198561550108479467",
+      "title": "#刘亦菲 #这也太好看了吧 #明星 #娱乐",
+      "author": "七七",
+      "like_count": 5005,
+      "comment_count": 433,
+      "share_count": 157,
+      "duration_ms": 16733,
+      "create_time_iso": "2026-08-11T00:29:51+00:00",
+      "known_entities": [
+        "刘亦菲"
+      ],
+      "verified_entities": [
+        "刘亦菲"
+      ],
+      "primary_celebrities": [
+        "刘亦菲"
+      ],
+      "quality_score": 174.436,
+      "output_date": "2026-08-12",
+      "selected_at": "2026-08-12T00:11:35.955153+00:00"
+    },
     {
       "aweme_id": "7672293341040304249",
       "content_id": "7672293341040304249",
