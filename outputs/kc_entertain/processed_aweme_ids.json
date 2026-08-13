@@ -1,7 +1,177 @@
 {
-  "updated_at": "2026-08-12T00:11:35.955153+00:00",
-  "count": 170,
+  "updated_at": "2026-08-13T00:36:40.777295+00:00",
+  "count": 176,
   "items": [
+    {
+      "aweme_id": "7673041142845361459",
+      "content_id": "7673041142845361459",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7673041142845361459/?region=US&mid=7673041092702505778&u_code=0&did=MS4wLjABAAAADPigFXdZlRCl1INYzGjQYpXG5ahFy7ZJDqDwM-m9K00&iid=MS4wLjABAAAAhTiacfPxim9t4ol8jtcV-Wfzv8B811LCjKWdqfdHvTE&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=uPW8EnOfSNZVh1iChyZ5kVBg549yv4bGu2YRlPvA1Aw-&share_version=320900&ts=1786578293&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "一时竟分不清是颁奖仪式还是羞辱仪式 #黄晓明 #搞笑 #金鸡百花电影节 #名场面",
+      "author": "大板凳娱乐",
+      "like_count": 69087,
+      "comment_count": 3173,
+      "share_count": 79760,
+      "duration_ms": 58120,
+      "create_time_iso": "2026-08-12T07:18:30+00:00",
+      "known_entities": [
+        "黄晓明",
+        "搞笑",
+        "金鸡百花电影节",
+        "名场面"
+      ],
+      "verified_entities": [
+        "黄晓明",
+        "金鸡百花电影节"
+      ],
+      "primary_celebrities": [
+        "黄晓明"
+      ],
+      "quality_score": 310.222,
+      "output_date": "2026-08-13",
+      "selected_at": "2026-08-13T00:36:40.777295+00:00"
+    },
+    {
+      "aweme_id": "7673065535608952826",
+      "content_id": "7673065535608952826",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7673065535608952826/?region=US&mid=7673065487546534675&u_code=0&did=MS4wLjABAAAA_jxk4JcQMxwu8jIGJSegloHORe5yEzcxETMDEXHnhUkL3oHEnUIHg0IMKN0MsT8r&iid=MS4wLjABAAAApCwf4BbxMLPjEuxdQMQD1ZSkeLalZgj6559FoUc4KJQER4R7EnSTDc6E4Aw23hcJ&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=R.0JptrAFTT9MDuhUmwyh2wItc9pmVi1EEzkLVHf9Oc-&share_version=320900&ts=1786578295&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "你说说你俩这闹的。。。\n压力大的时候就来看看弹壳吧哈哈哈😆\n#中国新说唱巅峰对决 #说唱巅峰对决 #综艺名场面分享 #弹壳 #功夫胖",
+      "author": "士多啤梨",
+      "like_count": 34716,
+      "comment_count": 1226,
+      "share_count": 29277,
+      "duration_ms": 28600,
+      "create_time_iso": "2026-08-12T08:53:08+00:00",
+      "known_entities": [
+        "名场面",
+        "中国新说唱巅峰对决",
+        "说唱巅峰对决",
+        "综艺名场面分享",
+        "弹壳",
+        "功夫胖"
+      ],
+      "verified_entities": [
+        "中国新说唱巅峰对决",
+        "弹壳",
+        "功夫胖"
+      ],
+      "primary_celebrities": [
+        "弹壳",
+        "功夫胖"
+      ],
+      "quality_score": 284.298,
+      "output_date": "2026-08-13",
+      "selected_at": "2026-08-13T00:36:40.777295+00:00"
+    },
+    {
+      "aweme_id": "7673118590577601637",
+      "content_id": "7673118590577601637",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7673118590577601637/?region=US&mid=7673118598042274601&u_code=0&did=MS4wLjABAAAA_jxk4JcQMxwu8jIGJSegloHORe5yEzcxETMDEXHnhUkL3oHEnUIHg0IMKN0MsT8r&iid=MS4wLjABAAAApCwf4BbxMLPjEuxdQMQD1ZSkeLalZgj6559FoUc4KJQER4R7EnSTDc6E4Aw23hcJ&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=y9crDWF_uBr4WgU5wuI_FcYzI8rWB5DLtAYglhox6ZE-&share_version=320900&ts=1786578295&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "刘旸经历了一遭top历险记😂 #登陆少年 #刘旸 #一路向海的少年 #时代峰峻",
+      "author": "慈耕",
+      "like_count": 40417,
+      "comment_count": 517,
+      "share_count": 15306,
+      "duration_ms": 235821,
+      "create_time_iso": "2026-08-12T12:19:00+00:00",
+      "known_entities": [
+        "登陆少年",
+        "刘旸",
+        "一路向海的少年",
+        "时代峰峻"
+      ],
+      "verified_entities": [
+        "登陆少年",
+        "刘旸",
+        "时代峰峻"
+      ],
+      "primary_celebrities": [
+        "刘旸"
+      ],
+      "quality_score": 278.565,
+      "output_date": "2026-08-13",
+      "selected_at": "2026-08-13T00:36:40.777295+00:00"
+    },
+    {
+      "aweme_id": "7673039820273587562",
+      "content_id": "7673039820273587562",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7673039820273587562/?region=US&mid=7353696149166885642&u_code=0&did=MS4wLjABAAAA_jxk4JcQMxwu8jIGJSegloHORe5yEzcxETMDEXHnhUkL3oHEnUIHg0IMKN0MsT8r&iid=MS4wLjABAAAApCwf4BbxMLPjEuxdQMQD1ZSkeLalZgj6559FoUc4KJQER4R7EnSTDc6E4Aw23hcJ&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=_hQEQOb.FP6bOyePr3jgEbmojYLBQayd1TdlQ8HLjak-&share_version=320900&ts=1786578295&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "只有shua开心的结果...\n#李灿 #seventeen #综艺搞笑 #洪知秀",
+      "author": "咪好豆豆",
+      "like_count": 9592,
+      "comment_count": 219,
+      "share_count": 1762,
+      "duration_ms": 170534,
+      "create_time_iso": "2026-08-12T07:13:21+00:00",
+      "known_entities": [
+        "搞笑",
+        "李灿",
+        "seventeen",
+        "综艺搞笑",
+        "洪知秀"
+      ],
+      "verified_entities": [
+        "SEVENTEEN",
+        "李灿",
+        "洪知秀"
+      ],
+      "primary_celebrities": [
+        "李灿",
+        "洪知秀"
+      ],
+      "quality_score": 236.698,
+      "output_date": "2026-08-13",
+      "selected_at": "2026-08-13T00:36:40.777295+00:00"
+    },
+    {
+      "aweme_id": "7672952433602366053",
+      "content_id": "7672952433602366053",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7672952433602366053/?region=US&mid=7672952401531243305&u_code=0&did=MS4wLjABAAAA72FjiqIJSCuvM-nXyywgbMtwBetVrd1gHLjzAXF4wliAxUclBQ8kHqQZQOwNVTBe&iid=MS4wLjABAAAAPBohR7gaocqoWTRBOuiMmC2GslCk2_Uq_e_ckKArf0y7mgqUxVoYuS8Y1BCpfSxl&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=CGc2qGKZbkNqXeG8kt0JMtpiVN_NlAs5WPsxE4DuTc0-&share_version=320900&ts=1786578302&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "陈伟霆：“我年纪小也疼人...”又敏感了 #陈伟霆 #采访名场面 #九门 #张启山 #明星采访",
+      "author": "智能标本小兔",
+      "like_count": 3269,
+      "comment_count": 109,
+      "share_count": 323,
+      "duration_ms": 17000,
+      "create_time_iso": "2026-08-12T01:34:14+00:00",
+      "known_entities": [
+        "名场面"
+      ],
+      "verified_entities": [
+        "陈伟霆"
+      ],
+      "primary_celebrities": [
+        "陈伟霆"
+      ],
+      "quality_score": 193.13,
+      "output_date": "2026-08-13",
+      "selected_at": "2026-08-13T00:36:40.777295+00:00"
+    },
+    {
+      "aweme_id": "7673075235679259950",
+      "content_id": "7673075235679259950",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7673075235679259950/?region=US&mid=7673075233955728191&u_code=0&did=MS4wLjABAAAAkOJcMtDd2QDhkbO5K24Im2va8G3WGswPXr27wr8jnieSsrx1ZCpPL8yhTdhV4D4T&iid=MS4wLjABAAAA6aVDrivK89oTtljWX90T2qA8_yEStdpwUS3wvGmWemalPHJxHQ16T6IPEx6_5276&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=VWwuUcNpLj3FMzlvYxfEEMhJ80Vg_iBjbxbICDRycf8-&share_version=320900&ts=1786578297&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "2009年的飞天奖才是真正的神仙打架吧 #热门 #内娱 #飞天奖 #最佳男演员  #颁奖 @DOU+小助手",
+      "author": "娱圈呱呱乐",
+      "like_count": 5037,
+      "comment_count": 215,
+      "share_count": 484,
+      "duration_ms": 43283,
+      "create_time_iso": "2026-08-12T09:30:50+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "飞天奖"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 147.99200000000002,
+      "output_date": "2026-08-13",
+      "selected_at": "2026-08-13T00:36:40.777295+00:00"
+    },
     {
       "aweme_id": "7672588403598331172",
       "content_id": "7672588403598331172",
