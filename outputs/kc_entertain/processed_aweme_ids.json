@@ -1,7 +1,205 @@
 {
-  "updated_at": "2026-08-13T00:36:40.777295+00:00",
-  "count": 176,
+  "updated_at": "2026-08-14T00:41:11.839014+00:00",
+  "count": 184,
   "items": [
+    {
+      "aweme_id": "7673182075960233243",
+      "content_id": "7673182075960233243",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7673182075960233243/?region=US&mid=7673182074391530246&u_code=0&did=MS4wLjABAAAA-viKh-zSWTU9UYMRPOTMRLTbFdReM_B4zr3t2pDSnARAkJHxhEBY2CZsKwm7LDHw&iid=MS4wLjABAAAAmvQv4gK1DnhM_WSblKBmejOKYo1PBNj1wjEXPq_w1pucN2iRpJq2v396ZnxXQBHf&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=_C5EWHQhxv8fuw3bkOrU1Fz5NTTKDRCT9RyNUUAwfc4-&share_version=320900&ts=1786664656&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "好一个，二旬老太看五旬美少女 #谢金燕 #浪姐  #冻龄  #颜值  #女明星",
+      "author": "爆爆小薯",
+      "like_count": 228529,
+      "comment_count": 5178,
+      "share_count": 286868,
+      "duration_ms": 52153,
+      "create_time_iso": "2026-08-13T00:00:00+00:00",
+      "known_entities": [
+        "浪姐",
+        "谢金燕",
+        "冻龄",
+        "颜值",
+        "女明星"
+      ],
+      "verified_entities": [
+        "浪姐",
+        "谢金燕",
+        "冻龄",
+        "颜值",
+        "女明星"
+      ],
+      "primary_celebrities": [
+        "谢金燕"
+      ],
+      "quality_score": 292.79499999999996,
+      "output_date": "2026-08-14",
+      "selected_at": "2026-08-14T00:41:11.839014+00:00"
+    },
+    {
+      "aweme_id": "7672824503344336163",
+      "content_id": "7672824503344336163",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7672824503344336163/?region=US&mid=7672824456544389939&u_code=0&did=MS4wLjABAAAA-viKh-zSWTU9UYMRPOTMRLTbFdReM_B4zr3t2pDSnARAkJHxhEBY2CZsKwm7LDHw&iid=MS4wLjABAAAAmvQv4gK1DnhM_WSblKBmejOKYo1PBNj1wjEXPq_w1pucN2iRpJq2v396ZnxXQBHf&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=pOpkg0I19f4lQeZ_2.cI2OoE5y8175wqMLvxtxHVlhs-&share_version=320900&ts=1786664656&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "全能偶像：王一博 #王一博 #王一博平安喜乐 #人物故事 #人物解说",
+      "author": "明星岁月故事",
+      "like_count": 4875,
+      "comment_count": 999,
+      "share_count": 76,
+      "duration_ms": 69834,
+      "create_time_iso": "2026-08-13T00:15:00+00:00",
+      "known_entities": [
+        "王一博",
+        "王一博平安喜乐",
+        "人物故事",
+        "人物解说"
+      ],
+      "verified_entities": [],
+      "primary_celebrities": [
+        "王一博"
+      ],
+      "quality_score": 196.041,
+      "output_date": "2026-08-14",
+      "selected_at": "2026-08-14T00:41:11.839014+00:00"
+    },
+    {
+      "aweme_id": "7673478068925071205",
+      "content_id": "7673478068925071205",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7673478068925071205/?region=US&mid=7658466096088910602&u_code=0&did=MS4wLjABAAAAzSInQOqrl1kLQVHfdzDjyrqRlKGcLVsVwscYOQz799BNd6VTiJvSkBinq-mrHdBt&iid=MS4wLjABAAAA5ze9PTis6vqMnss52RCmFgPdQr1dr8ws03n3Aj3OFeAVrp5vt4Kq9j1iTjIWdodu&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=M31hMK7X65arbarQB61KekI32sYLOCtH.3fg3Mr1idg-&share_version=320900&ts=1786664659&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "早期的综艺节目太敢说了 #康熙来了 #金菲 #一开口就震惊全场 #迪丽热巴 #杨采钰 😱😱😱",
+      "author": "雾霾蓝",
+      "like_count": 1191,
+      "comment_count": 264,
+      "share_count": 1141,
+      "duration_ms": 72134,
+      "create_time_iso": "2026-08-13T11:33:58+00:00",
+      "known_entities": [
+        "迪丽热巴",
+        "娱乐圈"
+      ],
+      "verified_entities": [],
+      "primary_celebrities": [
+        "迪丽热巴"
+      ],
+      "quality_score": 191.634,
+      "output_date": "2026-08-14",
+      "selected_at": "2026-08-14T00:41:11.839014+00:00"
+    },
+    {
+      "aweme_id": "7673444794273713417",
+      "content_id": "7673444794273713417",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7673444794273713417/?region=US&mid=7673444789160905478&u_code=0&did=MS4wLjABAAAADNJVa_xdYrif4OKLrLK_ZYIl4vQO5LGg6OKG29xN9YASlwkpOfyEXRpMwsLD_LFQ&iid=MS4wLjABAAAAg1OyhUnC3nubCgOfS5mqCqZc4KbSUAmVnyLWQuY0PJBhwf4l8YsYyl14CjcbByHa&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=CTiElL6JL3VpsWVhDqHCgUkIEzsduslhrjqXKZUORD4-&share_version=320900&ts=1786664649&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "沈腾零宣发硬刚周星驰？开局被嘲惨淡收场，结局反转打脸全网！#沈腾 #周星驰  #龙餐馆  #功夫女足",
+      "author": "史实簿",
+      "like_count": 3239,
+      "comment_count": 1668,
+      "share_count": 107,
+      "duration_ms": 34807,
+      "create_time_iso": "2026-08-13T09:24:55+00:00",
+      "known_entities": [
+        "沈腾"
+      ],
+      "verified_entities": [],
+      "primary_celebrities": [
+        "沈腾"
+      ],
+      "quality_score": 185.282,
+      "output_date": "2026-08-14",
+      "selected_at": "2026-08-14T00:41:11.839014+00:00"
+    },
+    {
+      "aweme_id": "7673433897803222324",
+      "content_id": "7673433897803222324",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7673433897803222324/?region=US&mid=7673433947153386283&u_code=0&did=MS4wLjABAAAASe2-oS0OArNoAEKGqnM9iEGLrWTWqS4u0juO1cnkAAVc9eT4jPPORWl2V0fZqf5h&iid=MS4wLjABAAAAvp_YXAz_hTi5hrobGAU64xg5cqRVz04YSlf4TjvRFZP5Z8qf5_pmfIHxFbh0yV-a&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=RZoifIEmqrNbuqLExYU4mfGuzWu1dXWAOJhyppbNijM-&share_version=320900&ts=1786664668&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "明星火了必带保镖？真相：原来是怕粉丝弄坏租的高定！ #张凌赫  #逆袭  #情绪价值 #任嘉伦 #许凯",
+      "author": "大钱Ai商业",
+      "like_count": 1090,
+      "comment_count": 81,
+      "share_count": 935,
+      "duration_ms": 288276,
+      "create_time_iso": "2026-08-13T08:42:37+00:00",
+      "known_entities": [
+        "张凌赫"
+      ],
+      "verified_entities": [],
+      "primary_celebrities": [
+        "张凌赫"
+      ],
+      "quality_score": 167.499,
+      "output_date": "2026-08-14",
+      "selected_at": "2026-08-14T00:41:11.839014+00:00"
+    },
+    {
+      "aweme_id": "7673443793882327652",
+      "content_id": "7673443793882327652",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7673443793882327652/?region=US&mid=7619154801775544371&u_code=0&did=MS4wLjABAAAADNJVa_xdYrif4OKLrLK_ZYIl4vQO5LGg6OKG29xN9YASlwkpOfyEXRpMwsLD_LFQ&iid=MS4wLjABAAAAg1OyhUnC3nubCgOfS5mqCqZc4KbSUAmVnyLWQuY0PJBhwf4l8YsYyl14CjcbByHa&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=D.EVLYNIMVRYYbJWFPeruY78OYF_N1Bo413a_abOhJ0-&share_version=320900&ts=1786664649&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#媒体原创 演员沈腾在武汉路演又接到了观众送上的“国民影帝”锦旗，“能得到观众的喜欢就很幸运了”（原创采访）#直击第一线#媒体精选计划",
+      "author": "极目新闻",
+      "like_count": 1339,
+      "comment_count": 99,
+      "share_count": 49,
+      "duration_ms": 20000,
+      "create_time_iso": "2026-08-13T09:20:58+00:00",
+      "known_entities": [
+        "沈腾"
+      ],
+      "verified_entities": [],
+      "primary_celebrities": [
+        "沈腾"
+      ],
+      "quality_score": 166.881,
+      "output_date": "2026-08-14",
+      "selected_at": "2026-08-14T00:41:11.839014+00:00"
+    },
+    {
+      "aweme_id": "7673304870279906405",
+      "content_id": "7673304870279906405",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7673304870279906405/?region=US&mid=7673304709964270371&u_code=0&did=MS4wLjABAAAAzSInQOqrl1kLQVHfdzDjyrqRlKGcLVsVwscYOQz799BNd6VTiJvSkBinq-mrHdBt&iid=MS4wLjABAAAA5ze9PTis6vqMnss52RCmFgPdQr1dr8ws03n3Aj3OFeAVrp5vt4Kq9j1iTjIWdodu&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=Zx_77E_7gI9BpG4nVDLZb_zbTLXTA.K_47HG0m3zp0k-&share_version=320900&ts=1786664659&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "刘亦菲敬业拍戏被造谣霸凌! 刘亦菲拍戏一直听导演安排，自己被打巴掌的戏，下水戏都是真身，不像水芭，一个转圈要替身，拍戏打巴掌一直有，咋刘亦菲听导演安排成霸凌了!\n\n#刘亦菲 #神仙姐姐 #娱乐圈 \n#各位刘亦菲 #水芭",
+      "author": "会飞的辣椒鱼",
+      "like_count": 4731,
+      "comment_count": 70,
+      "share_count": 833,
+      "duration_ms": 28306,
+      "create_time_iso": "2026-08-13T00:21:52+00:00",
+      "known_entities": [
+        "刘亦菲",
+        "神仙姐姐",
+        "娱乐圈",
+        "各位刘亦菲",
+        "水芭"
+      ],
+      "verified_entities": [],
+      "primary_celebrities": [
+        "刘亦菲"
+      ],
+      "quality_score": 156.941,
+      "output_date": "2026-08-14",
+      "selected_at": "2026-08-14T00:41:11.839014+00:00"
+    },
+    {
+      "aweme_id": "5198561550672428369",
+      "content_id": "5198561550672428369",
+      "platform": "kuaishou",
+      "url": "https://www.kuaishou.com/short-video/5198561550672428369",
+      "title": "#明星娱乐",
+      "author": "开心曳舞☀🌙春天⚡",
+      "like_count": 1678,
+      "comment_count": 2600,
+      "share_count": 111,
+      "duration_ms": 88366,
+      "create_time_iso": "2026-08-13T03:35:26+00:00",
+      "known_entities": [],
+      "verified_entities": [],
+      "primary_celebrities": [],
+      "quality_score": 151.314,
+      "output_date": "2026-08-14",
+      "selected_at": "2026-08-14T00:41:11.839014+00:00"
+    },
     {
       "aweme_id": "7673041142845361459",
       "content_id": "7673041142845361459",
