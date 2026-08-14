@@ -1,7 +1,213 @@
 {
-  "updated_at": "2026-08-14T00:41:11.839014+00:00",
-  "count": 184,
+  "updated_at": "2026-08-14T23:47:04.659828+00:00",
+  "count": 192,
   "items": [
+    {
+      "aweme_id": "7673741498551365538",
+      "content_id": "7673741498551365538",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7673741498551365538/?region=US&mid=7673741419387161380&u_code=0&did=MS4wLjABAAAAdmF4NU_PdMBdnnVgpAtbH3MwlM7fG65FZiyocuRQYsk&iid=MS4wLjABAAAAKJ5gZEbz-0NcALbxpVK_GjDnXj-94MbXCTpeBfO1M-0&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=x0JwHmmsHhRcj.bjTHoQ5Jv.jUonUw71SNGEE.DMFgw-&share_version=320900&ts=1786749938&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "小小的解解大大的脾气 #考古邓紫棋 #综艺节目搞笑片段 #早期综艺节目 #早期邓紫棋 #邓紫棋出道",
+      "author": "G.E.M.鄧紫棋",
+      "like_count": 17216,
+      "comment_count": 292,
+      "share_count": 7197,
+      "duration_ms": 26077,
+      "create_time_iso": "2026-08-14T04:36:14+00:00",
+      "known_entities": [
+        "考古邓紫棋",
+        "综艺节目搞笑片段",
+        "早期综艺节目",
+        "早期邓紫棋",
+        "邓紫棋出道"
+      ],
+      "verified_entities": [
+        "邓紫棋",
+        "综艺节目搞笑片段"
+      ],
+      "primary_celebrities": [
+        "邓紫棋"
+      ],
+      "quality_score": 250.654,
+      "output_date": "2026-08-15",
+      "selected_at": "2026-08-14T23:47:04.659828+00:00"
+    },
+    {
+      "aweme_id": "7673791777635162234",
+      "content_id": "7673791777635162234",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7673791777635162234/?region=US&mid=7673791749399071539&u_code=0&did=MS4wLjABAAAA4kW_ILq4Eskq68izR-j1E5JM8jCCKa9iWATpZc2Jm7k&iid=MS4wLjABAAAAw1JZ3iiNMvC-M0oNefg8cmIna4syrj-OdMVbxK268Hc&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=_e9c9q2ZrL_2qhe22SHiriqbFDHMNQci7I.7Xtw3K9k-&share_version=320900&ts=1786749928&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "期待已久的消息终于来了，贺峻霖正式官宣加盟2026超级夏晚#贺峻霖官宣超级夏晚#超级夏晚全明星阵容太夯了#贺峻霖官宣超级夏晚#超级夏晚#2026超级夏晚",
+      "author": "星娱茶话社",
+      "like_count": 7441,
+      "comment_count": 139,
+      "share_count": 432,
+      "duration_ms": 37872,
+      "create_time_iso": "2026-08-14T07:51:19+00:00",
+      "known_entities": [
+        "高调",
+        "高调官宣",
+        "贺峻霖官宣超级夏晚",
+        "超级夏晚全明星阵容太夯了",
+        "超级夏晚",
+        "2026超级夏晚"
+      ],
+      "verified_entities": [
+        "贺峻霖",
+        "超级夏晚"
+      ],
+      "primary_celebrities": [
+        "贺峻霖"
+      ],
+      "quality_score": 218.49599999999998,
+      "output_date": "2026-08-15",
+      "selected_at": "2026-08-14T23:47:04.659828+00:00"
+    },
+    {
+      "aweme_id": "7673786409581181032",
+      "content_id": "7673786409581181032",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7673786409581181032/?region=US&mid=7673786393834933030&u_code=0&did=MS4wLjABAAAAOuLROX3WSeeW2nualyqpPiYhj4Tggoch5d_JqAPuH92pYejvbRmpxVYsW8wVsZbk&iid=MS4wLjABAAAA8seWgRxcN2EwcD6EM1ZV--PLNuT3PSAtCC2RWnlYMAYOWyxRI8ULt4CCbax1915v&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=QcDIVMemtFMPCIgSuONkjBWu3_edaBQQh0SuugxhLtU-&share_version=320900&ts=1786749946&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "张晚意直言自己想早点结婚#张晚意",
+      "author": "阿平谈娱",
+      "like_count": 6488,
+      "comment_count": 257,
+      "share_count": 189,
+      "duration_ms": 42967,
+      "create_time_iso": "2026-08-14T07:30:29+00:00",
+      "known_entities": [
+        "张晚意"
+      ],
+      "verified_entities": [
+        "张晚意"
+      ],
+      "primary_celebrities": [
+        "张晚意"
+      ],
+      "quality_score": 215.631,
+      "output_date": "2026-08-15",
+      "selected_at": "2026-08-14T23:47:04.659828+00:00"
+    },
+    {
+      "aweme_id": "7673869493940127973",
+      "content_id": "7673869493940127973",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7673869493940127973/?region=US&mid=7629172063609260042&u_code=0&did=MS4wLjABAAAAnYRMuXYVgsmbQ1icGA4M2gIyWhi4RhYDM39CAASTLlGhwgl3DU96ysYqTmGZYQYd&iid=MS4wLjABAAAA6m8nCehuaWYBhyvEkNhCctp6jGD57yrGsByPNzhdbBewYMFV91mjP9ABqcMw5z69&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=A_zz1LlNQQIEACXKEgHHgxcAPhihdSonFOjwi8s.cuE-&share_version=320900&ts=1786749936&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#付辛博 送考#曹骏 披哥 什么都磕只会让我营养均衡 两位都好帅啊#披荆斩棘直播 #披荆斩棘",
+      "author": "娱乐圈小蜜",
+      "like_count": 4418,
+      "comment_count": 349,
+      "share_count": 296,
+      "duration_ms": 16467,
+      "create_time_iso": "2026-08-14T12:52:54+00:00",
+      "known_entities": [
+        "披荆斩棘"
+      ],
+      "verified_entities": [
+        "披荆斩棘"
+      ],
+      "primary_celebrities": [
+        "付辛博",
+        "曹骏"
+      ],
+      "quality_score": 195.16,
+      "output_date": "2026-08-15",
+      "selected_at": "2026-08-14T23:47:04.659828+00:00"
+    },
+    {
+      "aweme_id": "7673904293133711714",
+      "content_id": "7673904293133711714",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7673904293133711714/?region=US&mid=7673904233558559507&u_code=0&did=MS4wLjABAAAAOuLROX3WSeeW2nualyqpPiYhj4Tggoch5d_JqAPuH92pYejvbRmpxVYsW8wVsZbk&iid=MS4wLjABAAAA8seWgRxcN2EwcD6EM1ZV--PLNuT3PSAtCC2RWnlYMAYOWyxRI8ULt4CCbax1915v&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=On0ZKaVsg7dzrsmm3CnLMJHmkS2Y2n6Z8bk0drkFhCA-&share_version=320900&ts=1786749946&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "会\"十八国语言\"的迪丽热巴 假的，人家根本就没有说过会十八国语言，是别人开玩笑说的，迪丽热巴谦虚礼貌的回应而已！#中国演员迪丽热巴 #迪丽热巴采访  #影视 #迪丽热巴",
+      "author": "取名字好难",
+      "like_count": 1316,
+      "comment_count": 82,
+      "share_count": 83,
+      "duration_ms": 64738,
+      "create_time_iso": "2026-08-14T15:07:56+00:00",
+      "known_entities": [
+        "迪丽热巴"
+      ],
+      "verified_entities": [
+        "迪丽热巴"
+      ],
+      "primary_celebrities": [
+        "迪丽热巴"
+      ],
+      "quality_score": 187.716,
+      "output_date": "2026-08-15",
+      "selected_at": "2026-08-14T23:47:04.659828+00:00"
+    },
+    {
+      "aweme_id": "7673854550193351673",
+      "content_id": "7673854550193351673",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7673854550193351673/?region=US&mid=7673854522933938980&u_code=0&did=MS4wLjABAAAAUOQRtr3Lq83gQmr-FBa1MaH2q82goBxZZ80gPC5KArhkM9CotbV0BxwFRAiXvxJT&iid=MS4wLjABAAAAcNfnr1Vwmjmlm33FpnIGzjnV69aCNPugGfx0afZZga7B8l4Eq6iEsRAIihuGRPMl&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=NVrt9s4p0gm4TeqG5D3AX5tKD7vOTzusyj6OT7POY_g-&share_version=320900&ts=1786749948&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "时隔六年终于再次听到晓彤唱的《爱你》🥹 人美歌甜！唱的好好听～#关晓彤 #舞台直拍 #燕京啤酒节 #爱你",
+      "author": "小猹live",
+      "like_count": 3678,
+      "comment_count": 94,
+      "share_count": 513,
+      "duration_ms": 28867,
+      "create_time_iso": "2026-08-14T11:54:55+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "关晓彤"
+      ],
+      "primary_celebrities": [
+        "关晓彤"
+      ],
+      "quality_score": 153.82999999999998,
+      "output_date": "2026-08-15",
+      "selected_at": "2026-08-14T23:47:04.659828+00:00"
+    },
+    {
+      "aweme_id": "7673733684138392767",
+      "content_id": "7673733684138392767",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7673733684138392767/?region=US&mid=7673733674168224554&u_code=0&did=MS4wLjABAAAAdmF4NU_PdMBdnnVgpAtbH3MwlM7fG65FZiyocuRQYsk&iid=MS4wLjABAAAAKJ5gZEbz-0NcALbxpVK_GjDnXj-94MbXCTpeBfO1M-0&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=ib0nytErZiuKApemsyhmuNZa.w4s2i4RYAQd3gosUTM-&share_version=320900&ts=1786749938&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "两人又商业互捧上了 #综艺 #搞笑 #孟子义 #你好星期六 #感谢以上明星出场",
+      "author": "啵啵蘸糖",
+      "like_count": 2092,
+      "comment_count": 52,
+      "share_count": 75,
+      "duration_ms": 48437,
+      "create_time_iso": "2026-08-14T04:05:53+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "你好星期六"
+      ],
+      "primary_celebrities": [
+        "孟子义"
+      ],
+      "quality_score": 143.084,
+      "output_date": "2026-08-15",
+      "selected_at": "2026-08-14T23:47:04.659828+00:00"
+    },
+    {
+      "aweme_id": "7673690994740028340",
+      "content_id": "7673690994740028340",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7673690994740028340/?region=US&mid=7469593513110391579&u_code=0&did=MS4wLjABAAAAfgaxQL8GA9D34sEbBfysvlJpY2-gHJoVijyYoiw79vfLzEixvO6V9RzqWEYCu3HU&iid=MS4wLjABAAAAttm4n1SELI12vXO-QH-g6Oko_TTqCf6kVyoMopU-9vQoyxW8knm9ZE1IWbq83sPU&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=0Fyrll5ySjqcdfl3Tgzs9z5w2cT4qPsElEtwj0J6zt0-&share_version=320900&ts=1786749931&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "都让一让都让一让！台湾省第一美女萧蔷来了\n岁月不败美人，完全看不出女神已经57岁了\n#萧蔷 #萧蔷台湾第一美女 #这谁顶得住啊 #极品身材 #娱乐评论大赏",
+      "author": "娱乐明星女神",
+      "like_count": 4517,
+      "comment_count": 86,
+      "share_count": 584,
+      "duration_ms": 9335,
+      "create_time_iso": "2026-08-14T01:20:15+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "萧蔷"
+      ],
+      "primary_celebrities": [
+        "萧蔷"
+      ],
+      "quality_score": 131.704,
+      "output_date": "2026-08-15",
+      "selected_at": "2026-08-14T23:47:04.659828+00:00"
+    },
     {
       "aweme_id": "7673182075960233243",
       "content_id": "7673182075960233243",
