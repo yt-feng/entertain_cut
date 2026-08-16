@@ -1,7 +1,222 @@
 {
-  "updated_at": "2026-08-15T23:42:24.893866+00:00",
-  "count": 200,
+  "updated_at": "2026-08-16T23:42:12.795765+00:00",
+  "count": 208,
   "items": [
+    {
+      "aweme_id": "7674556743070399914",
+      "content_id": "7674556743070399914",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7674556743070399914/?region=US&mid=7674556722853202739&u_code=0&did=MS4wLjABAAAAlePvpkXoDZ5ks50it3_iUKc8v0kpm15GFB5X0P6tMeMhouKOuHGrpm6AsMs6R68_&iid=MS4wLjABAAAAvOrNAc-ul4w9a5PLOPCpeqDZzdut13iD_Oix9ixcOodnF6WaSvU-yohdvnDCkbUy&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=90FPXRxSduMmV1rDFwFaB.5YmMmMr9P_euVzI.XDioM-&share_version=320900&ts=1786922648&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "内场视角来也 #大屏 #时代峰峻大屏 #tf家族四代青岛演唱会",
+      "author": "大眼睛耿鬼",
+      "like_count": 50180,
+      "comment_count": 7527,
+      "share_count": 77704,
+      "duration_ms": 6100,
+      "create_time_iso": "2026-08-16T09:19:47+00:00",
+      "known_entities": [
+        "大屏",
+        "时代峰峻大屏",
+        "tf家族四代青岛演唱会"
+      ],
+      "verified_entities": [
+        "时代峰峻",
+        "tf家族四代青岛演唱会"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 299.664,
+      "output_date": "2026-08-17",
+      "selected_at": "2026-08-16T23:42:12.795765+00:00"
+    },
+    {
+      "aweme_id": "7674582494838697326",
+      "content_id": "7674582494838697326",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7674582494838697326/?region=US&mid=7674582480036317995&u_code=0&did=MS4wLjABAAAAqGU4vQQ6O7nRAMlHAY8EOHxrp_DAbFuVEMCQEBXbtGs&iid=MS4wLjABAAAAxR5-IjEoZE_iI6IJGlAQ6CGyNx-fL9x1474SU5Ewheg&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=Tpipcolz1kXJEN.J0gMSAirlibP._twoBt3UwE5Khks-&share_version=320900&ts=1786922624&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "你质疑声再多 有对准赵露思的摄像多吗？ #明星活动现场 #赵露思#赵露思路途#赵露思穿搭 #赵露思线下",
+      "author": "香屁大王🙂",
+      "like_count": 141733,
+      "comment_count": 2646,
+      "share_count": 44799,
+      "duration_ms": 23734,
+      "create_time_iso": "2026-08-16T10:59:42+00:00",
+      "known_entities": [
+        "赵露思",
+        "明星活动现场",
+        "赵露思路途",
+        "赵露思穿搭",
+        "赵露思线下"
+      ],
+      "verified_entities": [
+        "赵露思",
+        "明星活动现场"
+      ],
+      "primary_celebrities": [
+        "赵露思"
+      ],
+      "quality_score": 287.607,
+      "output_date": "2026-08-17",
+      "selected_at": "2026-08-16T23:42:12.795765+00:00"
+    },
+    {
+      "aweme_id": "7674522849138261411",
+      "content_id": "7674522849138261411",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7674522849138261411/?region=US&mid=6702036877857261569&u_code=0&did=MS4wLjABAAAAqGU4vQQ6O7nRAMlHAY8EOHxrp_DAbFuVEMCQEBXbtGs&iid=MS4wLjABAAAAxR5-IjEoZE_iI6IJGlAQ6CGyNx-fL9x1474SU5Ewheg&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=Fq076eOUiug76PpSgbc0t5MngHZrgsaZHLdfuO.oV0Y-&share_version=320900&ts=1786922624&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "蔡依林出席活动采访现场，一席黑色露背礼服。整套造型slay全场，尽显光泽白皙美背，一双卡姿兰大眼睛光芒四射。\n#蔡依林 #娱乐评论大赏 #这谁顶得住啊 #天后 #美出高级感",
+      "author": "娱乐明星女神",
+      "like_count": 10410,
+      "comment_count": 932,
+      "share_count": 4032,
+      "duration_ms": 11518,
+      "create_time_iso": "2026-08-16T07:08:15+00:00",
+      "known_entities": [
+        "蔡依林",
+        "娱乐评论大赏",
+        "这谁顶得住啊",
+        "天后"
+      ],
+      "verified_entities": [
+        "蔡依林",
+        "娱乐评论大赏"
+      ],
+      "primary_celebrities": [
+        "蔡依林"
+      ],
+      "quality_score": 263.094,
+      "output_date": "2026-08-17",
+      "selected_at": "2026-08-16T23:42:12.795765+00:00"
+    },
+    {
+      "aweme_id": "7674669853744209059",
+      "content_id": "7674669853744209059",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7674669853744209059/?region=US&mid=7674669832060160819&u_code=0&did=MS4wLjABAAAAlePvpkXoDZ5ks50it3_iUKc8v0kpm15GFB5X0P6tMeMhouKOuHGrpm6AsMs6R68_&iid=MS4wLjABAAAAvOrNAc-ul4w9a5PLOPCpeqDZzdut13iD_Oix9ixcOodnF6WaSvU-yohdvnDCkbUy&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=qDqb2PsTflMSBR8QszOJ.V0y0.llkW9hyefUj1bw4W0-&share_version=320900&ts=1786922648&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "蛋糕上全部是解解今天的造型🥹💜好惊喜 #邓紫棋生日演唱会 #邓紫棋嘉兴演唱会 #邓紫棋 #邓紫棋演唱会 #邓紫棋生日快乐",
+      "author": "抓我没理由",
+      "like_count": 17699,
+      "comment_count": 157,
+      "share_count": 1379,
+      "duration_ms": 40400,
+      "create_time_iso": "2026-08-16T16:38:45+00:00",
+      "known_entities": [
+        "邓紫棋生日演唱会",
+        "邓紫棋嘉兴演唱会",
+        "邓紫棋",
+        "邓紫棋演唱会",
+        "邓紫棋生日快乐"
+      ],
+      "verified_entities": [
+        "邓紫棋",
+        "邓紫棋生日演唱会"
+      ],
+      "primary_celebrities": [
+        "邓紫棋"
+      ],
+      "quality_score": 256.427,
+      "output_date": "2026-08-17",
+      "selected_at": "2026-08-16T23:42:12.795765+00:00"
+    },
+    {
+      "aweme_id": "7674507114898820395",
+      "content_id": "7674507114898820395",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7674507114898820395/?region=US&mid=7674507106669595428&u_code=0&did=MS4wLjABAAAAuVsaxazuAoFG0G8gU0HzW8ovUr8ax-h9D7Mfj4SW_Z1-lQdxc2L3rNcs1P6v1yL2&iid=MS4wLjABAAAA1brH8YazirCcLkn70C5CGLy4NlLxTg0cYatDhZX9lSlpwZ32Y690kn_HUNlTzaNA&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=dt9QjDPF85LYD1Re9ojledJDnpyCFz3.ak0npYn01BY-&share_version=320900&ts=1786922634&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "OK了老铁们年度最佳男演员co神 #陈泽 #coke #OK了老铁们 #陈泽综艺",
+      "author": "左右",
+      "like_count": 7851,
+      "comment_count": 217,
+      "share_count": 1126,
+      "duration_ms": 93716,
+      "create_time_iso": "2026-08-16T06:07:17+00:00",
+      "known_entities": [
+        "OK了老铁们",
+        "陈泽"
+      ],
+      "verified_entities": [
+        "陈泽",
+        "OK了老铁们"
+      ],
+      "primary_celebrities": [
+        "陈泽"
+      ],
+      "quality_score": 228.467,
+      "output_date": "2026-08-17",
+      "selected_at": "2026-08-16T23:42:12.795765+00:00"
+    },
+    {
+      "aweme_id": "7674572108894194950",
+      "content_id": "7674572108894194950",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7674572108894194950/?region=US&mid=7674572119220488969&u_code=0&did=MS4wLjABAAAAaxWWXZ2MW82i301dLoLp4P1d3uHF1tDj5jMnynhXMDLE490q4BZuaTJ7S2dfqbXL&iid=MS4wLjABAAAATABELLCTtRw6m7KMRmztPWVkKb14Gf7d14WV8XO1r830KEk1cpwgWNdIIDR45BvK&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=bW9ihevLPTz3sr6_QIgggHj.hbDA0yaUU7CU9XB.fJA-&share_version=320900&ts=1786922645&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "TMEA盛典男女明星红毯状态#沈佳润 #周深 #top登录少年",
+      "author": "娱乐最前沿",
+      "like_count": 3932,
+      "comment_count": 98,
+      "share_count": 214,
+      "duration_ms": 40149,
+      "create_time_iso": "2026-08-16T10:19:34+00:00",
+      "known_entities": [
+        "周深"
+      ],
+      "verified_entities": [
+        "周深"
+      ],
+      "primary_celebrities": [
+        "周深"
+      ],
+      "quality_score": 175.256,
+      "output_date": "2026-08-17",
+      "selected_at": "2026-08-16T23:42:12.795765+00:00"
+    },
+    {
+      "aweme_id": "7674500528479835365",
+      "content_id": "7674500528479835365",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7674500528479835365/?region=US&mid=7674500521567783707&u_code=0&did=MS4wLjABAAAAmm5ABAXI2oeFenctgdH1EFfjvwslDMthZKsjYS3M1Lo&iid=MS4wLjABAAAA6t9YRcIiF82ItK-Wp1f95dGzbebrk6FEBU9OVbqyUgQ&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=cfMVrC1_YMzHiqKjgfuH_wRkXIPstEv70R.bnoG63.A-&share_version=320900&ts=1786922643&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "丁禹兮厦门演唱会《中国人》4K高清直拍 20260815 XICREATE ft. X 厦门演唱会 DAY 1\n\n我在❤️‍🩹 @丁禹兮 \n\n#丁禹兮  #演唱会  #全开麦演唱会现场  #南部档案  #花开锦绣",
+      "author": "CallMeRyan_丁禹兮",
+      "like_count": 1139,
+      "comment_count": 29,
+      "share_count": 37,
+      "duration_ms": 252518,
+      "create_time_iso": "2026-08-16T05:41:38+00:00",
+      "known_entities": [
+        "丁禹兮"
+      ],
+      "verified_entities": [
+        "丁禹兮"
+      ],
+      "primary_celebrities": [
+        "丁禹兮"
+      ],
+      "quality_score": 155.024,
+      "output_date": "2026-08-17",
+      "selected_at": "2026-08-16T23:42:12.795765+00:00"
+    },
+    {
+      "aweme_id": "7674651690712593125",
+      "content_id": "7674651690712593125",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7674651690712593125/?region=US&mid=7674651844483877638&u_code=0&did=MS4wLjABAAAAmm5ABAXI2oeFenctgdH1EFfjvwslDMthZKsjYS3M1Lo&iid=MS4wLjABAAAA6t9YRcIiF82ItK-Wp1f95dGzbebrk6FEBU9OVbqyUgQ&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=YEF53yDGKY.UaGF2iYjwsDl3HWl.5XJWvlknsHCnK8w-&share_version=320900&ts=1786922643&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "任嘉伦TMEA《That Guy》4K横屏直拍 26-0816#tmea腾讯音乐娱乐盛典 @任嘉伦Allen 《That Guy》横屏直拍#爱豆神级现场 #任嘉伦 #感染力舞台 #齐舞",
+      "author": "HealerAllen·任嘉伦",
+      "like_count": 1593,
+      "comment_count": 70,
+      "share_count": 82,
+      "duration_ms": 229500,
+      "create_time_iso": "2026-08-16T15:28:13+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "任嘉伦"
+      ],
+      "primary_celebrities": [
+        "任嘉伦"
+      ],
+      "quality_score": 153.971,
+      "output_date": "2026-08-17",
+      "selected_at": "2026-08-16T23:42:12.795765+00:00"
+    },
     {
       "aweme_id": "7674064384810137009",
       "content_id": "7674064384810137009",
