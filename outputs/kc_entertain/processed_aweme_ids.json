@@ -1,7 +1,226 @@
 {
-  "updated_at": "2026-08-16T23:42:12.795765+00:00",
-  "count": 208,
+  "updated_at": "2026-08-17T23:40:35.450714+00:00",
+  "count": 216,
   "items": [
+    {
+      "aweme_id": "7674869049567244665",
+      "content_id": "7674869049567244665",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7674869049567244665/?region=US&mid=7661101764619765810&u_code=0&did=MS4wLjABAAAAQwMTLPus43wc35QfY3KJHSppTQXMw90tId9Arkvop0U&iid=MS4wLjABAAAA5SAVWJ5jul2IyjxOUtmbD072GCJmZ7uVf_HAvhv0Vyo&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=_Hwa_UAKJ10jdEN5QYpVIplT5023IW.7mhs4T8bXO3k-&share_version=320900&ts=1787009262&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "20260817#王俊凯 广州站演唱会结束啦 老早订得往返误打误撞竟然偶遇了#机场偶遇明星 #机场路透",
+      "author": "🧡Lisa Li🍀 第一排有亲签版",
+      "like_count": 14382,
+      "comment_count": 158,
+      "share_count": 2834,
+      "duration_ms": 38200,
+      "create_time_iso": "2026-08-17T05:31:41+00:00",
+      "known_entities": [
+        "王俊凯",
+        "机场偶遇明星",
+        "机场路透",
+        "演唱会"
+      ],
+      "verified_entities": [
+        "王俊凯",
+        "机场偶遇明星",
+        "机场路透",
+        "演唱会"
+      ],
+      "primary_celebrities": [
+        "王俊凯"
+      ],
+      "quality_score": 253.213,
+      "output_date": "2026-08-18",
+      "selected_at": "2026-08-17T23:40:35.450714+00:00"
+    },
+    {
+      "aweme_id": "7674953476283867771",
+      "content_id": "7674953476283867771",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7674953476283867771/?region=US&mid=7674953431743859519&u_code=0&did=MS4wLjABAAAApah4SztGY56dmH43cvE4ulGfOIWUeTUl46FBSREwiyZniXaoD8H7y0jlvpxGdNC4&iid=MS4wLjABAAAAJBLh8Tgjw1GhHBoGEHB4CgXyXwws7I9wgBzOKlVXRER49QyRUgk272fkAY2tH92e&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=10aTK3Ix9BBIh5kre3akc4Ptyk.vMNBZ2V68KcZ.uKE-&share_version=320900&ts=1787009257&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "好想哭…… #舞台 #安利 #fyp #男明星 #演唱会",
+      "author": "蛋炒饭（被虞书欣饭撒版",
+      "like_count": 6701,
+      "comment_count": 1185,
+      "share_count": 13920,
+      "duration_ms": 40500,
+      "create_time_iso": "2026-08-17T10:59:18+00:00",
+      "known_entities": [
+        "虞书欣",
+        "舞台",
+        "安利",
+        "fyp",
+        "男明星",
+        "演唱会"
+      ],
+      "verified_entities": [
+        "虞书欣",
+        "舞台",
+        "演唱会"
+      ],
+      "primary_celebrities": [
+        "虞书欣"
+      ],
+      "quality_score": 265.759,
+      "output_date": "2026-08-18",
+      "selected_at": "2026-08-17T23:40:35.450714+00:00"
+    },
+    {
+      "aweme_id": "7674920684930304875",
+      "content_id": "7674920684930304875",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7674920684930304875/?region=US&mid=7674920649021934390&u_code=0&did=MS4wLjABAAAAVqWbY9caFEKHDC7SDtM3Zgh_ryCcfN8tG0MjSvKRARjA1WnbYyfysbcfdWJi9vbv&iid=MS4wLjABAAAA07uLX1hEcTT7ZtErFWvEBcipCkzQs8mrHGrC48bk0nEpElvhpNQ20mZ6QjblgVLB&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=7xJ0o0wNF7rvoTQSXDDeNB5YrB6XZ9JBi3EZH69lKsE-&share_version=320900&ts=1787009243&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "# 杨幂 最新线下活动路透，39岁这状态气场如何？",
+      "author": "娱乐明星",
+      "like_count": 8600,
+      "comment_count": 1091,
+      "share_count": 1440,
+      "duration_ms": 13607,
+      "create_time_iso": "2026-08-17T08:52:03+00:00",
+      "known_entities": [
+        "杨幂",
+        "线下活动"
+      ],
+      "verified_entities": [
+        "杨幂",
+        "线下活动"
+      ],
+      "primary_celebrities": [
+        "杨幂"
+      ],
+      "quality_score": 239.526,
+      "output_date": "2026-08-18",
+      "selected_at": "2026-08-17T23:40:35.450714+00:00"
+    },
+    {
+      "aweme_id": "7674871830830220002",
+      "content_id": "7674871830830220002",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7674871830830220002/?region=US&mid=7655934470562482978&u_code=0&did=MS4wLjABAAAA3fzbH1gEY3_2VgiOzoeBko-9Sv1-eGsGJF3Znh7YpLJdA8mbbyu9c0UyOnkdaMJD&iid=MS4wLjABAAAAphqAjS49V1DJjFT3f-gXwMjzzxzNQqUD8pMxmqtSS8mmCd18DFYoALODEoJNhrOZ&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=IiIv9jd67lwNiPm7lk8qkRlMlXh6phdg75YtQTipRNg-&share_version=320900&ts=1787009260&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#红毯现场 #女明星活动现场 #线下活动 #年轻人的社交平台 #万人派对",
+      "author": "用户35055875104489",
+      "like_count": 6620,
+      "comment_count": 518,
+      "share_count": 21284,
+      "duration_ms": 12125,
+      "create_time_iso": "2026-08-17T05:42:29+00:00",
+      "known_entities": [
+        "红毯现场",
+        "女明星活动现场",
+        "线下活动"
+      ],
+      "verified_entities": [
+        "红毯现场",
+        "女明星活动现场",
+        "线下活动"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 234.582,
+      "output_date": "2026-08-18",
+      "selected_at": "2026-08-17T23:40:35.450714+00:00"
+    },
+    {
+      "aweme_id": "7674834293666996544",
+      "content_id": "7674834293666996544",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7674834293666996544/?region=US&mid=6702036877857261569&u_code=0&did=MS4wLjABAAAAVqWbY9caFEKHDC7SDtM3Zgh_ryCcfN8tG0MjSvKRARjA1WnbYyfysbcfdWJi9vbv&iid=MS4wLjABAAAA07uLX1hEcTT7ZtErFWvEBcipCkzQs8mrHGrC48bk0nEpElvhpNQ20mZ6QjblgVLB&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=3chFhMhX91qRDmLTWTDbUhmQkLcHQcpt.E2i5_QaNHs-&share_version=320900&ts=1787009255&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "蔡依林出席活动采访现场，一席黑色露背礼服。整套造型slay全场，尽显光泽白皙美背，一双卡姿兰大眼睛光芒四射。\n#蔡依林 #娱乐评论大赏 #这谁顶得住啊 #天后 #这谁顶得住啊",
+      "author": "娱乐明星女神",
+      "like_count": 8553,
+      "comment_count": 307,
+      "share_count": 2479,
+      "duration_ms": 9381,
+      "create_time_iso": "2026-08-17T03:16:49+00:00",
+      "known_entities": [
+        "蔡依林",
+        "娱乐评论大赏",
+        "这谁顶得住啊",
+        "天后"
+      ],
+      "verified_entities": [
+        "蔡依林",
+        "娱乐评论大赏",
+        "天后"
+      ],
+      "primary_celebrities": [
+        "蔡依林"
+      ],
+      "quality_score": 224.311,
+      "output_date": "2026-08-18",
+      "selected_at": "2026-08-17T23:40:35.450714+00:00"
+    },
+    {
+      "aweme_id": "7674978097455968896",
+      "content_id": "7674978097455968896",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7674978097455968896/?region=US&mid=7674978087528123155&u_code=0&did=MS4wLjABAAAAVqWbY9caFEKHDC7SDtM3Zgh_ryCcfN8tG0MjSvKRARjA1WnbYyfysbcfdWJi9vbv&iid=MS4wLjABAAAA07uLX1hEcTT7ZtErFWvEBcipCkzQs8mrHGrC48bk0nEpElvhpNQ20mZ6QjblgVLB&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=TDYlNRQjvJ0Pai8inESUvVln.p2aobbX15lQV78Bax8-&share_version=320900&ts=1787009243&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "谢霆锋启德首秀来了香港娱乐圈半壁江山 这就是天王的号召力  希望霆锋能继续开show go on歌迷等的太久太久了#谢霆锋 #香港 #娱乐圈 #神级现场 #名场面",
+      "author": "Nicholas 逆行",
+      "like_count": 3593,
+      "comment_count": 348,
+      "share_count": 710,
+      "duration_ms": 103586,
+      "create_time_iso": "2026-08-17T12:34:51+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "名场面"
+      ],
+      "primary_celebrities": [
+        "谢霆锋"
+      ],
+      "quality_score": 203.625,
+      "output_date": "2026-08-18",
+      "selected_at": "2026-08-17T23:40:35.450714+00:00"
+    },
+    {
+      "aweme_id": "7674845181682913969",
+      "content_id": "7674845181682913969",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7674845181682913969/?region=US&mid=7674845142318172979&u_code=0&did=MS4wLjABAAAALkW2h-X19F2-8XA8jDqqDrbLb_T8CSpFSSFUZbYd-zI&iid=MS4wLjABAAAAVaAbVwXJqqsnZlXHFuZn_9a1q9lNmGS4mHhHF2sZlUg&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=2swq797LGBCgTMtz0Akn5ZK1tsOvAADcZOZzsXfJMWw-&share_version=320900&ts=1787009247&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "斯琴高娃和袁立的采访笑晕我，鲁豫也在 #那些年我们追过的综艺 #创作者中心 #创作灵感#斯琴高娃 #袁立 #斯琴高娃 鲁豫有约",
+      "author": "blan.gi",
+      "like_count": 4008,
+      "comment_count": 657,
+      "share_count": 4262,
+      "duration_ms": 88817,
+      "create_time_iso": "2026-08-17T03:59:04+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "综艺"
+      ],
+      "primary_celebrities": [
+        "斯琴高娃",
+        "袁立"
+      ],
+      "quality_score": 191.33,
+      "output_date": "2026-08-18",
+      "selected_at": "2026-08-17T23:40:35.450714+00:00"
+    },
+    {
+      "aweme_id": "7674971604531435130",
+      "content_id": "7674971604531435130",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7674971604531435130/?region=US&mid=7634516215548939044&u_code=0&did=MS4wLjABAAAAVqWbY9caFEKHDC7SDtM3Zgh_ryCcfN8tG0MjSvKRARjA1WnbYyfysbcfdWJi9vbv&iid=MS4wLjABAAAA07uLX1hEcTT7ZtErFWvEBcipCkzQs8mrHGrC48bk0nEpElvhpNQ20mZ6QjblgVLB&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=QwZVyyfRUDDvFQ2oa1zF_RunbJFeMPFX0V5jLFTm208-&share_version=320900&ts=1787009243&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#杨幂 今日活动直拍，这身材颜值太完美了、跟少女一样👍",
+      "author": "明星娱乐第一现场",
+      "like_count": 3251,
+      "comment_count": 114,
+      "share_count": 230,
+      "duration_ms": 14372,
+      "create_time_iso": "2026-08-17T12:09:39+00:00",
+      "known_entities": [
+        "杨幂"
+      ],
+      "verified_entities": [
+        "杨幂"
+      ],
+      "primary_celebrities": [
+        "杨幂"
+      ],
+      "quality_score": 190.152,
+      "output_date": "2026-08-18",
+      "selected_at": "2026-08-17T23:40:35.450714+00:00"
+    },
     {
       "aweme_id": "7674556743070399914",
       "content_id": "7674556743070399914",
