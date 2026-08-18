@@ -1,7 +1,36 @@
 {
-  "updated_at": "2026-08-17T23:40:35.450714+00:00",
-  "count": 216,
+  "updated_at": "2026-08-18T23:29:08.879332+00:00",
+  "count": 217,
   "items": [
+    {
+      "aweme_id": "7675286207551293285",
+      "content_id": "7675286207551293285",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7675286207551293285/?region=US&mid=7675286139200195354&u_code=0&did=MS4wLjABAAAAkq2DxJXIvqfLjVrgu5C8oyNtro9njjAGArHc5foqgcUHBjMWJOGjBsejUNGO7d04&iid=MS4wLjABAAAAl6ggxhERcdbkYoHd1zeG6OtIPiBx6BfSguVSKP7BvpT8XmsztQu420C4PeVqgrqH&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=IrO0nXEkOIoY0cj4REDmyv0C3P4pYDgOENn0U3DP670-&share_version=320900&ts=1787095591&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "刘亦菲一身黑西装现身成都   女霸总既视感拉满  与冒雨等待的粉丝热情打招呼  网友：不愧是神仙姐姐，也太美了#媒体原创 #媒体精选计划",
+      "author": "红星新闻",
+      "like_count": 7151,
+      "comment_count": 281,
+      "share_count": 1046,
+      "duration_ms": 11200,
+      "create_time_iso": "2026-08-18T08:30:28+00:00",
+      "known_entities": [
+        "刘亦菲",
+        "媒体原创",
+        "媒体精选计划"
+      ],
+      "verified_entities": [
+        "刘亦菲",
+        "媒体原创",
+        "媒体精选计划"
+      ],
+      "primary_celebrities": [
+        "刘亦菲"
+      ],
+      "quality_score": 238.144,
+      "output_date": "2026-08-19",
+      "selected_at": "2026-08-18T23:29:08.879332+00:00"
+    },
     {
       "aweme_id": "7674869049567244665",
       "content_id": "7674869049567244665",
