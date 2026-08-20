@@ -1,7 +1,176 @@
 {
-  "updated_at": "2026-08-18T23:29:08.879332+00:00",
-  "count": 217,
+  "updated_at": "2026-08-19T23:54:57.430888+00:00",
+  "count": 223,
   "items": [
+    {
+      "aweme_id": "5201657774641176817",
+      "content_id": "5201657774641176817",
+      "platform": "kuaishou",
+      "url": "https://www.kuaishou.com/short-video/5201657774641176817",
+      "title": "#刘亦菲 整个团队都穿了黑色，尊重永远都藏在细了节里 #神仙姐姐 #线下",
+      "author": "明星娱乐前线",
+      "like_count": 21931,
+      "comment_count": 453,
+      "share_count": 227,
+      "duration_ms": 56233,
+      "create_time_iso": "2026-08-19T02:17:28+00:00",
+      "known_entities": [
+        "刘亦菲"
+      ],
+      "verified_entities": [
+        "刘亦菲"
+      ],
+      "primary_celebrities": [
+        "刘亦菲"
+      ],
+      "quality_score": 241.641,
+      "output_date": "2026-08-20",
+      "selected_at": "2026-08-19T23:54:57.430888+00:00"
+    },
+    {
+      "aweme_id": "7675725597762961599",
+      "content_id": "7675725597762961599",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7675725597762961599/?region=US&mid=7675725585569680174&u_code=0&did=MS4wLjABAAAAOR__XM2gAWQQVO5dvuEfQaKW9K9og1t2VeURFYNWP30xqNt6DRsPLjyYrZomF0fP&iid=MS4wLjABAAAAgpvMoyrikQ-uCfK8T_M7FAVGlKdF_H-36asFsVFp_tXYteWLq5hgPA1IjDemstv-&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=1LeHzvYTkVZzouMkI_Oce.BzzqsNv9nQZ.wrNkr27T8-&share_version=320900&ts=1787182205&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "8.19肖战香港线下活动\n全记录\n从入场到离场，满目红色，满耳肖战！\n最后战战还摇下车窗和虾虾打招呼，啊啊啊，全世界最好的肖战😍\n#肖战 #明星路透 #霸总出街",
+      "author": "Hong😘Sean战",
+      "like_count": 3748,
+      "comment_count": 149,
+      "share_count": 575,
+      "duration_ms": 203082,
+      "create_time_iso": "2026-08-19T12:55:32+00:00",
+      "known_entities": [
+        "肖战",
+        "明星路透",
+        "霸总出街"
+      ],
+      "verified_entities": [
+        "肖战",
+        "明星路透",
+        "霸总出街"
+      ],
+      "primary_celebrities": [
+        "肖战"
+      ],
+      "quality_score": 237.682,
+      "output_date": "2026-08-20",
+      "selected_at": "2026-08-19T23:54:57.430888+00:00"
+    },
+    {
+      "aweme_id": "7675633794149977969",
+      "content_id": "7675633794149977969",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7675633794149977969/?region=US&mid=7661999149776848934&u_code=0&did=MS4wLjABAAAAOR__XM2gAWQQVO5dvuEfQaKW9K9og1t2VeURFYNWP30xqNt6DRsPLjyYrZomF0fP&iid=MS4wLjABAAAAgpvMoyrikQ-uCfK8T_M7FAVGlKdF_H-36asFsVFp_tXYteWLq5hgPA1IjDemstv-&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=1a.nkNIK2zbKtyyk.PXECD2pyZE4xsDLSmPrvHlUn50-&share_version=320900&ts=1787182205&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "以前在电视才能看到的明星，来到横州灾区支援，以前看电视时他是杨过，这就是武林高手的担当！#黄晓明 #公益正能量瞬间 #偶遇明星现场",
+      "author": "圆溜溜",
+      "like_count": 3614,
+      "comment_count": 288,
+      "share_count": 29,
+      "duration_ms": 14838,
+      "create_time_iso": "2026-08-19T06:59:17+00:00",
+      "known_entities": [
+        "黄晓明",
+        "公益正能量瞬间",
+        "偶遇明星现场",
+        "偶遇"
+      ],
+      "verified_entities": [
+        "黄晓明",
+        "公益正能量瞬间",
+        "偶遇明星现场"
+      ],
+      "primary_celebrities": [
+        "黄晓明"
+      ],
+      "quality_score": 218.533,
+      "output_date": "2026-08-20",
+      "selected_at": "2026-08-19T23:54:57.430888+00:00"
+    },
+    {
+      "aweme_id": "7675551734618501504",
+      "content_id": "7675551734618501504",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7675551734618501504/?region=US&mid=7672615111596886822&u_code=0&did=MS4wLjABAAAAAoepd1pTBM8BLHmvQKAnUpyds-P4psg03JefKCC31rY&iid=MS4wLjABAAAAjJ-Hd65yyWTKC9Xa_wzGRO7UXyT-nVx-_Rrmt88ZXYE&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=w3LE2q0bEXP6F8OajlSi9J_x6GVCxmg3P2U4y.m4rQ8-&share_version=320900&ts=1787182218&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "让舞台Top1成为你心中的一根刺吧\n#鞠婧祎舞台表演 #cx#鞠婧祎#鞠婧祎#鞠婧祎#鞠婧祎",
+      "author": "解酒药",
+      "like_count": 1487,
+      "comment_count": 334,
+      "share_count": 140,
+      "duration_ms": 11518,
+      "create_time_iso": "2026-08-19T01:40:51+00:00",
+      "known_entities": [
+        "鞠婧祎舞台表演",
+        "cx"
+      ],
+      "verified_entities": [
+        "鞠婧祎舞台表演",
+        "cx"
+      ],
+      "primary_celebrities": [
+        "鞠婧祎"
+      ],
+      "quality_score": 205.891,
+      "output_date": "2026-08-20",
+      "selected_at": "2026-08-19T23:54:57.430888+00:00"
+    },
+    {
+      "aweme_id": "7675709826656235364",
+      "content_id": "7675709826656235364",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7675709826656235364/?region=US&mid=7675709791519755017&u_code=0&did=MS4wLjABAAAA6FTaJ-PmGwcyEk9hmFRe3NO-KYLtFaJAK_-aof_Gq0UGTLjp7aHNtd0licP8DjNH&iid=MS4wLjABAAAA0yQ8ZhaN78eHRRxHxQir06dqZQ9n9fiaQhaZ80a2rWT36Vh0023omx8xHZ1Fo76C&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=dZVGqDad7vsiMqyN.TfEVz8FbEWxSfSrYrmO1UaGwNA-&share_version=320900&ts=1787182207&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "都说想知道黄景瑜和我说的啥，今天就让你们知道吧！#上海 #偶遇 #黄景瑜 #明星故事 #明星娱乐圈",
+      "author": "半个熟人",
+      "like_count": 2355,
+      "comment_count": 62,
+      "share_count": 375,
+      "duration_ms": 11500,
+      "create_time_iso": "2026-08-19T11:54:20+00:00",
+      "known_entities": [
+        "上海",
+        "偶遇",
+        "黄景瑜",
+        "明星故事",
+        "明星娱乐圈"
+      ],
+      "verified_entities": [
+        "上海",
+        "偶遇",
+        "黄景瑜",
+        "明星故事",
+        "明星娱乐圈"
+      ],
+      "primary_celebrities": [
+        "黄景瑜"
+      ],
+      "quality_score": 193.434,
+      "output_date": "2026-08-20",
+      "selected_at": "2026-08-19T23:54:57.430888+00:00"
+    },
+    {
+      "aweme_id": "7675663229535650771",
+      "content_id": "7675663229535650771",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7675663229535650771/?region=US&mid=7675663155195939593&u_code=0&did=MS4wLjABAAAAOR__XM2gAWQQVO5dvuEfQaKW9K9og1t2VeURFYNWP30xqNt6DRsPLjyYrZomF0fP&iid=MS4wLjABAAAAgpvMoyrikQ-uCfK8T_M7FAVGlKdF_H-36asFsVFp_tXYteWLq5hgPA1IjDemstv-&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=67OOgosu_9ZbiR2RINEOoyUEZOgPCqmJk_5gXwZvS5Q-&share_version=320900&ts=1787182205&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "美神降临，神仙姐姐刘亦菲空降成都，黑色西装气场全开#刘亦菲",
+      "author": "明星时刻",
+      "like_count": 7418,
+      "comment_count": 207,
+      "share_count": 191,
+      "duration_ms": 8987,
+      "create_time_iso": "2026-08-19T08:53:31+00:00",
+      "known_entities": [
+        "刘亦菲"
+      ],
+      "verified_entities": [
+        "刘亦菲"
+      ],
+      "primary_celebrities": [
+        "刘亦菲"
+      ],
+      "quality_score": 187.702,
+      "output_date": "2026-08-20",
+      "selected_at": "2026-08-19T23:54:57.430888+00:00"
+    },
     {
       "aweme_id": "7675286207551293285",
       "content_id": "7675286207551293285",
