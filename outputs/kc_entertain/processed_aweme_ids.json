@@ -1,7 +1,214 @@
 {
-  "updated_at": "2026-08-19T23:54:57.430888+00:00",
-  "count": 223,
+  "updated_at": "2026-08-21T11:01:06.097642+00:00",
+  "count": 231,
   "items": [
+    {
+      "aweme_id": "7676354751969201451",
+      "content_id": "7676354751969201451",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7676354751969201451/?region=US&mid=7676354861822118719&u_code=0&did=MS4wLjABAAAAlJNnUfgpkfgfcT8Dz6iF4wnrc70TIC_VEv65gYhGmhs&iid=MS4wLjABAAAAwfNYCArQfR_lOreET82zX119VCPBNEdnO4ZfsDBCdeg&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=OMye1YBi43tL8.v8KRf4B1qWZRtU9yKj_zgfIPuL704-&share_version=320900&ts=1787307437&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#胡军李乃文给佟丽娅当助理也这么好笑怎么每周都这么好笑 #胡军 #李乃文 #佟丽娅 #娱乐评论大赏",
+      "author": "娱乐速报台",
+      "like_count": 38617,
+      "comment_count": 1192,
+      "share_count": 27357,
+      "duration_ms": 259738,
+      "create_time_iso": "2026-08-21T05:37:02+00:00",
+      "known_entities": [
+        "胡军李乃文给佟丽娅当助理也这么好",
+        "胡军",
+        "李乃文",
+        "佟丽娅",
+        "娱乐评论大赏"
+      ],
+      "verified_entities": [
+        "胡军李乃文给佟丽娅当助理也这么好",
+        "娱乐评论大赏"
+      ],
+      "primary_celebrities": [
+        "胡军",
+        "李乃文",
+        "佟丽娅"
+      ],
+      "quality_score": 299.897,
+      "output_date": "2026-08-21",
+      "selected_at": "2026-08-21T11:01:06.097642+00:00"
+    },
+    {
+      "aweme_id": "7676339398132223251",
+      "content_id": "7676339398132223251",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7676339398132223251/?region=US&mid=7676339355132250890&u_code=0&did=MS4wLjABAAAAykf3M8zItJrSfMedyMo-OUWvMlQwkkG50GTKMBYGhBzkvDiAuP6nK8vPiAC_qEA6&iid=MS4wLjABAAAAlt4ZyCpb3Dp1HDiv8pxgo4nFTZvh3bzZSPgz9cTJAdCJFu-BS8YKdrSM2DtHkTSV&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=zyzurt0kqm4PHJBP3iINaTT0xXvvbPHTrP0yqgdQF3k-&share_version=320900&ts=1787307443&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "有点笑不过来了 梗太多了#大哥小助理 #李乃文 #胡军 #佟丽娅 #综艺",
+      "author": "剪的祯好",
+      "like_count": 8077,
+      "comment_count": 573,
+      "share_count": 8099,
+      "duration_ms": 35945,
+      "create_time_iso": "2026-08-21T04:37:28+00:00",
+      "known_entities": [
+        "胡军",
+        "李乃文",
+        "佟丽娅"
+      ],
+      "verified_entities": [
+        "胡军",
+        "李乃文",
+        "佟丽娅"
+      ],
+      "primary_celebrities": [
+        "胡军",
+        "李乃文",
+        "佟丽娅"
+      ],
+      "quality_score": 256.395,
+      "output_date": "2026-08-21",
+      "selected_at": "2026-08-21T11:01:06.097642+00:00"
+    },
+    {
+      "aweme_id": "5245567876289521255",
+      "content_id": "5245567876289521255",
+      "platform": "kuaishou",
+      "url": "https://www.kuaishou.com/short-video/5245567876289521255",
+      "title": "明星社交看细节，杨幂甩开杨紫，李现敬酒被拒，杰森斯坦森被内娱孤立 #杨幂 #杨紫 #老铁娱乐观察站",
+      "author": "老弟娱樂",
+      "like_count": 4253,
+      "comment_count": 377,
+      "share_count": 165,
+      "duration_ms": 63000,
+      "create_time_iso": "2026-08-20T11:51:35+00:00",
+      "known_entities": [
+        "杨紫",
+        "杨幂"
+      ],
+      "verified_entities": [
+        "杨幂"
+      ],
+      "primary_celebrities": [
+        "杨幂",
+        "杨紫"
+      ],
+      "quality_score": 221.919,
+      "output_date": "2026-08-21",
+      "selected_at": "2026-08-21T11:01:06.097642+00:00"
+    },
+    {
+      "aweme_id": "7676247433932890447",
+      "content_id": "7676247433932890447",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7676247433932890447/?region=US&mid=7469593513110391579&u_code=0&did=MS4wLjABAAAAlJNnUfgpkfgfcT8Dz6iF4wnrc70TIC_VEv65gYhGmhs&iid=MS4wLjABAAAAwfNYCArQfR_lOreET82zX119VCPBNEdnO4ZfsDBCdeg&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=yqQx49qQtT6NwdvA2KkoykvCUVvIWBXJK1vUS10f1CU-&share_version=320900&ts=1787307437&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "43岁的中国台湾偶像剧女王林依晨出席活动现场，穿了一身露背装，光洁的美背超吸睛，状态真的保持得好好啊～#林依晨 #恶作剧之吻 #袁湘琴 #这谁顶得住啊 #娱乐评论大赏",
+      "author": "娱乐明星女神",
+      "like_count": 2073,
+      "comment_count": 51,
+      "share_count": 69,
+      "duration_ms": 9637,
+      "create_time_iso": "2026-08-20T22:40:32+00:00",
+      "known_entities": [
+        "娱乐评论大赏"
+      ],
+      "verified_entities": [
+        "娱乐评论大赏"
+      ],
+      "primary_celebrities": [
+        "林依晨"
+      ],
+      "quality_score": 187.936,
+      "output_date": "2026-08-21",
+      "selected_at": "2026-08-21T11:01:06.097642+00:00"
+    },
+    {
+      "aweme_id": "7676060671449035963",
+      "content_id": "7676060671449035963",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7676060671449035963/?region=US&mid=7676060675457698579&u_code=0&did=MS4wLjABAAAAFpoig308ge_4M5WMNrYWVDur_lxi5gOqE9svT6KvEX4glrWOu0i8MW5LKDjHTEyF&iid=MS4wLjABAAAAFrpvSk-VefiXTJuX26xL_1DV9KPFhcLP2KCKWu7MoGdACpcbzmfwO4WXtlh326ml&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=n3dBnHD40IoK71GZGjqA.ngcMMcdwLm6vrc2j0hYH7E-&share_version=320900&ts=1787307432&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "杨幂沈腾现身享界系列发布会，两人同台爆笑不停，活动现场引网友热议。#杨幂沈腾现身享界系列发布会#杨幂沈腾成都惊喜合体",
+      "author": "今日国土",
+      "like_count": 1081,
+      "comment_count": 3,
+      "share_count": 3,
+      "duration_ms": 29513,
+      "create_time_iso": "2026-08-20T10:35:47+00:00",
+      "known_entities": [
+        "杨幂",
+        "沈腾"
+      ],
+      "verified_entities": [
+        "杨幂",
+        "沈腾"
+      ],
+      "primary_celebrities": [
+        "杨幂",
+        "沈腾"
+      ],
+      "quality_score": 159.172,
+      "output_date": "2026-08-21",
+      "selected_at": "2026-08-21T11:01:06.097642+00:00"
+    },
+    {
+      "aweme_id": "5222486924887597899",
+      "content_id": "5222486924887597899",
+      "platform": "kuaishou",
+      "url": "https://www.kuaishou.com/short-video/5222486924887597899",
+      "title": "巴黎高定周T台走秀的冰冰 #范冰冰 #这也太好看了吧 #明星 #娱乐",
+      "author": "七七",
+      "like_count": 1273,
+      "comment_count": 645,
+      "share_count": 77,
+      "duration_ms": 18500,
+      "create_time_iso": "2026-08-21T00:49:12+00:00",
+      "known_entities": [],
+      "verified_entities": [],
+      "primary_celebrities": [
+        "范冰冰"
+      ],
+      "quality_score": 155.083,
+      "output_date": "2026-08-21",
+      "selected_at": "2026-08-21T11:01:06.097642+00:00"
+    },
+    {
+      "aweme_id": "7676362464405749990",
+      "content_id": "7676362464405749990",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7676362464405749990/?region=US&mid=7676362395907836708&u_code=0&did=MS4wLjABAAAAsdE8GUvbb-ns2IeizqGLe5VyEpg3OqonQLpyUBCVtWHbi5R8j9c5hIgLaO2AcDpy&iid=MS4wLjABAAAA4sjHPcVlA7q9b07aQjdtt2R39oNKc-wEh-yM2HvVpXVsi6DbXtUCC_SSy3OdNiT7&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=.FQDSZJlqso7RAoZtC4hjtCYoYwY9PoKUP3kN1LbmmQ-&share_version=320900&ts=1787307453&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "张碧晨 侯明昊《甲乙丙丁》舞台4K直拍~从亲密爱人，到人海中的甲乙丙丁，这一段撕心裂肺的高音把这种离别的遗憾诠释得淋漓尽致#侯明昊张碧晨甲乙丙丁唱尽遗憾 #侯明昊 #张碧晨#天赐的声音#无乐不欢天赐7",
+      "author": "予欢",
+      "like_count": 1685,
+      "comment_count": 29,
+      "share_count": 151,
+      "duration_ms": 38755,
+      "create_time_iso": "2026-08-21T06:06:54+00:00",
+      "known_entities": [],
+      "verified_entities": [],
+      "primary_celebrities": [
+        "张碧晨",
+        "侯明昊"
+      ],
+      "quality_score": 143.413,
+      "output_date": "2026-08-21",
+      "selected_at": "2026-08-21T11:01:06.097642+00:00"
+    },
+    {
+      "aweme_id": "7676154097494014577",
+      "content_id": "7676154097494014577",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7676154097494014577/?region=US&mid=7352114119555910436&u_code=0&did=MS4wLjABAAAAS30gST8rZhyBgOwb2gdoKVreO8b39vWhEXN_CVcsO6k-aJKQKCGsT_Nu2-foJDgP&iid=MS4wLjABAAAAdQaIDSPwE-VoJdBCpHFKnM76Rv0lPpNmUGjOUamjsv42eLEehLST-_h0e4T_8en0&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=IOfWJqwMzGdUO3QbLQoWEoXzlTMxPYr2mTu110Nyi08-&share_version=320900&ts=1787307439&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#李若彤 今日活动直拍，真正的顶级骨相，太有气质了，这哪像60岁的人呢？",
+      "author": "明星娱乐第一现场",
+      "like_count": 2988,
+      "comment_count": 115,
+      "share_count": 227,
+      "duration_ms": 14558,
+      "create_time_iso": "2026-08-20T16:38:20+00:00",
+      "known_entities": [],
+      "verified_entities": [],
+      "primary_celebrities": [
+        "李若彤"
+      ],
+      "quality_score": 137.606,
+      "output_date": "2026-08-21",
+      "selected_at": "2026-08-21T11:01:06.097642+00:00"
+    },
     {
       "aweme_id": "5201657774641176817",
       "content_id": "5201657774641176817",
