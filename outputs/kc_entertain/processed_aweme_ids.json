@@ -1,7 +1,238 @@
 {
-  "updated_at": "2026-08-23T00:15:03.100380+00:00",
-  "count": 247,
+  "updated_at": "2026-08-23T23:38:14.063390+00:00",
+  "count": 255,
   "items": [
+    {
+      "aweme_id": "7677194412522310912",
+      "content_id": "7677194412522310912",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7677194412522310912/?region=US&mid=7677194374006278963&u_code=0&did=MS4wLjABAAAAqtg427tS0B_lsolmfRERDnVjU0N1WdCMuxhPS-Dz180QNd6WZf2J1NS4vbuE8T6b&iid=MS4wLjABAAAABZ5DnRWqqLQtwl3VfDTqeMPU3BDlw8ACPy2xqnF2UW20_2SV_HGN0GXqRENpBVRP&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=4ECX2bN5eW7Aq78KUcBv.oUKzr5s7HSNq8gtHfxtqNc-&share_version=320900&ts=1787527563&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "长春电影节开幕式红毯，男女明星造型状态#沈月 #檀健次 #朱一龙 #蔡文静",
+      "author": "娱乐最前沿",
+      "like_count": 12186,
+      "comment_count": 1114,
+      "share_count": 2577,
+      "duration_ms": 29611,
+      "create_time_iso": "2026-08-23T11:55:28+00:00",
+      "known_entities": [
+        "檀健次",
+        "沈月",
+        "朱一龙",
+        "蔡文静"
+      ],
+      "verified_entities": [
+        "檀健次",
+        "沈月",
+        "朱一龙",
+        "蔡文静"
+      ],
+      "primary_celebrities": [
+        "檀健次",
+        "沈月",
+        "朱一龙",
+        "蔡文静"
+      ],
+      "quality_score": 284.14300000000003,
+      "output_date": "2026-08-24",
+      "selected_at": "2026-08-23T23:38:14.063390+00:00"
+    },
+    {
+      "aweme_id": "7677178657727372465",
+      "content_id": "7677178657727372465",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7677178657727372465/?region=US&mid=7597281065603319808&u_code=0&did=MS4wLjABAAAAomrDJOCRoo-PHRiNpooSE5RprNud9cbWfOUUNNI4oH0&iid=MS4wLjABAAAAM6SO2lPpgiqR3-6jY6DEn7JMCa5e_75RPjnW-nGO4s0&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=KzC4yjDWRhdWftMwI1v6vdQk4brpCfGgWzDyrLWSKRA-&share_version=320900&ts=1787527565&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "看CORTIS演唱会，方时赫坐我身后，我能打他吗？ Hybe老板方时赫来看CORTIS生日场演唱会了，8月23日场，一扭头一堆staff，以为大明星来了，原来方时赫来了……\nstaff看的很严，不让拍照。\n请对我们CORTIS和SEVENTEEN都好一点！\n#cortis一周年 #创作者中心 #创作灵感 #方时赫 #hybe",
+      "author": "董晓包（等权顺荣退伍版）",
+      "like_count": 22004,
+      "comment_count": 881,
+      "share_count": 14875,
+      "duration_ms": 8867,
+      "create_time_iso": "2026-08-23T10:54:09+00:00",
+      "known_entities": [
+        "cortis一周年",
+        "创作者中心",
+        "创作灵感",
+        "方时赫",
+        "hybe"
+      ],
+      "verified_entities": [
+        "方时赫",
+        "hybe",
+        "cortis一周年"
+      ],
+      "primary_celebrities": [
+        "方时赫"
+      ],
+      "quality_score": 266.844,
+      "output_date": "2026-08-24",
+      "selected_at": "2026-08-23T23:38:14.063390+00:00"
+    },
+    {
+      "aweme_id": "7677157516861559267",
+      "content_id": "7677157516861559267",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7677157516861559267/?region=US&mid=7639509163613129522&u_code=0&did=MS4wLjABAAAAAbP-4j1JrBmGRiDA7md-sjrlW127ZyzoM2noMaGunzw&iid=MS4wLjABAAAAglddYIa5ECkHj28SSoSiwlhhrzbLZHqiy7U-wsNeNME&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=L1evwxFJ38iEeLttYgw6AApxcVY8N8.TqkepD5cTbqU-&share_version=320900&ts=1787527549&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "魏菁 #女明星红毯 #颜值秀场气质女神 #美到发光的瞬间 #时尚 #中华传媒 魏菁好美哦",
+      "author": "中国名媛",
+      "like_count": 37395,
+      "comment_count": 409,
+      "share_count": 7368,
+      "duration_ms": 6800,
+      "create_time_iso": "2026-08-23T09:32:06+00:00",
+      "known_entities": [
+        "女明星红毯",
+        "颜值秀场气质女神",
+        "美到发光的瞬间",
+        "时尚",
+        "中华传媒"
+      ],
+      "verified_entities": [
+        "女明星红毯",
+        "颜值秀场气质女神",
+        "美到发光的瞬间",
+        "时尚",
+        "中华传媒"
+      ],
+      "primary_celebrities": [
+        "魏菁"
+      ],
+      "quality_score": 256.64599999999996,
+      "output_date": "2026-08-24",
+      "selected_at": "2026-08-23T23:38:14.063390+00:00"
+    },
+    {
+      "aweme_id": "7677132699865516453",
+      "content_id": "7677132699865516453",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7677132699865516453/?region=US&mid=7641604168972618550&u_code=0&did=MS4wLjABAAAA4E3Rj6IT45Or3hCRdXDnlxOySv_JJHYpMOH4-P5tNfNhrTYkS132-b-CgqKcR5ty&iid=MS4wLjABAAAA4u4eAUeJBxXmMeWyQ9DKHaVQ8QtasxqaI98cY6XZ73Nwwk2NMbr1ADbUC5FJWUa4&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=tE_xaQyZyFYGjW_p4DaBlE._PGpgpbtvmDuApjQvHpw-&share_version=320900&ts=1787527560&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "哎呀 真好😭 #黄子弘凡 #数到三 #明星活动现场",
+      "author": "咬一口TiaoTiao🍎",
+      "like_count": 14653,
+      "comment_count": 98,
+      "share_count": 1085,
+      "duration_ms": 26634,
+      "create_time_iso": "2026-08-23T07:55:48+00:00",
+      "known_entities": [
+        "黄子弘凡",
+        "数到三",
+        "明星活动现场"
+      ],
+      "verified_entities": [
+        "黄子弘凡",
+        "数到三",
+        "明星活动现场"
+      ],
+      "primary_celebrities": [
+        "黄子弘凡"
+      ],
+      "quality_score": 231.666,
+      "output_date": "2026-08-24",
+      "selected_at": "2026-08-23T23:38:14.063390+00:00"
+    },
+    {
+      "aweme_id": "5238530999224975041",
+      "content_id": "5238530999224975041",
+      "platform": "kuaishou",
+      "url": "https://www.kuaishou.com/short-video/5238530999224975041",
+      "title": "那英北京演唱会舞台造型引发热议，不少网友表示先抛开演唱实力不谈，这身舞台服饰看着实在有些违和#那英北京演唱会造型翻车#那英#北京演唱会#歌手#明星#娱乐#造型",
+      "author": "顺其自然",
+      "like_count": 1310,
+      "comment_count": 2146,
+      "share_count": 114,
+      "duration_ms": 13833,
+      "create_time_iso": "2026-08-23T10:53:25+00:00",
+      "known_entities": [
+        "那英",
+        "歌手"
+      ],
+      "verified_entities": [
+        "那英",
+        "歌手"
+      ],
+      "primary_celebrities": [
+        "那英"
+      ],
+      "quality_score": 224.997,
+      "output_date": "2026-08-24",
+      "selected_at": "2026-08-23T23:38:14.063390+00:00"
+    },
+    {
+      "aweme_id": "7677188510838803739",
+      "content_id": "7677188510838803739",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7677188510838803739/?region=US&mid=7677188501246397247&u_code=0&did=MS4wLjABAAAAAbP-4j1JrBmGRiDA7md-sjrlW127ZyzoM2noMaGunzw&iid=MS4wLjABAAAAglddYIa5ECkHj28SSoSiwlhhrzbLZHqiy7U-wsNeNME&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=6Cp.B1tiTi5uuI.Y8jkgTx.xkQgEi.ajC2y.4VQVlyM-&share_version=320900&ts=1787527549&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "一回香港九门佛爷秒切潮男William！#TIMA国际音乐大赏 #陈伟霆 #佛爷 #九门",
+      "author": "会火大明星",
+      "like_count": 5647,
+      "comment_count": 56,
+      "share_count": 2004,
+      "duration_ms": 8034,
+      "create_time_iso": "2026-08-23T11:32:31+00:00",
+      "known_entities": [
+        "TIMA国际音乐大赏",
+        "陈伟霆",
+        "佛爷"
+      ],
+      "verified_entities": [
+        "陈伟霆",
+        "TIMA国际音乐大赏",
+        "佛爷"
+      ],
+      "primary_celebrities": [
+        "陈伟霆"
+      ],
+      "quality_score": 197.684,
+      "output_date": "2026-08-24",
+      "selected_at": "2026-08-23T23:38:14.063390+00:00"
+    },
+    {
+      "aweme_id": "7677103261728779456",
+      "content_id": "7677103261728779456",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7677103261728779456/?region=US&mid=7677103242232220426&u_code=0&did=MS4wLjABAAAAomrDJOCRoo-PHRiNpooSE5RprNud9cbWfOUUNNI4oH0&iid=MS4wLjABAAAAM6SO2lPpgiqR3-6jY6DEn7JMCa5e_75RPjnW-nGO4s0&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=Rtq.a.AacALzudJKgHvHxaInE2sXkBO0o2KxltLtlkg-&share_version=320900&ts=1787527565&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#那英演唱会 #那英北京演唱会顶尖造型 #明星演唱会让人过目不忘的造型",
+      "author": "遛遛顺呀",
+      "like_count": 2964,
+      "comment_count": 946,
+      "share_count": 3299,
+      "duration_ms": 14500,
+      "create_time_iso": "2026-08-23T06:01:34+00:00",
+      "known_entities": [
+        "那英"
+      ],
+      "verified_entities": [
+        "那英"
+      ],
+      "primary_celebrities": [
+        "那英"
+      ],
+      "quality_score": 194.505,
+      "output_date": "2026-08-24",
+      "selected_at": "2026-08-23T23:38:14.063390+00:00"
+    },
+    {
+      "aweme_id": "7677066140015613858",
+      "content_id": "7677066140015613858",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7677066140015613858/?region=US&mid=6831686805922793474&u_code=0&did=MS4wLjABAAAAOqwDW3yIM6PUjwMu2-uZE6lIF3wNyNPQ6M0A6omv4DM&iid=MS4wLjABAAAAhV6J9JYEYpJ6JHQxKLsUWVf2IVWddmQfzzkkljjikCo&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=smPG3Tkh3V_UrsoMk3C2Hl6rjz1AwvqOImEKKD5ApPI-&share_version=320900&ts=1787527559&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "易立竞采访蓝盈莹，她不讨喜有点说法的 #蓝盈莹 #访谈 #精彩对话片段",
+      "author": "高木大叔自言自语",
+      "like_count": 1641,
+      "comment_count": 803,
+      "share_count": 293,
+      "duration_ms": 128834,
+      "create_time_iso": "2026-08-23T03:37:32+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "蓝盈莹"
+      ],
+      "primary_celebrities": [
+        "蓝盈莹"
+      ],
+      "quality_score": 173.669,
+      "output_date": "2026-08-24",
+      "selected_at": "2026-08-23T23:38:14.063390+00:00"
+    },
     {
       "aweme_id": "7676836493139690330",
       "content_id": "7676836493139690330",
