@@ -1,7 +1,136 @@
 {
-  "updated_at": "2026-08-23T23:38:14.063390+00:00",
-  "count": 255,
+  "updated_at": "2026-08-26T00:05:13.757301+00:00",
+  "count": 260,
   "items": [
+    {
+      "aweme_id": "7677919006027713842",
+      "content_id": "7677919006027713842",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7677919006027713842/?region=US&mid=7677919064949279534&u_code=0&did=MS4wLjABAAAAlStgfHuyQBLD2CjxZ2jwvXQiqtsh-Iw8JL1CrKcmLXzGtisS0UG31ckBa3UUSeWv&iid=MS4wLjABAAAAe5jIt3fMEkEfbfvm_vIa5fjyiofRFg2ominh5nVGDxA0qj69tbR4DG1OcbhJRn8q&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=s8FrhNm5mX7LNvBjxPIoVtz.1V_kOtxQmmWOzT1.HbY-&share_version=320900&ts=1787700634&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "金鹰奖提名名单公布：这次的名单很有含金量，《生命树》成大赢家 #金鹰奖 #杨紫 #生命树 #秀才侃娱乐",
+      "author": "秀才侃娱乐",
+      "like_count": 13872,
+      "comment_count": 1795,
+      "share_count": 294,
+      "duration_ms": 175938,
+      "create_time_iso": "2026-08-25T10:47:09+00:00",
+      "known_entities": [
+        "杨紫"
+      ],
+      "verified_entities": [
+        "杨紫",
+        "金鹰奖"
+      ],
+      "primary_celebrities": [
+        "杨紫"
+      ],
+      "quality_score": 256.11699999999996,
+      "output_date": "2026-08-26",
+      "selected_at": "2026-08-26T00:05:13.757301+00:00"
+    },
+    {
+      "aweme_id": "7677899041124290163",
+      "content_id": "7677899041124290163",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7677899041124290163/?region=US&mid=7677898999747693363&u_code=0&did=MS4wLjABAAAAefeTUT6Ig5MVRH0VD1BbBo6vUpoLCSh0dTOwe2_mM9UskkDKMAU2J4C3900GLcdE&iid=MS4wLjABAAAAkHJfSmBWkShPeFGhIGsRXy59krLeJFTWSmnPzh7b902G80gFlAayoZtFiNTm9Dr7&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=OE.MhHYBe5uSl5itk7xp9W6PAWe6erkLCoyXGxU_9Go-&share_version=320900&ts=1787700636&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "九寨沟偶遇明星范丞丞、沈腾、王安宇等录综艺，现场正在清场了✨ #沈腾 #黄景瑜 贾冰 #王楚然 #王安宇 #范丞丞 胡先煦",
+      "author": "小秦",
+      "like_count": 19109,
+      "comment_count": 1578,
+      "share_count": 40050,
+      "duration_ms": 12654,
+      "create_time_iso": "2026-08-25T09:29:37+00:00",
+      "known_entities": [
+        "范丞丞",
+        "沈腾"
+      ],
+      "verified_entities": [
+        "范丞丞",
+        "沈腾"
+      ],
+      "primary_celebrities": [
+        "范丞丞",
+        "沈腾"
+      ],
+      "quality_score": 245.899,
+      "output_date": "2026-08-26",
+      "selected_at": "2026-08-26T00:05:13.757301+00:00"
+    },
+    {
+      "aweme_id": "7677890090537913643",
+      "content_id": "7677890090537913643",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7677890090537913643/?region=US&mid=7677890094094863146&u_code=0&did=MS4wLjABAAAA0FqU6rJNmW2okQa_2F7G9YQkYM8wrRah1yqRrigG9-p0P9n_Q_pWm7JPwzRLFP5p&iid=MS4wLjABAAAA5x5zJSb4dOcSQ8cV7SDUvY9xKzRrUNBHWTWR4Mg0BXIyaAW7UUXJhmxe3iCsfXzV&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=2DhoLj4HzS1gUbxJKuJ6vLh7vkbW6kJOhI2SilJizH4-&share_version=320900&ts=1787700631&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "“杨幂掉提”登上热搜，同剧两人获提金鹰奖最佳女配。不黑不吹！详解杨幂金鹰落选。（8月25日发布）#金鹰奖最佳女主角   #杨幂    #媒体精选计划  #精选主播说  #文娱体万象观 @抖音小助手 @DOU+小助手",
+      "author": "第一现场",
+      "like_count": 1293,
+      "comment_count": 2806,
+      "share_count": 155,
+      "duration_ms": 40473,
+      "create_time_iso": "2026-08-25T08:54:57+00:00",
+      "known_entities": [
+        "杨幂"
+      ],
+      "verified_entities": [
+        "杨幂",
+        "金鹰奖"
+      ],
+      "primary_celebrities": [
+        "杨幂"
+      ],
+      "quality_score": 235.325,
+      "output_date": "2026-08-26",
+      "selected_at": "2026-08-26T00:05:13.757301+00:00"
+    },
+    {
+      "aweme_id": "7677906361274862894",
+      "content_id": "7677906361274862894",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7677906361274862894/?region=US&mid=7677906357907344137&u_code=0&did=MS4wLjABAAAA0FqU6rJNmW2okQa_2F7G9YQkYM8wrRah1yqRrigG9-p0P9n_Q_pWm7JPwzRLFP5p&iid=MS4wLjABAAAA5x5zJSb4dOcSQ8cV7SDUvY9xKzRrUNBHWTWR4Mg0BXIyaAW7UUXJhmxe3iCsfXzV&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=SPEcum4SqUA0jnfE2cYjQ6N9CnWOVOF5A1ulx7CcKFg-&share_version=320900&ts=1787700631&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "杨幂金鹰奖掉提！之前那么多爆的剧也是屡战屡败！ 这个内娱就是对杨幂有双重标准！#杨幂 #金鹰奖 #杨幂金鹰奖掉提 #生万物 #演员",
+      "author": "娱乐头条",
+      "like_count": 3315,
+      "comment_count": 1209,
+      "share_count": 301,
+      "duration_ms": 47485,
+      "create_time_iso": "2026-08-25T09:58:03+00:00",
+      "known_entities": [
+        "杨幂"
+      ],
+      "verified_entities": [
+        "杨幂",
+        "金鹰奖"
+      ],
+      "primary_celebrities": [
+        "杨幂"
+      ],
+      "quality_score": 228.565,
+      "output_date": "2026-08-26",
+      "selected_at": "2026-08-26T00:05:13.757301+00:00"
+    },
+    {
+      "aweme_id": "7677939385538834865",
+      "content_id": "7677939385538834865",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7677939385538834865/?region=US&mid=7677939345797548850&u_code=0&did=MS4wLjABAAAAh44JlrWuD-ez3RAHB9v05FnA7g8BhWYz8BdM41KDJmU&iid=MS4wLjABAAAA0huFh9pKNyAHB6KqXiUhsAo1_0wWWkF8-_c0SyJJJo8&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=RC4Fg_PyrXfXejNIgt_cQNKMcP47UqXC1_67O4wncPs-&share_version=320900&ts=1787700654&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "张予曦太仙了 #张予曦 #女明星 #让我看看你担的神级舞台 #舞台 #天赐的声音",
+      "author": "A.ios定制分身！安卓主题",
+      "like_count": 2135,
+      "comment_count": 6,
+      "share_count": 63,
+      "duration_ms": 8034,
+      "create_time_iso": "2026-08-25T12:06:10+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "张予曦"
+      ],
+      "primary_celebrities": [
+        "张予曦"
+      ],
+      "quality_score": 105.506,
+      "output_date": "2026-08-26",
+      "selected_at": "2026-08-26T00:05:13.757301+00:00"
+    },
     {
       "aweme_id": "7677194412522310912",
       "content_id": "7677194412522310912",
