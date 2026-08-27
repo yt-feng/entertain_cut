@@ -1,7 +1,90 @@
 {
-  "updated_at": "2026-08-26T00:05:13.757301+00:00",
-  "count": 260,
+  "updated_at": "2026-08-27T04:46:11.275966+00:00",
+  "count": 263,
   "items": [
+    {
+      "aweme_id": "7678348115400854835",
+      "content_id": "7678348115400854835",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7678348115400854835/?region=US&mid=7678348163203353353&u_code=0&did=MS4wLjABAAAAvsdRXx4JChhA7BxUvba8PcMKK67o7azesiQeEAoLq08&iid=MS4wLjABAAAAiimH8toeoc-UZTdt40vSdIgyUD6rz9qh13i1_jWLSUs&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=v79FN1vhctdgeRZfdPeJva3zDUc6XTVb5wlWKLdKsgg-&share_version=320900&ts=1787804440&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "湖南卫视 永远把保护艺人放在首位 #宁静 #湖南卫视 #花少 #北斗七行 #跳进地理书的旅行",
+      "author": "摸娱茶水间",
+      "like_count": 20083,
+      "comment_count": 680,
+      "share_count": 655,
+      "duration_ms": 68523,
+      "create_time_iso": "2026-08-26T14:32:27+00:00",
+      "known_entities": [
+        "宁静",
+        "湖南卫视",
+        "花少",
+        "北斗七行",
+        "跳进地理书的旅行"
+      ],
+      "verified_entities": [
+        "宁静",
+        "湖南卫视",
+        "花少",
+        "北斗七行",
+        "跳进地理书的旅行"
+      ],
+      "primary_celebrities": [
+        "宁静"
+      ],
+      "quality_score": 271.469,
+      "output_date": "2026-08-27",
+      "selected_at": "2026-08-27T04:46:11.275966+00:00"
+    },
+    {
+      "aweme_id": "7678216484815949097",
+      "content_id": "7678216484815949097",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7678216484815949097/?region=US&mid=7678216476184120106&u_code=0&did=MS4wLjABAAAAdO8EU324Z6aKAtM6FybeNuFcdIX0FoHzKbVSpt8NPxHvJvhL2oIQC3zCM-lN7J8Z&iid=MS4wLjABAAAAvuYrczyZrbrkYLgOLifdGYnecyl_fE-J0OkUpAYNprBpmDZCerkjIjan6Etv7eVP&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=uW_hIQKUD_c1ktmhZ3gawvIAM3xat5EkR04cCmOuwnY-&share_version=320900&ts=1787804425&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "赵丽颖身体不适 各方反应体现刀姐私底下人品 #赵丽颖身体不适 #赵丽颖 #抖音精选计划 @抖音热点",
+      "author": "铁妮不铁",
+      "like_count": 3040,
+      "comment_count": 190,
+      "share_count": 56,
+      "duration_ms": 122300,
+      "create_time_iso": "2026-08-26T06:01:31+00:00",
+      "known_entities": [
+        "赵丽颖"
+      ],
+      "verified_entities": [
+        "赵丽颖"
+      ],
+      "primary_celebrities": [
+        "赵丽颖"
+      ],
+      "quality_score": 210.125,
+      "output_date": "2026-08-27",
+      "selected_at": "2026-08-27T04:46:11.275966+00:00"
+    },
+    {
+      "aweme_id": "7678251172586736911",
+      "content_id": "7678251172586736911",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7678251172586736911/?region=US&mid=7678251174747343667&u_code=0&did=MS4wLjABAAAAdO8EU324Z6aKAtM6FybeNuFcdIX0FoHzKbVSpt8NPxHvJvhL2oIQC3zCM-lN7J8Z&iid=MS4wLjABAAAAvuYrczyZrbrkYLgOLifdGYnecyl_fE-J0OkUpAYNprBpmDZCerkjIjan6Etv7eVP&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=PTOc4WUY8jE9AU8QixdhGLpdi22m2_8CezaxDP7Aiy0-&share_version=320900&ts=1787804425&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "赵丽颖：看我不爽的那就看我爽#赵丽颖 #演员 #女明星 #电视剧 #演技",
+      "author": "会火",
+      "like_count": 3679,
+      "comment_count": 67,
+      "share_count": 128,
+      "duration_ms": 62439,
+      "create_time_iso": "2026-08-26T08:31:12+00:00",
+      "known_entities": [
+        "赵丽颖"
+      ],
+      "verified_entities": [
+        "赵丽颖"
+      ],
+      "primary_celebrities": [
+        "赵丽颖"
+      ],
+      "quality_score": 201.638,
+      "output_date": "2026-08-27",
+      "selected_at": "2026-08-27T04:46:11.275966+00:00"
+    },
     {
       "aweme_id": "7677919006027713842",
       "content_id": "7677919006027713842",
