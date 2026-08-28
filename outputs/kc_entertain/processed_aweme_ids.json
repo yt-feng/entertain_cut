@@ -1,7 +1,207 @@
 {
-  "updated_at": "2026-08-27T04:46:11.275966+00:00",
-  "count": 263,
+  "updated_at": "2026-08-28T07:13:38.285373+00:00",
+  "count": 271,
   "items": [
+    {
+      "aweme_id": "7678908895548453605",
+      "content_id": "7678908895548453605",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7678908895548453605/?region=US&mid=7661104815464105993&u_code=0&did=MS4wLjABAAAAcZGd_ZuvgKBX_Z5A4qkDoceZkQurfLdnBK3fumPHMKriLL9VwSdaTFyvngC-cByu&iid=MS4wLjABAAAACzqcuPAROtzmuGTVF6QUqfZ7hJBqzR00xC7frVWSWMaHBTw5uJb-o4kZxON7rvSM&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=2xbv_4PliZarinA6NJH7RNbK9ZiCoJUy4FGAAj4Yvf4-&share_version=320900&ts=1787900089&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "人间富贵花景甜，笑着跟粉丝挥手好甜#景甜 #人间富贵花景甜跟粉丝挥手打招呼 #景甜回应争议 #路人镜头的女明星 #剪映",
+      "author": "追星不emo",
+      "like_count": 41354,
+      "comment_count": 3460,
+      "share_count": 5750,
+      "duration_ms": 12667,
+      "create_time_iso": "2026-08-28T02:48:21+00:00",
+      "known_entities": [
+        "景甜",
+        "人间富贵花景甜跟粉丝挥手打招呼",
+        "景甜回应争议",
+        "路人镜头的女明星",
+        "剪映"
+      ],
+      "verified_entities": [
+        "景甜",
+        "人间富贵花景甜跟粉丝挥手打招呼",
+        "景甜回应争议",
+        "路人镜头的女明星"
+      ],
+      "primary_celebrities": [
+        "景甜"
+      ],
+      "quality_score": 301.845,
+      "output_date": "2026-08-28",
+      "selected_at": "2026-08-28T07:13:38.285373+00:00"
+    },
+    {
+      "aweme_id": "7678875794529747555",
+      "content_id": "7678875794529747555",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7678875794529747555/?region=US&mid=7660721642138650660&u_code=0&did=MS4wLjABAAAAcZGd_ZuvgKBX_Z5A4qkDoceZkQurfLdnBK3fumPHMKriLL9VwSdaTFyvngC-cByu&iid=MS4wLjABAAAACzqcuPAROtzmuGTVF6QUqfZ7hJBqzR00xC7frVWSWMaHBTw5uJb-o4kZxON7rvSM&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=jOjRDdeUlI_5TXJMYRIJk83QHoeMPqwdGEu1CwD9kA8-&share_version=320900&ts=1787900089&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "景甜活动路透，一身经典卡其风衣套装，搭配同色系发箍，卷发柔和温婉。撑着透明雨伞，手持酒杯浅笑，氛围感直接拉满，从容优雅，自带复古温柔气质。#景甜 #剪映 #景甜走路姿势 #路人视角",
+      "author": "上海蛋蛋",
+      "like_count": 16857,
+      "comment_count": 1149,
+      "share_count": 2219,
+      "duration_ms": 7569,
+      "create_time_iso": "2026-08-28T00:39:56+00:00",
+      "known_entities": [
+        "景甜",
+        "剪映",
+        "景甜走路姿势"
+      ],
+      "verified_entities": [
+        "景甜",
+        "景甜走路姿势"
+      ],
+      "primary_celebrities": [
+        "景甜"
+      ],
+      "quality_score": 282.057,
+      "output_date": "2026-08-28",
+      "selected_at": "2026-08-28T07:13:38.285373+00:00"
+    },
+    {
+      "aweme_id": "5243597551107845954",
+      "content_id": "5243597551107845954",
+      "platform": "kuaishou",
+      "url": "https://www.kuaishou.com/short-video/5243597551107845954",
+      "title": "有生之年赵露思被路人要微信 #明星 #赵露思 #万万没想到 #老铁娱乐观察站",
+      "author": "酱紫的娱圈",
+      "like_count": 42249,
+      "comment_count": 1632,
+      "share_count": 7232,
+      "duration_ms": 29200,
+      "create_time_iso": "2026-08-27T07:44:35+00:00",
+      "known_entities": [
+        "赵露思"
+      ],
+      "verified_entities": [
+        "赵露思"
+      ],
+      "primary_celebrities": [
+        "赵露思"
+      ],
+      "quality_score": 245.844,
+      "output_date": "2026-08-28",
+      "selected_at": "2026-08-28T07:13:38.285373+00:00"
+    },
+    {
+      "aweme_id": "5243597548086020997",
+      "content_id": "5243597548086020997",
+      "platform": "kuaishou",
+      "url": "https://www.kuaishou.com/short-video/5243597548086020997",
+      "title": "苦练许久反复拍摄，可正片里杨门女将的戏份竟被删得一干二净。韩沛颖询问镜头删减去向，有人回她称删戏本就是行业常态。难道常态就能无视演员的付出？心血被全盘抹去，演员连诉说委屈的资格都没有吗？#韩沛颖 #主角戏份删减 #娱乐明星",
+      "author": "星娱速报站",
+      "like_count": 4224,
+      "comment_count": 2390,
+      "share_count": 233,
+      "duration_ms": 17333,
+      "create_time_iso": "2026-08-27T08:38:17+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "韩沛颖"
+      ],
+      "primary_celebrities": [
+        "韩沛颖"
+      ],
+      "quality_score": 182.213,
+      "output_date": "2026-08-28",
+      "selected_at": "2026-08-28T07:13:38.285373+00:00"
+    },
+    {
+      "aweme_id": "5250915899726464172",
+      "content_id": "5250915899726464172",
+      "platform": "kuaishou",
+      "url": "https://www.kuaishou.com/short-video/5250915899726464172",
+      "title": "苦练许久反复拍摄，可正片里杨门女将的戏份竟被删得一干二净。韩沛颖询问镜头删减去向，有人回她删戏本就是行业常态。难道常态就能无视演员的付出？心血被全盘抹去，演员连诉说委屈的资格都没有吗？#韩沛颖 #主角戏份删减 #娱乐明星",
+      "author": "星途心声",
+      "like_count": 3214,
+      "comment_count": 1293,
+      "share_count": 139,
+      "duration_ms": 16100,
+      "create_time_iso": "2026-08-27T11:39:08+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "韩沛颖"
+      ],
+      "primary_celebrities": [
+        "韩沛颖"
+      ],
+      "quality_score": 175.455,
+      "output_date": "2026-08-28",
+      "selected_at": "2026-08-28T07:13:38.285373+00:00"
+    },
+    {
+      "aweme_id": "5215450050798127449",
+      "content_id": "5215450050798127449",
+      "platform": "kuaishou",
+      "url": "https://www.kuaishou.com/short-video/5215450050798127449",
+      "title": "疑似某位明星小时候😳 #感谢以上明星出场 #TF家族四代 #时代峰峻 #娱乐 @快手粉条(O40300047) @快手热点(O40300129)",
+      "author": "初易.🌵",
+      "like_count": 5532,
+      "comment_count": 1653,
+      "share_count": 2032,
+      "duration_ms": 15041,
+      "create_time_iso": "2026-08-27T09:23:55+00:00",
+      "known_entities": [],
+      "verified_entities": [],
+      "primary_celebrities": [],
+      "quality_score": 173.041,
+      "output_date": "2026-08-28",
+      "selected_at": "2026-08-28T07:13:38.285373+00:00"
+    },
+    {
+      "aweme_id": "7678613868389616931",
+      "content_id": "7678613868389616931",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7678613868389616931/?region=US&mid=7678613888027773738&u_code=0&did=MS4wLjABAAAAFpoig308ge_4M5WMNrYWVDur_lxi5gOqE9svT6KvEX4glrWOu0i8MW5LKDjHTEyF&iid=MS4wLjABAAAAFrpvSk-VefiXTJuX26xL_1DV9KPFhcLP2KCKWu7MoGdACpcbzmfwO4WXtlh326ml&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=BsM4PdTYjUH66oslTgOVu.2JNgypcK5M8KwACbzlZEw-&share_version=320900&ts=1787900113&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "有生之年赵露思被路人要微信 #明星 #赵露思 #万万没想到 #离谱 cr:月亮总比月饼好",
+      "author": "酱紫的娱圈",
+      "like_count": 4203,
+      "comment_count": 61,
+      "share_count": 1420,
+      "duration_ms": 29211,
+      "create_time_iso": "2026-08-27T07:43:35+00:00",
+      "known_entities": [
+        "赵露思"
+      ],
+      "verified_entities": [
+        "赵露思"
+      ],
+      "primary_celebrities": [
+        "赵露思"
+      ],
+      "quality_score": 163.275,
+      "output_date": "2026-08-28",
+      "selected_at": "2026-08-28T07:13:38.285373+00:00"
+    },
+    {
+      "aweme_id": "5207005804284913070",
+      "content_id": "5207005804284913070",
+      "platform": "kuaishou",
+      "url": "https://www.kuaishou.com/short-video/5207005804284913070",
+      "title": "钱再多有什么用？ 这次被紧急送医的赵丽颖 给所有人提了个醒…＃赵丽颖＃患病＃娱乐圈＃女明星",
+      "author": "镜中花触碰梦想",
+      "like_count": 1121,
+      "comment_count": 134,
+      "share_count": 72,
+      "duration_ms": 6166,
+      "create_time_iso": "2026-08-27T09:42:04+00:00",
+      "known_entities": [
+        "赵丽颖"
+      ],
+      "verified_entities": [
+        "赵丽颖"
+      ],
+      "primary_celebrities": [
+        "赵丽颖"
+      ],
+      "quality_score": 156.207,
+      "output_date": "2026-08-28",
+      "selected_at": "2026-08-28T07:13:38.285373+00:00"
+    },
     {
       "aweme_id": "7678348115400854835",
       "content_id": "7678348115400854835",
