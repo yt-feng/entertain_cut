@@ -1,7 +1,226 @@
 {
-  "updated_at": "2026-08-28T07:13:38.285373+00:00",
-  "count": 271,
+  "updated_at": "2026-08-29T01:38:16.138261+00:00",
+  "count": 279,
   "items": [
+    {
+      "aweme_id": "7679017154612247790",
+      "content_id": "7679017154612247790",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7679017154612247790/?region=US&mid=7679017092443671306&u_code=0&did=MS4wLjABAAAAqT_IKf_ZKn9tZZM9fGaz3xUePQKoL4f3BL7lWXUPe0u47MYDB8H-QFWhKBr1KB13&iid=MS4wLjABAAAAeev-UFZyUg4XqSchs8O1Gx0gHIaGVL8zntMP6K_kKIGRdW6IoY8CU3Oy2kZBI2Qo&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=Pz1Lb9lXabKDlw_FkEGY3W2rtLFS0qqPX.aGbp0n4uY-&share_version=320900&ts=1787966870&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "慢慢就习惯保安。#徐良西安演唱会 #徐良演唱会",
+      "author": "徐良",
+      "like_count": 413609,
+      "comment_count": 7310,
+      "share_count": 88605,
+      "duration_ms": 59867,
+      "create_time_iso": "2026-08-28T09:48:27+00:00",
+      "known_entities": [
+        "徐良西安演唱会",
+        "徐良演唱会",
+        "演唱会"
+      ],
+      "verified_entities": [
+        "徐良西安演唱会",
+        "徐良演唱会"
+      ],
+      "primary_celebrities": [
+        "徐良"
+      ],
+      "quality_score": 310.336,
+      "output_date": "2026-08-29",
+      "selected_at": "2026-08-29T01:38:16.138261+00:00"
+    },
+    {
+      "aweme_id": "7678965555597253221",
+      "content_id": "7678965555597253221",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7678965555597253221/?region=US&mid=7678965474700364607&u_code=0&did=MS4wLjABAAAA96s98KiczQfMJh0OeJVhn1q9yuCW-4tXJ6fXgxhmsfIOOY5LpNB8NjD0cdzzoemi&iid=MS4wLjABAAAA9XbL2EooTDXTCvExx1EDnfWn9L6IOC2jY-ORp6H9_KsWU87XJ4jTsKS8u3k63tLr&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=UCzyd5zb9elrtdaUKJTgs4uvD_PIkX8KkyD879Ibmkg-&share_version=320900&ts=1787966848&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "内娱怎么包容男明星我就怎么包容她#景甜 #人间富贵花 #早期",
+      "author": "fig",
+      "like_count": 307133,
+      "comment_count": 5789,
+      "share_count": 43849,
+      "duration_ms": 11772,
+      "create_time_iso": "2026-08-28T06:28:13+00:00",
+      "known_entities": [
+        "景甜",
+        "人间富贵花",
+        "早期"
+      ],
+      "verified_entities": [
+        "景甜",
+        "人间富贵花"
+      ],
+      "primary_celebrities": [
+        "景甜"
+      ],
+      "quality_score": 280.419,
+      "output_date": "2026-08-29",
+      "selected_at": "2026-08-29T01:38:16.138261+00:00"
+    },
+    {
+      "aweme_id": "7679003916499898853",
+      "content_id": "7679003916499898853",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7679003916499898853/?region=US&mid=7679003891631016714&u_code=0&did=MS4wLjABAAAA96s98KiczQfMJh0OeJVhn1q9yuCW-4tXJ6fXgxhmsfIOOY5LpNB8NjD0cdzzoemi&iid=MS4wLjABAAAA9XbL2EooTDXTCvExx1EDnfWn9L6IOC2jY-ORp6H9_KsWU87XJ4jTsKS8u3k63tLr&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=RQtediQywlrdZgOaGAMEPZy5ZdnMUVSH9hgda7aAYbk-&share_version=320900&ts=1787966862&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#金城武 “线下采访比电影里面还帅！”",
+      "author": "范特西cut",
+      "like_count": 32938,
+      "comment_count": 2310,
+      "share_count": 14887,
+      "duration_ms": 14534,
+      "create_time_iso": "2026-08-28T08:57:04+00:00",
+      "known_entities": [
+        "金城武"
+      ],
+      "verified_entities": [
+        "金城武"
+      ],
+      "primary_celebrities": [
+        "金城武"
+      ],
+      "quality_score": 257.95500000000004,
+      "output_date": "2026-08-29",
+      "selected_at": "2026-08-29T01:38:16.138261+00:00"
+    },
+    {
+      "aweme_id": "7678911393194301413",
+      "content_id": "7678911393194301413",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7678911393194301413/?region=US&mid=6969916025798888229&u_code=0&did=MS4wLjABAAAAKKM4XMPNoz6cTS22IoLfi-PLKUmigNxNt8dbkLTvJfU&iid=MS4wLjABAAAAzdyRc_vkHQnefbJyirgT4_qdL3baVRsZeNa6yBtsof8&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=U45NBS1mRCP6rPRybhOzktdCdOHysxBEtRu9TUoBzZg-&share_version=320900&ts=1787966853&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "景甜活动现场真漂亮 #景甜#美女 #娱乐圈",
+      "author": "阿涛摄影📷",
+      "like_count": 11502,
+      "comment_count": 767,
+      "share_count": 1031,
+      "duration_ms": 11911,
+      "create_time_iso": "2026-08-28T02:58:02+00:00",
+      "known_entities": [
+        "景甜",
+        "美女",
+        "娱乐圈"
+      ],
+      "verified_entities": [
+        "景甜"
+      ],
+      "primary_celebrities": [
+        "景甜"
+      ],
+      "quality_score": 256.668,
+      "output_date": "2026-08-29",
+      "selected_at": "2026-08-29T01:38:16.138261+00:00"
+    },
+    {
+      "aweme_id": "7679071912707285221",
+      "content_id": "7679071912707285221",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7679071912707285221/?region=US&mid=7624085348410673190&u_code=0&did=MS4wLjABAAAAqT_IKf_ZKn9tZZM9fGaz3xUePQKoL4f3BL7lWXUPe0u47MYDB8H-QFWhKBr1KB13&iid=MS4wLjABAAAAeev-UFZyUg4XqSchs8O1Gx0gHIaGVL8zntMP6K_kKIGRdW6IoY8CU3Oy2kZBI2Qo&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=Ckonu1yWotirVWxuQ0LYftSLnEhVoQv58PKQIUXjV38-&share_version=320900&ts=1787966870&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "他好像知道自己很可爱🤪 #小鬼王琳凯 #声幻奇境演唱会 #王琳凯 #小鬼",
+      "author": "ghost04",
+      "like_count": 8921,
+      "comment_count": 181,
+      "share_count": 1283,
+      "duration_ms": 6634,
+      "create_time_iso": "2026-08-28T13:20:56+00:00",
+      "known_entities": [
+        "小鬼王琳凯",
+        "声幻奇境演唱会",
+        "王琳凯",
+        "小鬼",
+        "演唱会"
+      ],
+      "verified_entities": [
+        "小鬼王琳凯",
+        "声幻奇境演唱会"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 218.912,
+      "output_date": "2026-08-29",
+      "selected_at": "2026-08-29T01:38:16.138261+00:00"
+    },
+    {
+      "aweme_id": "7679083071307631926",
+      "content_id": "7679083071307631926",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7679083071307631926/?region=US&mid=7679083098381749033&u_code=0&did=MS4wLjABAAAAqT_IKf_ZKn9tZZM9fGaz3xUePQKoL4f3BL7lWXUPe0u47MYDB8H-QFWhKBr1KB13&iid=MS4wLjABAAAAeev-UFZyUg4XqSchs8O1Gx0gHIaGVL8zntMP6K_kKIGRdW6IoY8CU3Oy2kZBI2Qo&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=Wn8VPf3cOsTScKRQzW5gCe14bSAr8K5r5XqYCO8ftJs-&share_version=320900&ts=1787966870&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "张泽禹左航演唱会现场打拳，你们不要再打啦 #张泽禹 #左航  #演唱会 #明星  #可爱",
+      "author": "星姐",
+      "like_count": 1994,
+      "comment_count": 28,
+      "share_count": 175,
+      "duration_ms": 16254,
+      "create_time_iso": "2026-08-28T14:04:27+00:00",
+      "known_entities": [
+        "张泽禹",
+        "左航",
+        "演唱会"
+      ],
+      "verified_entities": [
+        "张泽禹",
+        "左航",
+        "演唱会"
+      ],
+      "primary_celebrities": [
+        "张泽禹",
+        "左航"
+      ],
+      "quality_score": 186.201,
+      "output_date": "2026-08-29",
+      "selected_at": "2026-08-29T01:38:16.138261+00:00"
+    },
+    {
+      "aweme_id": "7679015061960624497",
+      "content_id": "7679015061960624497",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7679015061960624497/?region=US&mid=7679015058311285550&u_code=0&did=MS4wLjABAAAA96s98KiczQfMJh0OeJVhn1q9yuCW-4tXJ6fXgxhmsfIOOY5LpNB8NjD0cdzzoemi&iid=MS4wLjABAAAA9XbL2EooTDXTCvExx1EDnfWn9L6IOC2jY-ORp6H9_KsWU87XJ4jTsKS8u3k63tLr&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=R_D5JPGqyOuh87vjpgJMGW72u947X6Dga7W_f3rhTqs-&share_version=320900&ts=1787966848&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "井柏然孙千边解红绳边回答问题，好养眼的画面！#井柏然孙千绕不开的红线 #井柏然  #孙千 #早春晴朗 #早春晴朗北京路演",
+      "author": "OG娱乐",
+      "like_count": 2268,
+      "comment_count": 20,
+      "share_count": 285,
+      "duration_ms": 12834,
+      "create_time_iso": "2026-08-28T09:40:19+00:00",
+      "known_entities": [
+        "井柏然孙千绕不开的红线",
+        "井柏然",
+        "孙千",
+        "早春晴朗",
+        "早春晴朗北京路演"
+      ],
+      "verified_entities": [
+        "井柏然",
+        "孙千",
+        "早春晴朗"
+      ],
+      "primary_celebrities": [
+        "井柏然",
+        "孙千"
+      ],
+      "quality_score": 171.233,
+      "output_date": "2026-08-29",
+      "selected_at": "2026-08-29T01:38:16.138261+00:00"
+    },
+    {
+      "aweme_id": "5240782801814167003",
+      "content_id": "5240782801814167003",
+      "platform": "kuaishou",
+      "url": "https://www.kuaishou.com/short-video/5240782801814167003",
+      "title": "苦练许久反复拍摄，可正片里杨门女将的戏份竟被删得一干二净。韩沛颖询问镜头删减去向，有人回她删戏本就是行业常态。难道常态就能无视演员的付出？心血被全盘抹去，演员连诉说委屈的资格都没有吗？#韩沛颖 #主角戏份删减 #娱乐明星#..",
+      "author": "港风怀旧1998",
+      "like_count": 2494,
+      "comment_count": 1044,
+      "share_count": 198,
+      "duration_ms": 17566,
+      "create_time_iso": "2026-08-28T03:13:05+00:00",
+      "known_entities": [],
+      "verified_entities": [],
+      "primary_celebrities": [
+        "韩沛颖"
+      ],
+      "quality_score": 166.118,
+      "output_date": "2026-08-29",
+      "selected_at": "2026-08-29T01:38:16.138261+00:00"
+    },
     {
       "aweme_id": "7678908895548453605",
       "content_id": "7678908895548453605",
