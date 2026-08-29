@@ -73,14 +73,16 @@ def prepare_delivery(
         encoding="utf-8",
     )
     all_selected_exist = all(path.exists() for path in selected)
-    deliverable = bool(selected) and all_selected_exist
+    artifact_ready = bool(selected) and all_selected_exist
     target_met = len(selected) >= limit and all_selected_exist
+    deliverable = target_met
     return {
         "ready": target_met,
+        "artifact_ready": artifact_ready,
         "deliverable": deliverable,
         "target_met": target_met,
         "status": (
-            "ready" if target_met else ("partial_delivery" if deliverable else "insufficient_videos")
+            "ready" if target_met else ("partial_artifact" if artifact_ready else "insufficient_videos")
         ),
         "limit": limit,
         "input_count": len(current),

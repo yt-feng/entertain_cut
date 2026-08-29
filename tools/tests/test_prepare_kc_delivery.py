@@ -17,7 +17,7 @@ SPEC.loader.exec_module(delivery)
 
 
 class PrepareKcDeliveryTests(unittest.TestCase):
-    def test_cli_accepts_partial_delivery(self) -> None:
+    def test_cli_preserves_partial_output_for_artifact_only(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)
             output_dir = root / "output"
@@ -43,9 +43,13 @@ class PrepareKcDeliveryTests(unittest.TestCase):
                 result = delivery.main()
 
             report = json.loads(summary_file.read_text(encoding="utf-8"))
-            self.assertEqual(result, 0)
-            self.assertTrue(report["deliverable"])
+            self.assertEqual(result, 2)
+            self.assertTrue(report["artifact_ready"])
+            self.assertFalse(report["deliverable"])
             self.assertFalse(report["target_met"])
+            self.assertEqual(report["status"], "partial_artifact")
+            self.assertTrue(video.exists())
+            self.assertEqual(outputs_file.read_text(encoding="utf-8").splitlines(), [str(video.resolve())])
 
     def test_missing_current_videos_are_not_filled_from_elsewhere(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -68,9 +72,10 @@ class PrepareKcDeliveryTests(unittest.TestCase):
             )
 
             self.assertFalse(report["ready"])
-            self.assertTrue(report["deliverable"])
+            self.assertTrue(report["artifact_ready"])
+            self.assertFalse(report["deliverable"])
             self.assertFalse(report["target_met"])
-            self.assertEqual(report["status"], "partial_delivery")
+            self.assertEqual(report["status"], "partial_artifact")
             self.assertEqual(report["selected_count"], 2)
             self.assertFalse(report["automatic_history_fallback"])
             self.assertEqual(len(delivery.root_videos(output_dir)), 2)
@@ -88,6 +93,7 @@ class PrepareKcDeliveryTests(unittest.TestCase):
             )
 
             self.assertFalse(report["ready"])
+            self.assertFalse(report["artifact_ready"])
             self.assertFalse(report["deliverable"])
             self.assertFalse(report["target_met"])
             self.assertEqual(report["selected_count"], 0)
@@ -108,7 +114,8 @@ class PrepareKcDeliveryTests(unittest.TestCase):
             report = delivery.prepare_delivery(output_dir=output_dir, outputs_file=outputs_file, limit=2)
 
             self.assertFalse(report["ready"])
-            self.assertTrue(report["deliverable"])
+            self.assertTrue(report["artifact_ready"])
+            self.assertFalse(report["deliverable"])
             self.assertFalse(report["target_met"])
             self.assertEqual(report["selected_count"], 1)
             self.assertFalse(previous.exists())
@@ -134,6 +141,7 @@ class PrepareKcDeliveryTests(unittest.TestCase):
             )
 
             self.assertTrue(report["ready"])
+            self.assertTrue(report["artifact_ready"])
             self.assertTrue(report["deliverable"])
             self.assertTrue(report["target_met"])
             self.assertEqual({path.name for path in delivery.root_videos(output_dir)}, {path.name for path in preferred})
@@ -164,6 +172,7 @@ class PrepareKcDeliveryTests(unittest.TestCase):
             )
 
             self.assertTrue(report["ready"])
+            self.assertTrue(report["artifact_ready"])
             self.assertTrue(report["deliverable"])
             self.assertEqual(report["selected_count"], 5)
             self.assertEqual(
@@ -193,7 +202,8 @@ class PrepareKcDeliveryTests(unittest.TestCase):
             )
 
             self.assertFalse(report["ready"])
-            self.assertTrue(report["deliverable"])
+            self.assertTrue(report["artifact_ready"])
+            self.assertFalse(report["deliverable"])
             self.assertEqual(report["selected_count"], 2)
             self.assertEqual(
                 fallback_outputs.read_text(encoding="utf-8").splitlines(),

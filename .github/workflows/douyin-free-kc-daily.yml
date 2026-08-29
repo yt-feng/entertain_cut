@@ -41,14 +41,67 @@ on:
         required: false
         default: ""
   schedule:
-    # 07:00 Beijing time every day.
-    - cron: "0 23 * * *"
+    # Primary 07:17 Beijing time, with two off-peak compensation checks.
+    - cron: "17 23 * * *"
+    - cron: "47 23 * * *"
+    - cron: "17 0 * * *"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name == 'schedule' && 'scheduled' || github.run_id }}
+  cancel-in-progress: false
 
 permissions:
   contents: write
   actions: read
 
 jobs:
+  delivery_guard:
+    name: Check whether today's five videos are already published
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      should_run: ${{ steps.check.outputs.should_run }}
+      output_date: ${{ steps.check.outputs.output_date }}
+      published_count: ${{ steps.check.outputs.published_count }}
+    env:
+      GH_TOKEN: ${{ github.token }}
+      KC_LIMIT: ${{ inputs.limit || '5' }}
+      DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+    steps:
+      - name: Check today's main-branch delivery
+        id: check
+        shell: bash
+        run: |
+          output_date="$(TZ=Asia/Shanghai date +%F)"
+          echo "output_date=$output_date" >> "$GITHUB_OUTPUT"
+
+          if [[ "$GITHUB_EVENT_NAME" != "schedule" ]]; then
+            echo "published_count=0" >> "$GITHUB_OUTPUT"
+            echo "should_run=true" >> "$GITHUB_OUTPUT"
+            echo "Manual dispatch: run the requested job."
+            exit 0
+          fi
+
+          response_file="${RUNNER_TEMP}/kc-published.json"
+          if ! gh api --method GET \
+            "repos/${GITHUB_REPOSITORY}/contents/outputs/kc_entertain/${output_date}" \
+            -f "ref=${DEFAULT_BRANCH}" > "$response_file"; then
+            echo "::warning::Could not inspect today's main-branch output; running the pipeline."
+            echo "published_count=unknown" >> "$GITHUB_OUTPUT"
+            echo "should_run=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          published_count="$(jq '[.[] | select(.type == "file" and (.name | endswith(".mp4")))] | length' "$response_file")"
+          echo "published_count=$published_count" >> "$GITHUB_OUTPUT"
+          if (( published_count >= KC_LIMIT )); then
+            echo "should_run=false" >> "$GITHUB_OUTPUT"
+            echo "Today's delivery already has ${published_count}/${KC_LIMIT} MP4 files on main; skipping this compensation run."
+          else
+            echo "should_run=true" >> "$GITHUB_OUTPUT"
+            echo "Today's delivery has ${published_count}/${KC_LIMIT} MP4 files on main; running the pipeline."
+          fi
+
   tavily-hot-context-smoke:
     if: ${{ github.event_name == 'workflow_dispatch' && inputs.hot_context_only }}
     runs-on: ubuntu-latest
@@ -140,7 +193,8 @@ jobs:
         run: python tools/kc_quality_api_smoke.py
 
   douyin-free-kc-daily:
-    if: ${{ github.event_name != 'workflow_dispatch' || (inputs.hot_context_only != true && inputs.deepseek_api_only != true && inputs.quality_api_only != true) }}
+    needs: delivery_guard
+    if: ${{ needs.delivery_guard.outputs.should_run == 'true' && (github.event_name != 'workflow_dispatch' || (inputs.hot_context_only != true && inputs.deepseek_api_only != true && inputs.quality_api_only != true)) }}
     runs-on: ubuntu-latest
     timeout-minutes: 240
 
@@ -501,10 +555,10 @@ jobs:
         if: ${{ !cancelled() && (github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true') }}
         continue-on-error: true
         run: |
-          deliverable="$(python -c 'import json; print(str(bool(json.load(open("work/kc_delivery_summary.json")).get("deliverable"))).lower())' 2>/dev/null || echo false)"
-          expected="$(python -c 'import json; print(int(json.load(open("work/kc_delivery_summary.json")).get("selected_count", 0)))' 2>/dev/null || echo 0)"
-          if [[ "$deliverable" != "true" || "$expected" -lt 1 ]]; then
-            echo "Current run did not produce any videos; skipping WebDAV upload."
+          target_met="$(python -c 'import json; print(str(bool(json.load(open("work/kc_delivery_summary.json")).get("target_met"))).lower())' 2>/dev/null || echo false)"
+          selected_count="$(python -c 'import json; print(int(json.load(open("work/kc_delivery_summary.json")).get("selected_count", 0)))' 2>/dev/null || echo 0)"
+          if [[ "$target_met" != "true" || "$selected_count" -lt "$KC_LIMIT" ]]; then
+            echo "Current run produced ${selected_count}/${KC_LIMIT}; preserving artifacts but skipping WebDAV upload and prune."
             exit 0
           fi
           for attempt in 1 2 3; do
@@ -526,25 +580,24 @@ jobs:
               --webdav-prune-extra \
               --webdav-upload-concurrency "$upload_concurrency"
             verified="$(python -c 'import json; p=json.load(open("work/kc_publish_summary.json")); print(p.get("webdav_verified_count", p.get("webdav_uploaded_count", 0)))' 2>/dev/null || echo 0)"
-            if (( verified >= expected )); then
+            if (( verified >= KC_LIMIT )); then
               break
             fi
             if [[ "$attempt" != "3" ]]; then
               retry_delay=$((attempt * 30))
-              echo "WebDAV verified $verified/$expected available video(s); retrying missing files in ${retry_delay}s."
+              echo "WebDAV verified $verified/$KC_LIMIT required video(s); retrying missing files in ${retry_delay}s."
               sleep "$retry_delay"
             fi
           done
 
       - name: Commit KC videos to main
         if: ${{ !cancelled() && (github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true') }}
-        continue-on-error: true
         run: |
-          deliverable="$(python -c 'import json; print(str(bool(json.load(open("work/kc_delivery_summary.json")).get("deliverable"))).lower())' 2>/dev/null || echo false)"
-          expected="$(python -c 'import json; print(int(json.load(open("work/kc_delivery_summary.json")).get("selected_count", 0)))' 2>/dev/null || echo 0)"
+          target_met="$(python -c 'import json; print(str(bool(json.load(open("work/kc_delivery_summary.json")).get("target_met"))).lower())' 2>/dev/null || echo false)"
+          selected_count="$(python -c 'import json; print(int(json.load(open("work/kc_delivery_summary.json")).get("selected_count", 0)))' 2>/dev/null || echo 0)"
           verified="$(python -c 'import json; p=json.load(open("work/kc_publish_summary.json")); print(p.get("webdav_verified_count", p.get("webdav_uploaded_count", 0)))' 2>/dev/null || echo 0)"
-          if [[ "$deliverable" != "true" || "$expected" -lt 1 || "$verified" -lt "$expected" ]]; then
-            echo "Daily delivery is incomplete; skipping the Git commit."
+          if [[ "$target_met" != "true" || "$selected_count" -lt "$KC_LIMIT" || "$verified" -lt "$KC_LIMIT" ]]; then
+            echo "Daily delivery is incomplete (${selected_count}/${KC_LIMIT}, WebDAV ${verified}/${KC_LIMIT}); skipping the Git commit."
             exit 0
           fi
           shopt -s nullglob
@@ -583,12 +636,12 @@ jobs:
           git commit -m "Add KC entertainment videos ${KC_OUTPUT_DATE}"
           if ! git pull --rebase origin "${GITHUB_REF_NAME}"; then
             git rebase --abort || true
-            echo "::warning::Could not rebase the KC commit; videos remain available in Artifact and Jianguoyun."
-            exit 0
+            echo "::error::Could not rebase the KC commit; videos remain available in Artifact and Jianguoyun."
+            exit 1
           fi
           if ! git push origin "HEAD:${GITHUB_REF_NAME}"; then
-            echo "::warning::Could not push the KC commit; videos remain available in Artifact and Jianguoyun."
-            exit 0
+            echo "::error::Could not push the KC commit; videos remain available in Artifact and Jianguoyun."
+            exit 1
           fi
 
       - name: Prepare KC artifact payload
@@ -679,11 +732,11 @@ jobs:
           output_dir = Path(os.environ["KC_OUTPUT_DIR"])
           videos = sorted(output_dir.glob("*.mp4"))
           delivery_path = Path("work/kc_delivery_summary.json")
-          expected = 0
+          selected_count = 0
           target_met = False
           if delivery_path.exists():
               delivery = json.loads(delivery_path.read_text(encoding="utf-8"))
-              expected = int(delivery.get("selected_count", 0))
+              selected_count = int(delivery.get("selected_count", 0))
               target_met = bool(delivery.get("target_met", delivery.get("ready", False)))
           publish_path = Path("work/kc_publish_summary.json")
           verified = 0
@@ -696,15 +749,17 @@ jobs:
               remote_directory = str(publish.get("remote_directory", ""))
 
           print(f"Final KC files: {len(videos)}/{limit}")
-          print(f"Final Jianguoyun verified: {verified}/{expected} available video(s)")
+          print(f"Final current-run selection: {selected_count}/{limit}")
+          print(f"Final Jianguoyun verified: {verified}/{limit} required video(s)")
           print(f"Remote directory: {remote_directory}")
-          if expected < 1:
-              raise SystemExit("Daily delivery produced no current-run videos.")
-          if len(videos) < expected or verified < expected:
+          if not target_met or selected_count < limit:
+              raise SystemExit(
+                  f"Daily delivery target not met after all fallbacks: "
+                  f"selected={selected_count}, required={limit}"
+              )
+          if len(videos) < limit or verified < limit:
               raise SystemExit(
                   f"Daily delivery incomplete after all fallbacks: files={len(videos)}, "
-                  f"verified={verified}, required={expected}"
+                  f"verified={verified}, required={limit}"
               )
-          if not target_met:
-              print(f"::warning::Partial daily delivery accepted: {expected}/{limit} available video(s).")
           PY
