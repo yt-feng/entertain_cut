@@ -1,0 +1,118 @@
+name: GateX Intelligence Trend Intake
+
+on:
+  workflow_dispatch:
+    inputs:
+      post_to_gatex:
+        description: "POST proposals to the configured GateX admin intake"
+        required: true
+        type: boolean
+        default: false
+      enable_tikhub:
+        description: "Use opt-in billable TikHub searches"
+        required: true
+        type: boolean
+        default: false
+  schedule:
+    # Twice hourly. GitHub may delay scheduled jobs during busy periods.
+    - cron: "7,37 * * * *"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: gatex-intelligence-trend-intake
+  cancel-in-progress: false
+
+jobs:
+  market-trend-intake:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      PYTHONUNBUFFERED: "1"
+      DOUYIN_COOKIE: ${{ secrets.DOUYIN_COOKIE }}
+      HOTSPOT_ASSISTANT_API_URL: ${{ secrets.HOTSPOT_ASSISTANT_API_URL }}
+      HOTSPOT_ASSISTANT_API_KEY: ${{ secrets.HOTSPOT_ASSISTANT_API_KEY }}
+      TIKHUB_API_KEY: ${{ secrets.TIKHUB_API_KEY }}
+      GATEX_INTELLIGENCE_INTAKE_URL: ${{ vars.GATEX_INTELLIGENCE_INTAKE_URL }}
+      GATEX_INTELLIGENCE_INTAKE_SECRET: ${{ secrets.GATEX_INTELLIGENCE_INTAKE_SECRET }}
+      GATEX_TREND_TERMS: ${{ vars.GATEX_TREND_TERMS }}
+      DOUYIN_DOWNLOADER_REF: 79a932c17aab25fccd2e47ce2281361fabd864fa
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Restore trend history
+        uses: actions/cache/restore@v4
+        with:
+          path: work/gatex_intelligence_trends/state
+          key: gatex-intelligence-trend-state-${{ github.run_id }}
+          restore-keys: |
+            gatex-intelligence-trend-state-
+
+      - name: Install pinned free hot-board collector
+        run: |
+          set -euo pipefail
+          git init /tmp/douyin-downloader
+          git -C /tmp/douyin-downloader remote add origin https://github.com/jiji262/douyin-downloader.git
+          git -C /tmp/douyin-downloader fetch --depth 1 origin "$DOUYIN_DOWNLOADER_REF"
+          git -C /tmp/douyin-downloader checkout --detach FETCH_HEAD
+          test "$(git -C /tmp/douyin-downloader rev-parse HEAD)" = "$DOUYIN_DOWNLOADER_REF"
+          python -m pip install --upgrade pip
+          python -m pip install -r /tmp/douyin-downloader/requirements.txt
+
+      - name: Collect, score and stage GateX proposals
+        run: |
+          set -euo pipefail
+          args=(
+            --downloader-dir /tmp/douyin-downloader
+            --work-dir work/gatex_intelligence_trends
+            --state work/gatex_intelligence_trends/state/trend-history.json
+            --output work/gatex_intelligence_trends/proposals.json
+            --douyin-limit 100
+          )
+
+          if [[ "$GITHUB_EVENT_NAME" == "schedule" || "${{ inputs.post_to_gatex || 'false' }}" == "true" ]]; then
+            if [[ -z "$GATEX_INTELLIGENCE_INTAKE_URL" || -z "$GATEX_INTELLIGENCE_INTAKE_SECRET" ]]; then
+              echo "GateX Intelligence intake URL and secret are required for delivery." >&2
+              exit 1
+            fi
+            args+=(--post-if-configured)
+          fi
+          if [[ "$GITHUB_EVENT_NAME" == "schedule" ]]; then
+            # A scheduled green run must prove at least one configured source
+            # responded, even when none of its signals match the market filter.
+            args+=(--require-successful-collector)
+          fi
+          if [[ "${{ inputs.enable_tikhub || 'false' }}" == "true" || "${{ vars.GATEX_TREND_ENABLE_TIKHUB }}" == "true" ]]; then
+            args+=(--enable-tikhub)
+          fi
+
+          python tools/run_gatex_intelligence_trend_intake.py "${args[@]}"
+
+      - name: Upload proposal and evidence snapshot
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gatex-intelligence-trend-intake-${{ github.run_id }}
+          path: |
+            work/gatex_intelligence_trends/proposals.json
+            work/gatex_intelligence_trends/raw_signals.json
+            work/gatex_intelligence_trends/run_summary.json
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Save trend history
+        # A failed GateX delivery must not advance the cached observation
+        # baseline; artifact-only manual QA must not alter production velocity.
+        if: ${{ success() && (github.event_name == 'schedule' || inputs.post_to_gatex == true) }}
+        uses: actions/cache/save@v4
+        with:
+          path: work/gatex_intelligence_trends/state
+          key: gatex-intelligence-trend-state-${{ github.run_id }}
