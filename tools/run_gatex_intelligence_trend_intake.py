@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Build GateX market-trend intake proposals from time-stamped source snapshots.
+"""Build GateX daily market-hotspot topic cards from source snapshots.
 
 The adapter is deliberately separate from KC entertainment generation. It may
-collect market discovery signals, score and cluster them, and POST proposal
-envelopes to GateX. It cannot approve, draft, or publish a report.
+collect market discovery signals, score and cluster them, and POST short topic
+cards to the GateX Private Desk. It cannot start, approve, draft, or publish a
+report; a GateX administrator explicitly sends a selected card to Report Studio.
 """
 
 from __future__ import annotations
@@ -611,19 +612,29 @@ def build_proposals(rows: list[dict[str, Any]], now: dt.datetime, minimum_score:
                 "metadata": {"observedAt": item["lastSeenAt"], "sourceKind": item["sourceKind"]},
             })
         proposal = {
-            "schema": "gatex-intelligence-intake/v1", "channelKey": "market-trend-tracker",
+            "schema": "gatex-intelligence-intake/v1", "channelKey": "market-trend-daily",
             "externalId": cluster_id,
-            "idempotencyKey": f"{cluster_id}:{last_seen[:13]}:00:00Z",
+            "idempotencyKey": f"{cluster_id}:{last_seen[:10]}",
             "topic": {
                 "title": public_title,
                 "brief": sanitized_research_copy(
-                    f"A time-bounded market research scan of {public_title}. {len(sources)} source records were observed between {first_seen} and {last_seen}. Verify evidence and competing explanations before drafting."
+                    f"Why it is moving now: {len(sources)} source records tracked this development "
+                    f"between {first_seen[:10]} and {last_seen[:10]}. Use the linked evidence to "
+                    "decide whether to generate a timely GateX analysis in Report Studio."
                 ),
                 "industry": "Market & Industry", "language": "en", "accessScope": "member",
                 "priority": "P0" if total >= 78 else "P1" if total >= 62 else "P2",
                 "provenanceType": "trend_proposal",
+                "contentMode": "hotspot_topic_card",
             },
-            "triggerDraft": False, "sources": sources, "evidence": evidence,
+            "triggerDraft": False,
+            "metadata": {
+                "productionMethod": "market_trend_daily",
+                "scanCadence": "daily",
+                "nextAction": "generate_in_report_studio",
+                "autoPublish": False,
+            },
+            "sources": sources, "evidence": evidence,
             "trend": {
                 "firstSeenAt": first_seen, "lastSeenAt": last_seen, "velocity": round(velocity, 4),
                 "decay": round(decay, 4), "cluster": cluster_id, "reviewState": review_state,

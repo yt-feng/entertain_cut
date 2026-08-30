@@ -1,4 +1,4 @@
-name: GateX Intelligence Trend Intake
+name: GateX Daily Market Pulse
 
 on:
   workflow_dispatch:
@@ -14,8 +14,9 @@ on:
         type: boolean
         default: false
   schedule:
-    # Twice hourly. GitHub may delay scheduled jobs during busy periods.
-    - cron: "7,37 * * * *"
+    # Once daily at 00:37 UTC (08:37 Asia/Shanghai). GitHub may delay
+    # scheduled jobs during busy periods.
+    - cron: "37 0 * * *"
 
 permissions:
   contents: read
@@ -25,7 +26,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  market-trend-intake:
+  daily-market-pulse:
     runs-on: ubuntu-latest
     timeout-minutes: 25
     env:

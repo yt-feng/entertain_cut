@@ -41,7 +41,7 @@ class GateXTrendIntakeTests(unittest.TestCase):
         )
         return [first, second]
 
-    def test_url_copy_and_manual_gate(self):
+    def test_url_copy_and_daily_topic_card_contract(self):
         self.assertEqual(
             trend.canonical_url("https://www.Example.com/a/?utm_source=x&b=2&a=1#top"),
             "https://example.com/a?a=1&b=2",
@@ -53,10 +53,16 @@ class GateXTrendIntakeTests(unittest.TestCase):
         self.assertEqual(len(proposals), 1)
         proposal = proposals[0]
         self.assertEqual(proposal["schema"], "gatex-intelligence-intake/v1")
+        self.assertEqual(proposal["channelKey"], "market-trend-daily")
         self.assertEqual(proposal["topic"]["provenanceType"], "trend_proposal")
+        self.assertEqual(proposal["topic"]["contentMode"], "hotspot_topic_card")
+        self.assertEqual(proposal["metadata"]["productionMethod"], "market_trend_daily")
+        self.assertEqual(proposal["metadata"]["nextAction"], "generate_in_report_studio")
+        self.assertEqual(proposal["metadata"]["scanCadence"], "daily")
         self.assertRegex(proposal["sources"][0]["contentHash"], r"^[0-9a-f]{64}$")
         self.assertEqual(proposal["trend"]["reviewState"], "proposed")
         self.assertFalse(proposal["triggerDraft"])
+        self.assertLessEqual(len(proposal["topic"]["brief"]), 800)
         self.assertNotRegex(proposal["topic"]["title"], r"(?i)investment|trading signal")
         self.assertRegex(" ".join(source["title"] for source in proposal["sources"]), r"Investment Opportunities")
         self.assertEqual(proposal["trend"]["independentSourceCount"], 2)
@@ -251,8 +257,11 @@ class GateXTrendIntakeTests(unittest.TestCase):
         workflow = (ROOT / ".github/workflows/gatex-intelligence-trend-intake.yml").read_text(
             encoding="utf-8"
         )
+        self.assertIn("name: GateX Daily Market Pulse", workflow)
         self.assertIn('-z "$GATEX_INTELLIGENCE_INTAKE_URL"', workflow)
         self.assertIn('-z "$GATEX_INTELLIGENCE_INTAKE_SECRET"', workflow)
+        self.assertIn('cron: "37 0 * * *"', workflow)
+        self.assertNotIn('cron: "7,37 * * * *"', workflow)
         self.assertIn("args+=(--require-successful-collector)", workflow)
         self.assertIn(
             "if: ${{ success() && (github.event_name == 'schedule' || inputs.post_to_gatex == true) }}",
