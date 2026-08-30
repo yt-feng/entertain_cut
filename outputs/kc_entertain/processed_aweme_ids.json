@@ -1,7 +1,243 @@
 {
-  "updated_at": "2026-08-29T01:38:16.138261+00:00",
-  "count": 279,
+  "updated_at": "2026-08-30T02:08:04.744384+00:00",
+  "count": 287,
   "items": [
+    {
+      "aweme_id": "7679445359273266478",
+      "content_id": "7679445359273266478",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7679445359273266478/?region=US&mid=7679445372875754278&u_code=0&did=MS4wLjABAAAAECyuDtAg6nON5y1nDf6rVx30ZD8uc8OuoHgfVlofj6QKOp1iRu93Hpk7L9NNFF6p&iid=MS4wLjABAAAAYUTZPB4zDfDxylHf3ioZ-0TFIEqas4ky4gVgh_winsL0sfYK8TVVROOrwXFdMDO4&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=5g.6dlOho_o6Kq5ZKdw0xFVIPp056_NdGvlNRVYuGKQ-&share_version=320900&ts=1788053209&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "王俊凯话筒故障粉丝大合唱生长 #王俊凯 #演唱会 #明星 #王俊凯演唱会 #王俊凯南京演唱会",
+      "author": "星姐",
+      "like_count": 20850,
+      "comment_count": 319,
+      "share_count": 2572,
+      "duration_ms": 62486,
+      "create_time_iso": "2026-08-29T13:30:13+00:00",
+      "known_entities": [
+        "王俊凯",
+        "演唱会",
+        "王俊凯南京演唱会",
+        "王俊凯演唱会"
+      ],
+      "verified_entities": [
+        "王俊凯",
+        "演唱会",
+        "王俊凯南京演唱会",
+        "王俊凯演唱会"
+      ],
+      "primary_celebrities": [
+        "王俊凯"
+      ],
+      "quality_score": 283.791,
+      "output_date": "2026-08-30",
+      "selected_at": "2026-08-30T02:08:04.744384+00:00"
+    },
+    {
+      "aweme_id": "7679363387965884657",
+      "content_id": "7679363387965884657",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7679363387965884657/?region=US&mid=7679363356205435711&u_code=0&did=MS4wLjABAAAAzjvgDgS-bk9O8wtw-s3I_9gg1skQ8uV_pmSisDYvcCY&iid=MS4wLjABAAAA6FqCaQUT44VaWDFAdQ0IOZCHJUuUY0n1hXxYnESl7AY&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=9HJufSGEUDTfZFhOSqJLPYSfAdyjlhUm1SQDOf0Wacc-&share_version=320900&ts=1788053198&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "既怕兄弟过得苦，又怕兄弟开路虎！#演员周瑞#vlog日常#胡耘豪#北漂#演员",
+      "author": "演员周瑞",
+      "like_count": 43300,
+      "comment_count": 1489,
+      "share_count": 1761,
+      "duration_ms": 197554,
+      "create_time_iso": "2026-08-29T10:09:00+00:00",
+      "known_entities": [
+        "演员周瑞",
+        "vlog日常",
+        "胡耘豪",
+        "北漂",
+        "演员"
+      ],
+      "verified_entities": [
+        "演员周瑞",
+        "vlog日常",
+        "胡耘豪",
+        "北漂",
+        "演员"
+      ],
+      "primary_celebrities": [
+        "演员周瑞",
+        "胡耘豪"
+      ],
+      "quality_score": 272.216,
+      "output_date": "2026-08-30",
+      "selected_at": "2026-08-30T02:08:04.744384+00:00"
+    },
+    {
+      "aweme_id": "7679434794417097999",
+      "content_id": "7679434794417097999",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7679434794417097999/?region=US&mid=7679434834313612095&u_code=0&did=MS4wLjABAAAAECyuDtAg6nON5y1nDf6rVx30ZD8uc8OuoHgfVlofj6QKOp1iRu93Hpk7L9NNFF6p&iid=MS4wLjABAAAAYUTZPB4zDfDxylHf3ioZ-0TFIEqas4ky4gVgh_winsL0sfYK8TVVROOrwXFdMDO4&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=ioaH_U0UFicj3X7UGetqk_o1seGSoUar4qX243cGppU-&share_version=320900&ts=1788053209&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "王俊凯演唱会《至少还有你》全场大合唱 #王俊凯 #演唱会 #明星 #王俊凯南京演唱会 #帅哥",
+      "author": "星姐",
+      "like_count": 34156,
+      "comment_count": 479,
+      "share_count": 9125,
+      "duration_ms": 41773,
+      "create_time_iso": "2026-08-29T12:49:16+00:00",
+      "known_entities": [
+        "王俊凯",
+        "至少还有你",
+        "演唱会",
+        "王俊凯南京演唱会",
+        "帅哥",
+        "王俊凯演唱会"
+      ],
+      "verified_entities": [
+        "王俊凯",
+        "至少还有你",
+        "演唱会",
+        "王俊凯南京演唱会",
+        "王俊凯演唱会"
+      ],
+      "primary_celebrities": [
+        "王俊凯"
+      ],
+      "quality_score": 271.976,
+      "output_date": "2026-08-30",
+      "selected_at": "2026-08-30T02:08:04.744384+00:00"
+    },
+    {
+      "aweme_id": "7679393364910899377",
+      "content_id": "7679393364910899377",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7679393364910899377/?region=US&mid=6454736646939413261&u_code=0&did=MS4wLjABAAAA__oat05agS7Y95N3dI5r6D5aQMHHiuWjL2GQh97gv8om2UOI_Bkg6DFxBXtUiIvR&iid=MS4wLjABAAAAzeZd8M1Z3di5p300ciDOVbR6aulh8iLASttiHd3wBVc24Bh4bCXk7M0OnQuCIwID&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=ZeRvHOGqAVaNaCcAX9S69JkdcG8YfKAP1XkwNUkXScc-&share_version=320900&ts=1788053191&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#王菲 现身阿那亚音乐节，最洒脱的天后，这是现场最大牌的观众了吧！",
+      "author": "明星娱乐第一现场",
+      "like_count": 37493,
+      "comment_count": 1476,
+      "share_count": 3497,
+      "duration_ms": 14210,
+      "create_time_iso": "2026-08-29T10:08:21+00:00",
+      "known_entities": [
+        "王菲"
+      ],
+      "verified_entities": [
+        "王菲"
+      ],
+      "primary_celebrities": [
+        "王菲"
+      ],
+      "quality_score": 251.821,
+      "output_date": "2026-08-30",
+      "selected_at": "2026-08-30T02:08:04.744384+00:00"
+    },
+    {
+      "aweme_id": "7679454259146004081",
+      "content_id": "7679454259146004081",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7679454259146004081/?region=US&mid=7679454223917943561&u_code=0&did=MS4wLjABAAAAMXDXW7XS0SZfUQf7OORsKgYFnEEW_CUkBKZZaIoXQLT_1H6Cx38a55tG3DDtGo4u&iid=MS4wLjABAAAAwFaR3F5XDGr661Q_Ft0__N1Y4FPDKgnivSguIwSkjUmOnU3TP7-9OglOrOyX6vvf&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=UnA7oWZOx49NS6_OxgvXBvBMoOAZCgrcAb9USA4recw-&share_version=320900&ts=1788053204&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "就该站在更大的舞台上 巨星味儿太浓了 #朱志鑫Dabble舞台 #top二周年",
+      "author": "明星拍拍拍 📷",
+      "like_count": 11386,
+      "comment_count": 174,
+      "share_count": 779,
+      "duration_ms": 24160,
+      "create_time_iso": "2026-08-29T14:04:38+00:00",
+      "known_entities": [
+        "朱志鑫Dabble舞台",
+        "top二周年",
+        "舞台"
+      ],
+      "verified_entities": [
+        "朱志鑫Dabble舞台",
+        "top二周年",
+        "舞台"
+      ],
+      "primary_celebrities": [
+        "朱志鑫"
+      ],
+      "quality_score": 238.717,
+      "output_date": "2026-08-30",
+      "selected_at": "2026-08-30T02:08:04.744384+00:00"
+    },
+    {
+      "aweme_id": "7679313280670872774",
+      "content_id": "7679313280670872774",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7679313280670872774/?region=US&mid=7679313242245581611&u_code=0&did=MS4wLjABAAAAKu1kMOYpTA_YD-9LE6YvAvNFqV-7UHFO04sIIU9YIX8ijNTZb63kggDB9rYnFget&iid=MS4wLjABAAAATevShT2vISPrBPm1E8NJGobFJLh2yXbcA0XzYkKg5FN0yTa_vxJm4rS42Tp01Xq-&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=3AZ53yBpASXEplz5S7In16tGPhDoxLnQOJu5khlcJ7E-&share_version=320900&ts=1788053207&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "一心向善，勇往直前，幸运总会给你开道。很开心在杭州国际博览中心星麦盛典的颁奖典礼和200多位明星大咖互动同台交流。 #红毯 #大晏儿 @抖音小助手 #星麦盛典@才疏学浅赵公子",
+      "author": "歌手大晏儿  单曲《偷心贼》",
+      "like_count": 3231,
+      "comment_count": 274,
+      "share_count": 330,
+      "duration_ms": 44934,
+      "create_time_iso": "2026-08-29T04:57:34+00:00",
+      "known_entities": [
+        "歌手",
+        "偷心贼"
+      ],
+      "verified_entities": [
+        "歌手",
+        "偷心贼"
+      ],
+      "primary_celebrities": [
+        "大晏儿"
+      ],
+      "quality_score": 216.924,
+      "output_date": "2026-08-30",
+      "selected_at": "2026-08-30T02:08:04.744384+00:00"
+    },
+    {
+      "aweme_id": "5203628102145312474",
+      "content_id": "5203628102145312474",
+      "platform": "kuaishou",
+      "url": "https://www.kuaishou.com/short-video/5203628102145312474",
+      "title": "#靳东 不为人知的故事！ #名人故事 #明星",
+      "author": "小岳明星事",
+      "like_count": 3676,
+      "comment_count": 697,
+      "share_count": 138,
+      "duration_ms": 29750,
+      "create_time_iso": "2026-08-29T10:18:05+00:00",
+      "known_entities": [
+        "演员周瑞",
+        "演员"
+      ],
+      "verified_entities": [
+        "演员周瑞",
+        "演员"
+      ],
+      "primary_celebrities": [
+        "靳东"
+      ],
+      "quality_score": 213.787,
+      "output_date": "2026-08-30",
+      "selected_at": "2026-08-30T02:08:04.744384+00:00"
+    },
+    {
+      "aweme_id": "7679389565128294473",
+      "content_id": "7679389565128294473",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7679389565128294473/?region=US&mid=7679389566364584758&u_code=0&did=MS4wLjABAAAAMXDXW7XS0SZfUQf7OORsKgYFnEEW_CUkBKZZaIoXQLT_1H6Cx38a55tG3DDtGo4u&iid=MS4wLjABAAAAwFaR3F5XDGr661Q_Ft0__N1Y4FPDKgnivSguIwSkjUmOnU3TP7-9OglOrOyX6vvf&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=F3l.llKn9fa3oQCy.k9U.WxfRS4lc8r88agisobjKb0-&share_version=320900&ts=1788053204&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "澳门水舞台炸裂现场张艺兴《Higher》 高强度唱跳！现场热血感拉满！#张艺兴 #张艺兴澳门演唱会 #Higher #张艺兴演唱会 #抖音音乐客厅",
+      "author": "王卷卷",
+      "like_count": 1095,
+      "comment_count": 63,
+      "share_count": 15,
+      "duration_ms": 233100,
+      "create_time_iso": "2026-08-29T09:53:36+00:00",
+      "known_entities": [
+        "张艺兴",
+        "演唱会",
+        "舞台"
+      ],
+      "verified_entities": [
+        "张艺兴",
+        "演唱会",
+        "舞台"
+      ],
+      "primary_celebrities": [
+        "张艺兴"
+      ],
+      "quality_score": 201.442,
+      "output_date": "2026-08-30",
+      "selected_at": "2026-08-30T02:08:04.744384+00:00"
+    },
     {
       "aweme_id": "7679017154612247790",
       "content_id": "7679017154612247790",
