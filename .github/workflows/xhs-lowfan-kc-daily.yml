@@ -60,15 +60,23 @@ jobs:
 
       - name: Set Beijing date and target count
         shell: bash
+        env:
+          INPUT_LIMIT: ${{ inputs.limit }}
+          INPUT_AVATAR_PROVIDER: ${{ inputs.avatar_provider }}
+          INPUT_RESUME_RUN_ID: ${{ inputs.resume_run_id }}
         run: |
           output_date="$(date +%F)"
           target_count="5"
           avatar_provider="apimart"
           resume_run_id=""
           if [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" ]]; then
-            target_count="${{ inputs.limit }}"
-            avatar_provider="${{ inputs.avatar_provider }}"
-            resume_run_id="${{ inputs.resume_run_id }}"
+            target_count="$INPUT_LIMIT"
+            avatar_provider="$INPUT_AVATAR_PROVIDER"
+            resume_run_id="$INPUT_RESUME_RUN_ID"
+          fi
+          if [[ -n "$resume_run_id" && ! "$resume_run_id" =~ ^[0-9]+$ ]]; then
+            echo "resume_run_id must be numeric"
+            exit 1
           fi
           echo "KC_OUTPUT_DATE=$output_date" >> "$GITHUB_ENV"
           echo "KC_OUTPUT_DIR=outputs/xhs_lowfan/$output_date" >> "$GITHUB_ENV"
@@ -142,9 +150,13 @@ jobs:
         if: env.KC_SKIP != 'true'
         shell: bash
         run: |
+          search_pages="1"
+          if (( KC_TARGET_COUNT == 5 )); then
+            search_pages="2"
+          fi
           echo "KC_BATCH_LIMIT=$KC_TARGET_COUNT" >> "$GITHUB_ENV"
           echo "KC_BATCH_START_INDEX=1" >> "$GITHUB_ENV"
-          echo "KC_SEARCH_PAGES=1" >> "$GITHUB_ENV"
+          echo "KC_SEARCH_PAGES=$search_pages" >> "$GITHUB_ENV"
           echo "KC_MAX_ATTEMPTS=2" >> "$GITHUB_ENV"
           echo "KC_REQUEST_LIMIT=90" >> "$GITHUB_ENV"
           echo "KC_PROCESSED_MANIFEST=xhs2vid/state/processed_note_ids.json" >> "$GITHUB_ENV"
