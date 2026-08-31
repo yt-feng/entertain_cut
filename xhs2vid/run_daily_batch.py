@@ -150,9 +150,16 @@ def parse_args() -> argparse.Namespace:
         default=SCRIPT_DIR / "state" / "processed_note_ids.json",
     )
     parser.add_argument("--request-limit", type=int, default=90)
+    parser.add_argument("--pages", type=int, default=1)
     parser.add_argument("--top-author-check", type=int, default=20)
     parser.add_argument("--max-attempts", type=int, default=2)
     parser.add_argument("--reserve", type=int, default=3)
+    parser.add_argument(
+        "--start-index",
+        type=int,
+        default=1,
+        help="First output number; used when resuming a partially completed batch.",
+    )
     parser.add_argument("--keyword", action="append", dest="keywords")
     parser.add_argument(
         "--avatar-provider",
@@ -172,10 +179,16 @@ def parse_args() -> argparse.Namespace:
         parser.error("--reserve must be between 1 and 5")
     if not 1 <= args.request_limit < 100:
         parser.error("--request-limit must be between 1 and 99")
+    if not 1 <= args.pages <= 3:
+        parser.error("--pages must be between 1 and 3")
     if not 1 <= args.top_author_check <= 20:
         parser.error("--top-author-check must be between 1 and 20")
     if not 1 <= args.max_attempts <= 2:
         parser.error("--max-attempts must be 1 or 2 for the daily batch")
+    if not 1 <= args.start_index <= 5:
+        parser.error("--start-index must be between 1 and 5")
+    if args.start_index + args.limit - 1 > 5:
+        parser.error("--start-index plus --limit must fit within five outputs")
     if args.keywords:
         args.keywords = [value.strip() for value in args.keywords if value.strip()]
         if not 1 <= len(args.keywords) <= 8:
@@ -201,7 +214,7 @@ def main() -> None:
         sys.executable,
         str(SCRIPT_DIR / "discover_note.py"),
         str(discovery_dir),
-        "--pages", "1",
+        "--pages", str(args.pages),
         "--top-author-check", str(args.top_author_check),
         "--max-attempts", str(args.max_attempts),
         "--request-limit", str(args.request_limit),
@@ -223,6 +236,7 @@ def main() -> None:
         "date": args.date,
         "started_at": datetime.now(BEIJING).isoformat(),
         "requested": args.limit,
+        "start_index": args.start_index,
         "batch_dir": str(batch_dir),
         "output_dir": str(output_dir),
         "budget_file": str(budget_file),
@@ -235,7 +249,9 @@ def main() -> None:
         if sum(item.get("status") == "success" for item in summary["items"]) >= args.limit:
             break
         note_id = str(note["note_id"])
-        item_index = 1 + sum(item.get("status") == "success" for item in summary["items"])
+        item_index = args.start_index + sum(
+            item.get("status") == "success" for item in summary["items"]
+        )
         note_dir = notes_root / f"{candidate_index:02d}_{note_id}"
         note_dir.mkdir(parents=True, exist_ok=True)
         (note_dir / "chosen_note.json").write_text(
@@ -308,7 +324,13 @@ def main() -> None:
             item["video"] = validate_video(output)
             item["output"] = str(output)
             item["status"] = "success"
-            print(f"[success] {item_index}/{args.limit} {output.name}")
+            success_number = sum(
+                entry.get("status") == "success" for entry in summary["items"]
+            )
+            print(
+                f"[success] {success_number}/{args.limit} "
+                f"output#{item_index} {output.name}"
+            )
         except Exception as exc:  # noqa: BLE001
             item["status"] = "failed"
             item["error"] = f"{type(exc).__name__}: {exc}"[:1000]

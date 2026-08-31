@@ -79,6 +79,16 @@ def normalize_timestamp(value: object) -> int:
     return timestamp
 
 
+def author_lookup_pool(fresh: list[dict]) -> list[dict]:
+    """Return only notes that can still satisfy the viral-like threshold.
+
+    Fan lookups are paid TikHub calls. Filtering here must happen before the
+    ``TOP_AUTHOR_CHECK`` slice; otherwise same-day posts below ``LIKES_MIN``
+    can consume every lookup slot and hide valid recent fallback candidates.
+    """
+    return [note for note in fresh if note["liked_count"] >= LIKES_MIN]
+
+
 def api_get(path: str, params: dict) -> dict:
     last_exc: Exception | None = None
     for attempt in range(MAX_ATTEMPTS):
@@ -297,11 +307,15 @@ def main() -> None:
         ),
         reverse=True,
     )
-    print(f"[info] total {len(notes)} notes, fresh with comments: {len(fresh)}")
+    eligible_for_lookup = author_lookup_pool(fresh)
+    print(
+        f"[info] total {len(notes)} notes, fresh with comments: {len(fresh)}, "
+        f"viral-like eligible: {len(eligible_for_lookup)}"
+    )
 
     candidates = []
     fans_by_author: dict[str, int] = {}
-    for rec in fresh[:TOP_AUTHOR_CHECK]:
+    for rec in eligible_for_lookup[:TOP_AUTHOR_CHECK]:
         author_id = rec["author_id"]
         if author_id not in fans_by_author:
             fans_by_author[author_id] = author_fans(author_id)
