@@ -1,0 +1,148 @@
+name: XHS Low-Fan KC Daily
+
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: "Manual sample size (scheduled runs always make 5)"
+        required: true
+        default: "1"
+        type: choice
+        options:
+          - "1"
+          - "2"
+          - "3"
+          - "4"
+          - "5"
+      avatar_provider:
+        description: "Avatar source"
+        required: true
+        default: "apimart"
+        type: choice
+        options:
+          - "apimart"
+          - "local"
+  schedule:
+    # 20:30 Beijing time: late enough to screen genuinely current-day posts.
+    - cron: "30 12 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: xhs-lowfan-kc-daily
+  cancel-in-progress: false
+
+jobs:
+  build-and-upload:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    env:
+      PYTHONUNBUFFERED: "1"
+      TZ: Asia/Shanghai
+      TIKHUB_API_KEY: ${{ secrets.TIKHUB_API_KEY }}
+      APIMART_API_KEY: ${{ secrets.APIMART_API_KEY }}
+      JIANGUOYUN_WEBDAV_URL: ${{ secrets.JIANGUOYUN_WEBDAV_URL }}
+      JIANGUOYUN_USERNAME: ${{ secrets.JIANGUOYUN_WEBDAV_USER || secrets.JIANGUOYUN_WEBDAV_USERNAME || secrets.JIANGUOYUN_USERNAME }}
+      JIANGUOYUN_APP_PASSWORD: ${{ secrets.JIANGUOYUN_WEBDAV_PASSWORD || secrets.JIANGUOYUN_APP_PASSWORD }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Set Beijing date and target count
+        shell: bash
+        run: |
+          output_date="$(date +%F)"
+          target_count="5"
+          avatar_provider="apimart"
+          if [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" ]]; then
+            target_count="${{ inputs.limit }}"
+            avatar_provider="${{ inputs.avatar_provider }}"
+          fi
+          echo "KC_OUTPUT_DATE=$output_date" >> "$GITHUB_ENV"
+          echo "KC_OUTPUT_DIR=outputs/xhs_lowfan/$output_date" >> "$GITHUB_ENV"
+          echo "KC_TARGET_COUNT=$target_count" >> "$GITHUB_ENV"
+          echo "KC_AVATAR_PROVIDER=$avatar_provider" >> "$GITHUB_ENV"
+
+      - name: Check required secrets
+        shell: bash
+        run: |
+          missing=()
+          for name in TIKHUB_API_KEY JIANGUOYUN_USERNAME JIANGUOYUN_APP_PASSWORD; do
+            if [[ -z "${!name}" ]]; then missing+=("$name"); fi
+          done
+          if [[ "$KC_AVATAR_PROVIDER" == "apimart" && -z "$APIMART_API_KEY" ]]; then
+            missing+=("APIMART_API_KEY")
+          fi
+          if (( ${#missing[@]} > 0 )); then
+            echo "Missing repository secrets: ${missing[*]}"
+            exit 1
+          fi
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements-xhs2vid.txt
+
+      - name: Install media and font dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends ffmpeg fonts-noto-cjk
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-xhs2vid.txt
+
+      - name: Discover and render today's low-follower viral posts
+        run: |
+          python xhs2vid/run_daily_batch.py \
+            --limit "$KC_TARGET_COUNT" \
+            --date "$KC_OUTPUT_DATE" \
+            --request-limit 90 \
+            --top-author-check 20 \
+            --max-attempts 2 \
+            --avatar-provider "$KC_AVATAR_PROVIDER" \
+            --processed-manifest xhs2vid/state/processed_note_ids.json \
+            --work-root work/xhs_daily \
+            --output-dir "$KC_OUTPUT_DIR"
+
+      - name: Upload and verify in Jianguoyun
+        run: |
+          python xhs2vid/upload_jianguoyun.py \
+            --source-dir "$KC_OUTPUT_DIR" \
+            --remote-root "/我的坚果云/kc娱乐" \
+            --date "$KC_OUTPUT_DATE" \
+            --manifest "$KC_OUTPUT_DIR/jianguoyun_upload_manifest.json"
+
+      - name: Record uploaded posts for cross-day dedupe
+        run: |
+          python xhs2vid/record_processed.py \
+            --new "$KC_OUTPUT_DIR/new_processed.json" \
+            --manifest xhs2vid/state/processed_note_ids.json
+
+      - name: Commit only the dedupe ledger
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add xhs2vid/state/processed_note_ids.json
+          if git diff --cached --quiet; then
+            echo "No dedupe state change"
+            exit 0
+          fi
+          git commit -m "Update XHS KC processed notes $KC_OUTPUT_DATE"
+          git pull --rebase origin "$GITHUB_REF_NAME"
+          git push origin "HEAD:$GITHUB_REF_NAME"
+
+      - name: Upload run evidence
+        if: always()
+        uses: actions/upload-artifact@v5
+        with:
+          name: xhs-lowfan-kc-${{ env.KC_OUTPUT_DATE }}
+          path: |
+            ${{ env.KC_OUTPUT_DIR }}
+            work/xhs_daily/latest_run.txt
+          if-no-files-found: warn
+          retention-days: 7
