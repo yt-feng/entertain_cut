@@ -195,6 +195,10 @@ jobs:
             fi
             cp "$resume_output/combined_processed.json" "$KC_OUTPUT_DIR/new_processed.json"
             cp "$resume_output/tikhub_request_budget.json" "$KC_OUTPUT_DIR/tikhub_request_budget.json"
+            if [[ -f "$resume_output/cumulative_tikhub_request_budget.json" ]]; then
+              cp "$resume_output/cumulative_tikhub_request_budget.json" \
+                "$KC_OUTPUT_DIR/cumulative_tikhub_request_budget.json"
+            fi
             echo "KC_UPLOAD_ONLY=true" >> "$GITHUB_ENV"
             echo "Complete cloud-rendered batch recovered; skipping all discovery and rendering."
             exit 0
@@ -300,17 +304,29 @@ jobs:
               json.dumps({"date": output_dir.name, "items": items}, ensure_ascii=False, indent=2),
               encoding="utf-8",
           )
-          prior_used = 0
-          if resume_processed is not None:
-              prior_budget = resume_processed.parent / "tikhub_request_budget.json"
-              prior_used = int(json.loads(prior_budget.read_text(encoding="utf-8")).get("used", 0))
-          current_budget = json.loads(
-              (output_dir / "tikhub_request_budget.json").read_text(encoding="utf-8")
-          )
-          current_used = int(current_budget.get("used", 0))
-          if prior_used + current_used >= 100:
+          cumulative_budget = output_dir / "cumulative_tikhub_request_budget.json"
+          if resume_processed is None and cumulative_budget.is_file():
+              total_used = int(
+                  json.loads(cumulative_budget.read_text(encoding="utf-8")).get("used", 0)
+              )
+          else:
+              prior_used = 0
+              if resume_processed is not None:
+                  prior_budget = resume_processed.parent / "tikhub_request_budget.json"
+                  prior_used = int(
+                      json.loads(prior_budget.read_text(encoding="utf-8")).get("used", 0)
+                  )
+              current_budget = json.loads(
+                  (output_dir / "tikhub_request_budget.json").read_text(encoding="utf-8")
+              )
+              total_used = prior_used + int(current_budget.get("used", 0))
+              cumulative_budget.write_text(
+                  json.dumps({"used": total_used, "limit": 99}, indent=2),
+                  encoding="utf-8",
+              )
+          if total_used >= 100:
               raise SystemExit("cumulative TikHub request count is not below 100")
-          print(f"Combined manifest verified: {len(items)}/{target}; TikHub cumulative {prior_used + current_used}/99")
+          print(f"Combined manifest verified: {len(items)}/{target}; TikHub cumulative {total_used}/99")
           PY
           echo "KC_COMBINED_PROCESSED=$combined_processed" >> "$GITHUB_ENV"
           echo "Verified exact output count: ${#videos[@]}"
