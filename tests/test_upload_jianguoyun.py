@@ -99,6 +99,10 @@ def make_handler(state: MockWebDAVState) -> type[BaseHTTPRequestHandler]:
             elif state.head_mode == "no-length":
                 self.send_response(200)
                 self.end_headers()
+            elif state.head_mode == "zero":
+                self.send_response(200)
+                self.send_header("Content-Length", "0")
+                self.end_headers()
             else:
                 size = len(state.resources[path])
                 self.send_response(200)
@@ -231,6 +235,26 @@ class JianguoyunUploadTests(unittest.TestCase):
 
         self.assertEqual(result["status"], "completed")
         self.assertEqual(state.get_attempts, 1)
+
+    def test_falls_back_to_propfind_when_head_reports_false_zero(self) -> None:
+        state = MockWebDAVState()
+        state.head_mode = "zero"
+        with tempfile.TemporaryDirectory() as temporary, MockWebDAVServer(state) as server:
+            source = Path(temporary)
+            (source / "clip.mp4").write_bytes(b"non-empty-video")
+            with self._uploader(server) as uploader:
+                result = upload_directory(
+                    source_dir=source,
+                    remote_root="kc娱乐",
+                    date="2026-08-31",
+                    dry_run=False,
+                    uploader=uploader,
+                )
+
+        self.assertEqual(result["status"], "completed")
+        self.assertEqual(result["verified_count"], 1)
+        self.assertTrue(any(method == "PROPFIND" for method, _path in state.raw_paths))
+        self.assertEqual(state.get_attempts, 0)
 
     def test_retries_a_transient_put_failure(self) -> None:
         state = MockWebDAVState()

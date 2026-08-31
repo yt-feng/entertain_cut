@@ -161,6 +161,7 @@ jobs:
           echo "KC_REQUEST_LIMIT=90" >> "$GITHUB_ENV"
           echo "KC_PROCESSED_MANIFEST=xhs2vid/state/processed_note_ids.json" >> "$GITHUB_ENV"
           echo "KC_RESUME_PROCESSED=" >> "$GITHUB_ENV"
+          echo "KC_UPLOAD_ONLY=false" >> "$GITHUB_ENV"
 
           if [[ -z "$KC_RESUME_RUN_ID" ]]; then
             exit 0
@@ -180,13 +181,25 @@ jobs:
           shopt -s nullglob
           resume_videos=("$resume_output"/*.mp4)
           resume_count="${#resume_videos[@]}"
-          if (( resume_count < 1 || resume_count >= KC_TARGET_COUNT )); then
-            echo "Resume artifact must contain between 1 and $((KC_TARGET_COUNT - 1)) MP4 files; found $resume_count"
+          if (( resume_count < 1 || resume_count > KC_TARGET_COUNT )); then
+            echo "Resume artifact must contain between 1 and $KC_TARGET_COUNT MP4 files; found $resume_count"
             exit 1
           fi
 
           mkdir -p "$KC_OUTPUT_DIR"
           cp -- "${resume_videos[@]}" "$KC_OUTPUT_DIR/"
+          if (( resume_count == KC_TARGET_COUNT )); then
+            if [[ ! -f "$resume_output/combined_processed.json" ]]; then
+              echo "Complete resume artifact is missing combined_processed.json"
+              exit 1
+            fi
+            cp "$resume_output/combined_processed.json" "$KC_OUTPUT_DIR/new_processed.json"
+            cp "$resume_output/tikhub_request_budget.json" "$KC_OUTPUT_DIR/tikhub_request_budget.json"
+            echo "KC_UPLOAD_ONLY=true" >> "$GITHUB_ENV"
+            echo "Complete cloud-rendered batch recovered; skipping all discovery and rendering."
+            exit 0
+          fi
+
           exclusions="work/xhs_resume/processed_exclusions.json"
           cp xhs2vid/state/processed_note_ids.json "$exclusions"
           python xhs2vid/record_processed.py \
@@ -227,7 +240,7 @@ jobs:
           python -m pip install -r requirements-xhs2vid.txt
 
       - name: Discover and render today's low-follower viral posts
-        if: env.KC_SKIP != 'true'
+        if: env.KC_SKIP != 'true' && env.KC_UPLOAD_ONLY != 'true'
         run: |
           python xhs2vid/run_daily_batch.py \
             --limit "$KC_BATCH_LIMIT" \

@@ -316,7 +316,10 @@ class JianguoyunWebDAV:
         )
         if response.status_code in {200, 204}:
             size = self._content_length(response)
-            if size is not None:
+            # Jianguoyun can answer HEAD with ``Content-Length: 0`` even for
+            # a non-empty WebDAV resource. Treat zero as inconclusive and ask
+            # PROPFIND for DAV:getcontentlength before rejecting the upload.
+            if size is not None and size > 0:
                 return size
 
         # Some WebDAV servers expose the size only as DAV:getcontentlength.
