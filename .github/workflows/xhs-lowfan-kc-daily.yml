@@ -22,11 +22,17 @@ on:
         options:
           - "apimart"
           - "local"
+      resume_run_id:
+        description: "Optional failed run ID whose verified MP4 artifact should be resumed"
+        required: false
+        default: ""
+        type: string
   schedule:
     # 20:30 Beijing time: late enough to screen genuinely current-day posts.
     - cron: "30 12 * * *"
 
 permissions:
+  actions: read
   contents: write
 
 concurrency:
@@ -58,14 +64,17 @@ jobs:
           output_date="$(date +%F)"
           target_count="5"
           avatar_provider="apimart"
+          resume_run_id=""
           if [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" ]]; then
             target_count="${{ inputs.limit }}"
             avatar_provider="${{ inputs.avatar_provider }}"
+            resume_run_id="${{ inputs.resume_run_id }}"
           fi
           echo "KC_OUTPUT_DATE=$output_date" >> "$GITHUB_ENV"
           echo "KC_OUTPUT_DIR=outputs/xhs_lowfan/$output_date" >> "$GITHUB_ENV"
           echo "KC_TARGET_COUNT=$target_count" >> "$GITHUB_ENV"
           echo "KC_AVATAR_PROVIDER=$avatar_provider" >> "$GITHUB_ENV"
+          echo "KC_RESUME_RUN_ID=$resume_run_id" >> "$GITHUB_ENV"
 
       - name: Skip a duplicate scheduled delivery
         shell: bash
@@ -119,6 +128,84 @@ jobs:
           cache: pip
           cache-dependency-path: requirements-xhs2vid.txt
 
+      - name: Download prior cloud-rendered outputs
+        if: env.KC_SKIP != 'true' && env.KC_RESUME_RUN_ID != ''
+        uses: actions/download-artifact@v5
+        with:
+          name: xhs-lowfan-kc-${{ env.KC_OUTPUT_DATE }}
+          path: work/xhs_resume
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          run-id: ${{ env.KC_RESUME_RUN_ID }}
+
+      - name: Configure batch and optional cloud resume
+        if: env.KC_SKIP != 'true'
+        shell: bash
+        run: |
+          echo "KC_BATCH_LIMIT=$KC_TARGET_COUNT" >> "$GITHUB_ENV"
+          echo "KC_BATCH_START_INDEX=1" >> "$GITHUB_ENV"
+          echo "KC_SEARCH_PAGES=1" >> "$GITHUB_ENV"
+          echo "KC_MAX_ATTEMPTS=2" >> "$GITHUB_ENV"
+          echo "KC_REQUEST_LIMIT=90" >> "$GITHUB_ENV"
+          echo "KC_PROCESSED_MANIFEST=xhs2vid/state/processed_note_ids.json" >> "$GITHUB_ENV"
+          echo "KC_RESUME_PROCESSED=" >> "$GITHUB_ENV"
+
+          if [[ -z "$KC_RESUME_RUN_ID" ]]; then
+            exit 0
+          fi
+          if [[ ! "$KC_RESUME_RUN_ID" =~ ^[0-9]+$ ]]; then
+            echo "resume_run_id must be numeric"
+            exit 1
+          fi
+
+          resume_output="work/xhs_resume/outputs/xhs_lowfan/$KC_OUTPUT_DATE"
+          if [[ ! -d "$resume_output" \
+            || ! -f "$resume_output/new_processed.json" \
+            || ! -f "$resume_output/tikhub_request_budget.json" ]]; then
+            echo "Resume artifact does not contain the expected dated output"
+            exit 1
+          fi
+          shopt -s nullglob
+          resume_videos=("$resume_output"/*.mp4)
+          resume_count="${#resume_videos[@]}"
+          if (( resume_count < 1 || resume_count >= KC_TARGET_COUNT )); then
+            echo "Resume artifact must contain between 1 and $((KC_TARGET_COUNT - 1)) MP4 files; found $resume_count"
+            exit 1
+          fi
+
+          mkdir -p "$KC_OUTPUT_DIR"
+          cp -- "${resume_videos[@]}" "$KC_OUTPUT_DIR/"
+          exclusions="work/xhs_resume/processed_exclusions.json"
+          cp xhs2vid/state/processed_note_ids.json "$exclusions"
+          python xhs2vid/record_processed.py \
+            --new "$resume_output/new_processed.json" \
+            --manifest "$exclusions"
+
+          prior_tikhub_used="$(python - "$resume_output/tikhub_request_budget.json" <<'PY'
+          import json
+          import sys
+          from pathlib import Path
+
+          payload = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
+          print(int(payload.get("used", 0)))
+          PY
+          )"
+          remaining_tikhub_budget="$((99 - prior_tikhub_used))"
+          if (( remaining_tikhub_budget < 1 )); then
+            echo "Prior run already used $prior_tikhub_used TikHub requests; no sub-100 recovery budget remains"
+            exit 1
+          fi
+
+          echo "KC_BATCH_LIMIT=$((KC_TARGET_COUNT - resume_count))" >> "$GITHUB_ENV"
+          echo "KC_BATCH_START_INDEX=$((resume_count + 1))" >> "$GITHUB_ENV"
+          echo "KC_SEARCH_PAGES=2" >> "$GITHUB_ENV"
+          echo "KC_MAX_ATTEMPTS=1" >> "$GITHUB_ENV"
+          echo "KC_REQUEST_LIMIT=$remaining_tikhub_budget" >> "$GITHUB_ENV"
+          echo "KC_PROCESSED_MANIFEST=$exclusions" >> "$GITHUB_ENV"
+          echo "KC_RESUME_PROCESSED=$resume_output/new_processed.json" >> "$GITHUB_ENV"
+          echo "Resuming $resume_count cloud-rendered MP4 files; generating $((KC_TARGET_COUNT - resume_count)) more."
+          echo "TikHub recovery budget: $remaining_tikhub_budget (prior $prior_tikhub_used; cumulative hard cap 99)."
+
       - name: Install media and font dependencies
         if: env.KC_SKIP != 'true'
         run: |
@@ -131,15 +218,77 @@ jobs:
         if: env.KC_SKIP != 'true'
         run: |
           python xhs2vid/run_daily_batch.py \
-            --limit "$KC_TARGET_COUNT" \
+            --limit "$KC_BATCH_LIMIT" \
             --date "$KC_OUTPUT_DATE" \
-            --request-limit 90 \
+            --pages "$KC_SEARCH_PAGES" \
+            --start-index "$KC_BATCH_START_INDEX" \
+            --request-limit "$KC_REQUEST_LIMIT" \
             --top-author-check 20 \
-            --max-attempts 2 \
+            --max-attempts "$KC_MAX_ATTEMPTS" \
             --avatar-provider "$KC_AVATAR_PROVIDER" \
-            --processed-manifest xhs2vid/state/processed_note_ids.json \
+            --processed-manifest "$KC_PROCESSED_MANIFEST" \
             --work-root work/xhs_daily \
             --output-dir "$KC_OUTPUT_DIR"
+
+      - name: Require exactly the requested MP4 count
+        if: env.KC_SKIP != 'true'
+        shell: bash
+        run: |
+          shopt -s nullglob
+          videos=("$KC_OUTPUT_DIR"/*.mp4)
+          if (( ${#videos[@]} != KC_TARGET_COUNT )); then
+            echo "Expected exactly $KC_TARGET_COUNT MP4 files; found ${#videos[@]}"
+            exit 1
+          fi
+          for video in "${videos[@]}"; do
+            ffmpeg -v error -i "$video" -f null -
+            echo "Cloud decode verified: $(basename "$video")"
+          done
+          combined_processed="$KC_OUTPUT_DIR/combined_processed.json"
+          python - "$KC_OUTPUT_DIR" "$KC_TARGET_COUNT" "$KC_RESUME_PROCESSED" "$combined_processed" <<'PY'
+          import json
+          import sys
+          from pathlib import Path
+
+          output_dir = Path(sys.argv[1])
+          target = int(sys.argv[2])
+          resume_processed = Path(sys.argv[3]) if sys.argv[3] else None
+          combined_path = Path(sys.argv[4])
+          sources = []
+          if resume_processed is not None:
+              sources.append(resume_processed)
+          sources.append(output_dir / "new_processed.json")
+
+          items = []
+          for source in sources:
+              payload = json.loads(source.read_text(encoding="utf-8"))
+              items.extend(payload.get("items") or [])
+          note_ids = [str(item.get("note_id") or "") for item in items]
+          outputs = [str(item.get("output") or "") for item in items]
+          video_names = {path.name for path in output_dir.glob("*.mp4")}
+          if len(items) != target or len(set(note_ids)) != target or "" in note_ids:
+              raise SystemExit("combined processed manifest is not exactly the requested unique notes")
+          if len(set(outputs)) != target or set(outputs) != video_names:
+              raise SystemExit("combined processed outputs do not match the exact MP4 set")
+
+          combined_path.write_text(
+              json.dumps({"date": output_dir.name, "items": items}, ensure_ascii=False, indent=2),
+              encoding="utf-8",
+          )
+          prior_used = 0
+          if resume_processed is not None:
+              prior_budget = resume_processed.parent / "tikhub_request_budget.json"
+              prior_used = int(json.loads(prior_budget.read_text(encoding="utf-8")).get("used", 0))
+          current_budget = json.loads(
+              (output_dir / "tikhub_request_budget.json").read_text(encoding="utf-8")
+          )
+          current_used = int(current_budget.get("used", 0))
+          if prior_used + current_used >= 100:
+              raise SystemExit("cumulative TikHub request count is not below 100")
+          print(f"Combined manifest verified: {len(items)}/{target}; TikHub cumulative {prior_used + current_used}/99")
+          PY
+          echo "KC_COMBINED_PROCESSED=$combined_processed" >> "$GITHUB_ENV"
+          echo "Verified exact output count: ${#videos[@]}"
 
       - name: Upload and verify in Jianguoyun
         if: env.KC_SKIP != 'true'
@@ -150,11 +299,30 @@ jobs:
             --date "$KC_OUTPUT_DATE" \
             --manifest "$KC_OUTPUT_DIR/jianguoyun_upload_manifest.json"
 
+      - name: Require requested verified Jianguoyun uploads
+        if: env.KC_SKIP != 'true'
+        run: |
+          python - "$KC_OUTPUT_DIR/jianguoyun_upload_manifest.json" "$KC_TARGET_COUNT" <<'PY'
+          import json
+          import sys
+          from pathlib import Path
+
+          payload = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
+          target = int(sys.argv[2])
+          if payload.get("status") != "completed":
+              raise SystemExit(f"Jianguoyun upload status is {payload.get('status')!r}")
+          if int(payload.get("file_count", -1)) != target:
+              raise SystemExit("Jianguoyun file_count does not match the requested count")
+          if int(payload.get("verified_count", -1)) != target or int(payload.get("failed_count", -1)) != 0:
+              raise SystemExit("Jianguoyun did not verify every requested MP4")
+          print(f"Jianguoyun verified exactly {target}/{target} MP4 files")
+          PY
+
       - name: Record uploaded posts for cross-day dedupe
         if: env.KC_SKIP != 'true'
         run: |
           python xhs2vid/record_processed.py \
-            --new "$KC_OUTPUT_DIR/new_processed.json" \
+            --new "$KC_COMBINED_PROCESSED" \
             --manifest xhs2vid/state/processed_note_ids.json
 
       - name: Commit only the dedupe ledger

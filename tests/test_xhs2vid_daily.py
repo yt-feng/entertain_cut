@@ -38,6 +38,39 @@ class XhsDailyTests(unittest.TestCase):
             1_788_134_400,
         )
 
+    def test_author_lookup_pool_filters_low_likes_before_slot_limit(self) -> None:
+        fresh = [
+            {"note_id": "same-day-low", "liked_count": 11},
+            {"note_id": "same-day-almost", "liked_count": 199},
+            {"note_id": "recent-viral-a", "liked_count": 4_034},
+            {"note_id": "recent-viral-b", "liked_count": 378},
+        ]
+        pool = discover.author_lookup_pool(fresh)
+        self.assertEqual(
+            [note["note_id"] for note in pool],
+            ["recent-viral-a", "recent-viral-b"],
+        )
+
+    def test_resume_batch_accepts_page_two_and_output_five(self) -> None:
+        old_argv = sys.argv
+        try:
+            sys.argv = [
+                "run_daily_batch.py",
+                "--limit", "1",
+                "--pages", "2",
+                "--start-index", "5",
+                "--max-attempts", "1",
+                "--request-limit", "59",
+            ]
+            args = batch.parse_args()
+        finally:
+            sys.argv = old_argv
+        self.assertEqual(args.limit, 1)
+        self.assertEqual(args.pages, 2)
+        self.assertEqual(args.start_index, 5)
+        self.assertEqual(args.max_attempts, 1)
+        self.assertEqual(args.request_limit, 59)
+
     def test_voice_roster_is_unique_and_monkey_is_fast(self) -> None:
         comments = [
             {"sub_comments": [{"text": "a"}]},
