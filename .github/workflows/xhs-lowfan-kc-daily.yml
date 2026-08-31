@@ -67,7 +67,36 @@ jobs:
           echo "KC_TARGET_COUNT=$target_count" >> "$GITHUB_ENV"
           echo "KC_AVATAR_PROVIDER=$avatar_provider" >> "$GITHUB_ENV"
 
+      - name: Skip a duplicate scheduled delivery
+        shell: bash
+        run: |
+          echo "KC_SKIP=false" >> "$GITHUB_ENV"
+          if [[ "$GITHUB_EVENT_NAME" != "schedule" ]]; then
+            exit 0
+          fi
+
+          delivered_count="$(python3 - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          output_date = os.environ["KC_OUTPUT_DATE"]
+          manifest = Path("xhs2vid/state/processed_note_ids.json")
+          payload = json.loads(manifest.read_text(encoding="utf-8")) if manifest.is_file() else {"items": []}
+          print(sum(
+              str(item.get("uploaded_at") or item.get("rendered_at") or "").startswith(output_date)
+              for item in payload.get("items", [])
+          ))
+          PY
+          )"
+          echo "Current-date delivered records: $delivered_count"
+          if (( delivered_count >= 5 )); then
+            echo "KC_SKIP=true" >> "$GITHUB_ENV"
+            echo "Five current-date videos already delivered; skipping this scheduled run."
+          fi
+
       - name: Check required secrets
+        if: env.KC_SKIP != 'true'
         shell: bash
         run: |
           missing=()
@@ -83,6 +112,7 @@ jobs:
           fi
 
       - name: Set up Python
+        if: env.KC_SKIP != 'true'
         uses: actions/setup-python@v6
         with:
           python-version: "3.11"
@@ -90,6 +120,7 @@ jobs:
           cache-dependency-path: requirements-xhs2vid.txt
 
       - name: Install media and font dependencies
+        if: env.KC_SKIP != 'true'
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends ffmpeg fonts-noto-cjk
@@ -97,6 +128,7 @@ jobs:
           python -m pip install -r requirements-xhs2vid.txt
 
       - name: Discover and render today's low-follower viral posts
+        if: env.KC_SKIP != 'true'
         run: |
           python xhs2vid/run_daily_batch.py \
             --limit "$KC_TARGET_COUNT" \
@@ -110,6 +142,7 @@ jobs:
             --output-dir "$KC_OUTPUT_DIR"
 
       - name: Upload and verify in Jianguoyun
+        if: env.KC_SKIP != 'true'
         run: |
           python xhs2vid/upload_jianguoyun.py \
             --source-dir "$KC_OUTPUT_DIR" \
@@ -118,12 +151,14 @@ jobs:
             --manifest "$KC_OUTPUT_DIR/jianguoyun_upload_manifest.json"
 
       - name: Record uploaded posts for cross-day dedupe
+        if: env.KC_SKIP != 'true'
         run: |
           python xhs2vid/record_processed.py \
             --new "$KC_OUTPUT_DIR/new_processed.json" \
             --manifest xhs2vid/state/processed_note_ids.json
 
       - name: Commit only the dedupe ledger
+        if: env.KC_SKIP != 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
