@@ -1,7 +1,230 @@
 {
-  "updated_at": "2026-08-31T02:03:42.535260+00:00",
-  "count": 293,
+  "updated_at": "2026-09-01T02:45:32.914715+00:00",
+  "count": 301,
   "items": [
+    {
+      "aweme_id": "7680131911993363722",
+      "content_id": "7680131911993363722",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7680131911993363722/?region=US&mid=7680131976657373958&u_code=0&did=MS4wLjABAAAADnB2n6MqyD49SGF86RJgwFNkJkBPrC0ssf-O7OX3AyJq-QYCfOClZT7hszpQI3U0&iid=MS4wLjABAAAA_8asHJ-C725D4gVYwsduDW-PhX1OQErX2NrwoNvuYyykoC_kacbtOUJCUX0R8b-R&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=Y4h5PfmEknKliTHnCVCPRCVroK7PJnIChGK_zXXsjhw-&share_version=320900&ts=1788228065&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "现实中谁不想急头白脸要一个这么情绪稳定的旅游搭子 #杨洋 #井柏然 #考古 #综艺名场面 #摸娱长公主",
+      "author": "摸娱长公主",
+      "like_count": 107065,
+      "comment_count": 2939,
+      "share_count": 43765,
+      "duration_ms": 77500,
+      "create_time_iso": "2026-08-31T09:54:22+00:00",
+      "known_entities": [
+        "杨洋",
+        "井柏然",
+        "考古",
+        "综艺名场面",
+        "摸娱长公主"
+      ],
+      "verified_entities": [
+        "杨洋",
+        "井柏然",
+        "综艺名场面"
+      ],
+      "primary_celebrities": [
+        "杨洋",
+        "井柏然"
+      ],
+      "quality_score": 317.603,
+      "output_date": "2026-09-01",
+      "selected_at": "2026-09-01T02:45:32.914715+00:00"
+    },
+    {
+      "aweme_id": "7680140195957640483",
+      "content_id": "7680140195957640483",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7680140195957640483/?region=US&mid=7680140258465712959&u_code=0&did=MS4wLjABAAAAdmF4NU_PdMBdnnVgpAtbH3MwlM7fG65FZiyocuRQYsk&iid=MS4wLjABAAAAKJ5gZEbz-0NcALbxpVK_GjDnXj-94MbXCTpeBfO1M-0&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=T7kUJU44ToNIydr8nJjGAwAnIc1Y0wIIT_pb1y7cZdQ-&share_version=320900&ts=1788228060&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "把我放进花少2 我也未必能做到陈意涵这样！#花少2 #陈意涵  #花学 #花儿与少年 #综艺",
+      "author": "廿一山山",
+      "like_count": 78406,
+      "comment_count": 1213,
+      "share_count": 11818,
+      "duration_ms": 130473,
+      "create_time_iso": "2026-08-31T10:26:32+00:00",
+      "known_entities": [
+        "花儿与少年",
+        "花少2",
+        "陈意涵",
+        "花学"
+      ],
+      "verified_entities": [
+        "花少2",
+        "陈意涵",
+        "花学"
+      ],
+      "primary_celebrities": [
+        "陈意涵"
+      ],
+      "quality_score": 287.139,
+      "output_date": "2026-09-01",
+      "selected_at": "2026-09-01T02:45:32.914715+00:00"
+    },
+    {
+      "aweme_id": "7680026349142117670",
+      "content_id": "7680026349142117670",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7680026349142117670/?region=US&mid=7680026360174742323&u_code=0&did=MS4wLjABAAAAKN1BjM-wE-H0tGN4ZvI1fzF2CO3Wzq5ywvnhzAyMx2g&iid=MS4wLjABAAAA_wn5s2-QLMsmm9nowgPYFPpmC4CcRgQwcX22Tc0pws8&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=.tfQRgYIxeGAPaJLBjNr_iGNMCpfpDDH_s.R8S8l318-&share_version=320900&ts=1788228067&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "第一个想出让周小闹参加综艺的完全是天才！#周小闹 #超能暑期大作战 #东北继承者们#紫薯精#搞笑",
+      "author": "哔哔King",
+      "like_count": 139141,
+      "comment_count": 615,
+      "share_count": 65554,
+      "duration_ms": 62509,
+      "create_time_iso": "2026-08-31T03:04:42+00:00",
+      "known_entities": [
+        "周小闹",
+        "超能暑期大作战",
+        "东北继承者们",
+        "紫薯精",
+        "搞笑"
+      ],
+      "verified_entities": [
+        "周小闹",
+        "超能暑期大作战",
+        "东北继承者们"
+      ],
+      "primary_celebrities": [
+        "周小闹"
+      ],
+      "quality_score": 284.136,
+      "output_date": "2026-09-01",
+      "selected_at": "2026-09-01T02:45:32.914715+00:00"
+    },
+    {
+      "aweme_id": "7680102335628004646",
+      "content_id": "7680102335628004646",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7680102335628004646/?region=US&mid=7680102317093309227&u_code=0&did=MS4wLjABAAAANyLJ8oiX8RBQHMpjmA7n0tvIgSj9H2VlrCWLMVNgx54&iid=MS4wLjABAAAADZjTX1dFvkuf3E_c7DYKBROtpS9SYeE2x2wB05BxJkw&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=enXzMvtwWGt6VbhPnZOtCEr0McCYYCGWlgMHkN.wllI-&share_version=320900&ts=1788228069&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "裤子你真是牛大了#早春晴朗 #现代偶像剧 #演员 #影视剧",
+      "author": "话很多的陈星星",
+      "like_count": 10188,
+      "comment_count": 598,
+      "share_count": 1904,
+      "duration_ms": 70845,
+      "create_time_iso": "2026-08-31T07:59:35+00:00",
+      "known_entities": [
+        "早春晴朗",
+        "现代偶像剧",
+        "演员"
+      ],
+      "verified_entities": [
+        "早春晴朗",
+        "现代偶像剧"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 250.937,
+      "output_date": "2026-09-01",
+      "selected_at": "2026-09-01T02:45:32.914715+00:00"
+    },
+    {
+      "aweme_id": "7680145635806665050",
+      "content_id": "7680145635806665050",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7680145635806665050/?region=US&mid=7666437468291582726&u_code=0&did=MS4wLjABAAAAoOlM9BlwHrOOZBNvGsg2JWmgxuEXOVbP760-F-BjYvo&iid=MS4wLjABAAAAhhlp9GA5fRBGk09ZoELBvDGq2AtyuCZu6FUoVAY13HY&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=YlamCqp9NhAXc17nFZ.H0jUQ9kiQxpq8Gqlno1_ZX8w-&share_version=320900&ts=1788228077&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "现场都说第一次见这种机械超模走红毯？ #女明星活动现场",
+      "author": "大佬甜Giovanna",
+      "like_count": 28927,
+      "comment_count": 114,
+      "share_count": 2761,
+      "duration_ms": 15067,
+      "create_time_iso": "2026-08-31T11:04:55+00:00",
+      "known_entities": [
+        "女明星活动现场"
+      ],
+      "verified_entities": [
+        "女明星活动现场"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 221.637,
+      "output_date": "2026-09-01",
+      "selected_at": "2026-09-01T02:45:32.914715+00:00"
+    },
+    {
+      "aweme_id": "7680098054619401506",
+      "content_id": "7680098054619401506",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7680098054619401506/?region=US&mid=7680098024332200723&u_code=0&did=MS4wLjABAAAAdmF4NU_PdMBdnnVgpAtbH3MwlM7fG65FZiyocuRQYsk&iid=MS4wLjABAAAAKJ5gZEbz-0NcALbxpVK_GjDnXj-94MbXCTpeBfO1M-0&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=13OEFDTF3CH4_ndiuxwNMWDFX_0mLuTBjtHihOLjh3I-&share_version=320900&ts=1788228060&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "时隔18年再看“倾城四少”各自境遇，四少井柏然《早春晴朗》最有腔调的男人，大少付辛博苦尽甘来，三少让人意难平#井柏然  #付辛博  #乔任梁  #内容启发搜索 #影娱热点团",
+      "author": "一念星河",
+      "like_count": 5509,
+      "comment_count": 276,
+      "share_count": 1372,
+      "duration_ms": 57354,
+      "create_time_iso": "2026-08-31T07:43:00+00:00",
+      "known_entities": [
+        "井柏然",
+        "早春晴朗"
+      ],
+      "verified_entities": [
+        "井柏然",
+        "早春晴朗"
+      ],
+      "primary_celebrities": [
+        "井柏然",
+        "付辛博"
+      ],
+      "quality_score": 207.993,
+      "output_date": "2026-09-01",
+      "selected_at": "2026-09-01T02:45:32.914715+00:00"
+    },
+    {
+      "aweme_id": "7680064625044190971",
+      "content_id": "7680064625044190971",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7680064625044190971/?region=US&mid=7647518066956241702&u_code=0&did=MS4wLjABAAAAKN1BjM-wE-H0tGN4ZvI1fzF2CO3Wzq5ywvnhzAyMx2g&iid=MS4wLjABAAAA_wn5s2-QLMsmm9nowgPYFPpmC4CcRgQwcX22Tc0pws8&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=zDktqwKonz39470AYBz7Cf_kmHLHaI6CXMsqCqOXqxo-&share_version=320900&ts=1788228067&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "不怪英国小哥追着打，橙衣杨洋确实过分美丽 #杨洋 #花少2 #花儿与少年 #枕头大战 #我在抖音看综艺",
+      "author": "唯young",
+      "like_count": 1571,
+      "comment_count": 51,
+      "share_count": 77,
+      "duration_ms": 30720,
+      "create_time_iso": "2026-08-31T05:33:10+00:00",
+      "known_entities": [
+        "花儿与少年",
+        "杨洋",
+        "花少2"
+      ],
+      "verified_entities": [
+        "杨洋",
+        "花少2"
+      ],
+      "primary_celebrities": [
+        "杨洋"
+      ],
+      "quality_score": 181.832,
+      "output_date": "2026-09-01",
+      "selected_at": "2026-09-01T02:45:32.914715+00:00"
+    },
+    {
+      "aweme_id": "7680170473624745659",
+      "content_id": "7680170473624745659",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7680170473624745659/?region=US&mid=7680170445093571369&u_code=0&did=MS4wLjABAAAADnB2n6MqyD49SGF86RJgwFNkJkBPrC0ssf-O7OX3AyJq-QYCfOClZT7hszpQI3U0&iid=MS4wLjABAAAA_8asHJ-C725D4gVYwsduDW-PhX1OQErX2NrwoNvuYyykoC_kacbtOUJCUX0R8b-R&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=K.rHklJNIn_Z3Se_XniJbqamWecEa1l9aUfFpKmgHrg-&share_version=320900&ts=1788228065&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "说成毅不玩手机被群嘲？搞什么？拍戏谁玩手机？那是工作！拜托别硬黑了好吗#成毅",
+      "author": "袁先生Leslie",
+      "like_count": 1120,
+      "comment_count": 108,
+      "share_count": 30,
+      "duration_ms": 165734,
+      "create_time_iso": "2026-08-31T12:23:55+00:00",
+      "known_entities": [
+        "成毅"
+      ],
+      "verified_entities": [
+        "成毅"
+      ],
+      "primary_celebrities": [
+        "成毅"
+      ],
+      "quality_score": 167.039,
+      "output_date": "2026-09-01",
+      "selected_at": "2026-09-01T02:45:32.914715+00:00"
+    },
     {
       "aweme_id": "7679734364267187466",
       "content_id": "7679734364267187466",
