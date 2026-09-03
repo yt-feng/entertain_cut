@@ -1,7 +1,88 @@
 {
-  "updated_at": "2026-09-02T01:45:17.223406+00:00",
-  "count": 308,
+  "updated_at": "2026-09-03T01:43:23.779832+00:00",
+  "count": 311,
   "items": [
+    {
+      "aweme_id": "7680890826922233138",
+      "content_id": "7680890826922233138",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7680890826922233138/?region=US&mid=7680890803480234803&u_code=0&did=MS4wLjABAAAAYXu2DNLL6-0Mqqoqezeo_qAItQFbT3I4NOWujwsy2MU&iid=MS4wLjABAAAAGIPE2PQypnFjoziFncwDQosLSBnuxWeoQdb82Pwet0c&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=t_OKWOoiCro94haq2iJF06gR5Ld9TH9JdbnVgbTe_1E-&share_version=320900&ts=1788398464&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "1999年，朴树当街采访袁泉，一个问题直接令其脸红！ #历史 #朴树 #袁泉 #老视频 #珍贵影像",
+      "author": "影像历史",
+      "like_count": 4453,
+      "comment_count": 123,
+      "share_count": 604,
+      "duration_ms": 144336,
+      "create_time_iso": "2026-09-02T10:59:22+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "朴树",
+        "袁泉"
+      ],
+      "primary_celebrities": [
+        "朴树",
+        "袁泉"
+      ],
+      "quality_score": 162.382,
+      "output_date": "2026-09-03",
+      "selected_at": "2026-09-03T01:43:23.779832+00:00"
+    },
+    {
+      "aweme_id": "7680789457210318570",
+      "content_id": "7680789457210318570",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7680789457210318570/?region=US&mid=7680789430797634358&u_code=0&did=MS4wLjABAAAA-aCbJngfink2W6b6_Cv44YBMQu_JS8m3Fdk2_DvTVjw&iid=MS4wLjABAAAAathdoqstrxbXCNg7TehIsMzaCYgk5IaWvQklUxoAkis&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=cLqlWFsIvxriuCKZ_unVXhmUu5DE0hclQVB4CQO6Hkc-&share_version=320900&ts=1788398450&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "# 陈宝国 # 倪萍 # 任达华 # 钟镇涛 # 邓萃雯 # 陈德容 同框亮相长春电影节闭幕式，几位同台这阵容画面如何？",
+      "author": "娱乐明星",
+      "like_count": 6245,
+      "comment_count": 266,
+      "share_count": 151,
+      "duration_ms": 13654,
+      "create_time_iso": "2026-09-02T04:25:56+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "陈宝国",
+        "倪萍",
+        "任达华",
+        "钟镇涛",
+        "邓萃雯",
+        "陈德容"
+      ],
+      "primary_celebrities": [
+        "陈宝国",
+        "倪萍",
+        "任达华",
+        "钟镇涛",
+        "邓萃雯",
+        "陈德容"
+      ],
+      "quality_score": 156.95999999999998,
+      "output_date": "2026-09-03",
+      "selected_at": "2026-09-03T01:43:23.779832+00:00"
+    },
+    {
+      "aweme_id": "7680808166913645711",
+      "content_id": "7680808166913645711",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7680808166913645711/?region=US&mid=6702036877857261569&u_code=0&did=MS4wLjABAAAA-aCbJngfink2W6b6_Cv44YBMQu_JS8m3Fdk2_DvTVjw&iid=MS4wLjABAAAAathdoqstrxbXCNg7TehIsMzaCYgk5IaWvQklUxoAkis&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=izGc8zD_VzSs9N4gbHYPuqwbnvmxracscwnM23TZrNU-&share_version=320900&ts=1788398453&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "蔡依林参加品牌活动啦！这次的丸子头造型真的超亮眼，一双卡姿兰大眼睛亮得像有光一样，整场活动都被她的气场稳稳hold住～\n#蔡依林 #娱乐评论大赏 #天后 #美出高级感",
+      "author": "娱乐明星女神",
+      "like_count": 3037,
+      "comment_count": 134,
+      "share_count": 137,
+      "duration_ms": 9474,
+      "create_time_iso": "2026-09-02T05:38:31+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "蔡依林"
+      ],
+      "primary_celebrities": [
+        "蔡依林"
+      ],
+      "quality_score": 131.18,
+      "output_date": "2026-09-03",
+      "selected_at": "2026-09-03T01:43:23.779832+00:00"
+    },
     {
       "aweme_id": "7680456760884984825",
       "content_id": "7680456760884984825",
