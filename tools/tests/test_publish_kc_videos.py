@@ -16,6 +16,29 @@ SPEC.loader.exec_module(publish)
 
 
 class PublishKcVideosTests(unittest.TestCase):
+    def test_prune_preserves_low_follower_videos_in_shared_folder(self) -> None:
+        current = {f"KC娱乐_今日{i}.mp4" for i in range(5)}
+        low_follower = {f"0{i}_低粉爆款_note{i}.mp4" for i in range(1, 6)}
+        remote = current | low_follower | {"KC娱乐_旧版.mp4"}
+        with (
+            mock.patch.object(publish, "list_webdav_videos", return_value={"success": True, "names": list(remote)}),
+            mock.patch.object(publish, "run_curl", return_value={"http_status": 204}) as request,
+        ):
+            result = publish.prune_extra_webdav_videos(
+                "https://example.test/Portal%20%E5%A8%B1%E4%B9%90/", current,
+                "user", "password", managed_prefixes=("KC娱乐_",),
+            )
+        self.assertEqual(result["deleted"], ["KC娱乐_旧版.mp4"])
+        self.assertEqual(len(remote - set(result["deleted"])), 10)
+        self.assertEqual(request.call_count, 1)
+
+    def test_prune_without_explicit_scope_never_deletes_shared_files(self) -> None:
+        with mock.patch.object(publish, "list_webdav_videos") as listing:
+            result = publish.prune_extra_webdav_videos("https://example.test/dir/", set(), "user", "password")
+        self.assertFalse(result["attempted"])
+        self.assertEqual(result["deleted"], [])
+        listing.assert_not_called()
+
     def test_webdav_url_includes_my_jianguoyun_root_and_encodes_chinese(self) -> None:
         url = publish.build_webdav_url(
             "https://dav.jianguoyun.com/dav/",
@@ -519,3 +542,4 @@ class PublishKcVideosTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+

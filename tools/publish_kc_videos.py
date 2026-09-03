@@ -18,8 +18,8 @@ from urllib.parse import quote, unquote, urlparse
 DEFAULT_GIT_MAX_BYTES = 99 * 1024 * 1024
 DEFAULT_COMPRESSION_TARGET_BYTES = 90 * 1024 * 1024
 DEFAULT_WEBDAV_BASE_URL = "https://dav.jianguoyun.com/dav/"
-DEFAULT_WEBDAV_ROOT = "我的坚果云/KCdesk/Ops"
-DEFAULT_WEBDAV_CATEGORY = "KC娱乐"
+DEFAULT_WEBDAV_ROOT = "我的坚果云/KC Desk Notes/Ops"
+DEFAULT_WEBDAV_CATEGORY = "Portal 娱乐"
 DEFAULT_WEBDAV_UPLOAD_CONCURRENCY = 3
 
 
@@ -40,6 +40,7 @@ def main() -> int:
         webdav_user=os.environ.get("JIANGUOYUN_WEBDAV_USER", "").strip(),
         webdav_password=os.environ.get("JIANGUOYUN_WEBDAV_PASSWORD", "").strip(),
         webdav_prune_extra=args.webdav_prune_extra,
+        webdav_prune_prefixes=tuple(args.webdav_prune_prefix),
         previous_webdav_sizes=previous_webdav_sizes,
     )
     args.summary_file.parent.mkdir(parents=True, exist_ok=True)
@@ -72,9 +73,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--compression-work-dir", type=Path, default=Path("work/kc_publish_tmp"))
     parser.add_argument("--summary-file", type=Path, default=Path("work/kc_publish_summary.json"))
     parser.add_argument("--webdav-base-url", default=DEFAULT_WEBDAV_BASE_URL)
-    parser.add_argument("--webdav-root", default=DEFAULT_WEBDAV_ROOT)
+    parser.add_argument("--webdav-root", default=os.environ.get("JIANGUOYUN_REMOTE_ROOT") or DEFAULT_WEBDAV_ROOT)
     parser.add_argument("--webdav-category", default=DEFAULT_WEBDAV_CATEGORY)
     parser.add_argument("--webdav-prune-extra", action=argparse.BooleanOptionalAction, default=False)
+    parser.add_argument(
+        "--webdav-prune-prefix", action="append", default=[],
+        help="Only prune superseded MP4s with this filename prefix; repeat to add prefixes.",
+    )
     parser.add_argument(
         "--webdav-upload-concurrency",
         type=int,
@@ -129,6 +134,7 @@ def process_directory(
     webdav_password: str,
     webdav_upload_concurrency: int = DEFAULT_WEBDAV_UPLOAD_CONCURRENCY,
     webdav_prune_extra: bool = False,
+    webdav_prune_prefixes: tuple[str, ...] = (),
     previous_webdav_sizes: dict[str, set[int]] | None = None,
 ) -> dict[str, Any]:
     output_dir = output_dir.resolve()
@@ -181,6 +187,7 @@ def process_directory(
             {video.name for video in videos},
             webdav_user,
             webdav_password,
+            managed_prefixes=webdav_prune_prefixes,
         )
     else:
         prune_result = {
@@ -546,11 +553,22 @@ def prune_extra_webdav_videos(
     expected_names: set[str],
     username: str,
     password: str,
+    *,
+    managed_prefixes: tuple[str, ...] = (),
 ) -> dict[str, Any]:
+    prefixes = tuple(prefix for prefix in managed_prefixes if prefix)
+    if not prefixes:
+        return {
+            "attempted": False, "success": False, "deleted": [],
+            "reason": "no managed filename prefixes configured for this shared folder",
+        }
     listing = list_webdav_videos(remote_directory_url, username, password)
     if not listing.get("success"):
         return {"attempted": True, "success": False, "deleted": [], "listing": listing}
-    extras = sorted(set(listing.get("names", [])) - expected_names)
+    extras = sorted(
+        name for name in set(listing.get("names", [])) - expected_names
+        if name.startswith(prefixes)
+    )
     deleted: list[str] = []
     errors: list[dict[str, Any]] = []
     for name in extras:
@@ -567,6 +585,7 @@ def prune_extra_webdav_videos(
         "deleted": deleted,
         "errors": errors,
         "listed_count": len(listing.get("names", [])),
+        "managed_prefixes": list(prefixes),
     }
 
 
@@ -839,3 +858,4 @@ def format_bytes(value: int) -> str:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+

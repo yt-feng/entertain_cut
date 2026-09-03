@@ -49,6 +49,7 @@ jobs:
       TIKHUB_API_KEY: ${{ secrets.TIKHUB_API_KEY }}
       APIMART_API_KEY: ${{ secrets.APIMART_API_KEY }}
       JIANGUOYUN_WEBDAV_URL: ${{ secrets.JIANGUOYUN_WEBDAV_URL }}
+      JIANGUOYUN_REMOTE_ROOT: ${{ vars.JIANGUOYUN_REMOTE_ROOT || '我的坚果云/KC Desk Notes/Ops' }}
       JIANGUOYUN_USERNAME: ${{ secrets.JIANGUOYUN_WEBDAV_USER || secrets.JIANGUOYUN_WEBDAV_USERNAME || secrets.JIANGUOYUN_USERNAME }}
       JIANGUOYUN_APP_PASSWORD: ${{ secrets.JIANGUOYUN_WEBDAV_PASSWORD || secrets.JIANGUOYUN_APP_PASSWORD }}
 
@@ -336,8 +337,9 @@ jobs:
         run: |
           python xhs2vid/upload_jianguoyun.py \
             --source-dir "$KC_OUTPUT_DIR" \
-            --remote-root "/我的坚果云/kc娱乐" \
+            --remote-root "$JIANGUOYUN_REMOTE_ROOT" \
             --date "$KC_OUTPUT_DATE" \
+            --category "Portal 娱乐" \
             --manifest "$KC_OUTPUT_DIR/jianguoyun_upload_manifest.json"
 
       - name: Require requested verified Jianguoyun uploads
@@ -390,3 +392,4 @@ jobs:
             work/xhs_daily/latest_run.txt
           if-no-files-found: warn
           retention-days: 7
+

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Upload a dated batch of MP4 files to Jianguoyun WebDAV.
 
-The destination layout is ``/<remote-root>/YYYY-MM-DD/``.  Nested folders in
+The destination layout is ``/<remote-root>/YYYY-MM-DD/<category>/``. Nested folders in
 ``--source-dir`` are preserved.  Credentials are read only from environment
 variables and are never included in log output or the optional local manifest.
 JSON evidence remains local unless ``--include-json`` is explicitly supplied.
@@ -29,7 +29,8 @@ from zoneinfo import ZoneInfo
 
 
 DEFAULT_WEBDAV_URL = "https://dav.jianguoyun.com/dav/"
-DEFAULT_REMOTE_ROOT = "我的坚果云/kc娱乐"
+DEFAULT_REMOTE_ROOT = "我的坚果云/KC Desk Notes/Ops"
+DEFAULT_CATEGORY = "Portal 娱乐"
 VIDEO_SUFFIXES = {".mp4"}
 RETRYABLE_STATUS_CODES = {408, 425, 429, 500, 502, 503, 504}
 COLLECTION_OK_STATUS_CODES = {200, 201, 204, 301, 302, 405}
@@ -382,13 +383,17 @@ def upload_directory(
     uploader: JianguoyunWebDAV | None = None,
     excluded_manifest: Path | None = None,
     include_json: bool = False,
+    category: str = "",
 ) -> dict:
     source_dir = source_dir.expanduser().resolve()
     if not source_dir.is_dir():
         raise FileNotFoundError(f"source directory does not exist: {source_dir}")
     date = validate_date(date)
     root_parts = remote_root_parts(remote_root)
-    destination = (*root_parts, date)
+    category = category.strip()
+    if category in {".", ".."} or "/" in category or "\\" in category:
+        raise ValueError("--category must be one folder name")
+    destination = (*root_parts, date, *((category,) if category else ()))
     files = discover_files(
         source_dir,
         excluded=excluded_manifest,
@@ -434,6 +439,7 @@ def upload_directory(
         "date": date,
         "remote_root": logical_remote_path(root_parts, directory=True),
         "remote_directory": logical_remote_path(destination, directory=True),
+        "category": category,
         "source_dir": str(source_dir),
         "dry_run": dry_run,
         "status": (
@@ -476,8 +482,13 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     )
     parser.add_argument(
         "--remote-root",
-        default=DEFAULT_REMOTE_ROOT,
+        default=os.environ.get("JIANGUOYUN_REMOTE_ROOT") or DEFAULT_REMOTE_ROOT,
         help=f"Remote WebDAV root folder (default: {DEFAULT_REMOTE_ROOT}).",
+    )
+    parser.add_argument(
+        "--category",
+        default=DEFAULT_CATEGORY,
+        help="Category inside the date folder (default: Portal 娱乐); empty omits it.",
     )
     parser.add_argument(
         "--date",
@@ -514,6 +525,7 @@ def main(argv: list[str] | None = None) -> int:
                 dry_run=True,
                 excluded_manifest=args.manifest,
                 include_json=args.include_json,
+                category=args.category,
             )
         else:
             base_url = (
@@ -545,6 +557,7 @@ def main(argv: list[str] | None = None) -> int:
                     uploader=uploader,
                     excluded_manifest=args.manifest,
                     include_json=args.include_json,
+                    category=args.category,
                 )
         if args.manifest:
             write_manifest(args.manifest, manifest)
@@ -566,3 +579,4 @@ def main(argv: list[str] | None = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+

@@ -8,11 +8,13 @@ from pathlib import Path
 import tempfile
 import threading
 import unittest
+from unittest import mock
 from urllib.parse import unquote, urlsplit
 
 from xhs2vid.upload_jianguoyun import (
     JianguoyunWebDAV,
     main,
+    parse_args,
     upload_directory,
 )
 
@@ -169,6 +171,37 @@ class MockWebDAVServer:
 
 
 class JianguoyunUploadTests(unittest.TestCase):
+    def test_category_upload_adds_five_without_touching_regular_five(self) -> None:
+        state = MockWebDAVState()
+        remote = "/dav/我的坚果云/KC Desk Notes/Ops/2026-09-03/Portal 娱乐"
+        regular = {f"{remote}/KC娱乐_{i}.mp4": b"regular" for i in range(5)}
+        state.resources.update(regular)
+        with tempfile.TemporaryDirectory() as temporary, MockWebDAVServer(state) as server:
+            source = Path(temporary)
+            for i in range(5):
+                (source / f"0{i + 1}_低粉_note{i}.mp4").write_bytes(b"low-follower")
+            with self._uploader(server) as uploader:
+                result = upload_directory(
+                    source_dir=source, remote_root="我的坚果云/KC Desk Notes/Ops",
+                    date="2026-09-03", category="Portal 娱乐", dry_run=False, uploader=uploader,
+                )
+        self.assertEqual(result["verified_count"], 5)
+        self.assertEqual(result["remote_directory"], remote.removeprefix("/dav") + "/")
+        self.assertEqual(len(state.resources), 10)
+        self.assertTrue(all(state.resources[name] == value for name, value in regular.items()))
+
+    def test_category_must_stay_inside_date_folder(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            for category in ("..", "../other", "other/folder", "other\\folder"):
+                with self.subTest(category=category), self.assertRaisesRegex(ValueError, "one folder name"):
+                    upload_directory(source_dir=Path(temporary), remote_root="root", date="2026-09-03", category=category, dry_run=True)
+
+    def test_cli_uses_shared_root_environment_override(self) -> None:
+        with mock.patch.dict("os.environ", {"JIANGUOYUN_REMOTE_ROOT": "我的坚果云/custom/Ops"}):
+            args = parse_args(["--source-dir", "/tmp/batch"])
+        self.assertEqual(args.remote_root, "我的坚果云/custom/Ops")
+        self.assertEqual(args.category, "Portal 娱乐")
+
     def _uploader(
         self, server: MockWebDAVServer, *, attempts: int = 3
     ) -> JianguoyunWebDAV:
@@ -304,9 +337,11 @@ class JianguoyunUploadTests(unittest.TestCase):
         self.assertEqual(manifest["status"], "planned")
         self.assertEqual(manifest["file_count"], 1)
         self.assertEqual(manifest["files"][0]["source"], "clip.mp4")
+        self.assertEqual(manifest["remote_directory"], "/我的坚果云/KC Desk Notes/Ops/2026-08-31/Portal 娱乐/")
         self.assertNotIn("test-app-password", output.getvalue())
         self.assertEqual(error.getvalue(), "")
 
 
 if __name__ == "__main__":
     unittest.main()
+
