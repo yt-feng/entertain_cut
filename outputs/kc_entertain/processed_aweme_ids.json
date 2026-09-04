@@ -1,7 +1,194 @@
 {
-  "updated_at": "2026-09-03T01:43:23.779832+00:00",
-  "count": 311,
+  "updated_at": "2026-09-04T01:57:56.259562+00:00",
+  "count": 317,
   "items": [
+    {
+      "aweme_id": "7681283514465045760",
+      "content_id": "7681283514465045760",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7681283514465045760/?region=US&mid=7681283576628792118&u_code=0&did=MS4wLjABAAAAMXaR0_6TZL8zh0L_OZWhSL6jldtWto4xdRm3nuW1XsY&iid=MS4wLjABAAAAHloE4rSBan8mPZYlfajzQvy51M6OtpT22e0x1623Yyc&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=4IOlqOa0ycEmqs0iNdLlNXGUliyUaW76pADAmogoy1M-&share_version=320900&ts=1788484522&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "每年放假145天 考个博士去胖东来干保安 #胖东来 #许嵩 #许嵩演唱会 #老徐别叨叨",
+      "author": "老徐别叨叨",
+      "like_count": 65154,
+      "comment_count": 7047,
+      "share_count": 24576,
+      "duration_ms": 261551,
+      "create_time_iso": "2026-09-03T12:23:12+00:00",
+      "known_entities": [
+        "胖东来",
+        "许嵩",
+        "许嵩演唱会",
+        "老徐别叨叨",
+        "演唱会"
+      ],
+      "verified_entities": [
+        "胖东来",
+        "许嵩",
+        "许嵩演唱会"
+      ],
+      "primary_celebrities": [
+        "许嵩"
+      ],
+      "quality_score": 316.264,
+      "output_date": "2026-09-04",
+      "selected_at": "2026-09-04T01:57:56.259562+00:00"
+    },
+    {
+      "aweme_id": "7681127835130712805",
+      "content_id": "7681127835130712805",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7681127835130712805/?region=US&mid=7681127733933394694&u_code=0&did=MS4wLjABAAAA3pNR7hs9XxTYeiwHiGIX9m69SPvNrj99Ntx3_gfWws0uK7m7hqwXkNN6dYWYTQc-&iid=MS4wLjABAAAAr0vteYzUA0pYZxemA2Xf4IFQDmyjwWeMZQf30H4kdLMLwcmZhGkwzish6P5DLiYO&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=PInNL3_PyCW.ADRimFZkvK62YkdZuBtGaxo8eeIzpEo-&share_version=320900&ts=1788484529&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "汪苏泷的眼睛只要离开提词器一秒钟就能创作新歌😂#汪苏泷 #演唱会 #搞笑 #明星 #名场面",
+      "author": "娱乐圈帅哥",
+      "like_count": 33729,
+      "comment_count": 412,
+      "share_count": 20763,
+      "duration_ms": 45167,
+      "create_time_iso": "2026-09-03T02:18:58+00:00",
+      "known_entities": [
+        "汪苏泷",
+        "演唱会",
+        "搞笑",
+        "名场面"
+      ],
+      "verified_entities": [
+        "汪苏泷",
+        "演唱会",
+        "名场面"
+      ],
+      "primary_celebrities": [
+        "汪苏泷"
+      ],
+      "quality_score": 277.277,
+      "output_date": "2026-09-04",
+      "selected_at": "2026-09-04T01:57:56.259562+00:00"
+    },
+    {
+      "aweme_id": "7681149241229692186",
+      "content_id": "7681149241229692186",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7681149241229692186/?region=US&mid=7681149215162731315&u_code=0&did=MS4wLjABAAAA3pNR7hs9XxTYeiwHiGIX9m69SPvNrj99Ntx3_gfWws0uK7m7hqwXkNN6dYWYTQc-&iid=MS4wLjABAAAAr0vteYzUA0pYZxemA2Xf4IFQDmyjwWeMZQf30H4kdLMLwcmZhGkwzish6P5DLiYO&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=eJxgezevOTLObOG.dMX94ZVFDPye5_PA_E94MOmjBh8-&share_version=320900&ts=1788484529&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "事已至此，贵阳给我个机会好吗#王俊凯 #王俊凯演唱会 #贵阳 #贵阳文旅",
+      "author": "二花喵呜酱",
+      "like_count": 11349,
+      "comment_count": 1347,
+      "share_count": 16839,
+      "duration_ms": 31139,
+      "create_time_iso": "2026-09-03T03:42:06+00:00",
+      "known_entities": [
+        "王俊凯",
+        "演唱会",
+        "王俊凯演唱会",
+        "贵阳",
+        "贵阳文旅"
+      ],
+      "verified_entities": [
+        "王俊凯",
+        "王俊凯演唱会",
+        "贵阳"
+      ],
+      "primary_celebrities": [
+        "王俊凯"
+      ],
+      "quality_score": 265.98,
+      "output_date": "2026-09-04",
+      "selected_at": "2026-09-04T01:57:56.259562+00:00"
+    },
+    {
+      "aweme_id": "7681147858594096881",
+      "content_id": "7681147858594096881",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7681147858594096881/?region=US&mid=7681147780710025984&u_code=0&did=MS4wLjABAAAAF3mKCkG79X5LuoKbrn9vCkeKN9yiZJc2HOwYck-juSkgRsrR_2XMg-F-FpG-_bn4&iid=MS4wLjABAAAA5_JmZZmFIEqj6rrDeUKX3Ekmh5_B7aoc1jpHdofwikPM2LXpuH2rnDlYi0ebRHej&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=RIRQPN8eg0UJqh.J8D7PTUgNes0nWJwrQ0cdyScVOjc-&share_version=320900&ts=1788484516&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "宁静“语言的艺术”好的团体才能融入#赵丽颖#宁静#花少2 #偶像来了#综艺",
+      "author": "今天要早睡",
+      "like_count": 22647,
+      "comment_count": 500,
+      "share_count": 1959,
+      "duration_ms": 11200,
+      "create_time_iso": "2026-09-03T03:36:40+00:00",
+      "known_entities": [
+        "赵丽颖",
+        "宁静",
+        "花少2",
+        "偶像来了"
+      ],
+      "verified_entities": [
+        "宁静",
+        "赵丽颖",
+        "花少2",
+        "偶像来了"
+      ],
+      "primary_celebrities": [
+        "宁静",
+        "赵丽颖"
+      ],
+      "quality_score": 244.267,
+      "output_date": "2026-09-04",
+      "selected_at": "2026-09-04T01:57:56.259562+00:00"
+    },
+    {
+      "aweme_id": "7681254960620703002",
+      "content_id": "7681254960620703002",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7681254960620703002/?region=US&mid=7681254940840414002&u_code=0&did=MS4wLjABAAAAF3mKCkG79X5LuoKbrn9vCkeKN9yiZJc2HOwYck-juSkgRsrR_2XMg-F-FpG-_bn4&iid=MS4wLjABAAAA5_JmZZmFIEqj6rrDeUKX3Ekmh5_B7aoc1jpHdofwikPM2LXpuH2rnDlYi0ebRHej&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=Wcy2dbDski5I8pq_4asylKFp7E.KvmNchrAF6UqzQR4-&share_version=320900&ts=1788484516&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "花儿与少年2直播母带，这个我是真想看  #花儿与少年2 #花学 #毛阿敏 #宁静 #井柏然",
+      "author": "猫萌萌🖤🖤",
+      "like_count": 6378,
+      "comment_count": 2792,
+      "share_count": 5615,
+      "duration_ms": 47000,
+      "create_time_iso": "2026-09-03T10:32:22+00:00",
+      "known_entities": [
+        "宁静",
+        "花儿与少年"
+      ],
+      "verified_entities": [
+        "宁静",
+        "花儿与少年"
+      ],
+      "primary_celebrities": [
+        "宁静"
+      ],
+      "quality_score": 247.04,
+      "output_date": "2026-09-04",
+      "selected_at": "2026-09-04T01:57:56.259562+00:00"
+    },
+    {
+      "aweme_id": "7681236914063073658",
+      "content_id": "7681236914063073658",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7681236914063073658/?region=US&mid=7677977372822948659&u_code=0&did=MS4wLjABAAAA3pNR7hs9XxTYeiwHiGIX9m69SPvNrj99Ntx3_gfWws0uK7m7hqwXkNN6dYWYTQc-&iid=MS4wLjABAAAAr0vteYzUA0pYZxemA2Xf4IFQDmyjwWeMZQf30H4kdLMLwcmZhGkwzish6P5DLiYO&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=9E9Dnyl0CkZ.6VYX4y6ggglFLgA71cLVn8SUEtpUZVU-&share_version=320900&ts=1788484529&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "古天乐澳门演唱会 阵容强大，好多港台明星前来助阵！#古天乐#宣萱#林峯#汪明荃#神不在香港",
+      "author": "走心现场live",
+      "like_count": 8724,
+      "comment_count": 337,
+      "share_count": 491,
+      "duration_ms": 32200,
+      "create_time_iso": "2026-09-03T09:22:15+00:00",
+      "known_entities": [
+        "演唱会",
+        "古天乐",
+        "宣萱",
+        "林峯",
+        "汪明荃"
+      ],
+      "verified_entities": [
+        "古天乐",
+        "宣萱",
+        "林峯",
+        "汪明荃",
+        "演唱会"
+      ],
+      "primary_celebrities": [
+        "古天乐",
+        "宣萱",
+        "林峯",
+        "汪明荃"
+      ],
+      "quality_score": 219.947,
+      "output_date": "2026-09-04",
+      "selected_at": "2026-09-04T01:57:56.259562+00:00"
+    },
     {
       "aweme_id": "7680890826922233138",
       "content_id": "7680890826922233138",
