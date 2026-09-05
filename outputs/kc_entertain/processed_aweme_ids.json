@@ -1,7 +1,235 @@
 {
-  "updated_at": "2026-09-04T01:57:56.259562+00:00",
-  "count": 317,
+  "updated_at": "2026-09-05T01:40:54.796033+00:00",
+  "count": 325,
   "items": [
+    {
+      "aweme_id": "7681521023174626047",
+      "content_id": "7681521023174626047",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7681521023174626047/?region=US&mid=7681520971236608806&u_code=0&did=MS4wLjABAAAAv5qHiJFMcz0JgVw16Qv40vIv9bXgBMAfuq1PLZYuc1TtXzihxfuIby5bNI8qLK15&iid=MS4wLjABAAAABBnnLAZLkboulxffts-PVVBvBXYDKniKydAy2ZRjth6obpnUdtIT6PP4Vt93qIe3&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=hENZjYQ9f30QM7zs42g3DDJpxbpq25SG_82vfrK3DUE-&share_version=320900&ts=1788570793&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "这段可能是杨洋最想花少买断的视频之一哈哈哈#杨洋 #花儿与少年 #花少2 #综艺搞笑名场面",
+      "author": "YANG.",
+      "like_count": 262754,
+      "comment_count": 10789,
+      "share_count": 283689,
+      "duration_ms": 33734,
+      "create_time_iso": "2026-09-04T03:44:47+00:00",
+      "known_entities": [
+        "花儿与少年",
+        "杨洋",
+        "花少2",
+        "综艺搞笑名场面",
+        "搞笑"
+      ],
+      "verified_entities": [
+        "花儿与少年",
+        "杨洋",
+        "花少2"
+      ],
+      "primary_celebrities": [
+        "杨洋"
+      ],
+      "quality_score": 315.698,
+      "output_date": "2026-09-05",
+      "selected_at": "2026-09-05T01:40:54.796033+00:00"
+    },
+    {
+      "aweme_id": "7681747443202446675",
+      "content_id": "7681747443202446675",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7681747443202446675/?region=US&mid=7672241405472885540&u_code=0&did=MS4wLjABAAAAv5qHiJFMcz0JgVw16Qv40vIv9bXgBMAfuq1PLZYuc1TtXzihxfuIby5bNI8qLK15&iid=MS4wLjABAAAABBnnLAZLkboulxffts-PVVBvBXYDKniKydAy2ZRjth6obpnUdtIT6PP4Vt93qIe3&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=HFWvO13otB5pYWCWRNjWGiwbez5W7gVZMpsjd9QlpXw-&share_version=320900&ts=1788570793&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "这个杨洋笑的我好崩溃谁懂#杨洋#花儿与少年#花少2#综艺#剪映",
+      "author": "ZHIEN.",
+      "like_count": 106263,
+      "comment_count": 5835,
+      "share_count": 330749,
+      "duration_ms": 26448,
+      "create_time_iso": "2026-09-04T18:23:23+00:00",
+      "known_entities": [
+        "花儿与少年",
+        "杨洋",
+        "花少2",
+        "剪映"
+      ],
+      "verified_entities": [
+        "花儿与少年",
+        "杨洋",
+        "花少2"
+      ],
+      "primary_celebrities": [
+        "杨洋"
+      ],
+      "quality_score": 304.043,
+      "output_date": "2026-09-05",
+      "selected_at": "2026-09-05T01:40:54.796033+00:00"
+    },
+    {
+      "aweme_id": "7681644000345181435",
+      "content_id": "7681644000345181435",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7681644000345181435/?region=US&mid=6489261235148688141&u_code=0&did=MS4wLjABAAAAv5qHiJFMcz0JgVw16Qv40vIv9bXgBMAfuq1PLZYuc1TtXzihxfuIby5bNI8qLK15&iid=MS4wLjABAAAABBnnLAZLkboulxffts-PVVBvBXYDKniKydAy2ZRjth6obpnUdtIT6PP4Vt93qIe3&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=pSxW_amYs2rop1ULa7B9kfTlywZQs2kWKtRMyReB4JE-&share_version=320900&ts=1788570793&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "又当翻译又当导游又当苦力，累成老黄牛了还要被骂，侯明昊我真的心疼你…\n#侯明昊 #花少6 #综艺",
+      "author": "翻斗花园小lin_nzi",
+      "like_count": 67645,
+      "comment_count": 5427,
+      "share_count": 65282,
+      "duration_ms": 27200,
+      "create_time_iso": "2026-09-04T11:41:57+00:00",
+      "known_entities": [
+        "侯明昊",
+        "花少6"
+      ],
+      "verified_entities": [
+        "侯明昊",
+        "花少6"
+      ],
+      "primary_celebrities": [
+        "侯明昊"
+      ],
+      "quality_score": 285.196,
+      "output_date": "2026-09-05",
+      "selected_at": "2026-09-05T01:40:54.796033+00:00"
+    },
+    {
+      "aweme_id": "7681564306655284520",
+      "content_id": "7681564306655284520",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7681564306655284520/?region=US&mid=7681564299911187241&u_code=0&did=MS4wLjABAAAAhyQRlW1e4tM-HVV3ahYKHIhm9HDT7zcoVGhddZvsMRZAuDpJvnus-6rbLxYX9lj2&iid=MS4wLjABAAAAcgA6iRJUHIzJPw2CanwKaWTcmZGeL1yn320lx2o5dcraS4A1NILnul0ow8EASMJE&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=fzx40KjXY1.QbSewh2JKezOkEUrh0GnrsljGbTBHEdk-&share_version=320900&ts=1788570785&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "这个导演组胆子真是肥嘟嘟的 #花儿与少年 #搞笑 #抓马 #吴君如 #王星越",
+      "author": "大板凳娱乐",
+      "like_count": 92720,
+      "comment_count": 2535,
+      "share_count": 31502,
+      "duration_ms": 77950,
+      "create_time_iso": "2026-09-04T06:32:47+00:00",
+      "known_entities": [
+        "花儿与少年",
+        "搞笑",
+        "抓马",
+        "吴君如",
+        "王星越"
+      ],
+      "verified_entities": [
+        "花儿与少年",
+        "吴君如",
+        "王星越"
+      ],
+      "primary_celebrities": [
+        "吴君如",
+        "王星越"
+      ],
+      "quality_score": 281.061,
+      "output_date": "2026-09-05",
+      "selected_at": "2026-09-05T01:40:54.796033+00:00"
+    },
+    {
+      "aweme_id": "7681590104993113699",
+      "content_id": "7681590104993113699",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7681590104993113699/?region=US&mid=7681590028471962414&u_code=0&did=MS4wLjABAAAAv5qHiJFMcz0JgVw16Qv40vIv9bXgBMAfuq1PLZYuc1TtXzihxfuIby5bNI8qLK15&iid=MS4wLjABAAAABBnnLAZLkboulxffts-PVVBvBXYDKniKydAy2ZRjth6obpnUdtIT6PP4Vt93qIe3&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=R8Fg8esrVKXTsgD_V5fQpQL9wMcT7uuBXyx_hzyBDIc-&share_version=320900&ts=1788570793&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "邓为陪看花少8先导片～ 第一次看邓为的综艺，哈哈！跟着一起笑！很可爱很松弛🤭期待下周11日的正片啦！\n#邓为 #花儿与少年 #花儿与少年8 #花儿与少年邓为 #邓为综艺",
+      "author": "空空",
+      "like_count": 6036,
+      "comment_count": 583,
+      "share_count": 943,
+      "duration_ms": 89734,
+      "create_time_iso": "2026-09-04T08:12:50+00:00",
+      "known_entities": [
+        "邓为",
+        "花儿与少年"
+      ],
+      "verified_entities": [
+        "邓为",
+        "花儿与少年"
+      ],
+      "primary_celebrities": [
+        "邓为"
+      ],
+      "quality_score": 239.217,
+      "output_date": "2026-09-05",
+      "selected_at": "2026-09-05T01:40:54.796033+00:00"
+    },
+    {
+      "aweme_id": "7681530289708944690",
+      "content_id": "7681530289708944690",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7681530289708944690/?region=US&mid=7681530267621968676&u_code=0&did=MS4wLjABAAAAhyQRlW1e4tM-HVV3ahYKHIhm9HDT7zcoVGhddZvsMRZAuDpJvnus-6rbLxYX9lj2&iid=MS4wLjABAAAAcgA6iRJUHIzJPw2CanwKaWTcmZGeL1yn320lx2o5dcraS4A1NILnul0ow8EASMJE&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=nts9yMwj0k_W0lMsLkIPn9.t13VLRteJnVGDumPThrk-&share_version=320900&ts=1788570785&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#吴君如e人闯入i人堆 大姐吴君如自信满满加入i人大军，原来“硬i”的意思是“硬要i”#花儿与少年 #花儿与少年2026",
+      "author": "花儿与少年",
+      "like_count": 2262,
+      "comment_count": 240,
+      "share_count": 456,
+      "duration_ms": 47416,
+      "create_time_iso": "2026-09-04T04:20:47+00:00",
+      "known_entities": [
+        "花儿与少年",
+        "吴君如"
+      ],
+      "verified_entities": [
+        "花儿与少年",
+        "吴君如"
+      ],
+      "primary_celebrities": [
+        "吴君如"
+      ],
+      "quality_score": 204.49,
+      "output_date": "2026-09-05",
+      "selected_at": "2026-09-05T01:40:54.796033+00:00"
+    },
+    {
+      "aweme_id": "7681631110288425314",
+      "content_id": "7681631110288425314",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7681631110288425314/?region=US&mid=7632047133353756688&u_code=0&did=MS4wLjABAAAAx13_bwoNVGh70ZNEpwVArixNN2UrrLtm82dtMMTxZ3FtiNO96Pqli5zFKaE4eUkc&iid=MS4wLjABAAAAN_jdAvAh3aiLxy74ySJTkJsQVgS83tCl_HoeeDKKBuhU5T3cK8vtqqjGt5b-lEtb&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=IRtgR6gHmGY5wMXt5dVafWXFNKucr_ie4.j4p67jnxI-&share_version=320900&ts=1788570783&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "中山9.4孟子义丁禹兮电视剧爱在无尽夏#明星街头偶遇",
+      "author": "❤Cc",
+      "like_count": 1447,
+      "comment_count": 384,
+      "share_count": 3499,
+      "duration_ms": 26075,
+      "create_time_iso": "2026-09-04T10:51:57+00:00",
+      "known_entities": [
+        "丁禹兮",
+        "爱在无尽夏"
+      ],
+      "verified_entities": [
+        "丁禹兮",
+        "爱在无尽夏"
+      ],
+      "primary_celebrities": [
+        "丁禹兮",
+        "孟子义"
+      ],
+      "quality_score": 201.396,
+      "output_date": "2026-09-05",
+      "selected_at": "2026-09-05T01:40:54.796033+00:00"
+    },
+    {
+      "aweme_id": "7681619772135816443",
+      "content_id": "7681619772135816443",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7681619772135816443/?region=US&mid=7256615355924351799&u_code=0&did=MS4wLjABAAAAx13_bwoNVGh70ZNEpwVArixNN2UrrLtm82dtMMTxZ3FtiNO96Pqli5zFKaE4eUkc&iid=MS4wLjABAAAAN_jdAvAh3aiLxy74ySJTkJsQVgS83tCl_HoeeDKKBuhU5T3cK8vtqqjGt5b-lEtb&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=E6Evubwvi5RHLYSOablEGPHLRfTP_fkdwVs8cYrFOSc-&share_version=320900&ts=1788570783&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "孟子义高至霆这俩人在剧里又是什么关系🤔#孟子义  #郝念 #路透 #爱在无尽夏 #高至霆",
+      "author": "姗姗不迟",
+      "like_count": 3060,
+      "comment_count": 176,
+      "share_count": 116,
+      "duration_ms": 11100,
+      "create_time_iso": "2026-09-04T10:07:56+00:00",
+      "known_entities": [
+        "爱在无尽夏"
+      ],
+      "verified_entities": [
+        "爱在无尽夏"
+      ],
+      "primary_celebrities": [
+        "孟子义",
+        "高至霆"
+      ],
+      "quality_score": 186.861,
+      "output_date": "2026-09-05",
+      "selected_at": "2026-09-05T01:40:54.796033+00:00"
+    },
     {
       "aweme_id": "7681283514465045760",
       "content_id": "7681283514465045760",
