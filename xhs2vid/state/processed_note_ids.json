@@ -1,7 +1,72 @@
 {
   "version": 1,
-  "updated_at": "2026-09-04T01:12:21.781143+08:00",
+  "updated_at": "2026-09-06T11:26:11.351523+08:00",
   "items": [
+    {
+      "note_id": "6a9bc219000000001001eb34",
+      "title": "你看起来伤痕累累，我想做你的创可贴",
+      "output": "01_你看起来伤痕累累，我想做你的创可贴_1001eb34.mp4",
+      "rendered_at": "2026-09-05T23:49:31.560773+08:00",
+      "author_fans": 173,
+      "liked_count": 1131,
+      "comments_count": 88,
+      "source_run_id": "33974893983",
+      "source_output": "01_你看起来伤痕累累，我想做你的创可贴_1001eb34.mp4",
+      "delivery_date": "2026-09-05",
+      "uploaded_at": "2026-09-06T11:26:11.351523+08:00"
+    },
+    {
+      "note_id": "6a9b3ec5000000002b0001b0",
+      "title": "#搞笑日常 #该死的好奇心 #有点离谱但别太离谱 #巧合一定是巧合 #当时就把我",
+      "output": "02_#搞笑日常_#该死的好奇心_#有点离谱但别太离谱_#巧合一定是巧合_#当时就把我_2b0001b0.mp4",
+      "rendered_at": "2026-09-05T23:49:31.560773+08:00",
+      "author_fans": 3332,
+      "liked_count": 391,
+      "comments_count": 25,
+      "source_run_id": "33974893983",
+      "source_output": "02_#搞笑日常_#该死的好奇心_#有点离谱但别太离谱_#巧合一定是巧合_#当时就把我_2b0001b0.mp4",
+      "delivery_date": "2026-09-05",
+      "uploaded_at": "2026-09-06T11:26:11.351523+08:00"
+    },
+    {
+      "note_id": "6a9ae8bb0000000025036795",
+      "title": "中年男人的深情，到底是真心，还是执念？",
+      "output": "03_中年男人的深情，到底是真心，还是执念？_25036795.mp4",
+      "rendered_at": "2026-09-05T23:49:31.560773+08:00",
+      "author_fans": 3288,
+      "liked_count": 439,
+      "comments_count": 430,
+      "source_run_id": "33974893983",
+      "source_output": "03_中年男人的深情，到底是真心，还是执念？_25036795.mp4",
+      "delivery_date": "2026-09-05",
+      "uploaded_at": "2026-09-06T11:26:11.351523+08:00"
+    },
+    {
+      "note_id": "6a9a2d9c000000001203f2bb",
+      "title": "没忍住，给相亲对象介绍对象了……",
+      "output": "04_没忍住，给相亲对象介绍对象了……_1203f2bb.mp4",
+      "rendered_at": "2026-09-05T00:51:48.388676+08:00",
+      "author_fans": 7,
+      "liked_count": 1071,
+      "comments_count": 163,
+      "source_run_id": "33895770829",
+      "source_output": "01_没忍住，给相亲对象介绍对象了……_1203f2bb.mp4",
+      "delivery_date": "2026-09-05",
+      "uploaded_at": "2026-09-06T11:26:11.351523+08:00"
+    },
+    {
+      "note_id": "6a9a60180000000012037a89",
+      "title": "Blowing up a blind date today",
+      "output": "05_Blowing_up_a_blind_date_today_12037a89.mp4",
+      "rendered_at": "2026-09-05T00:51:48.388676+08:00",
+      "author_fans": 51,
+      "liked_count": 328,
+      "comments_count": 50,
+      "source_run_id": "33895770829",
+      "source_output": "02_Blowing_up_a_blind_date_today_12037a89.mp4",
+      "delivery_date": "2026-09-05",
+      "uploaded_at": "2026-09-06T11:26:11.351523+08:00"
+    },
     {
       "note_id": "6a98ddd5000000000b0345f5",
       "title": "女装尺码小得多离谱",
