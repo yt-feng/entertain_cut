@@ -28,6 +28,7 @@ def main() -> None:
     args = parse_args()
     incoming = json.loads(args.new_path.read_text(encoding="utf-8"))
     incoming_items = incoming.get("items") or []
+    delivery_date = str(incoming.get("date") or "").strip()
     if not incoming_items:
         raise SystemExit("new_processed.json contains no uploaded items")
 
@@ -46,7 +47,10 @@ def main() -> None:
         note_id = str(item.get("note_id") or "")
         if not note_id:
             continue
-        by_id[note_id] = {**item, "uploaded_at": now}
+        record = {**item, "uploaded_at": now}
+        if delivery_date:
+            record["delivery_date"] = delivery_date
+        by_id[note_id] = record
     merged = sorted(
         by_id.values(),
         key=lambda item: str(item.get("uploaded_at") or item.get("rendered_at") or ""),

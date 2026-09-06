@@ -223,7 +223,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--prefer-same-day",
         action="store_true",
-        help="北京时间当天优先；当天不足时由最近 26 小时候选补足。",
+        help="目标业务日优先；不足时由最近 26 小时候选补足。",
+    )
+    parser.add_argument(
+        "--target-date",
+        help="业务日期 YYYY-MM-DD；默认使用当前北京时间日期。",
     )
     parser.add_argument("--strict-low-fan", action="store_true")
     parser.add_argument(
@@ -255,6 +259,13 @@ def parse_args() -> argparse.Namespace:
             parser.error("--keyword must provide between 1 and 8 non-empty values")
     if args.same_day and args.prefer_same_day:
         parser.error("--same-day and --prefer-same-day cannot be used together")
+    if args.target_date:
+        try:
+            parsed_target = datetime.fromisoformat(args.target_date).date().isoformat()
+        except ValueError:
+            parser.error("--target-date must use YYYY-MM-DD")
+        if parsed_target != args.target_date:
+            parser.error("--target-date must use YYYY-MM-DD")
     return args
 
 
@@ -281,7 +292,11 @@ def main() -> None:
 
     now = time.time()
     beijing = ZoneInfo("Asia/Shanghai")
-    today = datetime.fromtimestamp(now, beijing).date()
+    today = (
+        datetime.fromisoformat(args.target_date).date()
+        if args.target_date
+        else datetime.fromtimestamp(now, beijing).date()
+    )
     notes = search_all()
     fresh = [
         n
@@ -329,9 +344,10 @@ def main() -> None:
         time.sleep(0.4)
 
     low_fan = [
-        c
-        for c in candidates
-        if 0 <= c["author_fans"] <= FANS_MAX and c["liked_count"] >= LIKES_MIN
+        candidate
+        for candidate in candidates
+        if 0 <= candidate["author_fans"] <= FANS_MAX
+        and candidate["liked_count"] >= LIKES_MIN
     ]
     if args.strict_low_fan and not low_fan:
         raise SystemExit(

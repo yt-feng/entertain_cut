@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.util
+from datetime import datetime
 import json
 from pathlib import Path
 import sys
@@ -27,6 +28,8 @@ fetch = load_module("xhs_fetch_test", XHS / "fetch_assets.py")
 batch = load_module("xhs_batch_test", XHS / "run_daily_batch.py")
 renderer = load_module("xhs_renderer_test", XHS / "render_video.py")
 recorder = load_module("xhs_recorder_test", XHS / "record_processed.py")
+import prepare_resume as resume  # noqa: E402
+import workflow_support as workflow  # noqa: E402
 
 
 class XhsDailyTests(unittest.TestCase):
@@ -108,6 +111,7 @@ class XhsDailyTests(unittest.TestCase):
             incoming.write_text(
                 json.dumps(
                     {
+                        "date": "2026-09-05",
                         "items": [
                             {"note_id": "old", "title": "updated"},
                             {"note_id": "new", "title": "new"},
@@ -129,6 +133,139 @@ class XhsDailyTests(unittest.TestCase):
             payload = json.loads(current.read_text(encoding="utf-8"))
             self.assertEqual({item["note_id"] for item in payload["items"]}, {"old", "new"})
             self.assertEqual(len(payload["items"]), 2)
+            new_item = next(item for item in payload["items"] if item["note_id"] == "new")
+            self.assertEqual(new_item["delivery_date"], "2026-09-05")
+
+    def test_delayed_schedule_and_compensation_share_business_date(self) -> None:
+        primary_delayed = datetime.fromisoformat("2026-09-04T16:33:06+00:00")
+        compensation = datetime.fromisoformat("2026-09-06T00:30:00+00:00")
+
+        self.assertEqual(
+            workflow.resolve_output_date(
+                "schedule",
+                schedule_expression="30 12 * * *",
+                now=primary_delayed,
+            ),
+            "2026-09-04",
+        )
+        self.assertEqual(
+            workflow.resolve_output_date(
+                "schedule",
+                schedule_expression="30 20 * * *",
+                now=compensation,
+            ),
+            "2026-09-05",
+        )
+
+        self.assertEqual(
+            workflow.resolve_output_date(
+                "workflow_dispatch",
+                "2026-09-05",
+                now=compensation,
+            ),
+            "2026-09-05",
+        )
+
+    def test_resume_quality_does_not_lower_the_original_gates(self) -> None:
+        good = {"author_fans": 20_000, "liked_count": 200, "comments_count": 3}
+        self.assertTrue(resume.verified_quality(good))
+        for change in ({"author_fans": 20_001}, {"author_fans": -1},
+                       {"liked_count": 199}, {"comments_count": 2}):
+            self.assertFalse(resume.verified_quality({**good, **change}))
+
+    def test_historical_recovery_cannot_generate_current_posts(self) -> None:
+        now = datetime.fromisoformat("2026-09-06T00:30:00+00:00")
+        self.assertEqual(workflow.require_recent_discovery_date("2026-09-05", now=now), "2026-09-05")
+        with self.assertRaisesRegex(ValueError, "existing artifacts"):
+            workflow.require_recent_discovery_date("2026-09-01", now=now)
+
+    def test_resume_merges_unique_artifacts_and_survives_another_failed_attempt(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            resume_root = root / "resume"
+            output_dir = root / "output"
+            artifact_date = "2026-09-05"
+
+            def write_artifact(run_id: str, note_ids: list[str], used: int) -> None:
+                dated = resume_root / run_id / "outputs" / "xhs_lowfan" / artifact_date
+                dated.mkdir(parents=True)
+                items = []
+                for index, note_id in enumerate(note_ids, start=1):
+                    output = f"{index:02d}_{note_id}.mp4"
+                    (dated / output).write_bytes(f"video-{note_id}".encode())
+                    items.append({"note_id": note_id, "output": output})
+                (dated / "new_processed.json").write_text(
+                    json.dumps({"date": artifact_date, "items": items}),
+                    encoding="utf-8",
+                )
+                (dated / "daily_summary.json").write_text(
+                    json.dumps(
+                        {
+                            "date": artifact_date,
+                            "items": [
+                                {
+                                    **item,
+                                    "status": "success",
+                                    "author_fans": 100,
+                                    "liked_count": 300,
+                                    "comments_count": 10,
+                                }
+                                for item in items
+                            ],
+                        }
+                    ),
+                    encoding="utf-8",
+                )
+                (dated / "tikhub_request_budget.json").write_text(
+                    json.dumps({"used": used, "limit": 90}),
+                    encoding="utf-8",
+                )
+
+            write_artifact("33895770829", ["a", "b", "c", "d"], 40)
+            write_artifact("33974893983", ["e", "f", "g"], 38)
+
+            summary = resume.merge_artifacts(
+                resume_root,
+                artifact_date,
+                output_dir,
+                5,
+            )
+
+            self.assertTrue(summary["target_met"])
+            self.assertEqual(summary["resumed_count"], 5)
+            self.assertEqual(summary["contributing_run_ids"], ["33974893983", "33895770829"])
+            self.assertEqual(summary["prior_tikhub_requests"], 78)
+            manifest = json.loads((output_dir / "resume_processed.json").read_text())
+            self.assertEqual([item["note_id"] for item in manifest["items"]], ["e", "f", "g", "a", "b"])
+            self.assertEqual(
+                [item["output"] for item in manifest["items"]],
+                ["01_e.mp4", "02_f.mp4", "03_g.mp4", "04_a.mp4", "05_b.mp4"],
+            )
+            self.assertEqual(len(list(output_dir.glob("*.mp4"))), 5)
+
+            # The upload-only recovery can fail before final delivery. Its
+            # artifact must be independently reusable, with every ancestor's
+            # budget counted just once when original artifacts also remain.
+            second_run = resume_root / "34000000000" / "outputs" / "xhs_lowfan" / artifact_date
+            second_run.parent.mkdir(parents=True)
+            output_dir.rename(second_run)
+            (second_run / "tikhub_request_budget.json").write_text(
+                json.dumps({"used": 4, "limit": 21}), encoding="utf-8"
+            )
+            second_summary = resume.merge_artifacts(
+                resume_root, artifact_date, root / "second_output", 5,
+            )
+            self.assertEqual(second_summary["resumed_count"], 5)
+            self.assertEqual(second_summary["prior_tikhub_requests"], 82)
+            self.assertEqual(second_summary["contributing_run_ids"], ["34000000000"])
+
+            # A zero-video attempt still consumes the same daily budget.
+            write_artifact("34000000001", [], 18)
+            with self.assertRaisesRegex(ValueError, "100 TikHub requests"):
+                resume.merge_artifacts(
+                    resume_root, artifact_date, root / "over_budget", 5,
+                )
+            self.assertFalse(list((root / "over_budget").glob("*.mp4")))
 
     def test_synthetic_sfx_fallback_is_portable(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:

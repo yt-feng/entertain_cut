@@ -20,6 +20,9 @@ import sys
 import traceback
 from zoneinfo import ZoneInfo
 
+from tikhub_budget import TikHubRequestBudget
+from workflow_support import require_recent_discovery_date
+
 
 ROOT = Path(__file__).resolve().parent.parent
 SCRIPT_DIR = ROOT / "xhs2vid"
@@ -198,6 +201,10 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
+    try:
+        require_recent_discovery_date(args.date)
+    except ValueError as exc:
+        raise SystemExit(str(exc)) from exc
     run_stamp = datetime.now(BEIJING).strftime("%Y%m%d_%H%M%S")
     batch_dir = (args.work_root / args.date / run_stamp).expanduser().resolve()
     discovery_dir = batch_dir / "discovery"
@@ -206,7 +213,14 @@ def main() -> None:
     discovery_dir.mkdir(parents=True, exist_ok=True)
     notes_root.mkdir(parents=True, exist_ok=True)
     output_dir.mkdir(parents=True, exist_ok=True)
-    budget_file = batch_dir / "tikhub_request_budget.json"
+    # Keep the live counter in the always-uploaded evidence directory, even
+    # when discovery exits before a first video can be rendered.
+    budget_file = output_dir / "tikhub_request_budget.json"
+    TikHubRequestBudget(budget_file, limit=args.request_limit)
+    for name in ("new_processed.json", "daily_summary.json"):
+        (output_dir / name).write_text(
+            json.dumps({"date": args.date, "items": []}), encoding="utf-8"
+        )
 
     excluded = processed_note_ids(args.processed_manifest.expanduser().resolve())
     desired_candidates = min(args.limit + args.reserve, args.top_author_check, 20)
@@ -222,6 +236,7 @@ def main() -> None:
         "--limit", str(desired_candidates),
         "--strict-low-fan",
         "--prefer-same-day",
+        "--target-date", args.date,
     ]
     for keyword in args.keywords or DAILY_KEYWORDS:
         discovery_command.extend(["--keyword", keyword])
@@ -357,8 +372,6 @@ def main() -> None:
     summary_path = batch_dir / "daily_summary.json"
     summary_path.write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
     shutil.copy2(summary_path, output_dir / "daily_summary.json")
-    if budget_file.is_file():
-        shutil.copy2(budget_file, output_dir / "tikhub_request_budget.json")
     for discovery_name in ("candidates.json", "selected_notes.json"):
         discovery_file = discovery_dir / discovery_name
         if discovery_file.is_file():
@@ -371,6 +384,9 @@ def main() -> None:
                 "title": item["title"],
                 "output": Path(item["output"]).name,
                 "rendered_at": summary["completed_at"],
+                "author_fans": item.get("author_fans"),
+                "liked_count": item.get("liked_count"),
+                "comments_count": item.get("comments_count"),
             }
             for item in successes
         ],
