@@ -1,7 +1,152 @@
 {
-  "updated_at": "2026-09-05T01:40:54.796033+00:00",
-  "count": 325,
+  "updated_at": "2026-09-06T02:10:26.529863+00:00",
+  "count": 330,
   "items": [
+    {
+      "aweme_id": "7681971760169831715",
+      "content_id": "7681971760169831715",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7681971760169831715/?region=US&mid=7681971758907411209&u_code=0&did=MS4wLjABAAAAllKSlJ371d3M2JYCpaoAN4vv4exumqiXcHL-3JZQrqdtX7wBYII30fXTt5OU1LPG&iid=MS4wLjABAAAAGwMGYenJyVQFMnKLH0pOYLGIsEKewqt1tUINrN7oY_4H_pxCRge_srSDwXXOdTNC&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=mNC53kDiWJhckkfVoG2kBZOS3H4c75DdFvsItiEUbQk-&share_version=320900&ts=1788659173&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "光顾着分析花少2 忘了一路繁花这个真神了#花少2 #一路繁花 #贺峻霖 #搞笑#牛在在",
+      "author": "爆爆小薯",
+      "like_count": 207957,
+      "comment_count": 4613,
+      "share_count": 100496,
+      "duration_ms": 99545,
+      "create_time_iso": "2026-09-05T08:53:59+00:00",
+      "known_entities": [
+        "花少2",
+        "一路繁花",
+        "贺峻霖",
+        "搞笑",
+        "牛在在",
+        "花少"
+      ],
+      "verified_entities": [
+        "花少2",
+        "一路繁花",
+        "贺峻霖",
+        "牛在在"
+      ],
+      "primary_celebrities": [
+        "贺峻霖",
+        "牛在在"
+      ],
+      "quality_score": 309.789,
+      "output_date": "2026-09-06",
+      "selected_at": "2026-09-06T02:10:26.529863+00:00"
+    },
+    {
+      "aweme_id": "7681888848515412601",
+      "content_id": "7681888848515412601",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7681888848515412601/?region=US&mid=7681888793351244586&u_code=0&did=MS4wLjABAAAAllKSlJ371d3M2JYCpaoAN4vv4exumqiXcHL-3JZQrqdtX7wBYII30fXTt5OU1LPG&iid=MS4wLjABAAAAGwMGYenJyVQFMnKLH0pOYLGIsEKewqt1tUINrN7oY_4H_pxCRge_srSDwXXOdTNC&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=UyZKttq4wLiDSMW2YI29GhpJk2.PfzaNmTBR1.fjHKI-&share_version=320900&ts=1788659173&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "就算是古风小生到了花少也得累成“当地人”#花儿与少年 #花少 #花少6 #侯明昊#综艺",
+      "author": "命好小猫LG",
+      "like_count": 10193,
+      "comment_count": 1455,
+      "share_count": 9214,
+      "duration_ms": 53917,
+      "create_time_iso": "2026-09-05T03:32:05+00:00",
+      "known_entities": [
+        "花儿与少年",
+        "花少",
+        "花少6",
+        "侯明昊"
+      ],
+      "verified_entities": [
+        "花儿与少年",
+        "花少6",
+        "侯明昊"
+      ],
+      "primary_celebrities": [
+        "侯明昊"
+      ],
+      "quality_score": 273.459,
+      "output_date": "2026-09-06",
+      "selected_at": "2026-09-06T02:10:26.529863+00:00"
+    },
+    {
+      "aweme_id": "7682042382666516325",
+      "content_id": "7682042382666516325",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7682042382666516325/?region=US&mid=7682042345001257737&u_code=0&did=MS4wLjABAAAAllKSlJ371d3M2JYCpaoAN4vv4exumqiXcHL-3JZQrqdtX7wBYII30fXTt5OU1LPG&iid=MS4wLjABAAAAGwMGYenJyVQFMnKLH0pOYLGIsEKewqt1tUINrN7oY_4H_pxCRge_srSDwXXOdTNC&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=TV045rtkDgZZwCdUo1PbPCM7hBlBOdQW8uEy1RKFY7M-&share_version=320900&ts=1788659173&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#综艺名场面 #孟子义",
+      "author": "妮娜",
+      "like_count": 85457,
+      "comment_count": 514,
+      "share_count": 6382,
+      "duration_ms": 23200,
+      "create_time_iso": "2026-09-05T13:27:53+00:00",
+      "known_entities": [
+        "综艺名场面",
+        "孟子义"
+      ],
+      "verified_entities": [
+        "综艺名场面",
+        "孟子义"
+      ],
+      "primary_celebrities": [
+        "孟子义"
+      ],
+      "quality_score": 270.581,
+      "output_date": "2026-09-06",
+      "selected_at": "2026-09-06T02:10:26.529863+00:00"
+    },
+    {
+      "aweme_id": "7681943707356857978",
+      "content_id": "7681943707356857978",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7681943707356857978/?region=US&mid=7681943606470380303&u_code=0&did=MS4wLjABAAAAllKSlJ371d3M2JYCpaoAN4vv4exumqiXcHL-3JZQrqdtX7wBYII30fXTt5OU1LPG&iid=MS4wLjABAAAAGwMGYenJyVQFMnKLH0pOYLGIsEKewqt1tUINrN7oY_4H_pxCRge_srSDwXXOdTNC&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=Do.oLDW5IEHjqNxzs_veJZjqTTZ1kRcWxm1.IFfyfKk-&share_version=320900&ts=1788659173&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "“谁不想上综艺串一下子呢”#综艺 #秒懂 #反转",
+      "author": "王昌龄",
+      "like_count": 10924,
+      "comment_count": 292,
+      "share_count": 12446,
+      "duration_ms": 26772,
+      "create_time_iso": "2026-09-05T07:04:58+00:00",
+      "known_entities": [
+        "秒懂",
+        "反转"
+      ],
+      "verified_entities": [
+        "综艺",
+        "反转"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 233.386,
+      "output_date": "2026-09-06",
+      "selected_at": "2026-09-06T02:10:26.529863+00:00"
+    },
+    {
+      "aweme_id": "7681914093444366244",
+      "content_id": "7681914093444366244",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7681914093444366244/?region=US&mid=7681914055582026523&u_code=0&did=MS4wLjABAAAAllKSlJ371d3M2JYCpaoAN4vv4exumqiXcHL-3JZQrqdtX7wBYII30fXTt5OU1LPG&iid=MS4wLjABAAAAGwMGYenJyVQFMnKLH0pOYLGIsEKewqt1tUINrN7oY_4H_pxCRge_srSDwXXOdTNC&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=ZlO6JE9YG_EiPLiTTnp4caJjeW._wSPDHdRZoYsr76g-&share_version=320900&ts=1788659173&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "表哥还在杀 涂山璟 🤣🤣🤣#邓为#花儿与少年8#综艺剪辑",
+      "author": "❤️17💎（中亲签版）",
+      "like_count": 9243,
+      "comment_count": 175,
+      "share_count": 1013,
+      "duration_ms": 6962,
+      "create_time_iso": "2026-09-05T05:10:04+00:00",
+      "known_entities": [
+        "邓为",
+        "花儿与少年",
+        "花儿与少年8",
+        "综艺剪辑"
+      ],
+      "verified_entities": [
+        "邓为",
+        "花儿与少年8"
+      ],
+      "primary_celebrities": [
+        "邓为"
+      ],
+      "quality_score": 216.286,
+      "output_date": "2026-09-06",
+      "selected_at": "2026-09-06T02:10:26.529863+00:00"
+    },
     {
       "aweme_id": "7681521023174626047",
       "content_id": "7681521023174626047",
