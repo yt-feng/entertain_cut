@@ -1,7 +1,241 @@
 {
-  "updated_at": "2026-09-06T02:10:26.529863+00:00",
-  "count": 330,
+  "updated_at": "2026-09-07T01:44:02.765714+00:00",
+  "count": 338,
   "items": [
+    {
+      "aweme_id": "7682242924730820729",
+      "content_id": "7682242924730820729",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7682242924730820729/?region=US&mid=7682242803304499983&u_code=0&did=MS4wLjABAAAAWYtphWWOqNBDYJHZyePrcWjNIrJNKOfFsP7S9jNgvJU&iid=MS4wLjABAAAAGeAKPcxmnc3ytQF3ejN8G3zOgvHCPZb3MYZ9fipQm2XUqB0C9h_hxrOLJXXewVtC&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=tXA72vb7DUdcM99YbcRvfdyE4plRKDydgum7zANeal8-&share_version=320900&ts=1788743690&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "杨洋：反正你也播不了 结果全播了哈哈哈哈\n#杨洋 #花少2 #综艺搞笑 #冷脸萌",
+      "author": "九月小歪",
+      "like_count": 501338,
+      "comment_count": 18484,
+      "share_count": 409127,
+      "duration_ms": 124934,
+      "create_time_iso": "2026-09-06T02:26:05+00:00",
+      "known_entities": [
+        "杨洋",
+        "花少2",
+        "综艺搞笑",
+        "冷脸萌"
+      ],
+      "verified_entities": [
+        "杨洋",
+        "花少2",
+        "综艺搞笑",
+        "冷脸萌"
+      ],
+      "primary_celebrities": [
+        "杨洋"
+      ],
+      "quality_score": 340.996,
+      "output_date": "2026-09-07",
+      "selected_at": "2026-09-07T01:44:02.765714+00:00"
+    },
+    {
+      "aweme_id": "7682266803191576674",
+      "content_id": "7682266803191576674",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7682266803191576674/?region=US&mid=7682266732748098313&u_code=0&did=MS4wLjABAAAAk6Pt2ixSJ0-M8iYyKgx1wNVjre5hGJaPU3UXie44gDl_SrjarI3lv8e8KYYU3F-s&iid=MS4wLjABAAAA4aWjNH7oG4mVNVgnlg15hC_TwdS8x8PP4hV_wPQxG5Kab-PlSbjRfbjxfvot1DEG&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=EzWKNKqqdU9TAJP._R1VNJLE61SoOcTMcj8Q43S6idk-&share_version=320900&ts=1788743704&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "郭富城團隊花咗100日為今日現場表演新歌衝衝衝#郭富城 #表演现场 #速度与激情 #香港明星 #郭富城演唱会",
+      "author": "馬王",
+      "like_count": 21367,
+      "comment_count": 1383,
+      "share_count": 4151,
+      "duration_ms": 29500,
+      "create_time_iso": "2026-09-06T03:58:45+00:00",
+      "known_entities": [
+        "香港明星",
+        "郭富城",
+        "表演现场",
+        "速度与激情",
+        "郭富城演唱会"
+      ],
+      "verified_entities": [
+        "郭富城",
+        "香港明星",
+        "表演现场",
+        "郭富城演唱会"
+      ],
+      "primary_celebrities": [
+        "郭富城"
+      ],
+      "quality_score": 262.628,
+      "output_date": "2026-09-07",
+      "selected_at": "2026-09-07T01:44:02.765714+00:00"
+    },
+    {
+      "aweme_id": "7682275616321960422",
+      "content_id": "7682275616321960422",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7682275616321960422/?region=US&mid=7620327860306511889&u_code=0&did=MS4wLjABAAAAWYtphWWOqNBDYJHZyePrcWjNIrJNKOfFsP7S9jNgvJU&iid=MS4wLjABAAAAGeAKPcxmnc3ytQF3ejN8G3zOgvHCPZb3MYZ9fipQm2XUqB0C9h_hxrOLJXXewVtC&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=p1iItfZYevXc8cPUIDy4TS4m7l4H_LflC73KwYrpaJA-&share_version=320900&ts=1788743690&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "综艺效果有了 顺便展示一下柔韧度 牛之 #综艺搞笑名场面 #笑到停不下来 #z #y #z",
+      "author": "拳头大的包子",
+      "like_count": 15348,
+      "comment_count": 60,
+      "share_count": 530,
+      "duration_ms": 6767,
+      "create_time_iso": "2026-09-06T04:32:57+00:00",
+      "known_entities": [
+        "综艺搞笑",
+        "综艺搞笑名场面",
+        "笑到停不下来"
+      ],
+      "verified_entities": [
+        "综艺搞笑",
+        "综艺搞笑名场面",
+        "笑到停不下来"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 236.957,
+      "output_date": "2026-09-07",
+      "selected_at": "2026-09-07T01:44:02.765714+00:00"
+    },
+    {
+      "aweme_id": "7682423892917058810",
+      "content_id": "7682423892917058810",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7682423892917058810/?region=US&mid=7682423856795732776&u_code=0&did=MS4wLjABAAAACJUK0yxgIi4xImxA9SmikhDdgY5KgmD90lTTZ0YMx-Z1CqLH7azwmyPmIn4n91TY&iid=MS4wLjABAAAA9rX01MuPcFCiPa7GuKYP5Itik5Lr3_xN82Frx2ckglKCsl5sJnFqu7NZIAOCPhRQ&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=D_qOrBTS7nH78hprJDNuBxAVvU2cXOM9VEmgmoRXdrc-&share_version=320900&ts=1788743688&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#韩红 #刘德华 #娱乐圈 #综艺 #综艺搞笑 \n韩红到底会不会跳迈克尔杰克逊的舞蹈呢？好难猜啊",
+      "author": "归来客",
+      "like_count": 1648,
+      "comment_count": 992,
+      "share_count": 1214,
+      "duration_ms": 81700,
+      "create_time_iso": "2026-09-06T14:08:20+00:00",
+      "known_entities": [
+        "综艺搞笑"
+      ],
+      "verified_entities": [
+        "韩红",
+        "刘德华",
+        "综艺搞笑"
+      ],
+      "primary_celebrities": [
+        "韩红",
+        "刘德华"
+      ],
+      "quality_score": 243.531,
+      "output_date": "2026-09-07",
+      "selected_at": "2026-09-07T01:44:02.765714+00:00"
+    },
+    {
+      "aweme_id": "7682384584131126106",
+      "content_id": "7682384584131126106",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7682384584131126106/?region=US&mid=7682384496968092422&u_code=0&did=MS4wLjABAAAAk6Pt2ixSJ0-M8iYyKgx1wNVjre5hGJaPU3UXie44gDl_SrjarI3lv8e8KYYU3F-s&iid=MS4wLjABAAAA4aWjNH7oG4mVNVgnlg15hC_TwdS8x8PP4hV_wPQxG5Kab-PlSbjRfbjxfvot1DEG&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=ZhYYSi6c5DvUvOvDDE390qXgvMmQfFCyq1PD.oVsIFI-&share_version=320900&ts=1788743704&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "在李荣浩成都演唱会现场看到郑润泽了！ 之前就知道他很喜欢李荣浩，今晚直接线下奔赴偶像现场了\n\n#李荣浩 #郑润泽 #李荣浩成都演唱会 #偶遇明星 #追星",
+      "author": "现场边角观察",
+      "like_count": 7918,
+      "comment_count": 399,
+      "share_count": 5399,
+      "duration_ms": 10945,
+      "create_time_iso": "2026-09-06T11:35:48+00:00",
+      "known_entities": [
+        "李荣浩",
+        "郑润泽",
+        "李荣浩成都演唱会",
+        "偶遇明星",
+        "追星"
+      ],
+      "verified_entities": [
+        "李荣浩",
+        "郑润泽",
+        "李荣浩成都演唱会",
+        "偶遇明星",
+        "追星"
+      ],
+      "primary_celebrities": [
+        "李荣浩",
+        "郑润泽"
+      ],
+      "quality_score": 235.507,
+      "output_date": "2026-09-07",
+      "selected_at": "2026-09-07T01:44:02.765714+00:00"
+    },
+    {
+      "aweme_id": "7682273066530108239",
+      "content_id": "7682273066530108239",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7682273066530108239/?region=US&mid=7682273041732094774&u_code=0&did=MS4wLjABAAAA-jgjqB8qEEn-nkJznDm3GUjRjrk_xX_Y5RAO5gJbb-OL4uNBPFl4RssUKCEHM7-M&iid=MS4wLjABAAAASOKHhL2EXoI6-QqHT8EWMz04ag_wIfrWz5aS6zEnUiidsdpCDnYV8Whk5CVCBQfi&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=Zub0akRa6x5BuXHmQbKZR3v2kRIfSgJlY1yqAlip4z4-&share_version=320900&ts=1788743700&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "今日第一次在沙田近距離現唱聽郭富城唱首本名曲強很厲志很震撼很適合今日賽事主題#郭富城 #強 #表演现场 #舞台上的气势 #香港明星",
+      "author": "馬王",
+      "like_count": 3816,
+      "comment_count": 343,
+      "share_count": 317,
+      "duration_ms": 29967,
+      "create_time_iso": "2026-09-06T04:23:05+00:00",
+      "known_entities": [
+        "香港明星",
+        "郭富城",
+        "表演现场",
+        "舞台上的气势"
+      ],
+      "verified_entities": [
+        "郭富城",
+        "香港明星",
+        "表演现场",
+        "舞台上的气势"
+      ],
+      "primary_celebrities": [
+        "郭富城"
+      ],
+      "quality_score": 218.82500000000002,
+      "output_date": "2026-09-07",
+      "selected_at": "2026-09-07T01:44:02.765714+00:00"
+    },
+    {
+      "aweme_id": "7682442125509741866",
+      "content_id": "7682442125509741866",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7682442125509741866/?region=US&mid=7682442131608587044&u_code=0&did=MS4wLjABAAAAWYtphWWOqNBDYJHZyePrcWjNIrJNKOfFsP7S9jNgvJU&iid=MS4wLjABAAAAGeAKPcxmnc3ytQF3ejN8G3zOgvHCPZb3MYZ9fipQm2XUqB0C9h_hxrOLJXXewVtC&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=kDVCWMwis5ei9Ed7nLcUtDbShUZ5rja1j5g8F6QXkeU-&share_version=320900&ts=1788743690&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#黄明昊  看似坐在#唐艺昕 #孙怡  腿上 实则一直偷偷用力在蹲马步 考验黄明昊腰腹力量的时候到了#不想睡的星期五 #黄明昊坐在唐艺昕腿上",
+      "author": "娱乐可爱蛙",
+      "like_count": 5881,
+      "comment_count": 41,
+      "share_count": 902,
+      "duration_ms": 35550,
+      "create_time_iso": "2026-09-06T15:19:20+00:00",
+      "known_entities": [
+        "黄明昊"
+      ],
+      "verified_entities": [
+        "黄明昊",
+        "唐艺昕",
+        "孙怡"
+      ],
+      "primary_celebrities": [
+        "黄明昊"
+      ],
+      "quality_score": 193.34,
+      "output_date": "2026-09-07",
+      "selected_at": "2026-09-07T01:44:02.765714+00:00"
+    },
+    {
+      "aweme_id": "7682355599514777521",
+      "content_id": "7682355599514777521",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7682355599514777521/?region=US&mid=5000000001443030169&u_code=0&did=MS4wLjABAAAAk6Pt2ixSJ0-M8iYyKgx1wNVjre5hGJaPU3UXie44gDl_SrjarI3lv8e8KYYU3F-s&iid=MS4wLjABAAAA4aWjNH7oG4mVNVgnlg15hC_TwdS8x8PP4hV_wPQxG5Kab-PlSbjRfbjxfvot1DEG&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=_lpxQuB6CA_oOddOFiuUG4cBznFDqy0z6KKaF6Hfyu0-&share_version=320900&ts=1788743704&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "陈慧琳沈阳出发！ 状态确实不错！\n#女明星活动现场 #陈慧琳 #沈阳 #演唱会 #花花宇宙",
+      "author": "去半拉删子",
+      "like_count": 2145,
+      "comment_count": 135,
+      "share_count": 363,
+      "duration_ms": 5967,
+      "create_time_iso": "2026-09-06T09:43:20+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "陈慧琳",
+        "演唱会"
+      ],
+      "primary_celebrities": [
+        "陈慧琳"
+      ],
+      "quality_score": 145.31799999999998,
+      "output_date": "2026-09-07",
+      "selected_at": "2026-09-07T01:44:02.765714+00:00"
+    },
     {
       "aweme_id": "7681971760169831715",
       "content_id": "7681971760169831715",
