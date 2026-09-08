@@ -1,7 +1,155 @@
 {
-  "updated_at": "2026-09-07T01:44:02.765714+00:00",
-  "count": 338,
+  "updated_at": "2026-09-08T01:48:52.073347+00:00",
+  "count": 343,
   "items": [
+    {
+      "aweme_id": "7682610429591929457",
+      "content_id": "7682610429591929457",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7682610429591929457/?region=US&mid=7682610341043063593&u_code=0&did=MS4wLjABAAAA3e4IE6oGkb3IZvQAI-r2VdaGW4AyY8AdK9YhG9sAoEa2QEYfTGfp8VvC6e0xnTIr&iid=MS4wLjABAAAAi23zRKiT6s_OPf5H9NRKiuzmGCCyXjTZc2PelOshXqs2Ka_ca_mP7usSz-cBV6J0&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=QXf56Ph8jlBZ3TKkhd6dNOznOuZHZI6HeoF5.0lkq.g-&share_version=320900&ts=1788830720&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#我们战斗吧 #井柏然 #王嘉尔 考古井柏然综艺，被王嘉尔这段笑死了",
+      "author": "芝士茉莉oO",
+      "like_count": 20149,
+      "comment_count": 982,
+      "share_count": 17714,
+      "duration_ms": 129449,
+      "create_time_iso": "2026-09-07T02:12:11+00:00",
+      "known_entities": [
+        "我们战斗吧",
+        "井柏然",
+        "王嘉尔"
+      ],
+      "verified_entities": [
+        "我们战斗吧",
+        "井柏然",
+        "王嘉尔"
+      ],
+      "primary_celebrities": [
+        "井柏然",
+        "王嘉尔"
+      ],
+      "quality_score": 288.724,
+      "output_date": "2026-09-08",
+      "selected_at": "2026-09-08T01:48:52.073347+00:00"
+    },
+    {
+      "aweme_id": "7682699121827826959",
+      "content_id": "7682699121827826959",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7682699121827826959/?region=US&mid=7682699160000203526&u_code=0&did=MS4wLjABAAAAkN-2DV_iou2f0mNwKMF5LdsUbc6T4ovnD52BHzlEe44&iid=MS4wLjABAAAAWtWqSgqSbIHD3OeMXJZNU1Dm3NJwVO2SG2xXxDF3Ecs&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=11GwjSUnw6.AdtXdRmLCYjo0UUZpopB2VHcOtgsrGE0-&share_version=320900&ts=1788830727&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "李宇春是我女性意识觉醒的启蒙人 #李宇春 #李宇春演唱会 #清醒发言 #采访 #女明星",
+      "author": "大板凳娱乐",
+      "like_count": 40995,
+      "comment_count": 1094,
+      "share_count": 7936,
+      "duration_ms": 104769,
+      "create_time_iso": "2026-09-07T07:56:29+00:00",
+      "known_entities": [
+        "李宇春",
+        "李宇春演唱会",
+        "清醒发言",
+        "采访",
+        "女明星"
+      ],
+      "verified_entities": [
+        "李宇春",
+        "李宇春演唱会",
+        "清醒发言",
+        "采访",
+        "女明星"
+      ],
+      "primary_celebrities": [
+        "李宇春"
+      ],
+      "quality_score": 283.332,
+      "output_date": "2026-09-08",
+      "selected_at": "2026-09-08T01:48:52.073347+00:00"
+    },
+    {
+      "aweme_id": "7682790853203526820",
+      "content_id": "7682790853203526820",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7682790853203526820/?region=US&mid=7682790832247737151&u_code=0&did=MS4wLjABAAAA3e4IE6oGkb3IZvQAI-r2VdaGW4AyY8AdK9YhG9sAoEa2QEYfTGfp8VvC6e0xnTIr&iid=MS4wLjABAAAAi23zRKiT6s_OPf5H9NRKiuzmGCCyXjTZc2PelOshXqs2Ka_ca_mP7usSz-cBV6J0&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=f09aIeifa.s8idCs9gn.KcwvBB0DMNMFay_kdRN_0Ps-&share_version=320900&ts=1788830720&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "属实难兄难妹了！ 看一次笑一次系列😂#王安宇#花儿与少年#我担秒了全世界 #一脚把我踹进内娱的人 #综艺",
+      "author": "小岳🌙buss",
+      "like_count": 18623,
+      "comment_count": 222,
+      "share_count": 4958,
+      "duration_ms": 61903,
+      "create_time_iso": "2026-09-07T13:52:20+00:00",
+      "known_entities": [
+        "花儿与少年",
+        "王安宇",
+        "我担秒了全世界",
+        "一脚把我踹进内娱的人"
+      ],
+      "verified_entities": [
+        "花儿与少年",
+        "王安宇",
+        "我担秒了全世界",
+        "一脚把我踹进内娱的人"
+      ],
+      "primary_celebrities": [
+        "王安宇"
+      ],
+      "quality_score": 264.91700000000003,
+      "output_date": "2026-09-08",
+      "selected_at": "2026-09-08T01:48:52.073347+00:00"
+    },
+    {
+      "aweme_id": "7682811898098669430",
+      "content_id": "7682811898098669430",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7682811898098669430/?region=US&mid=7014812120067951390&u_code=0&did=MS4wLjABAAAAL5eDzwE9RUtFXb4iKWYHvW1nzJuLEJJgg7uf35CT9Cs&iid=MS4wLjABAAAAnIH1rpWlOy7mkPJdo_AJTFcKR7XyRIScRwA_x0Pcji0&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=26naooKtEM8hDIlCovo3xLmwRf0TQVM48MkVivyf5tU-&share_version=320900&ts=1788830715&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#刘德华 最新活动直拍，65岁的他依然保持完美状态，尽显天王风采，不愧是红了几十年的全民偶像！",
+      "author": "娱乐现场🔥",
+      "like_count": 11367,
+      "comment_count": 1021,
+      "share_count": 1207,
+      "duration_ms": 21849,
+      "create_time_iso": "2026-09-07T15:14:01+00:00",
+      "known_entities": [
+        "刘德华"
+      ],
+      "verified_entities": [
+        "刘德华"
+      ],
+      "primary_celebrities": [
+        "刘德华"
+      ],
+      "quality_score": 247.121,
+      "output_date": "2026-09-08",
+      "selected_at": "2026-09-08T01:48:52.073347+00:00"
+    },
+    {
+      "aweme_id": "7682772822125219667",
+      "content_id": "7682772822125219667",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7682772822125219667/?region=US&mid=7541347542053636906&u_code=0&did=MS4wLjABAAAA1x7fB8R0JX5Tc3zJz7Z6R-ns14LGSxxB91hq8UiNYZKhegq07umXs5lwd33OqV7P&iid=MS4wLjABAAAAbgh7tKegEWQX-oNnJgQJ1nv2TeyqrYDmOGyfGWdS-hHokCSKS9gOtU_7_wagK72j&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=YyzeqImysMQ2LBhMO15UywOphmqdAb4FgeQbNI7m2Sg-&share_version=320900&ts=1788830730&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "今日的宝格丽公主👸🏻 #刘亦菲 #红毯 #异域风",
+      "author": "刘亦菲825",
+      "like_count": 9855,
+      "comment_count": 357,
+      "share_count": 543,
+      "duration_ms": 13374,
+      "create_time_iso": "2026-09-07T12:42:21+00:00",
+      "known_entities": [
+        "刘亦菲",
+        "红毯",
+        "异域风"
+      ],
+      "verified_entities": [
+        "刘亦菲",
+        "红毯",
+        "异域风"
+      ],
+      "primary_celebrities": [
+        "刘亦菲"
+      ],
+      "quality_score": 224.654,
+      "output_date": "2026-09-08",
+      "selected_at": "2026-09-08T01:48:52.073347+00:00"
+    },
     {
       "aweme_id": "7682242924730820729",
       "content_id": "7682242924730820729",
