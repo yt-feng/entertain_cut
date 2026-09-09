@@ -1,7 +1,124 @@
 {
-  "updated_at": "2026-09-08T01:48:52.073347+00:00",
-  "count": 343,
+  "updated_at": "2026-09-09T02:32:57.731924+00:00",
+  "count": 347,
   "items": [
+    {
+      "aweme_id": "7683019112028684910",
+      "content_id": "7683019112028684910",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7683019112028684910/?region=US&mid=7664955793225157385&u_code=0&did=MS4wLjABAAAAs6V6RR3Zpd9zjVhtDGOGt2KPl9whHQYcqkR5eaUXzESY22X5X0TnlKPYeI0NrROy&iid=MS4wLjABAAAANIipu3Zjh8sNPpMbTX0ZR6R8hSBY3TXQKjiCbFNOMMDh0hzVshEL9zuDZ8bAV9Jp&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=IrlfJvLuvxLUN89fMGCzLVVnq6wG.j9Ayh1oLwao4FY-&share_version=320900&ts=1788917465&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "“我有点无理取闹”“那你就闹呗” 磕死我了啊啊啊 因为我喜欢你，所以你就是原则#鹤玥cp #陈鹤文 #沙玥儿 #综艺名场面分享",
+      "author": "一颗瑞士糖🍬",
+      "like_count": 12737,
+      "comment_count": 158,
+      "share_count": 3097,
+      "duration_ms": 20116,
+      "create_time_iso": "2026-09-08T04:38:05+00:00",
+      "known_entities": [
+        "鹤玥cp",
+        "陈鹤文",
+        "沙玥儿",
+        "综艺名场面分享"
+      ],
+      "verified_entities": [
+        "鹤玥cp",
+        "陈鹤文",
+        "沙玥儿",
+        "综艺名场面分享"
+      ],
+      "primary_celebrities": [
+        "陈鹤文",
+        "沙玥儿"
+      ],
+      "quality_score": 253.528,
+      "output_date": "2026-09-09",
+      "selected_at": "2026-09-09T02:32:57.731924+00:00"
+    },
+    {
+      "aweme_id": "7683005415222824235",
+      "content_id": "7683005415222824235",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7683005415222824235/?region=US&mid=7683005477504600874&u_code=0&did=MS4wLjABAAAAllvsfb5nysvO1NHWryT2To71w57jjpByis-2Td0oKmB5rv2qE5d4hKxOOFg_ZYwJ&iid=MS4wLjABAAAAllXWZkscyETw27G_TySba14_30Z8fWhTTuebwlSZqkOfr6iJ4RP-_zLap31Drg5-&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=q6GLZurhT6VE2A7kiAK3oD301Wb_LLVbxH6vlz.lFNw-&share_version=320900&ts=1788917479&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "阿图什明星#音乐剧 #红毯秀",
+      "author": "Sinzar TV",
+      "like_count": 1733,
+      "comment_count": 128,
+      "share_count": 1505,
+      "duration_ms": 241140,
+      "create_time_iso": "2026-09-08T03:45:01+00:00",
+      "known_entities": [
+        "音乐剧",
+        "红毯秀"
+      ],
+      "verified_entities": [
+        "音乐剧",
+        "红毯秀"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 208.356,
+      "output_date": "2026-09-09",
+      "selected_at": "2026-09-09T02:32:57.731924+00:00"
+    },
+    {
+      "aweme_id": "5241908701023185599",
+      "content_id": "5241908701023185599",
+      "platform": "kuaishou",
+      "url": "https://www.kuaishou.com/short-video/5241908701023185599",
+      "title": "内娱五大顶流女星排位！ #杨幂 #杨颖 #迪丽热巴 #赵丽颖",
+      "author": "文心很食尚",
+      "like_count": 1416,
+      "comment_count": 278,
+      "share_count": 70,
+      "duration_ms": 284733,
+      "create_time_iso": "2026-09-08T02:04:27+00:00",
+      "known_entities": [
+        "赵丽颖",
+        "迪丽热巴",
+        "杨幂"
+      ],
+      "verified_entities": [
+        "赵丽颖"
+      ],
+      "primary_celebrities": [
+        "杨幂",
+        "杨颖",
+        "迪丽热巴",
+        "赵丽颖"
+      ],
+      "quality_score": 200.606,
+      "output_date": "2026-09-09",
+      "selected_at": "2026-09-09T02:32:57.731924+00:00"
+    },
+    {
+      "aweme_id": "7683074303794191488",
+      "content_id": "7683074303794191488",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7683074303794191488/?region=US&mid=7062695645546973983&u_code=0&did=MS4wLjABAAAAllvsfb5nysvO1NHWryT2To71w57jjpByis-2Td0oKmB5rv2qE5d4hKxOOFg_ZYwJ&iid=MS4wLjABAAAAllXWZkscyETw27G_TySba14_30Z8fWhTTuebwlSZqkOfr6iJ4RP-_zLap31Drg5-&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=Z5Y0nRkmpsjSqDSZf1Fu5kgwc2jxk9C9xtdaGoNF45c-&share_version=320900&ts=1788917479&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "卫诗雅出席电影节红毯，真的替她开心！她刚拿了百花奖最佳女主角，主演的电影《空枪》也正在热映，算起来她在演艺圈已经深耕18年了，这一路走过来肯定很不容易。\n#卫诗雅 #百花奖最佳女主角 #空枪 #娱乐评论大赏",
+      "author": "娱乐明星女神",
+      "like_count": 1807,
+      "comment_count": 52,
+      "share_count": 41,
+      "duration_ms": 11378,
+      "create_time_iso": "2026-09-08T08:12:16+00:00",
+      "known_entities": [
+        "空枪",
+        "卫诗雅",
+        "百花奖最佳女主角",
+        "娱乐评论大赏"
+      ],
+      "verified_entities": [
+        "卫诗雅",
+        "百花奖最佳女主角",
+        "空枪"
+      ],
+      "primary_celebrities": [
+        "卫诗雅"
+      ],
+      "quality_score": 188.576,
+      "output_date": "2026-09-09",
+      "selected_at": "2026-09-09T02:32:57.731924+00:00"
+    },
     {
       "aweme_id": "7682610429591929457",
       "content_id": "7682610429591929457",
