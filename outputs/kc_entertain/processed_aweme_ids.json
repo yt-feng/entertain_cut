@@ -1,7 +1,171 @@
 {
-  "updated_at": "2026-09-09T02:32:57.731924+00:00",
-  "count": 347,
+  "updated_at": "2026-09-10T01:25:37.970018+00:00",
+  "count": 353,
   "items": [
+    {
+      "aweme_id": "7683435740592542050",
+      "content_id": "7683435740592542050",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7683435740592542050/?region=US&mid=7683435726154861331&u_code=0&did=MS4wLjABAAAAZbu9y5t_dQakz4a20dIWmFVEp387dWvS5sqo-e7GP0Q&iid=MS4wLjABAAAAyCS9tmQjrYIJSmzxW5Osy4_weXM8Z1eMuf6SnpA1RRQ&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=HGC3ucmbInf0DWAD84ltN0HOqqUf4ZO8s32RqhZ2rag-&share_version=320900&ts=1789002841&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "香港刘德华公售时间确定！ #香港刘德华演唱会 #刘德华香港 #刘德华香港演唱会 #刘德华香港红磡 #刘德华香港红磡体育馆演唱会",
+      "author": "什初",
+      "like_count": 1815,
+      "comment_count": 266,
+      "share_count": 1526,
+      "duration_ms": 63500,
+      "create_time_iso": "2026-09-09T07:34:49+00:00",
+      "known_entities": [
+        "香港刘德华演唱会",
+        "刘德华香港",
+        "刘德华香港演唱会",
+        "刘德华香港红磡",
+        "刘德华香港红磡体育馆演唱会"
+      ],
+      "verified_entities": [
+        "香港刘德华演唱会",
+        "刘德华香港",
+        "刘德华香港演唱会",
+        "刘德华香港红磡",
+        "刘德华香港红磡体育馆演唱会"
+      ],
+      "primary_celebrities": [
+        "刘德华"
+      ],
+      "quality_score": 229.718,
+      "output_date": "2026-09-10",
+      "selected_at": "2026-09-10T01:25:37.970018+00:00"
+    },
+    {
+      "aweme_id": "7683453862733013358",
+      "content_id": "7683453862733013358",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7683453862733013358/?region=US&mid=7683453827533540123&u_code=0&did=MS4wLjABAAAA9XNqUuW0VZ62zrc4BIF4OJZkNdXYd7WqgYzOx5X49aAdE6BhOwZYlXkv6mPKVzNi&iid=MS4wLjABAAAAiqI4C_waM7NGYKWAjx2YQAOlCHf1RqNXIlYyCU2zKXtBKnOUmKomC7H65C1gZpFL&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=mKugKAT3DXsQSvUYATDttqqaZjWn9EzFBzhCDsgTP6o-&share_version=320900&ts=1789002833&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "泰国演员邝玲玲曼谷演唱会唱响古风中文歌，只为给粉丝惊喜，真的太宠粉了#邝玲玲  #外国小姐姐#linglingkuang",
+      "author": "泰国邝玲玲",
+      "like_count": 2156,
+      "comment_count": 59,
+      "share_count": 151,
+      "duration_ms": 25403,
+      "create_time_iso": "2026-09-09T08:45:09+00:00",
+      "known_entities": [
+        "邝玲玲",
+        "外国小姐姐",
+        "linglingkuang"
+      ],
+      "verified_entities": [
+        "邝玲玲",
+        "外国小姐姐",
+        "linglingkuang"
+      ],
+      "primary_celebrities": [
+        "邝玲玲"
+      ],
+      "quality_score": 202.793,
+      "output_date": "2026-09-10",
+      "selected_at": "2026-09-10T01:25:37.970018+00:00"
+    },
+    {
+      "aweme_id": "7683527842303233713",
+      "content_id": "7683527842303233713",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7683527842303233713/?region=US&mid=7683527749726047018&u_code=0&did=MS4wLjABAAAA5KEZwDkBgx9hUyyR28mMeyFfCZBsNFG8Je1HW2HQDKY&iid=MS4wLjABAAAAI8wsmxpqSE5Zbbnb0R_ClSCh4gUi9QorQAGPntV3nS0&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=gcxZA2_DUALM5PI73vPdScKveygHMXgon9cFXXozWIY-&share_version=320900&ts=1789002818&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#杨幂 第二套吊带豹纹裙 这气质状态超美",
+      "author": "娱乐圈小蜜",
+      "like_count": 9224,
+      "comment_count": 195,
+      "share_count": 1865,
+      "duration_ms": 12034,
+      "create_time_iso": "2026-09-09T13:32:13+00:00",
+      "known_entities": [
+        "杨幂"
+      ],
+      "verified_entities": [
+        "杨幂"
+      ],
+      "primary_celebrities": [
+        "杨幂"
+      ],
+      "quality_score": 199.60399999999998,
+      "output_date": "2026-09-10",
+      "selected_at": "2026-09-10T01:25:37.970018+00:00"
+    },
+    {
+      "aweme_id": "7683492086271823290",
+      "content_id": "7683492086271823290",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7683492086271823290/?region=US&mid=7683492046380075795&u_code=0&did=MS4wLjABAAAA5KEZwDkBgx9hUyyR28mMeyFfCZBsNFG8Je1HW2HQDKY&iid=MS4wLjABAAAAI8wsmxpqSE5Zbbnb0R_ClSCh4gUi9QorQAGPntV3nS0&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=09fCsNImw19GJZCMRNQRzmjDGtNVs384grtpI5owZAU-&share_version=320900&ts=1789002818&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#章子怡 黑丝绒透视纱裙 47岁这状态霸气依旧",
+      "author": "娱乐圈小蜜",
+      "like_count": 3591,
+      "comment_count": 406,
+      "share_count": 423,
+      "duration_ms": 11100,
+      "create_time_iso": "2026-09-09T11:13:28+00:00",
+      "known_entities": [
+        "章子怡"
+      ],
+      "verified_entities": [
+        "章子怡"
+      ],
+      "primary_celebrities": [
+        "章子怡"
+      ],
+      "quality_score": 194.296,
+      "output_date": "2026-09-10",
+      "selected_at": "2026-09-10T01:25:37.970018+00:00"
+    },
+    {
+      "aweme_id": "7683510722358693371",
+      "content_id": "7683510722358693371",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7683510722358693371/?region=US&mid=7683510687134993161&u_code=0&did=MS4wLjABAAAA5KEZwDkBgx9hUyyR28mMeyFfCZBsNFG8Je1HW2HQDKY&iid=MS4wLjABAAAAI8wsmxpqSE5Zbbnb0R_ClSCh4gUi9QorQAGPntV3nS0&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=E1YvMLnjVdRaiVqoJRoN71YHnBOw4QtiNO4mPE5_kTQ-&share_version=320900&ts=1789002818&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#章子怡 原相机镜头下这47岁状态如何？",
+      "author": "娱乐圈小蜜",
+      "like_count": 2127,
+      "comment_count": 311,
+      "share_count": 512,
+      "duration_ms": 11967,
+      "create_time_iso": "2026-09-09T12:25:47+00:00",
+      "known_entities": [
+        "章子怡"
+      ],
+      "verified_entities": [
+        "章子怡"
+      ],
+      "primary_celebrities": [
+        "章子怡"
+      ],
+      "quality_score": 188.864,
+      "output_date": "2026-09-10",
+      "selected_at": "2026-09-10T01:25:37.970018+00:00"
+    },
+    {
+      "aweme_id": "7683468344901778280",
+      "content_id": "7683468344901778280",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7683468344901778280/?region=US&mid=7683468306783013678&u_code=0&did=MS4wLjABAAAA7XXuVIAYMbVRmuJHDoOGG5u-4O5KB0ZpMOCiO6ErW-_nuJJiQkgEJMoKDyU-UyH1&iid=MS4wLjABAAAAN1cKeXfbt1ETQghcutUC4AX7PSqMph5j8vmX_OYWn0ncddWgkVGYIXi875_SkH_Q&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=suUd52Kcw9rvHo9ceFCATM6I75rfng1y3iIedW2cupY-&share_version=320900&ts=1789002816&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "杨幂上海活动，走路带风，美得好权威#杨幂 #女神降临",
+      "author": "明星娱乐",
+      "like_count": 3203,
+      "comment_count": 71,
+      "share_count": 172,
+      "duration_ms": 8103,
+      "create_time_iso": "2026-09-09T09:41:21+00:00",
+      "known_entities": [
+        "杨幂",
+        "女神降临"
+      ],
+      "verified_entities": [
+        "杨幂",
+        "女神降临"
+      ],
+      "primary_celebrities": [
+        "杨幂"
+      ],
+      "quality_score": 186.058,
+      "output_date": "2026-09-10",
+      "selected_at": "2026-09-10T01:25:37.970018+00:00"
+    },
     {
       "aweme_id": "7683019112028684910",
       "content_id": "7683019112028684910",
