@@ -1,0 +1,45 @@
+name: KC Pipeline Regression Tests
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/douyin-free-kc-daily.yml'
+      - '.github/workflows/kc-pipeline-tests.yml'
+      - 'tools/**'
+      - 'auto_kc_entertain.py'
+      - 'deepseek_api.py'
+      - 'make_kc_entertain.py'
+      - 'xhs2vid/**'
+  pull_request:
+    paths:
+      - '.github/workflows/douyin-free-kc-daily.yml'
+      - '.github/workflows/kc-pipeline-tests.yml'
+      - 'tools/**'
+      - 'auto_kc_entertain.py'
+      - 'deepseek_api.py'
+      - 'make_kc_entertain.py'
+      - 'xhs2vid/**'
+
+permissions:
+  contents: read
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          # Do not download the repository's published video archive for tests.
+          sparse-checkout: |
+            .github
+            tools
+            xhs2vid
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+      - name: Install test dependencies
+        run: python -m pip install pillow httpx
+      - name: Run offline pipeline and delivery regressions
+        run: python -m unittest discover -s tools/tests -v
