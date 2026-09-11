@@ -1,7 +1,99 @@
 {
-  "updated_at": "2026-09-10T01:25:37.970018+00:00",
-  "count": 353,
+  "updated_at": "2026-09-11T02:03:04.036733+00:00",
+  "count": 357,
   "items": [
+    {
+      "aweme_id": "7683818901565646950",
+      "content_id": "7683818901565646950",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7683818901565646950/?region=US&mid=7577281026461485106&u_code=0&did=MS4wLjABAAAA1x7fB8R0JX5Tc3zJz7Z6R-ns14LGSxxB91hq8UiNYZKhegq07umXs5lwd33OqV7P&iid=MS4wLjABAAAAbgh7tKegEWQX-oNnJgQJ1nv2TeyqrYDmOGyfGWdS-hHokCSKS9gOtU_7_wagK72j&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=SeYrm6MK4uJEyg.yKgKLC_XXdQRty_oNTzqfnyLQaGM-&share_version=320900&ts=1789090802&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "出了节目没人陪公主演戏 #花儿与少年 #花少2 #许晴 #宁静 #毛阿敏",
+      "author": "RU",
+      "like_count": 69883,
+      "comment_count": 2506,
+      "share_count": 56693,
+      "duration_ms": 11000,
+      "create_time_iso": "2026-09-10T08:21:41+00:00",
+      "known_entities": [
+        "宁静",
+        "花儿与少年"
+      ],
+      "verified_entities": [
+        "宁静",
+        "花儿与少年"
+      ],
+      "primary_celebrities": [
+        "宁静"
+      ],
+      "quality_score": 237.578,
+      "output_date": "2026-09-11",
+      "selected_at": "2026-09-11T02:03:04.036733+00:00"
+    },
+    {
+      "aweme_id": "7683817238054456591",
+      "content_id": "7683817238054456591",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7683817238054456591/?region=US&mid=7683817228818483977&u_code=0&did=MS4wLjABAAAA1x7fB8R0JX5Tc3zJz7Z6R-ns14LGSxxB91hq8UiNYZKhegq07umXs5lwd33OqV7P&iid=MS4wLjABAAAAbgh7tKegEWQX-oNnJgQJ1nv2TeyqrYDmOGyfGWdS-hHokCSKS9gOtU_7_wagK72j&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=TnhTM9uz21qBTLr6ajsqYbb_80NH6a6h7Y5mRyhxMpY-&share_version=320900&ts=1789090802&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "花少8第一次分房，殷桃统筹大局，王星越找货车拖行李 #花儿与少年 #综艺 #林依晨 #殷桃 #吴君如",
+      "author": "麻辣综艺说",
+      "like_count": 12751,
+      "comment_count": 572,
+      "share_count": 1754,
+      "duration_ms": 154948,
+      "create_time_iso": "2026-09-10T08:15:19+00:00",
+      "known_entities": [
+        "花儿与少年"
+      ],
+      "verified_entities": [
+        "花儿与少年"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 224.864,
+      "output_date": "2026-09-11",
+      "selected_at": "2026-09-11T02:03:04.036733+00:00"
+    },
+    {
+      "aweme_id": "7683757690791950803",
+      "content_id": "7683757690791950803",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7683757690791950803/?region=US&mid=7674267545779702566&u_code=0&did=MS4wLjABAAAApFaVMTwIamsPf-2N6epmx1kuZH3_FdIv9BsWzo1MRtRZQkJJW0Hv9dC2MW57aKMe&iid=MS4wLjABAAAAKyh8pDHwrwkkyU3Ie-uX2oLF6sew0urOf2LnFLd2lHOI4cyLtkflzKqJQ_dDJPhx&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=hzEV999kU0BSmMnJE43SVgY2C43rrUr0rZGabkccSZ4-&share_version=320900&ts=1789090809&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "🆘救命，正片里看不到的现场，曹骏太帅了，这反差魅力太上头… #曹骏  #曹骏披荆斩棘  #综艺名场面 #舞台反差萌 #向全世界安利曹骏 @曹骏",
+      "author": "华骏娱社💫",
+      "like_count": 1605,
+      "comment_count": 126,
+      "share_count": 39,
+      "duration_ms": 12800,
+      "create_time_iso": "2026-09-10T04:24:09+00:00",
+      "known_entities": [
+        "披荆斩棘"
+      ],
+      "verified_entities": [
+        "披荆斩棘"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 173.727,
+      "output_date": "2026-09-11",
+      "selected_at": "2026-09-11T02:03:04.036733+00:00"
+    },
+    {
+      "aweme_id": "7683808155524498341",
+      "content_id": "7683808155524498341",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7683808155524498341/?region=US&mid=7683808106203155235&u_code=0&did=MS4wLjABAAAAFHyiKwmC9r3mampyVqYfc54tvLcETqnfJKHe9HH_fY4&iid=MS4wLjABAAAAX1BDlNwQ310vk86JOZBTO762tYKhRo5ZYNJZo-qQ10w&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=xf3qdbnGLUlhsNomTO5LT12B4S9A6FME7KuIqbX3g_k-&share_version=320900&ts=1789090819&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "李宇春北京演唱会《无价之姐》直拍！真的太帅了吧！#李宇春 #无价之姐 #李宇春北京演唱会",
+      "author": "星潮live",
+      "like_count": 1573,
+      "comment_count": 51,
+      "share_count": 169,
+      "duration_ms": 30400,
+      "create_time_iso": "2026-09-10T07:39:59+00:00",
+      "known_entities": [],
+      "verified_entities": [],
+      "primary_celebrities": [],
+      "quality_score": 128.48000000000002,
+      "output_date": "2026-09-11",
+      "selected_at": "2026-09-11T02:03:04.036733+00:00"
+    },
     {
       "aweme_id": "7683435740592542050",
       "content_id": "7683435740592542050",
