@@ -17,6 +17,64 @@ SPEC.loader.exec_module(delivery)
 
 
 class PrepareKcDeliveryTests(unittest.TestCase):
+    def test_explicit_minimum_accepts_three_four_and_five_but_not_two(self) -> None:
+        for count in (2, 3, 4, 5):
+            with self.subTest(count=count), tempfile.TemporaryDirectory() as temp_dir:
+                root = Path(temp_dir)
+                output_dir = root / "output"
+                output_dir.mkdir()
+                paths = [output_dir / f"video-{index}.mp4" for index in range(count)]
+                for path in paths:
+                    path.write_bytes(b"video")
+                outputs_file = root / "outputs.txt"
+                outputs_file.write_text("".join(f"{path}\n" for path in paths), encoding="utf-8")
+
+                report = delivery.prepare_delivery(
+                    output_dir=output_dir, outputs_file=outputs_file, limit=5, min_delivery=3,
+                )
+
+                self.assertEqual(report["deliverable"], count >= 3)
+                self.assertEqual(report["ready"], count >= 3)
+                self.assertEqual(report["minimum_met"], count >= 3)
+                self.assertEqual(report["target_met"], count == 5)
+                self.assertEqual(report["selected_count"], count)
+                self.assertEqual(report["min_delivery"], 3)
+                self.assertEqual(len(delivery.root_videos(output_dir)), count)
+
+    def test_default_remains_strict_and_explicit_minimum_clamps_to_manual_limit(self) -> None:
+        for limit, count, minimum, expected in ((5, 4, None, False), (1, 1, 3, True)):
+            with self.subTest(limit=limit), tempfile.TemporaryDirectory() as temp_dir:
+                root = Path(temp_dir)
+                paths = [root / f"video-{index}.mp4" for index in range(count)]
+                for path in paths:
+                    path.write_bytes(b"video")
+                outputs_file = root / "outputs.txt"
+                outputs_file.write_text("".join(f"{path}\n" for path in paths), encoding="utf-8")
+
+                report = delivery.prepare_delivery(
+                    output_dir=root, outputs_file=outputs_file, limit=limit, min_delivery=minimum,
+                )
+
+                self.assertEqual(report["deliverable"], expected)
+                self.assertEqual(report["min_delivery"], limit)
+
+    def test_cli_accepts_explicit_minimum(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            paths = [root / f"video-{index}.mp4" for index in range(3)]
+            for path in paths:
+                path.write_bytes(b"video")
+            outputs_file = root / "outputs.txt"
+            outputs_file.write_text("".join(f"{path}\n" for path in paths), encoding="utf-8")
+            summary_file = root / "summary.json"
+            argv = ["prepare_kc_delivery.py", "--output-dir", str(root), "--outputs-file", str(outputs_file),
+                    "--summary-file", str(summary_file), "--limit", "5", "--min-delivery", "3"]
+            with mock.patch.object(sys, "argv", argv):
+                self.assertEqual(delivery.main(), 0)
+            report = json.loads(summary_file.read_text(encoding="utf-8"))
+            self.assertTrue(report["minimum_met"])
+            self.assertFalse(report["target_met"])
+
     def test_cli_preserves_partial_output_for_artifact_only(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)

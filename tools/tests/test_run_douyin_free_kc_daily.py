@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -53,6 +54,82 @@ class SelectedDiversityGuardTests(unittest.TestCase):
 
 
 class PackagingTargetTests(unittest.TestCase):
+    def test_child_failure_preserves_fresh_partial_outputs_but_never_stale_outputs(self) -> None:
+        for fresh_count in (0, 3):
+            with self.subTest(fresh_count=fresh_count), tempfile.TemporaryDirectory() as temporary:
+                root = Path(temporary)
+                run_dir = root / "run"
+                selected_dir = run_dir / "selected"
+                selected_dir.mkdir(parents=True)
+                for index in range(5):
+                    (selected_dir / f"{index}.mp4").write_bytes(b"source")
+                kc_work = root / "kc"
+                kc_work.mkdir()
+                output_dir = root / "outputs"
+                output_dir.mkdir()
+                stale = output_dir / "old.mp4"
+                stale.write_bytes(b"old")
+                outputs_list = kc_work / "last_run_outputs.txt"
+                outputs_list.write_text(str(stale) + "\n")
+
+                def fake_run(command: list[str], summary: dict) -> None:
+                    if Path(command[1]).name != "auto_kc_entertain.py":
+                        return
+                    self.assertFalse(outputs_list.exists())
+                    if fresh_count:
+                        fresh_outputs = []
+                        for index in range(fresh_count):
+                            output = output_dir / f"fresh-{index}.mp4"
+                            output.write_bytes(b"new")
+                            fresh_outputs.append(str(output))
+                        outputs_list.write_text("\n".join(fresh_outputs) + "\n")
+                    raise subprocess.CalledProcessError(2, command)
+
+                argv = [
+                    "daily", "--provider", "tikhub", "--limit", "5",
+                    "--min-selected-videos", "1", "--run-dir", str(run_dir),
+                    "--work-root", str(root / "work"), "--output-dir", str(output_dir),
+                    "--kc-work-dir", str(kc_work),
+                ]
+                with (
+                    mock.patch.object(sys, "argv", argv),
+                    mock.patch.object(daily, "resolve_python", return_value=sys.executable),
+                    mock.patch.object(daily, "run", side_effect=fake_run),
+                    mock.patch.object(daily, "enforce_selected_diversity"),
+                    mock.patch.object(daily, "mirror_latest"),
+                    mock.patch.object(daily, "commit_processed_manifest_after_success") as commit,
+                    mock.patch.object(daily, "write_summary") as write,
+                ):
+                    self.assertEqual(daily.main(), 2)
+                summary = write.call_args.args[1]
+                self.assertEqual(summary["kc_output_count"], fresh_count)
+                self.assertNotIn(str(stale), summary["kc_outputs"])
+                self.assertEqual(commit.call_count, bool(fresh_count))
+
+    def test_processed_ledger_records_only_rendered_sources_not_unused_reserves(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / "reports").mkdir()
+            (root / "reports/selected.json").write_text(json.dumps([
+                {"aweme_id": "rendered", "title": "明星现场"},
+                {"aweme_id": "reserve", "title": "候补素材"},
+                {"aweme_id": "failed", "title": "未完成"},
+            ]))
+            output = root / "rendered.mp4"
+            output.write_bytes(b"video")
+            missing = root / "missing.mp4"
+            manifest = root / "packaging.json"
+            manifest.write_text(json.dumps({
+                "hash1": {"output": str(output), "source_metadata": {"aweme_id": "rendered"}},
+                "hash2": {"output": str(missing), "source_metadata": {"aweme_id": "failed"}},
+            }))
+            ledger = root / "processed.json"
+            daily.commit_processed_manifest_after_success(
+                root, ledger, "2026-09-11", {},
+                packaging_manifest=manifest, output_paths=[str(output), str(missing)],
+            )
+            self.assertEqual([item["aweme_id"] for item in json.loads(ledger.read_text())["items"]], ["rendered"])
+
     def test_packages_all_four_when_daily_target_is_five_and_minimum_is_one(self) -> None:
         self.assertEqual(
             daily.resolve_packaging_target(selected_count=4, limit=5, minimum_selected=1),

@@ -419,20 +419,35 @@ def main() -> int:
         kc_cmd.append("--force-fallback")
     if args.require_deepseek_quality:
         kc_cmd.append("--require-deepseek-quality")
-    run(kc_cmd, summary)
-
     outputs_list = kc_work_dir / "last_run_outputs.txt"
+    # An early child-process failure may never refresh the summary. Only the
+    # current invocation may declare new outputs; the workflow snapshots any
+    # preceding provider's successful outputs before starting its fallback.
+    outputs_list.unlink(missing_ok=True)
+    packaging_failed = False
+    try:
+        run(kc_cmd, summary)
+    except subprocess.CalledProcessError as exc:
+        # auto_kc writes its successful-output manifest before reporting a
+        # short batch. Preserve that evidence for minimum-delivery handling.
+        packaging_failed = True
+        summary["kc_packaging_exit_code"] = exc.returncode
+
     kc_outputs = []
     if outputs_list.exists():
         kc_outputs = [line.strip() for line in outputs_list.read_text(encoding="utf-8").splitlines() if line.strip()]
     summary["kc_output_count"] = len(kc_outputs)
     summary["kc_outputs"] = kc_outputs
-    if source_provider == "tikhub" and len(kc_outputs) >= packaging_target:
-        commit_processed_manifest_after_success(run_dir, args.processed_manifest, args.output_date, summary)
+    if source_provider == "tikhub" and kc_outputs:
+        commit_processed_manifest_after_success(
+            run_dir, args.processed_manifest, args.output_date, summary,
+            packaging_manifest=kc_work_dir / "processed_manifest.json",
+            output_paths=kc_outputs,
+        )
     write_summary(run_dir, summary)
     print(f"KC outputs: {len(kc_outputs)}")
     print(f"Run directory: {run_dir}")
-    return 0
+    return 2 if packaging_failed or len(kc_outputs) < packaging_target else 0
 
 
 def parse_args() -> argparse.Namespace:
@@ -541,6 +556,9 @@ def commit_processed_manifest_after_success(
     processed_manifest: Path,
     output_date: str,
     summary: dict[str, Any],
+    *,
+    packaging_manifest: Path | None = None,
+    output_paths: list[str] | None = None,
 ) -> None:
     metadata_path = run_dir / "reports" / "selected.json"
     try:
@@ -549,6 +567,22 @@ def commit_processed_manifest_after_success(
         selected = []
     if not isinstance(selected, list) or not selected:
         return
+    if packaging_manifest is not None:
+        try:
+            rendered = json.loads(packaging_manifest.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            rendered = {}
+        current_outputs = {Path(value).resolve() for value in output_paths or []}
+        successful_ids = {
+            str((entry.get("source_metadata") or {}).get("aweme_id") or "")
+            for entry in rendered.values() if isinstance(entry, dict)
+            and entry.get("output")
+            and Path(entry["output"]).resolve() in current_outputs
+            and Path(entry["output"]).is_file()
+        }
+        selected = [item for item in selected if str(item.get("aweme_id") or "") in successful_ids]
+        if not selected:
+            return
 
     from run_douyin_tikhub_daily import update_processed_manifest
 

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import importlib.util
 import datetime as dt
+import tempfile
 import unittest
 from pathlib import Path
 from types import SimpleNamespace
@@ -21,6 +22,12 @@ class FakeClient:
     def __init__(self, responses: list[httpx.Response | Exception]) -> None:
         self.responses = list(responses)
         self.calls: list[tuple[str, dict]] = []
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *args):
+        return None
 
     def post(self, url: str, *, json: dict, headers: dict | None = None) -> httpx.Response:
         self.calls.append((url, json))
@@ -127,6 +134,21 @@ class TikHubSearchCompatibilityTests(unittest.TestCase):
 
 
 class TikHubSearchBudgetTests(unittest.TestCase):
+    def test_douyin_endpoint_retries_cannot_consume_other_platform_reserve(self) -> None:
+        args = SimpleNamespace(
+            max_search_requests=15, douyin_search_requests=10,
+            request_timeout_seconds=45, pages_per_keyword=1,
+            recent_hours=24, tikhub_filter_duration="0", search_retry_attempts=1,
+        )
+        client = FakeClient([httpx.Response(400, json={"detail": "upstream rejected"}) for _ in range(10)])
+        info = {"errors": []}
+        with tempfile.TemporaryDirectory() as temporary, mock.patch.object(tikhub.httpx, "Client", return_value=client):
+            result = tikhub.fetch_candidates(args, "test-key", [f"keyword{i}" for i in range(10)], Path(temporary), info)
+        self.assertEqual(result, [])
+        self.assertEqual(len(client.calls), 10)
+        self.assertEqual(len(info["tikhub_attempts"]), 10)
+        self.assertEqual(args.max_search_requests - len(info["tikhub_attempts"]), 5)
+
     def test_daily_ten_cent_budget_caps_search_at_ten_calls(self) -> None:
         self.assertEqual(tikhub.resolve_search_request_limit(50, 0.10), 10)
 
@@ -198,6 +220,24 @@ class TikHubSearchBudgetTests(unittest.TestCase):
 
 
 class TikHubCandidateSelectionTests(unittest.TestCase):
+    def test_generic_gossip_tag_does_not_discard_event_footage_before_review(self) -> None:
+        now = int(dt.datetime.now(dt.timezone.utc).timestamp())
+        title = "#周润发出席《寒战1994》首映礼，现场风趣幽默。#娱乐圈#娱乐八卦"
+        item = {"aweme_id": "event", "title": title, "author": "明星云集最前线", "like_count": 1440, "create_time": now - 60}
+        selected = tikhub.select_candidates([item], 5, 24, 10000, 1000, 1000, 0, 60, 300, "明星,娱乐圈", "八卦,解说,盘点", set(), {"terms": []})
+        self.assertEqual([entry["aweme_id"] for entry in selected], ["event"])
+        self.assertEqual(selected[0]["title"], title)
+        self.assertFalse(tikhub.likely_face_explainer(item))
+
+    def test_actual_commentary_remains_excluded_with_generic_tags(self) -> None:
+        for title, author in [
+            ("周润发首映礼八卦揭秘 #娱乐八卦", "娱乐现场"),
+            ("周润发首映礼 #娱乐解说", "娱乐现场"),
+            ("周润发首映礼 #娱乐八卦", "八卦解说员"),
+            ("周润发首映礼 #娱乐八卦揭秘", "娱乐现场"),
+        ]:
+            self.assertTrue(tikhub.likely_face_explainer({"title": title, "author": author}))
+
     def test_current_candidates_fill_by_engagement_tier_without_old_video(self) -> None:
         now = int(dt.datetime.now(dt.timezone.utc).timestamp())
         candidates = [

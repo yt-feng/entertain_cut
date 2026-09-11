@@ -19,6 +19,7 @@ def main() -> int:
         outputs_file=args.outputs_file,
         prepend_outputs_files=args.prepend_outputs_file,
         limit=max(1, args.limit),
+        min_delivery=args.min_delivery,
     )
     args.summary_file.parent.mkdir(parents=True, exist_ok=True)
     args.summary_file.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
@@ -43,6 +44,10 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--summary-file", type=Path, required=True)
     parser.add_argument("--limit", type=int, default=5)
+    parser.add_argument(
+        "--min-delivery", type=int,
+        help="Minimum selected videos that may be delivered; defaults to the full limit.",
+    )
     return parser.parse_args()
 
 
@@ -52,7 +57,10 @@ def prepare_delivery(
     outputs_file: Path,
     prepend_outputs_files: Iterable[Path] = (),
     limit: int,
+    min_delivery: int | None = None,
 ) -> dict[str, Any]:
+    limit = max(1, limit)
+    minimum = min(limit, max(1, min_delivery)) if min_delivery is not None else limit
     output_dir.mkdir(parents=True, exist_ok=True)
     preferred = merge_preferred_outputs(
         [*prepend_outputs_files, outputs_file],
@@ -75,16 +83,23 @@ def prepare_delivery(
     all_selected_exist = all(path.exists() for path in selected)
     artifact_ready = bool(selected) and all_selected_exist
     target_met = len(selected) >= limit and all_selected_exist
-    deliverable = target_met
+    minimum_met = len(selected) >= minimum and all_selected_exist
+    deliverable = minimum_met
     return {
-        "ready": target_met,
+        "ready": deliverable,
         "artifact_ready": artifact_ready,
         "deliverable": deliverable,
         "target_met": target_met,
+        "minimum_met": minimum_met,
         "status": (
-            "ready" if target_met else ("partial_artifact" if artifact_ready else "insufficient_videos")
+            "ready" if target_met else (
+                "minimum_ready" if minimum_met else (
+                    "partial_artifact" if artifact_ready else "insufficient_videos"
+                )
+            )
         ),
         "limit": limit,
+        "min_delivery": minimum,
         "input_count": len(current),
         "selected_count": len(selected),
         "automatic_history_fallback": False,

@@ -516,6 +516,12 @@ def resolve_search_request_limit(configured_max: int, daily_budget_usd: float) -
     return budget_limit
 
 
+def douyin_request_limit(args: argparse.Namespace) -> int:
+    overall = max(0, int(args.max_search_requests))
+    provider = max(0, int(getattr(args, "douyin_search_requests", overall)))
+    return min(overall, provider) if overall and provider else overall or provider
+
+
 def fetch_candidates(
     args: argparse.Namespace,
     api_key: str,
@@ -526,7 +532,9 @@ def fetch_candidates(
     candidates: list[dict[str, Any]] = []
     seen: set[str] = set()
     request_count = 0
-    max_search_requests = max(0, int(args.max_search_requests))
+    # Endpoint fallback/retries are paid attempts too. Reserve the remainder
+    # for other platforms even when an individual Douyin keyword fails.
+    max_search_requests = douyin_request_limit(args)
     preferred_endpoint = TIKHUB_VIDEO_SEARCH_ENDPOINTS[0][0]
     headers = {
         "Authorization": f"Bearer {api_key}",
@@ -1364,7 +1372,10 @@ def select_candidates(
     )
     exclude_terms_list = split_terms(exclude_terms)
     if exclude_terms_list:
-        scoped = [item for item in scoped if not matches_any_term(item, exclude_terms_list)]
+        scoped = [
+            item for item in scoped
+            if not any(term in candidate_editorial_text(item) for term in exclude_terms_list)
+        ]
     if include_terms:
         scoped = [item for item in scoped if matches_any_term(item, include_terms)]
 
@@ -1936,7 +1947,8 @@ def score_candidate(
     hot_matches = [term for term in hot_terms if term and term in text]
     comment_terms = [term for term in COMMENTABLE_TERMS if term in text]
     low_signal = [term for term in LOW_SIGNAL_TERMS if term in text]
-    explainer_terms = [term for term in EXPLAINER_TERMS if term.lower() in text.lower()]
+    editorial_text = candidate_editorial_text(item).lower()
+    explainer_terms = [term for term in EXPLAINER_TERMS if term.lower() in editorial_text]
     clip_cues = [term for term in STAR_CLIP_CUES if term in text]
     comment_ratio = comments / max(1, likes)
     created = int_or_zero(item.get("create_time"))
@@ -2237,8 +2249,20 @@ def matched_known_entities(item: dict[str, Any], hot_terms: list[str]) -> list[s
 
 
 def likely_face_explainer(item: dict[str, Any]) -> bool:
-    text = candidate_text(item).lower()
+    text = candidate_editorial_text(item).lower()
     return any(term.lower() in text for term in EXPLAINER_TERMS)
+
+
+def candidate_editorial_text(item: dict[str, Any]) -> str:
+    """Distinguish broad distribution tags from claims about the clip itself.
+
+    Keep the original title for source/model review. Only these exact generic
+    tags are ignored by the commentary filter; narrator cues in the caption,
+    author name and more specific tags still reject a candidate.
+    """
+    title = str(item.get("title") or "")
+    title = re.sub(r"#(?:娱乐八卦|内娱八卦)(?=$|[\s#，。！？,.!?])", " ", title)
+    return normalize_space(f"{title} {item.get('author') or ''}")
 
 
 def likely_star_clip(item: dict[str, Any]) -> bool:
