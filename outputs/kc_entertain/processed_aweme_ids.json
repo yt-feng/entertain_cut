@@ -1,7 +1,36 @@
 {
-  "updated_at": "2026-09-12T01:38:14.313027+00:00",
-  "count": 361,
+  "updated_at": "2026-09-12T02:12:54.273700+00:00",
+  "count": 362,
   "items": [
+    {
+      "aweme_id": "7684112712045055267",
+      "content_id": "7684112712045055267",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7684112712045055267/?region=US&mid=7684112753468197651&u_code=0&did=MS4wLjABAAAAG6G7nYCjbyPQrRRkp3g98VzUhzVkifVRroAGGLqloxyKdvuRncW9cwfc9HmYZ-FZ&iid=MS4wLjABAAAAXohQToGAcH0LcYN96lV4X7dd3_NH1XBzsKNqFDbUvkVLBT5dgeQCJP7odIn8K1bA&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=vUyHohySsOz5X9X8vOZtH7m6_5xaZEo7e2TvHDOzBNU-&share_version=320900&ts=1789178493&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "刀郎这一步走得太绝了，给演艺圈狠狠上了一课#刀郎 #线上音乐会 #民族音乐",
+      "author": "张琦商业课堂-获课教育",
+      "like_count": 83584,
+      "comment_count": 3654,
+      "share_count": 3693,
+      "duration_ms": 129934,
+      "create_time_iso": "2026-09-11T03:21:55+00:00",
+      "known_entities": [
+        "刀郎",
+        "线上音乐会",
+        "民族音乐"
+      ],
+      "verified_entities": [
+        "刀郎",
+        "线上音乐会",
+        "民族音乐"
+      ],
+      "primary_celebrities": [
+        "刀郎"
+      ],
+      "quality_score": 281.029,
+      "output_date": "2026-09-12",
+      "selected_at": "2026-09-12T02:12:54.273700+00:00"
+    },
     {
       "aweme_id": "7684089608912637224",
       "content_id": "7684089608912637224",
