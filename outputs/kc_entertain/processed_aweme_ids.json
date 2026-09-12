@@ -1,7 +1,109 @@
 {
-  "updated_at": "2026-09-11T02:03:04.036733+00:00",
-  "count": 357,
+  "updated_at": "2026-09-12T01:38:14.313027+00:00",
+  "count": 361,
   "items": [
+    {
+      "aweme_id": "7684089608912637224",
+      "content_id": "7684089608912637224",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7684089608912637224/?region=US&mid=7684089617959684918&u_code=0&did=MS4wLjABAAAAKPs9AJyHgeLhzq7Zc39iCxoVXB2trgqEXVoTO8AiuAQ7afZfWL6xDdyc3FNOUNQW&iid=MS4wLjABAAAAA45OIV25w3fa_MNMZWZ6sqRGepIziUpPkuFAcUkLdQdQg_YCWZTUSpnrkkIQ9kFQ&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=dKeRE244OtQWAcCvUKD2dTLfWCI4Anqeby7v0aDeqBc-&share_version=320900&ts=1789175861&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "《极限挑战 第一季》国产综艺封神之作，全员智商在线狂飙演技 #极限挑战第一季  #怀旧综艺  #男人帮  #综艺",
+      "author": "挑战极限",
+      "like_count": 45850,
+      "comment_count": 585,
+      "share_count": 7964,
+      "duration_ms": 154715,
+      "create_time_iso": "2026-09-11T01:52:16+00:00",
+      "known_entities": [
+        "极限挑战 第一季",
+        "极限挑战第一季",
+        "怀旧综艺"
+      ],
+      "verified_entities": [
+        "极限挑战 第一季",
+        "极限挑战第一季",
+        "怀旧综艺"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 285.841,
+      "output_date": "2026-09-12",
+      "selected_at": "2026-09-12T01:38:14.313027+00:00"
+    },
+    {
+      "aweme_id": "7684156709892239333",
+      "content_id": "7684156709892239333",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7684156709892239333/?region=US&mid=7684156627154504491&u_code=0&did=MS4wLjABAAAAKPs9AJyHgeLhzq7Zc39iCxoVXB2trgqEXVoTO8AiuAQ7afZfWL6xDdyc3FNOUNQW&iid=MS4wLjABAAAAA45OIV25w3fa_MNMZWZ6sqRGepIziUpPkuFAcUkLdQdQg_YCWZTUSpnrkkIQ9kFQ&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=VPqtEi1i_R_E46Mjn9I0Yem8NcUr29B7XXSRh2aPcOM-&share_version=320900&ts=1789175861&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "我承认 这个综艺我的笑点全建立在我哥的痛点上了 阳队好好努力吧 #小沈阳披荆斩棘 #小沈阳 #小沈阳队长 #小沈阳演唱会 #披荆斩棘小沈阳",
+      "author": "琳啊～",
+      "like_count": 19224,
+      "comment_count": 547,
+      "share_count": 4658,
+      "duration_ms": 75047,
+      "create_time_iso": "2026-09-11T06:12:33+00:00",
+      "known_entities": [
+        "披荆斩棘"
+      ],
+      "verified_entities": [
+        "披荆斩棘"
+      ],
+      "primary_celebrities": [
+        "小沈阳"
+      ],
+      "quality_score": 230.677,
+      "output_date": "2026-09-12",
+      "selected_at": "2026-09-12T01:38:14.313027+00:00"
+    },
+    {
+      "aweme_id": "7684229565727960305",
+      "content_id": "7684229565727960305",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7684229565727960305/?region=US&mid=7662369173460437043&u_code=0&did=MS4wLjABAAAAxVOxdzKp2Y4QfjfjU9IulBz9E20roCKYx7rj8t3Y0IZpUYT9gaZ_U7YSw6TcI8v_&iid=MS4wLjABAAAAh-eYzetJCXCc_xfgL0v77vPNE92Rw6t41tDKMi2Z5tlP7pKe6wTzCLPQjQ07hpWw&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=j.1D0uy8qminFq3U75TQzNT1yvOyh5e56Vjqn4wE3D0-&share_version=320900&ts=1789175854&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "刘萧旭马小宇王格格谭盐盐同框 帅哥美女站一起太养眼啦#刘萧旭 #马小宇 #citybus巡游歌会 #抖音心动追剧盛典 #跟着citybus在西安集体上头",
+      "author": "娱乐圈小蜜",
+      "like_count": 3913,
+      "comment_count": 839,
+      "share_count": 329,
+      "duration_ms": 13100,
+      "create_time_iso": "2026-09-11T10:55:16+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "citybus巡游歌会",
+        "抖音心动追剧盛典"
+      ],
+      "primary_celebrities": [
+        "刘萧旭",
+        "马小宇",
+        "王格格",
+        "谭盐盐"
+      ],
+      "quality_score": 174.318,
+      "output_date": "2026-09-12",
+      "selected_at": "2026-09-12T01:38:14.313027+00:00"
+    },
+    {
+      "aweme_id": "7684278996774817050",
+      "content_id": "7684278996774817050",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7684278996774817050/?region=US&mid=7684279041930562347&u_code=0&did=MS4wLjABAAAAQE0NZX9dqBcBGLRZNA1mBFduw_evUMNNy-pgTxTM9doKu_fiATnvxfM2P0T8nzxg&iid=MS4wLjABAAAAp6PTScoZ57lSMyo0u00qazC9twEXh9r_Ks7cILEzdeNCywTEDZR7qeVtnuIkcs23&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=au.QbfaxABYg1bydubibve5kXqqynFBKbuQ2jKPB5QU-&share_version=320900&ts=1789175865&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#周杰伦评论区出现好多神图  原来偶像与粉丝的羁绊，藏在歌声与镜头里。#周杰伦 #演唱会",
+      "author": "你很会演鸭",
+      "like_count": 1542,
+      "comment_count": 23,
+      "share_count": 7,
+      "duration_ms": 37499,
+      "create_time_iso": "2026-09-11T14:07:17+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "演唱会"
+      ],
+      "primary_celebrities": [
+        "周杰伦"
+      ],
+      "quality_score": 146.09699999999998,
+      "output_date": "2026-09-12",
+      "selected_at": "2026-09-12T01:38:14.313027+00:00"
+    },
     {
       "aweme_id": "7683818901565646950",
       "content_id": "7683818901565646950",
