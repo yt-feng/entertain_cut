@@ -47,6 +47,7 @@ FANS_MAX = 20000
 TOP_AUTHOR_CHECK = 12
 MAX_ATTEMPTS = 3
 BUDGET: TikHubRequestBudget | None = None
+HOT_TERMS: list[str] = []
 
 client = httpx.Client(
     base_url=BASE,
@@ -237,6 +238,12 @@ def parse_args() -> argparse.Namespace:
         help="排除已经做过的笔记；可重复传入。",
     )
     parser.add_argument(
+        "--hot-term",
+        action="append",
+        default=[],
+        help="当天娱乐热点词；命中内容优先选入，但不改变低粉/点赞硬门槛。",
+    )
+    parser.add_argument(
         "--keyword",
         action="append",
         dest="keywords",
@@ -270,13 +277,18 @@ def parse_args() -> argparse.Namespace:
 
 
 def main() -> None:
-    global BUDGET, KEYWORDS, MAX_ATTEMPTS, OUT_DIR, PAGES, TOP_AUTHOR_CHECK
+    global BUDGET, HOT_TERMS, KEYWORDS, MAX_ATTEMPTS, OUT_DIR, PAGES, TOP_AUTHOR_CHECK
     args = parse_args()
     OUT_DIR = args.out_dir.expanduser().resolve()
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     PAGES = args.pages
     TOP_AUTHOR_CHECK = args.top_author_check
     MAX_ATTEMPTS = args.max_attempts
+    HOT_TERMS = list(dict.fromkeys(
+        re.sub(r"\s+", " ", str(term)).strip()
+        for term in args.hot_term
+        if re.sub(r"\s+", " ", str(term)).strip()
+    ))[:8]
     if args.keywords is not None:
         KEYWORDS = args.keywords
     if not KEY:
@@ -360,7 +372,13 @@ def main() -> None:
         comments = candidate["comments_count"]
         fans = max(candidate.get("author_fans", 0), 50)
         age_hours = max(0.0, (now - candidate["timestamp"]) / 3600)
-        return (
+        hot_matches = [
+            term for term in HOT_TERMS
+            if term and term in f"{candidate.get('title', '')} {candidate.get('desc', '')}"
+        ]
+        candidate["hot_context_matches"] = hot_matches[:8]
+        hot_bonus = min(24.0, 12.0 * len(hot_matches))
+        return hot_bonus + (
             math.log1p(likes)
             + 2.0 * math.log1p(likes / fans)
             + 0.75 * math.log1p(comments)
@@ -385,12 +403,16 @@ def main() -> None:
     )
     if not pool:
         raise SystemExit("no candidate found")
-    # Prefer different creators across the daily batch, then fill any remaining
-    # slots from the ranked pool. This keeps five outputs visually/content-wise varied.
+    # Reserve up to two slots for genuine same-day entertainment-hot matches,
+    # then fill with the strongest generic low-fan posts. This keeps the daily
+    # batch varied instead of turning all five outputs into one hot topic.
     selected: list[dict] = []
     selected_ids: set[str] = set()
     selected_authors: set[str] = set()
-    for candidate in pool:
+    hot_pool = [candidate for candidate in pool if candidate.get("hot_context_matches")]
+    generic_pool = [candidate for candidate in pool if not candidate.get("hot_context_matches")]
+    hot_target = min(2, args.limit, len(hot_pool))
+    for candidate in [*hot_pool[:hot_target], *generic_pool, *hot_pool[hot_target:]]:
         if candidate["author_id"] in selected_authors:
             continue
         selected.append(candidate)

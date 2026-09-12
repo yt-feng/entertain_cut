@@ -60,6 +60,11 @@ jobs:
       TZ: Asia/Shanghai
       TIKHUB_API_KEY: ${{ secrets.TIKHUB_API_KEY }}
       APIMART_API_KEY: ${{ secrets.APIMART_API_KEY }}
+      TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
+      HOTSPOT_ASSISTANT_API_URL: ${{ vars.HOTSPOT_ASSISTANT_API_URL || secrets.HOTSPOT_ASSISTANT_API_URL }}
+      HOTSPOT_ASSISTANT_API_KEY: ${{ secrets.HOTSPOT_ASSISTANT_API_KEY }}
+      BING_SEARCH_API_KEY: ${{ secrets.BING_SEARCH_API_KEY }}
+      BING_SEARCH_ENDPOINT: ${{ vars.BING_SEARCH_ENDPOINT || secrets.BING_SEARCH_ENDPOINT }}
       JIANGUOYUN_WEBDAV_URL: ${{ secrets.JIANGUOYUN_WEBDAV_URL }}
       JIANGUOYUN_REMOTE_ROOT: ${{ vars.JIANGUOYUN_REMOTE_ROOT || '我的坚果云/KC Desk Notes/Ops' }}
       JIANGUOYUN_USERNAME: ${{ secrets.JIANGUOYUN_WEBDAV_USER || secrets.JIANGUOYUN_WEBDAV_USERNAME || secrets.JIANGUOYUN_USERNAME }}
@@ -338,6 +343,7 @@ jobs:
             --top-author-check "$KC_TOP_AUTHOR_CHECK" \
             --max-attempts "$KC_MAX_ATTEMPTS" \
             --avatar-provider "$KC_AVATAR_PROVIDER" \
+            --hot-context --hot-context-provider auto \
             --processed-manifest "$KC_PROCESSED_MANIFEST" \
             --work-root work/xhs_daily \
             --output-dir "$KC_OUTPUT_DIR"

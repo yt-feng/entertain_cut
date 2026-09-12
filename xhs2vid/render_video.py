@@ -58,8 +58,9 @@ JIANYING_PROCESSING_FILTERS = {
     "character": "loudnorm=I=-16:LRA=7:TP=-1.5",
 }
 DEFAULT_CHARACTER_TEMPO = 1.08
-PAGE_PAD = 0.16
-SEGMENT_PAD = 0.20
+PAGE_PAD = 0.38
+SEGMENT_PAD = 0.45
+MIN_PAGE_SECONDS = 0.85
 REVEAL_BLUR = 18
 FIRE_T = 0.80
 FIRE_GROW_FRAMES = 5
@@ -314,13 +315,22 @@ def split_long_clause(clause: str, limit: int) -> list[str]:
 
 
 def split_pages(text: str, limit: int = 16) -> list[str]:
-    """按标点切句, 超长子句按词边界切, 短句合并成 <=limit 字的字幕页。"""
-    clauses = []
-    for raw in re.split(r"[，。？！；、\s]+", text):
+    """按标点切句并保留标点，避免字幕/口播在半句话时跳页。"""
+    compact = re.sub(r"\s+", "", str(text or "")).strip()
+    if not compact:
+        return []
+    # Keep the punctuation on the preceding clause so both TTS and the
+    # on-screen page retain a natural sentence boundary.
+    clauses: list[str] = []
+    for raw in re.findall(r"[^，。？！；、,.!?;:：\n]+[，。？！；、,.!?;:：]?", compact):
+        raw = raw.strip()
         if not raw:
             continue
         if len(raw) > limit:
-            clauses.extend(split_long_clause(raw, limit))
+            pieces = split_long_clause(raw, limit)
+            # split_long_clause is word-boundary based; put a trailing
+            # sentence mark on the final piece if it was separated.
+            clauses.extend(pieces)
         else:
             clauses.append(raw)
     pages: list[str] = []
@@ -328,8 +338,8 @@ def split_pages(text: str, limit: int = 16) -> list[str]:
     for clause in clauses:
         if not cur:
             cur = clause
-        elif len(cur) + len(clause) + 1 <= limit:
-            cur = f"{cur} {clause}"
+        elif len(cur) + len(clause) <= limit:
+            cur = f"{cur}{clause}"
         else:
             pages.append(cur)
             cur = clause
@@ -787,6 +797,32 @@ def panel_subcomment(parent: dict, reply: dict, idx: int) -> Image.Image:
     lx = 1005 - like_f.getlength(like_txt)
     d.text((lx, ty - 3), like_txt, font=like_f, fill=GRAY)
     draw_heart(d, int(lx) - 40, ty + 18, 37, (150, 150, 150))
+    return img
+
+
+def panel_hot_context(terms: list[str]) -> Image.Image:
+    """A compact, sourced-by-selection card for the same-day hot-topic bridge."""
+    img = Image.new("RGB", (W, PANEL_H), (248, 249, 252))
+    d = ImageDraw.Draw(img)
+    d.rounded_rectangle([54, 44, 440, 122], radius=24, fill=KC_MAGENTA)
+    d.text((88, 62), "今日娱乐热点联动", font=hei_w6(38), fill=(255, 255, 255))
+    d.rounded_rectangle([54, 170, 1026, 690], radius=34, fill=(255, 255, 255))
+    d.rectangle([54, 170, 1026, 184], fill=KC_YELLOW)
+    fnt = hei_w6(56)
+    label = "、".join(clean_text(term) for term in terms[:3] if clean_text(term))
+    label = label or "当日娱乐热议"
+    lines = wrap_cjk(f"命中当天热词：{label}", fnt, 860)
+    y = 270
+    for line in lines[:4]:
+        d.text((92, y), line, font=fnt, fill=(20, 20, 20))
+        y += 82
+    body = "先看原帖内容，再看热榜背景；只做当天讨论联动，不替原内容加戏。"
+    body_f = hei_w3(34)
+    for line in wrap_cjk(body, body_f, 850):
+        d.text((92, y + 58), line, font=body_f, fill=(100, 100, 100))
+        y += 48
+    d.rounded_rectangle([54, 760, 560, 836], radius=24, fill=(235, 247, 251))
+    d.text((86, 779), "低粉热评 × 当日热点", font=hei_w6(34), fill=(0, 125, 150))
     return img
 
 
@@ -1264,6 +1300,18 @@ def main() -> None:
     segments: list[dict] = []
     title_clean = clean_text(NOTE["title"])
     segments.append({"panel": panel_cover(), "pages": split_pages(title_clean)})
+    hot_matches = [
+        clean_text(str(term))
+        for term in (NOTE.get("hot_context_matches") or [])
+        if clean_text(str(term))
+    ]
+    if hot_matches:
+        hot_label = "、".join(hot_matches[:3])
+        hot_voiceover = f"今日娱乐热点，{hot_label}。这条内容正好命中当天讨论背景。"
+        segments.append({
+            "panel": panel_hot_context(hot_matches),
+            "pages": split_pages(hot_voiceover),
+        })
     replies = load_preview_subcomments(COMMENTS) if args.include_subcomments else [None] * len(COMMENTS)
     for i, c in enumerate(COMMENTS):
         segments.append({"panel": panel_comment(c, i), "pages": split_pages(clean_text(c["text"]))})
@@ -1330,7 +1378,7 @@ def main() -> None:
             blur_png = RENDER / f"{tag}_blur.png"
             still.save(png)
             blur_still.save(blur_png)
-            page_dur = frame_align(dur + PAGE_PAD)
+            page_dur = frame_align(max(dur + PAGE_PAD, MIN_PAGE_SECONDS))
             start_fraction = 0.18 + 0.82 * pi / page_count
             end_fraction = 0.18 + 0.82 * (pi + 1) / page_count
             page_infos.append(

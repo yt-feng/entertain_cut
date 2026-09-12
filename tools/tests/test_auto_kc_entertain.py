@@ -122,6 +122,16 @@ class TitleAccuracyTests(unittest.TestCase):
         self.assertIs(returned_plan, plan)
         self.assertEqual(issues, ["第二行结论缺少直接证据"])
 
+    def test_subtitle_timeline_bridges_short_gaps_and_preserves_last_tail(self) -> None:
+        subtitles = [
+            {"start": 0.0, "end": 0.42, "zh": "前半句还没有说完"},
+            {"start": 0.55, "end": 1.0, "zh": "下一句"},
+        ]
+        normalized = auto_kc.normalize_subtitle_timeline(subtitles, 1.6)
+        self.assertEqual(normalized[0]["end"], 0.55)
+        self.assertEqual(normalized[-1]["end"], 1.6)
+        self.assertEqual([item["index"] for item in normalized], [1, 2])
+
     def test_batch_continues_after_one_source_raises(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)

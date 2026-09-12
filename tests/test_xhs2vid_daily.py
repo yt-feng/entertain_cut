@@ -84,9 +84,29 @@ class XhsDailyTests(unittest.TestCase):
         self.assertEqual(len(manifest), 6)
         self.assertEqual(len({item["speaker_id"] for item in manifest}), 6)
         monkey = next(item for item in manifest if item["name"] == "猴哥")
-        self.assertEqual(monkey["tempo"], 1.48)
+        self.assertEqual(monkey["tempo"], 1.18)
         self.assertEqual(cli.count("--segment-speaker"), 6)
         self.assertEqual(cli.count("--segment-tempo"), 6)
+
+    def test_hot_context_can_add_segment_without_exhausting_voice_roster(self) -> None:
+        comments = [
+            {"sub_comments": [{"text": "a"}]},
+            {"sub_comments": [{"text": "b"}]},
+            {"sub_comments": [{"text": "c"}]},
+        ]
+        cli, manifest = batch.voice_arguments(comments, 1, ["某热搜"])
+        self.assertEqual(len(manifest), 8)
+        self.assertEqual(cli.count("--segment-speaker"), 8)
+        self.assertEqual(cli.count("--segment-tempo"), 8)
+
+    def test_hot_search_keywords_keep_broad_lowfan_queries(self) -> None:
+        keywords = batch.hot_search_keywords(
+            {"terms": ["当日热搜", "某综艺", "某明星", "某红毯", "额外"]},
+            batch.DAILY_KEYWORDS,
+        )
+        self.assertEqual(len(keywords), 8)
+        self.assertTrue(keywords[0].startswith("当日热搜 娱乐"))
+        self.assertTrue(any(keyword == "日常 离谱" for keyword in keywords))
 
     def test_title_wrap_preserves_neighbor_word_and_highlight(self) -> None:
         self.assertEqual(
@@ -98,6 +118,11 @@ class XhsDailyTests(unittest.TestCase):
             renderer.pick_highlights("不接受单休 就这样被hr说教…."),
             ["被hr说教"],
         )
+
+    def test_split_pages_keeps_sentence_punctuation_and_no_padding_spaces(self) -> None:
+        pages = renderer.split_pages("这句话要完整说完，然后再到下一句！最后还有一句。", limit=18)
+        self.assertEqual(pages, ["这句话要完整说完，然后再到下一句！", "最后还有一句。"])
+        self.assertTrue(all(" " not in page for page in pages))
 
     def test_record_processed_merges_without_duplicates(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:

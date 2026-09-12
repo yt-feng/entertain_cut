@@ -39,16 +39,16 @@ DAILY_KEYWORDS = (
     "婚姻 现实",
 )
 
-# Cover voice followed by six deliberately distinct character voices. The
-# faster Monkey tempo incorporates the user's previous feedback.
+# Cover voice followed by six deliberately distinct character voices. Keep a
+# little breathing room between pages so a viewer can finish the sentence.
 COVER_VOICE = ("BV005_streaming", 1.18, "娱乐扒妹")
 CHARACTER_VOICES = (
-    ("BV411_streaming", 1.24, "解说小帅"),
-    ("zh_male_xionger_stream_gpu", 1.28, "熊二"),
-    ("zh_male_sunwukong_clone2", 1.48, "猴哥"),
-    ("BV050_streaming", 1.28, "动漫小新"),
-    ("BV417_streaming", 1.24, "派星星"),
-    ("zh_female_peiqi", 1.25, "佩奇猪"),
+    ("BV411_streaming", 1.10, "解说小帅"),
+    ("zh_male_xionger_stream_gpu", 1.12, "熊二"),
+    ("zh_male_sunwukong_clone2", 1.18, "猴哥"),
+    ("BV050_streaming", 1.12, "动漫小新"),
+    ("BV417_streaming", 1.10, "派星星"),
+    ("zh_female_peiqi", 1.12, "佩奇猪"),
 )
 
 
@@ -83,16 +83,26 @@ def selected_reply_count(comments: list[dict]) -> int:
     return sum(bool(comment.get("sub_comments")) for comment in comments)
 
 
-def voice_arguments(comments: list[dict], video_index: int) -> tuple[list[str], list[dict]]:
+def voice_arguments(
+    comments: list[dict],
+    video_index: int,
+    hot_context_matches: list[str] | None = None,
+) -> tuple[list[str], list[dict]]:
     segment_count = 1 + len(comments) + selected_reply_count(comments)
+    if hot_context_matches:
+        segment_count += 1
     rotated = list(CHARACTER_VOICES)
     offset = (video_index - 1) % len(rotated)
     rotated = rotated[offset:] + rotated[:offset]
     required_characters = segment_count - 1
     if required_characters > len(rotated):
-        raise RuntimeError(
-            f"video needs {required_characters} character voices; roster has {len(rotated)}"
-        )
+        # A hot-context card adds one segment. A post with three replies can
+        # therefore exceed the six-role roster; cycle the vetted voices rather
+        # than aborting the whole five-video batch.
+        repeats = (required_characters + len(rotated) - 1) // len(rotated)
+        rotated = (rotated * repeats)[:required_characters]
+    else:
+        rotated = rotated[:required_characters]
     roster = [COVER_VOICE, *rotated[:required_characters]]
     args: list[str] = []
     manifest: list[dict] = []
@@ -165,6 +175,18 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--keyword", action="append", dest="keywords")
     parser.add_argument(
+        "--hot-context",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="抓取当天娱乐热点，并在不增加 TikHub 搜索额度的前提下混入选题。",
+    )
+    parser.add_argument(
+        "--hot-context-provider",
+        choices=("auto", "tavily", "legacy"),
+        default="auto",
+    )
+    parser.add_argument("--hot-context-max-items", type=int, default=12)
+    parser.add_argument(
         "--avatar-provider",
         choices=("apimart", "local"),
         default="apimart",
@@ -196,7 +218,57 @@ def parse_args() -> argparse.Namespace:
         args.keywords = [value.strip() for value in args.keywords if value.strip()]
         if not 1 <= len(args.keywords) <= 8:
             parser.error("provide between 1 and 8 --keyword values")
+    if not 1 <= args.hot_context_max_items <= 24:
+        parser.error("--hot-context-max-items must be between 1 and 24")
     return args
+
+
+def collect_hot_context(args: argparse.Namespace, report_dir: Path) -> dict:
+    """Reuse the vetted entertainment hot-context collector used by Douyin."""
+    context = {
+        "available": False,
+        "provider": args.hot_context_provider,
+        "terms": [],
+        "items": [],
+        "errors": [],
+        "sources": [],
+    }
+    if not args.hot_context:
+        return context
+    try:
+        tools_dir = ROOT / "tools"
+        if str(tools_dir) not in sys.path:
+            sys.path.insert(0, str(tools_dir))
+        from run_douyin_tikhub_daily import collect_hot_context as collect
+
+        helper_args = argparse.Namespace(
+            hot_context=True,
+            hot_context_provider=args.hot_context_provider,
+            hot_context_max_items=args.hot_context_max_items,
+        )
+        return collect(helper_args, report_dir)
+    except Exception as exc:  # noqa: BLE001 - hot context is an optional enhancement.
+        context["errors"].append({"source": "collector", "error": str(exc)[:300]})
+        report_dir.mkdir(parents=True, exist_ok=True)
+        (report_dir / "hot_context.json").write_text(
+            json.dumps(context, ensure_ascii=False, indent=2), encoding="utf-8"
+        )
+        print(f"[warn] entertainment hot context unavailable: {exc}", flush=True)
+        return context
+
+
+def hot_search_keywords(hot_context: dict, base_keywords: tuple[str, ...] | list[str]) -> list[str]:
+    """Keep eight discovery slots: up to four hot-topic queries plus broad low-fan queries."""
+    terms = []
+    for value in hot_context.get("terms", []) or []:
+        term = re.sub(r"\s+", " ", str(value)).strip()
+        if len(term) >= 2 and term not in terms:
+            terms.append(term)
+    hot_queries = [f"{term} 娱乐" for term in terms[:4]]
+    broad = list(base_keywords)
+    if not hot_queries:
+        return broad[:8]
+    return list(dict.fromkeys(hot_queries + broad[: max(1, 8 - len(hot_queries))]))[:8]
 
 
 def main() -> None:
@@ -208,6 +280,7 @@ def main() -> None:
     run_stamp = datetime.now(BEIJING).strftime("%Y%m%d_%H%M%S")
     batch_dir = (args.work_root / args.date / run_stamp).expanduser().resolve()
     discovery_dir = batch_dir / "discovery"
+    hot_context_dir = batch_dir / "hot_context"
     notes_root = batch_dir / "notes"
     output_dir = args.output_dir.expanduser().resolve()
     discovery_dir.mkdir(parents=True, exist_ok=True)
@@ -221,6 +294,22 @@ def main() -> None:
         (output_dir / name).write_text(
             json.dumps({"date": args.date, "items": []}), encoding="utf-8"
         )
+
+    hot_context = collect_hot_context(args, hot_context_dir)
+    (output_dir / "hot_context.json").write_text(
+        json.dumps(hot_context, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+    effective_keywords = args.keywords or hot_search_keywords(hot_context, DAILY_KEYWORDS)
+    hot_terms = [
+        str(term).strip()
+        for term in hot_context.get("terms", []) or []
+        if str(term).strip()
+    ][:8]
+    print(
+        f"[hot-context] available={bool(hot_context.get('available'))} "
+        f"terms={', '.join(hot_terms[:4]) or 'none'}; keywords={', '.join(effective_keywords)}",
+        flush=True,
+    )
 
     excluded = processed_note_ids(args.processed_manifest.expanduser().resolve())
     desired_candidates = min(args.limit + args.reserve, args.top_author_check, 20)
@@ -238,8 +327,10 @@ def main() -> None:
         "--prefer-same-day",
         "--target-date", args.date,
     ]
-    for keyword in args.keywords or DAILY_KEYWORDS:
+    for keyword in effective_keywords:
         discovery_command.extend(["--keyword", keyword])
+    for term in hot_terms:
+        discovery_command.extend(["--hot-term", term])
     for note_id in excluded:
         discovery_command.extend(["--exclude-note-id", note_id])
     run(discovery_command)
@@ -264,6 +355,10 @@ def main() -> None:
         if sum(item.get("status") == "success" for item in summary["items"]) >= args.limit:
             break
         note_id = str(note["note_id"])
+        note["hot_context"] = {
+            "terms": hot_terms,
+            "items": (hot_context.get("items") or [])[:8],
+        }
         item_index = args.start_index + sum(
             item.get("status") == "success" for item in summary["items"]
         )
@@ -277,6 +372,8 @@ def main() -> None:
             "output_index": item_index,
             "note_id": note_id,
             "title": note.get("title") or "",
+            "hot_context_matches": note.get("hot_context_matches") or [],
+            "hot_context_terms": hot_terms,
             "author_fans": note.get("author_fans"),
             "liked_count": note.get("liked_count"),
             "comments_count": note.get("comments_count"),
@@ -315,7 +412,9 @@ def main() -> None:
             comments = json.loads((note_dir / "top_comments.json").read_text(encoding="utf-8"))
             if not comments:
                 raise RuntimeError("no usable comment thread after normalization")
-            voice_args, voice_manifest = voice_arguments(comments[:3], item_index)
+            voice_args, voice_manifest = voice_arguments(
+                comments[:3], item_index, note.get("hot_context_matches") or []
+            )
             item["voices"] = voice_manifest
             title = safe_filename(str(note.get("title") or note.get("desc") or "网友热议"))
             output = output_dir / f"{item_index:02d}_{title}_{note_id[-8:]}.mp4"

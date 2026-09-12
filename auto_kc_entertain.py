@@ -1320,6 +1320,7 @@ def normalize_plan(
     if faithful_subtitles:
         subtitles = faithful_subtitles
         subtitle_source = "deepseek_polished_whisper"
+    subtitles = normalize_subtitle_timeline(subtitles, duration)
 
     output_name = safe_filename(f"KC娱乐_{''.join(title_lines)}")
     title_evidence = plan.get("title_evidence") if isinstance(plan.get("title_evidence"), list) else []
@@ -1406,6 +1407,65 @@ def ensure_subtitle_coverage(
         }
     )
     return subtitles
+
+
+def normalize_subtitle_timeline(
+    subtitles: list[dict[str, Any]],
+    duration: float,
+) -> list[dict[str, Any]]:
+    """Keep a readable caption on screen until its spoken thought is done.
+
+    DeepSeek timing is useful but can be a little optimistic.  Clamp invalid
+    ranges, prevent overlapping cards, bridge only short accidental gaps, and
+    give short Chinese lines a minimum dwell time.  This does not invent a
+    transcript or alter the source audio; it only makes the overlay timeline
+    faithful to the spoken block.
+    """
+    if not subtitles or duration <= 0:
+        return subtitles
+    ordered = sorted(subtitles, key=lambda item: float(item.get("start", 0)))
+    result: list[dict[str, Any]] = []
+    for raw in ordered:
+        try:
+            start = max(0.0, min(duration, float(raw.get("start", 0))))
+            end = max(0.0, min(duration, float(raw.get("end", 0))))
+        except (TypeError, ValueError):
+            continue
+        if end <= start:
+            continue
+        item = dict(raw)
+        item["start"] = round(start, 3)
+        item["end"] = round(end, 3)
+        if result:
+            previous = result[-1]
+            previous_end = float(previous["end"])
+            if start < previous_end:
+                previous["end"] = round(start, 3)
+                if previous["end"] <= float(previous["start"]):
+                    result.pop()
+            elif start - previous_end <= 0.65:
+                # A brief ASR/plan gap is almost never an intentional pause in
+                # these short clips; keep the preceding thought visible until
+                # the next one begins.
+                previous["end"] = round(start, 3)
+        han_count = len(re.findall(r"[\u4e00-\u9fffA-Za-z0-9]", str(item.get("zh") or item.get("en") or "")))
+        minimum = max(0.85, min(3.8, 0.045 * max(han_count, 1) + 0.45))
+        next_start = None
+        if len(ordered) > len(result):
+            try:
+                next_start = float(ordered[len(result)].get("start", duration))
+            except (TypeError, ValueError):
+                next_start = None
+        desired_end = min(duration, start + minimum)
+        if next_start is not None and next_start > start:
+            desired_end = min(desired_end, next_start)
+        item["end"] = round(max(float(item["end"]), desired_end), 3)
+        result.append(item)
+    if result:
+        result[-1]["end"] = round(duration, 3) if duration - float(result[-1]["end"]) <= 0.75 else result[-1]["end"]
+        for index, item in enumerate(result, start=1):
+            item["index"] = index
+    return result
 
 
 def subtitle_filler_text(plan: dict[str, Any], fallback: dict[str, Any], source_metadata: dict[str, Any]) -> str:
