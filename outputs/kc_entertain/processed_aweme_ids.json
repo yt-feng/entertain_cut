@@ -1,7 +1,149 @@
 {
-  "updated_at": "2026-09-12T02:12:54.273700+00:00",
-  "count": 362,
+  "updated_at": "2026-09-13T01:25:32.860920+00:00",
+  "count": 367,
   "items": [
+    {
+      "aweme_id": "7684511782895003003",
+      "content_id": "7684511782895003003",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7684511782895003003/?region=US&mid=7684511729245621034&u_code=0&did=MS4wLjABAAAABovRs3m4fXtWpSkXjDYYw7S8xpK5Cs8K8fauPlic-Gk&iid=MS4wLjABAAAAdUmbZk5ls02s6-rBQ1WeZ00vXHk86eQg4rOVMcn0k3o&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=2pXWw0E9FfrDgMwh40VimNaCQVie.Ac4GJZiy3KXKTc-&share_version=320900&ts=1789261932&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "总感觉张译不像在开玩笑\n#孙俪 #主持人孙俪 #综艺搞笑片段 #访谈名场面 #张译",
+      "author": "妮蘑咕咕",
+      "like_count": 37427,
+      "comment_count": 1725,
+      "share_count": 40276,
+      "duration_ms": 64016,
+      "create_time_iso": "2026-09-12T05:10:25+00:00",
+      "known_entities": [
+        "孙俪",
+        "主持人孙俪",
+        "综艺搞笑片段",
+        "访谈名场面",
+        "张译"
+      ],
+      "verified_entities": [
+        "孙俪",
+        "主持人孙俪",
+        "综艺搞笑片段",
+        "访谈名场面",
+        "张译"
+      ],
+      "primary_celebrities": [
+        "孙俪",
+        "张译"
+      ],
+      "quality_score": 302.452,
+      "output_date": "2026-09-13",
+      "selected_at": "2026-09-13T01:25:32.860920+00:00"
+    },
+    {
+      "aweme_id": "7684220509604695332",
+      "content_id": "7684220509604695332",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7684220509604695332/?region=US&mid=7684220514172341019&u_code=0&did=MS4wLjABAAAAdK54LnTOZLVQ9iH0vACtMo9vYXKcoiq-bC5puVR7OFWFwu_OWS0Yu8Ko_Tp9tXnH&iid=MS4wLjABAAAARDntd0FKq_U21EMU2RC5RJyQTl-YzRBzq2d5OVpCqRAYwqud3aAW5z_0i3GA3lc2&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=aGaBMASCnSiTCQREHaQla1VhPfeXcvYMXgiYWr2tgiA-&share_version=320900&ts=1789261939&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "陈翊瞳评论区语音攻击 有绷住的风险吗T #陈翊瞳 #我们的少年时代2 #TF四代",
+      "author": "爆火大明星",
+      "like_count": 15399,
+      "comment_count": 933,
+      "share_count": 18886,
+      "duration_ms": 40937,
+      "create_time_iso": "2026-09-12T07:21:00+00:00",
+      "known_entities": [
+        "陈翊瞳",
+        "我们的少年时代2",
+        "TF四代"
+      ],
+      "verified_entities": [
+        "陈翊瞳",
+        "我们的少年时代2",
+        "TF四代"
+      ],
+      "primary_celebrities": [
+        "陈翊瞳"
+      ],
+      "quality_score": 271.276,
+      "output_date": "2026-09-13",
+      "selected_at": "2026-09-13T01:25:32.860920+00:00"
+    },
+    {
+      "aweme_id": "7684466316154285154",
+      "content_id": "7684466316154285154",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7684466316154285154/?region=US&mid=7148344697717590017&u_code=0&did=MS4wLjABAAAAWu-ZjAvqCgF_dxrhAAT-fheUpa3GVP30oE4KRDodQKAtfUgStbiWrtUO5N3bg8KG&iid=MS4wLjABAAAAebVBAWI2DS7nv7o2wy-D9eEBLLTvzhbCi0gatG3Sddn05X2e32XNLyXsSjK4C2-L&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=E7.NnNVx..zJayccnnnyj4tMvj1P58_33OPL.E92BJk-&share_version=320900&ts=1789261950&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "素颜女神江祖平携手男友杨一展同框亮相电影节红毯，两人公开认爱，甜蜜热吻，江祖平皮肤状态真好，素颜女神名不虚传，当年她在电视剧风云雄霸天下饰演的幽若一角太经典了#江祖平 #江祖平幽若 #风云雄霸天下 #一代人的回忆 #娱乐评论大赏",
+      "author": "娱乐明星女神",
+      "like_count": 6945,
+      "comment_count": 129,
+      "share_count": 325,
+      "duration_ms": 5852,
+      "create_time_iso": "2026-09-12T02:13:59+00:00",
+      "known_entities": [
+        "江祖平",
+        "江祖平幽若",
+        "风云雄霸天下",
+        "一代人的回忆",
+        "娱乐评论大赏"
+      ],
+      "verified_entities": [
+        "江祖平",
+        "江祖平幽若",
+        "风云雄霸天下",
+        "一代人的回忆",
+        "娱乐评论大赏"
+      ],
+      "primary_celebrities": [
+        "江祖平"
+      ],
+      "quality_score": 216.154,
+      "output_date": "2026-09-13",
+      "selected_at": "2026-09-13T01:25:32.860920+00:00"
+    },
+    {
+      "aweme_id": "7684582459530732212",
+      "content_id": "7684582459530732212",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7684582459530732212/?region=US&mid=7684582475808459546&u_code=0&did=MS4wLjABAAAA1o_kNd9onZTzyLUIq9_BVsrQ8MnrlyM5l40SUDOMuDM&iid=MS4wLjABAAAAgYmTu5PmWrSKHHY0PWIX0ssnRwEydWJoP5SS7m4T2Gk&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=znFBjlBPhvtpF_oCrdJKp.GYl9H5CdcM1KwkTpVKXqw-&share_version=320900&ts=1789261943&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "张靓颖扭的每一步都扭在了我的心巴上～ #张靓颖 #张靓颖绝美瞬间 #张靓颖演唱会 #舞台直拍",
+      "author": "张靓颖live",
+      "like_count": 1772,
+      "comment_count": 14,
+      "share_count": 75,
+      "duration_ms": 8103,
+      "create_time_iso": "2026-09-12T13:59:00+00:00",
+      "known_entities": [
+        "张靓颖",
+        "张靓颖绝美瞬间"
+      ],
+      "verified_entities": [
+        "张靓颖",
+        "张靓颖绝美瞬间"
+      ],
+      "primary_celebrities": [
+        "张靓颖"
+      ],
+      "quality_score": 169.223,
+      "output_date": "2026-09-13",
+      "selected_at": "2026-09-13T01:25:32.860920+00:00"
+    },
+    {
+      "aweme_id": "7684619197113056938",
+      "content_id": "7684619197113056938",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7684619197113056938/?region=US&mid=7684619175457377078&u_code=0&did=MS4wLjABAAAAhgS4YfIoO29DvEZTaIaLo8scOGTDEawgiaq_6THQJekDbHAzcZag82MLY_D14TxJ&iid=MS4wLjABAAAAwytZ-Sae688KNXIPY2Oe1lT2_FAH8N2MXrIE4VG-kNxqwPG1QoxZjhO6nH1QE0po&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=ffGI_M6dUCIeIhlgNrk0C_qGOD4xWGdBdH8lB5kjdGs-&share_version=320900&ts=1789261924&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "# 刘銮雄 # 甘比 罕见同框现身# 谭咏麟 香港红馆演唱会，这阵容画面如何？",
+      "author": "娱乐明星",
+      "like_count": 6990,
+      "comment_count": 163,
+      "share_count": 163,
+      "duration_ms": 13213,
+      "create_time_iso": "2026-09-12T12:07:14+00:00",
+      "known_entities": [],
+      "verified_entities": [],
+      "primary_celebrities": [],
+      "quality_score": 157.995,
+      "output_date": "2026-09-13",
+      "selected_at": "2026-09-13T01:25:32.860920+00:00"
+    },
     {
       "aweme_id": "7684112712045055267",
       "content_id": "7684112712045055267",
