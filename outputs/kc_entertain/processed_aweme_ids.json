@@ -1,7 +1,39 @@
 {
-  "updated_at": "2026-09-14T01:34:44.853608+00:00",
-  "count": 371,
+  "updated_at": "2026-09-14T01:59:30.693270+00:00",
+  "count": 372,
   "items": [
+    {
+      "aweme_id": "7684893897536965888",
+      "content_id": "7684893897536965888",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7684893897536965888/?region=US&mid=7684893944647355146&u_code=0&did=MS4wLjABAAAATqCy8gP4IWWr47dEDZROaUTsQqVazpFWTVt6DkItujwlTbpEMNFOC5wsBl6k8fEM&iid=MS4wLjABAAAAlLQFuBfmEwhYTxE9DZzRLgks_r-Au56pzwld_y3HFBeSljMd4YEX5_0sy3rQIyr7&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=ZpdYqYGAbqd97veilHvp2gJM5_cOYp0wvG4Gg6QUjhU-&share_version=320900&ts=1789350305&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "我也好想像她一样无差别攻击所有人#综艺 #名场面 #倪萍 #孟子义 #抽象",
+      "author": "追娱大明星",
+      "like_count": 5192,
+      "comment_count": 36,
+      "share_count": 945,
+      "duration_ms": 99916,
+      "create_time_iso": "2026-09-13T05:53:22+00:00",
+      "known_entities": [
+        "名场面",
+        "倪萍",
+        "孟子义",
+        "抽象"
+      ],
+      "verified_entities": [
+        "名场面",
+        "倪萍",
+        "孟子义",
+        "抽象"
+      ],
+      "primary_celebrities": [
+        "倪萍",
+        "孟子义"
+      ],
+      "quality_score": 231.64700000000002,
+      "output_date": "2026-09-14",
+      "selected_at": "2026-09-14T01:59:30.693270+00:00"
+    },
     {
       "aweme_id": "7684976906969664810",
       "content_id": "7684976906969664810",
