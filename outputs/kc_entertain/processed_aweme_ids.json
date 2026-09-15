@@ -1,7 +1,59 @@
 {
-  "updated_at": "2026-09-15T01:48:56.130381+00:00",
-  "count": 375,
+  "updated_at": "2026-09-15T05:24:46.691345+00:00",
+  "count": 377,
   "items": [
+    {
+      "aweme_id": "7685277758872102001",
+      "content_id": "7685277758872102001",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7685277758872102001/?region=US&mid=7685277718908701482&u_code=0&did=MS4wLjABAAAAIBN1x3w8e58qxNHVHdcMrvoLytj77Y09aPX5bAE2NwO61vZTFKuZIWIGvxdqeHQu&iid=MS4wLjABAAAAQI4ipf267MSl-upXXMfIjBRDsaoAvhSff37hHVGI00T-87aBBQS1qqb0y0GMTP4H&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=LGRHe82NnMsZhE51SwuXXbFppOiiFzOv.KNkHORDKKY-&share_version=320900&ts=1789448536&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "郭柯宇谈录《再见爱人》 #郭柯宇 #陈鲁豫慢谈 #再见爱人 #播客 #综艺",
+      "author": "朱成墨",
+      "like_count": 1659,
+      "comment_count": 174,
+      "share_count": 150,
+      "duration_ms": 176217,
+      "create_time_iso": "2026-09-14T06:42:49+00:00",
+      "known_entities": [
+        "再见爱人",
+        "明星"
+      ],
+      "verified_entities": [
+        "再见爱人",
+        "郭柯宇",
+        "陈鲁豫慢谈"
+      ],
+      "primary_celebrities": [
+        "郭柯宇"
+      ],
+      "quality_score": 218.251,
+      "output_date": "2026-09-15",
+      "selected_at": "2026-09-15T05:24:46.691345+00:00"
+    },
+    {
+      "aweme_id": "7685295795666655099",
+      "content_id": "7685295795666655099",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7685295795666655099/?region=US&mid=7685295731535579930&u_code=0&did=MS4wLjABAAAARuKbSLV5MYR1Qsxf4EFWCF_wmH5CLds36yzL9dxDQpr8SKV0OFbkdURKNNRof68T&iid=MS4wLjABAAAA31tYFabenkn206eqInhx5_rdbm5ZsCTtoVwy0XeA0i4KDb0JLVzHZZaV0rBuuhlN&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=Swrnx1ILpfs4oq6xgSRQe6LCfvm8K8tdUctRAM_VBXA-&share_version=320900&ts=1789448544&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "众星亮相第二届金熊猫奖红毯，星光璀璨，你最喜欢谁呢？",
+      "author": "星途璀璨",
+      "like_count": 6985,
+      "comment_count": 478,
+      "share_count": 146,
+      "duration_ms": 25241,
+      "create_time_iso": "2026-09-14T07:52:47+00:00",
+      "known_entities": [
+        "明星"
+      ],
+      "verified_entities": [
+        "金熊猫奖",
+        "明星"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 195.177,
+      "output_date": "2026-09-15",
+      "selected_at": "2026-09-15T05:24:46.691345+00:00"
+    },
     {
       "aweme_id": "7685243323015787130",
       "content_id": "7685243323015787130",
