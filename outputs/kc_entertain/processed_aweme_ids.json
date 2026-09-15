@@ -1,7 +1,95 @@
 {
-  "updated_at": "2026-09-14T01:59:30.693270+00:00",
-  "count": 372,
+  "updated_at": "2026-09-15T01:48:56.130381+00:00",
+  "count": 375,
   "items": [
+    {
+      "aweme_id": "7685243323015787130",
+      "content_id": "7685243323015787130",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7685243323015787130/?region=US&mid=7685243278760889151&u_code=0&did=MS4wLjABAAAAmiEmqg6Ipec7bSqeFfzDKOOS4bg1-Spf-Sch8miZluqL8lfBHxp8wTK-c-Ataxbj&iid=MS4wLjABAAAAdbgO3S-BXJ7alnnqK8ypxSFXR69JipjafifJiUAiUYKxZkevT6Nf49EqyJdxEx0T&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=oME_.zHBg0pR7eF7Hrd4Yfx1jWy9Dh5IgJKIxRQEH0c-&share_version=320900&ts=1789436314&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "懵懵的孟姐 着急的队员😂#孟子义 #综艺名场面 #综艺片段互动 #综艺节目搞笑互动",
+      "author": "小孟话^^",
+      "like_count": 4396,
+      "comment_count": 95,
+      "share_count": 184,
+      "duration_ms": 31834,
+      "create_time_iso": "2026-09-14T04:29:10+00:00",
+      "known_entities": [
+        "孟子义",
+        "综艺名场面",
+        "综艺片段互动",
+        "综艺节目搞笑互动"
+      ],
+      "verified_entities": [
+        "孟子义",
+        "综艺名场面",
+        "综艺片段互动",
+        "综艺节目搞笑互动"
+      ],
+      "primary_celebrities": [
+        "孟子义"
+      ],
+      "quality_score": 216.814,
+      "output_date": "2026-09-15",
+      "selected_at": "2026-09-15T01:48:56.130381+00:00"
+    },
+    {
+      "aweme_id": "7685280245792198016",
+      "content_id": "7685280245792198016",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7685280245792198016/?region=US&mid=6702036877857261569&u_code=0&did=MS4wLjABAAAAOrOxi0rIyLCgj0xe0toaDLfqfJOnm4KSqJEDnEOt7PpzjifjQvVdtNL3iK-Pq5el&iid=MS4wLjABAAAAOejLagITBZLh_NI-zNSDdTf_-GLoy-g9lvui9m9iMEHGgtIDA3QqieZWrC2oYRih&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=XE18py0J8_.xtfH_uVcGpH67ohK52JDQtxVvIr3HCzE-&share_version=320900&ts=1789436310&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "蔡依林参加品牌活动啦！这次的丸子头造型真的超亮眼，一双卡姿兰大眼睛亮得像有光一样，整场活动都被她的气场稳稳hold住～\n#蔡依林 #娱乐评论大赏 #天后 #美出高级感",
+      "author": "娱乐明星女神",
+      "like_count": 2371,
+      "comment_count": 77,
+      "share_count": 204,
+      "duration_ms": 9381,
+      "create_time_iso": "2026-09-14T06:52:27+00:00",
+      "known_entities": [
+        "蔡依林",
+        "娱乐评论大赏",
+        "天后",
+        "美出高级感"
+      ],
+      "verified_entities": [
+        "蔡依林",
+        "娱乐评论大赏",
+        "天后",
+        "美出高级感"
+      ],
+      "primary_celebrities": [
+        "蔡依林"
+      ],
+      "quality_score": 185.60899999999998,
+      "output_date": "2026-09-15",
+      "selected_at": "2026-09-15T01:48:56.130381+00:00"
+    },
+    {
+      "aweme_id": "7685261064988570469",
+      "content_id": "7685261064988570469",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7685261064988570469/?region=US&mid=7685261017970789183&u_code=0&did=MS4wLjABAAAAmiEmqg6Ipec7bSqeFfzDKOOS4bg1-Spf-Sch8miZluqL8lfBHxp8wTK-c-Ataxbj&iid=MS4wLjABAAAAdbgO3S-BXJ7alnnqK8ypxSFXR69JipjafifJiUAiUYKxZkevT6Nf49EqyJdxEx0T&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=zTLPJlyUoWLJsX2fx5fogXDn7HkT45v5l9MpaaWh0E0-&share_version=320900&ts=1789436314&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "鹭卓 你到底贡献了多少笑料\n#鹭卓 #种地吧鹭卓 #你好星期六 #综艺搞笑名场面",
+      "author": "小二，陪我看海",
+      "like_count": 1022,
+      "comment_count": 18,
+      "share_count": 310,
+      "duration_ms": 53383,
+      "create_time_iso": "2026-09-14T05:38:00+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "鹭卓",
+        "种地吧鹭卓",
+        "你好星期六",
+        "综艺搞笑名场面"
+      ],
+      "primary_celebrities": [
+        "鹭卓"
+      ],
+      "quality_score": 140.09,
+      "output_date": "2026-09-15",
+      "selected_at": "2026-09-15T01:48:56.130381+00:00"
+    },
     {
       "aweme_id": "7684893897536965888",
       "content_id": "7684893897536965888",
