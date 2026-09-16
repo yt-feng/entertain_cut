@@ -1,7 +1,132 @@
 {
-  "updated_at": "2026-09-15T05:24:46.691345+00:00",
-  "count": 377,
+  "updated_at": "2026-09-16T01:55:28.458803+00:00",
+  "count": 381,
   "items": [
+    {
+      "aweme_id": "7685601611774758154",
+      "content_id": "7685601611774758154",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7685601611774758154/?region=US&mid=7685602903402220326&u_code=0&did=MS4wLjABAAAA1guCMWl0sHokD_7D4hgUmoj5Jwgbld2J_u-0G5ufrqj2kgX03_OAxbH-JEmxlGsz&iid=MS4wLjABAAAA_pIi_zvwAq5TFNy4Txa0NO6oyrIp0-ovbra1IYqL7-F745bIF2xmnzPz75v3lIYI&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=U816cuQwdP5TrB_U2Ng2PPuewmnpcW9MsEqj03Ga.qE-&share_version=320900&ts=1789522473&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "古天乐澳门演唱会，阵容强大，好多港台明星前来助阵 Remix：#神不在香港 #古天乐 #宣萱 #林峯 #汪明荃 ……",
+      "author": "神不在香港（华）",
+      "like_count": 3707,
+      "comment_count": 90,
+      "share_count": 573,
+      "duration_ms": 52034,
+      "create_time_iso": "2026-09-15T03:39:34+00:00",
+      "known_entities": [
+        "神不在香港",
+        "古天乐",
+        "宣萱",
+        "林峯",
+        "汪明荃"
+      ],
+      "verified_entities": [
+        "神不在香港",
+        "古天乐",
+        "宣萱",
+        "林峯",
+        "汪明荃"
+      ],
+      "primary_celebrities": [
+        "古天乐",
+        "宣萱",
+        "林峯",
+        "汪明荃"
+      ],
+      "quality_score": 215.072,
+      "output_date": "2026-09-16",
+      "selected_at": "2026-09-16T01:55:28.458803+00:00"
+    },
+    {
+      "aweme_id": "7685642577487334708",
+      "content_id": "7685642577487334708",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7685642577487334708/?region=US&mid=7685642547787533098&u_code=0&did=MS4wLjABAAAA__oat05agS7Y95N3dI5r6D5aQMHHiuWjL2GQh97gv8om2UOI_Bkg6DFxBXtUiIvR&iid=MS4wLjABAAAAzeZd8M1Z3di5p300ciDOVbR6aulh8iLASttiHd3wBVc24Bh4bCXk7M0OnQuCIwID&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=zR8xNvUrMknwoxw1QmSfVq5vf5sKLB.qHe2vXwyE.kY-&share_version=320900&ts=1789522465&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "明星也逃不过科目二 38岁倪妮学车被网友偶遇 66岁惠英红现身评论区鼓励 网友：没想到影视剧里的车技都是演出来的#媒体原创 #媒体精选计划",
+      "author": "红星新闻",
+      "like_count": 5389,
+      "comment_count": 77,
+      "share_count": 874,
+      "duration_ms": 29291,
+      "create_time_iso": "2026-09-15T06:18:34+00:00",
+      "known_entities": [
+        "媒体原创",
+        "媒体精选计划"
+      ],
+      "verified_entities": [
+        "媒体原创",
+        "媒体精选计划"
+      ],
+      "primary_celebrities": [
+        "倪妮",
+        "惠英红"
+      ],
+      "quality_score": 205.87300000000002,
+      "output_date": "2026-09-16",
+      "selected_at": "2026-09-16T01:55:28.458803+00:00"
+    },
+    {
+      "aweme_id": "7685645228270783796",
+      "content_id": "7685645228270783796",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7685645228270783796/?region=US&mid=7685645205197933348&u_code=0&did=MS4wLjABAAAA1guCMWl0sHokD_7D4hgUmoj5Jwgbld2J_u-0G5ufrqj2kgX03_OAxbH-JEmxlGsz&iid=MS4wLjABAAAA_pIi_zvwAq5TFNy4Txa0NO6oyrIp0-ovbra1IYqL7-F745bIF2xmnzPz75v3lIYI&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=jBS.UZoIEcLafPvLvJ5DO0zadNuAbl4efmcENtK0YrU-&share_version=320900&ts=1789522469&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "结婚多年看老公还脸红，付辛博舞台状态依旧能打 #付辛博 #颖儿 #明星夫妻 #娱乐",
+      "author": "风途娱乐菌",
+      "like_count": 4067,
+      "comment_count": 34,
+      "share_count": 144,
+      "duration_ms": 38244,
+      "create_time_iso": "2026-09-15T06:28:53+00:00",
+      "known_entities": [
+        "付辛博",
+        "颖儿",
+        "明星夫妻"
+      ],
+      "verified_entities": [
+        "付辛博",
+        "颖儿",
+        "明星夫妻"
+      ],
+      "primary_celebrities": [
+        "付辛博",
+        "颖儿"
+      ],
+      "quality_score": 199.976,
+      "output_date": "2026-09-16",
+      "selected_at": "2026-09-16T01:55:28.458803+00:00"
+    },
+    {
+      "aweme_id": "7685718093800570953",
+      "content_id": "7685718093800570953",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7685718093800570953/?region=US&mid=7665553495286679598&u_code=0&did=MS4wLjABAAAAT92eeOisudBKWeExoFbF5M5SCWPGv2ysVptvbmzAzuruKB42alI46iYM02lTVpWk&iid=MS4wLjABAAAADBhSFpAogC1R5Sa0MeLd6bW7_qM1SRScKz0en7AQoBh_n-U6z_cx2hn5d3X1Iopc&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=Zi60dtyaJz6xWNzSVK0gldonfjVUKWO0bAexo3jzu1c-&share_version=320900&ts=1789522471&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "杨超越红毯这个气场全开好女王大人🥵膜拜 啊啊啊啊啊\n#杨超越 #红毯 #女王 #气场全开 #生图",
+      "author": "心动周刊",
+      "like_count": 1080,
+      "comment_count": 20,
+      "share_count": 15,
+      "duration_ms": 92267,
+      "create_time_iso": "2026-09-15T11:11:31+00:00",
+      "known_entities": [
+        "杨超越",
+        "红毯",
+        "女王",
+        "气场全开"
+      ],
+      "verified_entities": [
+        "杨超越",
+        "红毯",
+        "女王",
+        "气场全开"
+      ],
+      "primary_celebrities": [
+        "杨超越"
+      ],
+      "quality_score": 187.91299999999998,
+      "output_date": "2026-09-16",
+      "selected_at": "2026-09-16T01:55:28.458803+00:00"
+    },
     {
       "aweme_id": "7685277758872102001",
       "content_id": "7685277758872102001",
