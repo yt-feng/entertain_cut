@@ -1,7 +1,82 @@
 {
-  "updated_at": "2026-09-16T02:12:35.435477+00:00",
-  "count": 382,
+  "updated_at": "2026-09-17T02:03:41.941000+00:00",
+  "count": 385,
   "items": [
+    {
+      "aweme_id": "7686033139126330097",
+      "content_id": "7686033139126330097",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7686033139126330097/?region=US&mid=7624567777001064511&u_code=0&did=MS4wLjABAAAAEy4Z78adMKjjrZxh6q44SIXuZqQhQ7r0qMrOAw8hrTg&iid=MS4wLjABAAAAF8YfxLZgOrTIUeIg3vlNAQioxESFd40OC5yd9uyVeis&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=iOmzRqoTGEQbqgMSbf6iJOyxMG2zTfYSJbXarpwj3X8-&share_version=320900&ts=1789609003&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "樊振东赵今麦梦幻同框啊啊啊双厨狂喜#赵今麦 #樊振东",
+      "author": "娱乐圈小蜜",
+      "like_count": 69412,
+      "comment_count": 1619,
+      "share_count": 11542,
+      "duration_ms": 14434,
+      "create_time_iso": "2026-09-16T07:34:03+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "赵今麦",
+        "樊振东"
+      ],
+      "primary_celebrities": [
+        "赵今麦",
+        "樊振东"
+      ],
+      "quality_score": 217.292,
+      "output_date": "2026-09-17",
+      "selected_at": "2026-09-17T02:03:41.941000+00:00"
+    },
+    {
+      "aweme_id": "7686090292281298219",
+      "content_id": "7686090292281298219",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7686090292281298219/?region=US&mid=7686090287407467314&u_code=0&did=MS4wLjABAAAA3SGRYFbCF8lzlZLZr5_d5C0G9_pVkzf60iD2VzR1fOg4HyCX8BJMJo6RyYd0qAtl&iid=MS4wLjABAAAAqSbqirSm51DoCg4HoIyTwKStbF3FPAnQGHxyg_LEwnVfHZS4UCiaUnVNdBMIDc_K&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=FCBsh56ZFbVe4_bTfC10tL8tvCJ7XvwFIiFpMIt3qPA-&share_version=320900&ts=1789608993&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "她才27岁啊！！就已经做成这么多事，好牛！#赵露思#电视剧#权威#27岁#娱乐评论大赏",
+      "author": "芒果众娱",
+      "like_count": 1277,
+      "comment_count": 67,
+      "share_count": 170,
+      "duration_ms": 63089,
+      "create_time_iso": "2026-09-16T11:15:55+00:00",
+      "known_entities": [
+        "赵露思"
+      ],
+      "verified_entities": [
+        "赵露思"
+      ],
+      "primary_celebrities": [
+        "赵露思"
+      ],
+      "quality_score": 190.137,
+      "output_date": "2026-09-17",
+      "selected_at": "2026-09-17T02:03:41.941000+00:00"
+    },
+    {
+      "aweme_id": "7685951815719882035",
+      "content_id": "7685951815719882035",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7685951815719882035/?region=US&mid=7685951805678816054&u_code=0&did=MS4wLjABAAAAJV8u05Kbq04G_efbo-Um5sK3D9TGAVEhyKSpPYxH8ro&iid=MS4wLjABAAAAwP4zFMdxAvQrRfepSHUJebfx2PoDaF5sEArsG_Eb9CU&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=YPsNIxwoQd65QKJiS78HmT0sD8C3z3F7TGHCqRcKwwk-&share_version=320900&ts=1789608996&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "未拍先火！成毅成招商硬通货 #成毅 #招商能力 #抖音精选计划",
+      "author": "吴亚亚",
+      "like_count": 1185,
+      "comment_count": 81,
+      "share_count": 52,
+      "duration_ms": 183322,
+      "create_time_iso": "2026-09-16T02:18:32+00:00",
+      "known_entities": [
+        "成毅"
+      ],
+      "verified_entities": [
+        "成毅"
+      ],
+      "primary_celebrities": [
+        "成毅"
+      ],
+      "quality_score": 180.447,
+      "output_date": "2026-09-17",
+      "selected_at": "2026-09-17T02:03:41.941000+00:00"
+    },
     {
       "aweme_id": "7685715132902657314",
       "content_id": "7685715132902657314",
