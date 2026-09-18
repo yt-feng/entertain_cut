@@ -1,7 +1,152 @@
 {
-  "updated_at": "2026-09-17T02:21:23.489469+00:00",
-  "count": 387,
+  "updated_at": "2026-09-18T01:38:00.297533+00:00",
+  "count": 392,
   "items": [
+    {
+      "aweme_id": "7686403473415359779",
+      "content_id": "7686403473415359779",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7686403473415359779/?region=US&mid=7686403462896454409&u_code=0&did=MS4wLjABAAAAWMrtk5zhRdDhvVKXKBavz3UsNUjgwMzuLaIReuBx0K7bSjIojYn15OmSRBMyK-s8&iid=MS4wLjABAAAAd_H86y2Npy3UwEWTl3-mQobOlGEQ-sIPnB2wPjtVWPUGyfHkntla5h6sWgAPWRQm&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=ZtHDyIlafKtO8cQrisHKG5cH8juHaAOEhBlQWmxyEqk-&share_version=320900&ts=1789694732&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "黄晓明、王鹤棣、黄子韬、刘耀文等艺人中招！警方破获特大明星行程黑产#工人日报消息",
+      "author": "工人日报",
+      "like_count": 22623,
+      "comment_count": 2501,
+      "share_count": 13621,
+      "duration_ms": 9217,
+      "create_time_iso": "2026-09-17T07:31:13+00:00",
+      "known_entities": [
+        "王鹤棣",
+        "工人日报消息"
+      ],
+      "verified_entities": [
+        "王鹤棣",
+        "工人日报消息"
+      ],
+      "primary_celebrities": [
+        "王鹤棣"
+      ],
+      "quality_score": 260.13,
+      "output_date": "2026-09-18",
+      "selected_at": "2026-09-18T01:38:00.297533+00:00"
+    },
+    {
+      "aweme_id": "7686411627054271753",
+      "content_id": "7686411627054271753",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7686411627054271753/?region=CN&mid=7686411598621494066&u_code=1bdib268aj05&did=MS4wLjABAAAAbs9utvd8Mz95IYBaMLX7xx24jz2r23FjnipCeGUbOtQOoxzhKGxMC6jSn8LABEPg&iid=MS4wLjABAAAAasmESaJke64dpq_r26sUhx5qAJkD2S-oZsQPyQuVc4lsWKb_yBEvU-xN95KAOku3&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=WuHjf9.pou8hcyf3OoA1iAzh1BWEoyVSR0uvpOdhNus-&share_version=400400&ts=1789694006&from_aid=1128&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "密逃团综这下是真要来了#大张伟 #许凯 #周笔畅 #彭昱畅 #张真源",
+      "author": "青春磕颜家",
+      "like_count": 12775,
+      "comment_count": 384,
+      "share_count": 3511,
+      "duration_ms": 41286,
+      "create_time_iso": "2026-09-17T08:02:51+00:00",
+      "known_entities": [
+        "大张伟",
+        "许凯",
+        "周笔畅",
+        "彭昱畅",
+        "张真源"
+      ],
+      "verified_entities": [
+        "大张伟",
+        "许凯",
+        "周笔畅",
+        "彭昱畅",
+        "张真源"
+      ],
+      "primary_celebrities": [
+        "大张伟",
+        "许凯",
+        "周笔畅",
+        "彭昱畅",
+        "张真源"
+      ],
+      "quality_score": 256.821,
+      "output_date": "2026-09-18",
+      "selected_at": "2026-09-18T01:38:00.297533+00:00"
+    },
+    {
+      "aweme_id": "7686491082732894577",
+      "content_id": "7686491082732894577",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7686491082732894577/?region=CN&mid=7562451140065396746&u_code=41c0g7eb346k&did=MS4wLjABAAAA0vLa6gXtM3CPLAsMe0MS8Tj-9OXpFliiH63o5IQlS0EMlJYxCEY-q8xMk9Om29Sv&iid=MS4wLjABAAAAnp_-vJK3d8yrqhdXl3_PmUnmQXPN2A2th_M2FrjGTn5EISfphpWK8JfVwpktZVqt&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=VpVhLWyg6i5uJfK2JLClqDvlr7SUovjNIkdg0u5Bp_w-&share_version=400400&ts=1789694621&from_aid=1128&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "天啊！这个“国民女主”指的不会是白鹿吧？ 虽然但是 这个剪影真的和杂志里的好像啊！\n#白鹿 #王韵娜 #开到荼蘼 #综艺 #我们来了 @DOU+小助手 @抖音小助手 @DOU+上热门 @抖音热点 @会火",
+      "author": "拨云见日时（燥候王韵娜版）",
+      "like_count": 4839,
+      "comment_count": 264,
+      "share_count": 6635,
+      "duration_ms": 9234,
+      "create_time_iso": "2026-09-17T13:11:06+00:00",
+      "known_entities": [
+        "白鹿",
+        "王韵娜",
+        "开到荼蘼",
+        "我们来了"
+      ],
+      "verified_entities": [
+        "白鹿",
+        "王韵娜",
+        "开到荼蘼",
+        "我们来了"
+      ],
+      "primary_celebrities": [
+        "白鹿"
+      ],
+      "quality_score": 240.35,
+      "output_date": "2026-09-18",
+      "selected_at": "2026-09-18T01:38:00.297533+00:00"
+    },
+    {
+      "aweme_id": "7686375164669381915",
+      "content_id": "7686375164669381915",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7686375164669381915/?region=AU&mid=7686375120004238106&u_code=i9k767mdj7a&did=MS4wLjABAAAAlkSel7woeSy11FAUbpsvb_BxwNWs0Z9ubKmMbnrdZuI&iid=MS4wLjABAAAAMhHfMioj1XVhoHFK12K9tYlUYo3RhqsrMA_GkKCKEJypvXoYnd5yJtk0rLC67CM2&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=8PEgRCO.6b6dSY8IKtc7.DPKI7uhWopsEGgUbplEM4s-&share_version=400400&ts=1789694086&from_aid=1128&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "这真的是人类能够承受住的压力吗…#一饭2厨综史上最严厉的一集 #美食综艺 #厨综",
+      "author": "抹茶大王",
+      "like_count": 6551,
+      "comment_count": 186,
+      "share_count": 1475,
+      "duration_ms": 56588,
+      "create_time_iso": "2026-09-17T05:41:21+00:00",
+      "known_entities": [
+        "一饭2厨综史上最严厉的一集",
+        "美食综艺",
+        "厨综"
+      ],
+      "verified_entities": [
+        "一饭2厨综史上最严厉的一集",
+        "美食综艺",
+        "厨综"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 219.493,
+      "output_date": "2026-09-18",
+      "selected_at": "2026-09-18T01:38:00.297533+00:00"
+    },
+    {
+      "aweme_id": "7686370601158838249",
+      "content_id": "7686370601158838249",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7686370601158838249/?region=CN&mid=7686370575232600895&u_code=0&did=MS4wLjABAAAANwkJuWIRFOzg5uCpDRpMj4OX-QryoDgn-yYlXQnRwQQ&iid=MS4wLjABAAAANwkJuWIRFOzg5uCpDRpMj4OX-QryoDgn-yYlXQnRwQQ&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=_Bu1gE0Ay0hm9yiwh9NDB4sGJurt6Bvgmm2l3pBcO3g-&share_version=220800&ts=1789693958&from_aid=1128&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "# 汤唯 最新线下活动路透，46岁这状态气质如何？",
+      "author": "娱乐明星",
+      "like_count": 1977,
+      "comment_count": 58,
+      "share_count": 159,
+      "duration_ms": 13073,
+      "create_time_iso": "2026-09-17T05:23:39+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "汤唯"
+      ],
+      "primary_celebrities": [
+        "汤唯"
+      ],
+      "quality_score": 126.449,
+      "output_date": "2026-09-18",
+      "selected_at": "2026-09-18T01:38:00.297533+00:00"
+    },
     {
       "aweme_id": "7685718731636428059",
       "content_id": "7685718731636428059",
