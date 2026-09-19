@@ -1,7 +1,108 @@
 {
-  "updated_at": "2026-09-18T01:38:00.297533+00:00",
-  "count": 392,
+  "updated_at": "2026-09-19T02:32:37.895463+00:00",
+  "count": 396,
   "items": [
+    {
+      "aweme_id": "7686768245197622580",
+      "content_id": "7686768245197622580",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7686768245197622580/?region=US&mid=7686768179045321535&u_code=0&did=MS4wLjABAAAAVpeA0vgfirhRPAvj43nBvbx1wIVRO4V3bxQt1jUHR7I&iid=MS4wLjABAAAAGDuo9zvnPmISMiQpPTxvhACx6UHqA1QYGZSiMydghz0v6vJSZFsKy6uRVr0WRaiI&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=LG8bBLsoDHdc06bXSFDRXVu4WEUwx.DFq5idB_aB_8s-&share_version=320900&ts=1789783066&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "白玉兰视帝视后将主演远去的白马吗？期待一下#远去的白马 #杨紫 #于和伟 #白玉兰视帝视后 #矛盾文学奖",
+      "author": "娱乐课代表孙小寒",
+      "like_count": 8862,
+      "comment_count": 559,
+      "share_count": 413,
+      "duration_ms": 38453,
+      "create_time_iso": "2026-09-18T07:06:45+00:00",
+      "known_entities": [
+        "杨紫",
+        "远去的白马",
+        "于和伟"
+      ],
+      "verified_entities": [
+        "杨紫",
+        "于和伟",
+        "远去的白马",
+        "白玉兰视帝视后",
+        "矛盾文学奖"
+      ],
+      "primary_celebrities": [
+        "杨紫"
+      ],
+      "quality_score": 227.031,
+      "output_date": "2026-09-19",
+      "selected_at": "2026-09-19T02:32:37.895463+00:00"
+    },
+    {
+      "aweme_id": "7686796173625118015",
+      "content_id": "7686796173625118015",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7686796173625118015/?region=US&mid=7686796223944100649&u_code=0&did=MS4wLjABAAAAG6J-C1fbHJRSIG7WsmhYSqcYcIwVUuuEszCoy3BmMb8kqYUKJmqQ-qik8PIK9oua&iid=MS4wLjABAAAASCKNS2ADDbOS9l3dfrHHRX2MICERDqu3g-zYNRRFXOjw8pLXMrUQvLK3f5kYX7xp&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=u0z7pC6s.lsRgTsDLaIFzmGKLdwOlg5ZozPtxw7vAPM-&share_version=320900&ts=1789783059&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "为何白鹿仅凭一张剪影就被锁定国民女主？看到五年九部爆款、连续九部全集有广，才懂最好的运气叫实至名归#白鹿 #白鹿实力 #宝藏女孩白鹿 #内容启发搜索 #影娱热点团",
+      "author": "秋庭叙",
+      "like_count": 2490,
+      "comment_count": 154,
+      "share_count": 97,
+      "duration_ms": 131588,
+      "create_time_iso": "2026-09-18T08:55:08+00:00",
+      "known_entities": [
+        "白鹿"
+      ],
+      "verified_entities": [
+        "白鹿"
+      ],
+      "primary_celebrities": [
+        "白鹿"
+      ],
+      "quality_score": 210.047,
+      "output_date": "2026-09-19",
+      "selected_at": "2026-09-19T02:32:37.895463+00:00"
+    },
+    {
+      "aweme_id": "7686734864669887784",
+      "content_id": "7686734864669887784",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7686734864669887784/?region=US&mid=7686734826862414598&u_code=0&did=MS4wLjABAAAA3ffsbMvRg_5qV80o8dU3hGAShvkF2ZmV_BMs8YtyhGM&iid=MS4wLjABAAAAM3u5c8-ZNbsuz1Fl2cc2JwsC-0_lEfmKd3YMQ1zA5A8&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=qKt.QFhLPVLILdQwZ4agcjYiN_RhWpAxMxtapN4zJuA-&share_version=320900&ts=1789783075&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "本周期！剧集收视！胜负已分！谁独占魁首？不过... 三大平台收视汇总#影娱热点团 #兰香如故 #早春晴朗 #交锋 #一瓯春",
+      "author": "爱星是位阴阳家",
+      "like_count": 3617,
+      "comment_count": 474,
+      "share_count": 150,
+      "duration_ms": 202409,
+      "create_time_iso": "2026-09-18T04:57:15+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "兰香如故",
+        "早春晴朗",
+        "交锋",
+        "一瓯春"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 173.554,
+      "output_date": "2026-09-19",
+      "selected_at": "2026-09-19T02:32:37.895463+00:00"
+    },
+    {
+      "aweme_id": "7686629415196073322",
+      "content_id": "7686629415196073322",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7686629415196073322/?region=US&mid=7540119361811859482&u_code=0&did=MS4wLjABAAAAIubQGIXra2onSoDP8VMzSqiELebVt7af-33ljS6JAHiHsGI-g7EzCd8phuuI5Kya&iid=MS4wLjABAAAAAb4b-cqv53pVgTEWuZmKnpV2u3Fqv9SaKmPZt5tPvSnaKDhKhpQM8wirarj8UT21&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=IdaEE8H3pgoVfixID.u7emVSeNNPawWZ97htIriK5pc-&share_version=320900&ts=1789783073&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "哥几个用嘴探索世界这一块#十个勤天 #进食 #下饭综艺片段 #憨憨",
+      "author": "菠禾🍍🌾",
+      "like_count": 4793,
+      "comment_count": 167,
+      "share_count": 1231,
+      "duration_ms": 73352,
+      "create_time_iso": "2026-09-18T02:58:00+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "十个勤天"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 161.234,
+      "output_date": "2026-09-19",
+      "selected_at": "2026-09-19T02:32:37.895463+00:00"
+    },
     {
       "aweme_id": "7686403473415359779",
       "content_id": "7686403473415359779",
