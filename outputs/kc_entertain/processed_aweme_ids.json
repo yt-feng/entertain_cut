@@ -1,7 +1,161 @@
 {
-  "updated_at": "2026-09-19T04:52:40.925091+00:00",
-  "count": 397,
+  "updated_at": "2026-09-20T02:32:47.307566+00:00",
+  "count": 402,
   "items": [
+    {
+      "aweme_id": "7687273785385506815",
+      "content_id": "7687273785385506815",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7687273785385506815/?region=US&mid=7687273665175538483&u_code=0&did=MS4wLjABAAAA2VHKUAUnAMHkWplyLjKxtnDOaW1ZDdo1LXsPDjKLrX1jYdIIcpmSvH1yWTNDJx0T&iid=MS4wLjABAAAAA9K1kCsLqsiwNIfUHT0FIiFf-akZeYf8SBF5mpwwRoQeYtTwyv7xVQqRvGraAkUU&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=zZpRPP49dRvdg6kFE1iWNzV4Q69h9NyQ70Fqrruued0-&share_version=320900&ts=1789870837&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "感动是相互的 王俊凯演唱会《那些花儿》直拍#王俊凯演唱会 #那些花儿 #王俊凯 #我在台下已经开始感动",
+      "author": "DARKSTAR王俊凯暗星站",
+      "like_count": 47944,
+      "comment_count": 600,
+      "share_count": 2437,
+      "duration_ms": 76900,
+      "create_time_iso": "2026-09-19T15:48:24+00:00",
+      "known_entities": [
+        "王俊凯",
+        "那些花儿",
+        "王俊凯演唱会",
+        "我在台下已经开始感动"
+      ],
+      "verified_entities": [
+        "王俊凯",
+        "那些花儿",
+        "王俊凯演唱会",
+        "我在台下已经开始感动"
+      ],
+      "primary_celebrities": [
+        "王俊凯"
+      ],
+      "quality_score": 279.658,
+      "output_date": "2026-09-20",
+      "selected_at": "2026-09-20T02:32:47.307566+00:00"
+    },
+    {
+      "aweme_id": "7686765872836365609",
+      "content_id": "7686765872836365609",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7686765872836365609/?region=US&mid=7686765856927320851&u_code=0&did=MS4wLjABAAAAsRhUBa7xF85OKa4e4AWLiVavQlp1iU0oHXFN-zxezbOcVI06331RmbTqnUo6eYeX&iid=MS4wLjABAAAAkzWw1I1uGOh-lnScDQbiaXoB2vHWPayL7d9V83zX3Um-x3IWEf7Siu8caFc2e38T&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=JNsf6SrGRumleEjhjBDT3RlJX0qr0CdPKH5cam6WfzQ-&share_version=320900&ts=1789870830&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "到底有什么好生气破防的！这不很正常嘛！拜托她可是迪丽热巴啊！ #迪丽热巴 #顶流 #迪奥 #时尚 #内娱",
+      "author": "娱乐头条",
+      "like_count": 17340,
+      "comment_count": 238,
+      "share_count": 423,
+      "duration_ms": 40078,
+      "create_time_iso": "2026-09-19T03:30:00+00:00",
+      "known_entities": [
+        "迪丽热巴",
+        "顶流",
+        "迪奥",
+        "时尚",
+        "内娱"
+      ],
+      "verified_entities": [
+        "迪丽热巴",
+        "顶流",
+        "迪奥",
+        "时尚",
+        "内娱"
+      ],
+      "primary_celebrities": [
+        "迪丽热巴"
+      ],
+      "quality_score": 247.013,
+      "output_date": "2026-09-20",
+      "selected_at": "2026-09-20T02:32:47.307566+00:00"
+    },
+    {
+      "aweme_id": "7687189318608534117",
+      "content_id": "7687189318608534117",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7687189318608534117/?region=US&mid=7687189238645050112&u_code=0&did=MS4wLjABAAAABpWIPj71dnfZYrNJd_YApazD4xwJ9tE93-X4dUJv_W_oACeA5dw3ivylHc5F1fv1&iid=MS4wLjABAAAAHv7EW5kCH22xGSlpjjBkEuzkFZYk_cFjhkXVXAr95-SEoKPSEK7MGhAefnCHQ48y&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=lHECrvvwpsQPzxDhLCnRt20hSo49AGL49lp5hAqYxak-&share_version=320900&ts=1789870845&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "谭咏麟香港演唱会Day7第一位嘉宾出现！ 65岁的黄日华现身#谭咏麟 演唱会担任嘉宾，一幕勾起无数人的青春回忆。当年《射雕英雄传》里憨厚赤诚的郭靖，陪伴几代人长大。歌声与旧时光重逢。岁月悄悄染白鬓角，大侠风骨依旧，港乐与港剧的黄金时代，在此刻温柔重逢。#香港 #偶遇 #偶遇明星 ##谭咏麟香港演唱会",
+      "author": "香港Jason X",
+      "like_count": 7480,
+      "comment_count": 406,
+      "share_count": 193,
+      "duration_ms": 9914,
+      "create_time_iso": "2026-09-19T10:20:37+00:00",
+      "known_entities": [
+        "射雕英雄传",
+        "谭咏麟",
+        "香港",
+        "偶遇"
+      ],
+      "verified_entities": [
+        "射雕英雄传",
+        "谭咏麟",
+        "香港",
+        "偶遇"
+      ],
+      "primary_celebrities": [
+        "谭咏麟",
+        "黄日华"
+      ],
+      "quality_score": 220.011,
+      "output_date": "2026-09-20",
+      "selected_at": "2026-09-20T02:32:47.307566+00:00"
+    },
+    {
+      "url": "https://www.iesdouyin.com/share/video/7687230800044466338/?region=US&mid=7687230774789114675&u_code=0&did=MS4wLjABAAAALu3JybvLfMh4OB2z0jugjFcGfFqQu0rZ24O3DDjulIU18DaqeBUbk4hdmB1GxQ3W&iid=MS4wLjABAAAAtvQs0GYX0x5oeBTFZYZpr4mDrB9WPkOmQujpLx6206zV_dBQjKJapEgizGYgkIoN&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=n8syFFDDfrrPZES8zHYya4DC602ahUD7vNa_eA8voGo-&share_version=320900&ts=1789867456&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "们小狐狸是有仇当场报 绝不让自己吃亏\n#丁程鑫 #综艺名场面",
+      "author": "小噜年糕铺🍨",
+      "like_count": 3586,
+      "comment_count": 50,
+      "share_count": 175,
+      "duration_ms": 19736,
+      "create_time_iso": "2026-09-19T13:01:35+00:00",
+      "known_entities": [
+        "丁程鑫",
+        "综艺名场面"
+      ],
+      "verified_entities": [
+        "丁程鑫",
+        "综艺名场面"
+      ],
+      "primary_celebrities": [
+        "丁程鑫"
+      ],
+      "quality_score": 208.05,
+      "aweme_id": "7687230800044466338",
+      "content_id": "7687230800044466338",
+      "platform": "douyin",
+      "output_date": "2026-09-20",
+      "selected_at": "2026-09-20T02:19:10.873841+00:00",
+      "recovered_from_run_id": "35480950571"
+    },
+    {
+      "url": "https://www.iesdouyin.com/share/video/7687195702179819130/?region=CN&mid=7650329638660705030&u_code=14b3kjdem&did=MS4wLjABAAAAwpZOx8phP5uzyvKyxbjPMWKE_1ogJq4FR5nKI5851dM&iid=MS4wLjABAAAA89mVyLwam6YyYw6CRjoTKnsWGzjItDFqGXLItPsRbS1bc-fJE0d63VX_5dU2JULC&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=SvYorOMBCLpm06MXXb29jiKNumNlo5z3rt4DuSHbYPA-&share_version=400400&ts=1789868578&from_aid=1128&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#余茵 #王凯沐 还原名场面 这最萌身高差好好磕",
+      "author": "娱乐圈小蜜",
+      "like_count": 2726,
+      "comment_count": 657,
+      "share_count": 720,
+      "duration_ms": 14334,
+      "create_time_iso": "2026-09-19T10:45:24+00:00",
+      "known_entities": [
+        "余茵",
+        "王凯沐",
+        "娱乐圈"
+      ],
+      "verified_entities": [
+        "余茵",
+        "王凯沐"
+      ],
+      "primary_celebrities": [
+        "余茵",
+        "王凯沐"
+      ],
+      "quality_score": 240.833,
+      "aweme_id": "7687195702179819130",
+      "content_id": "7687195702179819130",
+      "platform": "douyin",
+      "output_date": "2026-09-20",
+      "selected_at": "2026-09-20T02:19:05.008527+00:00",
+      "recovered_from_run_id": "35481917684"
+    },
     {
       "aweme_id": "7687009136424964800",
       "content_id": "7687009136424964800",
