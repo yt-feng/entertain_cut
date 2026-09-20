@@ -25,11 +25,11 @@ def verify_delivery(
     selected_count = int(delivery.get("selected_count", 0))
     selected_names = {path.name for path in selected}
     errors = []
-    if len(selected_names) != len(selected) or len(selected) != selected_count:
-        errors.append("Selected file list is missing, duplicated, or inconsistent with selected_count")
     minimum_met = minimum <= selected_count <= limit
     if not minimum_met or not delivery.get("deliverable") or not delivery.get("minimum_met"):
         errors.append(f"Delivery minimum not met: selected={selected_count}, minimum={minimum}, target={limit}")
+    if len(selected_names) != len(selected) or len(selected) != selected_count:
+        errors.append("Selected file list is missing, duplicated, or inconsistent with selected_count")
 
     items: dict[str, dict[str, Any]] = {}
     for item in publish.get("files", []):
@@ -70,6 +70,13 @@ def verify_delivery(
     }
 
 
+def read_summary(path: Path) -> dict[str, Any]:
+    summary = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(summary, dict):
+        raise ValueError(f"Summary must be a JSON object: {path}")
+    return summary
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--delivery-summary", type=Path, required=True)
@@ -79,18 +86,32 @@ def main() -> int:
     parser.add_argument("--min-delivery", type=int, required=True)
     parser.add_argument("--git-max-bytes", type=int)
     args = parser.parse_args()
+    publish_error = None
     try:
+        delivery = read_summary(args.delivery_summary)
+        # Publication is intentionally skipped below the delivery minimum. Read
+        # its evidence separately so an absent summary cannot hide that cause.
+        try:
+            publish = read_summary(args.publish_summary)
+        except (OSError, ValueError, TypeError) as exc:
+            publish = {}
+            publish_error = f"Publisher evidence unavailable: {exc}"
         result = verify_delivery(
-            json.loads(args.delivery_summary.read_text(encoding="utf-8")),
-            json.loads(args.publish_summary.read_text(encoding="utf-8")),
+            delivery,
+            publish,
             output_dir=args.output_dir,
             limit=args.limit,
             min_delivery=args.min_delivery,
             git_max_bytes=args.git_max_bytes,
         )
     except (OSError, ValueError, TypeError, AttributeError) as exc:
-        print(f"Delivery evidence unavailable: {exc}")
-        return 2
+        result = {"complete": False, "errors": [f"Delivery evidence unavailable: {exc}"]}
+    if publish_error:
+        # Keep a known production shortage first, while making missing or
+        # malformed publication evidence fail closed even at a viable count.
+        index = 1 if result.get("minimum_met") is False else 0
+        result["errors"].insert(index, publish_error)
+        result["complete"] = False
     print(json.dumps(result, ensure_ascii=False, indent=2))
     return 0 if result["complete"] else 2
 

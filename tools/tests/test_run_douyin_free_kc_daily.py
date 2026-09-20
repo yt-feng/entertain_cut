@@ -53,6 +53,106 @@ class SelectedDiversityGuardTests(unittest.TestCase):
             self.assertEqual(summary["celebrity_diversity"]["max_videos_per_celebrity"], 2)
 
 
+class SelectedProcessedGuardTests(unittest.TestCase):
+    def test_recovered_and_current_committed_sources_removed_but_pending_retained(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            selected = root / "selected"
+            reports = root / "reports"
+            selected.mkdir()
+            reports.mkdir()
+            items = [
+                {"aweme_id": "123", "title": "Recovered source"},
+                {"aweme_id": "456", "platform": "douyin", "title": "Current TikHub success"},
+                {"aweme_id": "1234", "title": "Untouched candidate with shared ID prefix"},
+                {"aweme_id": "pending", "title": "New candidate pending packaging"},
+            ]
+            metadata = reports / "selected.json"
+            metadata.write_text(json.dumps(items))
+            (reports / "run_info.json").write_text(json.dumps({"processed_manifest_pending": {"candidate_count": 4}}))
+            names = ["01_123.mp4", "02_douyin_456.mp4", "03_1234.mp4", "04_pending.mp4"]
+            for name in names:
+                (selected / name).write_bytes(b"video")
+            ledger = root / "processed.json"
+            ledger.write_text(json.dumps({"items": [
+                {"aweme_id": "123", "output_date": "2026-09-20"},
+                {"aweme_id": "456", "output_date": "2026-09-20"},
+            ]}))
+            original_ledger = ledger.read_bytes()
+            summary = {}
+
+            daily.exclude_processed_selected(root, ledger, "2026-09-20", summary)
+
+            self.assertEqual([item["aweme_id"] for item in json.loads(metadata.read_text())], ["1234", "pending"])
+            self.assertEqual(sorted(path.name for path in selected.glob("*.mp4")), names[2:])
+            self.assertEqual(ledger.read_bytes(), original_ledger)
+            self.assertEqual(summary["processed_source_filter"]["excluded_ids"], ["123", "456"])
+            self.assertEqual(summary["processed_source_filter"]["output_date"], "2026-09-20")
+
+    def test_previous_day_sources_remain_excluded_and_all_rejected_files_are_removed(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / "selected").mkdir()
+            (root / "reports").mkdir()
+            (root / "selected/01_douyin_123.mp4").write_bytes(b"video")
+            (root / "reports/selected.json").write_text(json.dumps([{"aweme_id": "123"}]))
+            ledger = root / "processed.json"
+            ledger.write_text(json.dumps({"items": [{"aweme_id": "123", "output_date": "2026-09-19"}]}))
+
+            daily.exclude_processed_selected(root, ledger, "2026-09-20", {})
+
+            self.assertEqual(list((root / "selected").glob("*.mp4")), [])
+            self.assertEqual(json.loads((root / "reports/selected.json").read_text()), [])
+
+    def test_missing_committed_ledger_leaves_new_selection_untouched(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / "reports").mkdir()
+            metadata = root / "reports/selected.json"
+            metadata.write_text('[{"aweme_id":"pending"}]')
+            original = metadata.read_bytes()
+            daily.exclude_processed_selected(root, root / "not-committed.json", "2026-09-20", {})
+            self.assertEqual(metadata.read_bytes(), original)
+
+    def test_wrapper_applies_filter_before_diversity_for_both_providers(self) -> None:
+        for provider in ("free", "tikhub"):
+            with self.subTest(provider=provider), tempfile.TemporaryDirectory() as temporary:
+                root = Path(temporary)
+                run_dir = root / "run"
+                ledger = root / "processed.json"
+                ledger.write_text(json.dumps({"items": [{"aweme_id": "recovered", "output_date": "2026-09-20"}]}))
+
+                def discover(command, summary):
+                    (run_dir / "selected").mkdir()
+                    (run_dir / "reports").mkdir()
+                    (run_dir / "reports/selected.json").write_text(json.dumps([
+                        {"aweme_id": "recovered"}, {"aweme_id": "fresh"},
+                    ]))
+                    (run_dir / "selected/01_recovered.mp4").write_bytes(b"old")
+                    (run_dir / "selected/02_fresh.mp4").write_bytes(b"new")
+
+                def diversity(*args):
+                    self.assertFalse((run_dir / "selected/01_recovered.mp4").exists())
+                    self.assertEqual([item["aweme_id"] for item in json.loads((run_dir / "reports/selected.json").read_text())], ["fresh"])
+
+                argv = [
+                    "daily", "--provider", provider, "--search-only", "--run-dir", str(run_dir),
+                    "--output-dir", str(root / "outputs"), "--kc-work-dir", str(root / "kc"),
+                    "--processed-manifest", str(ledger), "--output-date", "2026-09-20",
+                ]
+                with (
+                    mock.patch.object(sys, "argv", argv),
+                    mock.patch.object(daily, "resolve_python", return_value=sys.executable),
+                    mock.patch.object(daily, "ensure_downloader"),
+                    mock.patch.object(daily, "run", side_effect=discover),
+                    mock.patch.object(daily, "enforce_selected_diversity", side_effect=diversity) as guard,
+                    mock.patch.object(daily, "write_summary") as write,
+                ):
+                    self.assertEqual(daily.main(), 0)
+                guard.assert_called_once()
+                self.assertEqual(write.call_args.args[1]["selected_file_count"], 1)
+
+
 class PackagingTargetTests(unittest.TestCase):
     def test_child_failure_preserves_fresh_partial_outputs_but_never_stale_outputs(self) -> None:
         for fresh_count in (0, 3):

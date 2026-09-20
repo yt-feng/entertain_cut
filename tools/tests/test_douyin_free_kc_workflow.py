@@ -136,6 +136,23 @@ class DouyinFreeKcWorkflowContractTests(unittest.TestCase):
         self.assertIn('if [[ -n "$(git ls-files -- "$KC_OUTPUT_DIR")" ]]; then', self.workflow)
         self.assertIn('git add -u -- "$KC_OUTPUT_DIR"', self.workflow)
 
+    def test_failed_run_recovery_precedes_generation_and_retains_evidence(self) -> None:
+        recovery = self.step_block(
+            "      - name: Restore verified same-day KC artifacts before generating the gap\n",
+            "      - name: Cache Whisper model\n",
+        )
+        self.assertIn('python tools/restore_kc_artifacts.py', recovery)
+        self.assertIn('--output-date "$KC_OUTPUT_DATE"', recovery)
+        self.assertIn('--current-run-id "$GITHUB_RUN_ID"', recovery)
+        self.assertIn('--outputs-file work/kc_existing_outputs.txt', recovery)
+        self.assertIn('--github-env "$GITHUB_ENV"', recovery)
+        for key in ('selected_artifact_run_id', 'kc_artifact_run_id', 'search_only'):
+            self.assertIn(f'github.event.inputs.{key}', recovery)
+        self.assertLess(self.workflow.index('python tools/restore_kc_artifacts.py'),
+                        self.workflow.index('      - name: Discover selected videos and package KC'))
+        self.assertIn('work/kc_recovery/summary.json', self.workflow)
+        self.assertIn('work/kc_recovery/processed_manifest.json', self.workflow)
+
 
 class KcDeliveryVerificationTests(unittest.TestCase):
     def setUp(self) -> None:

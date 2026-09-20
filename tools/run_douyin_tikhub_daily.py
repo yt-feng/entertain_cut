@@ -16,7 +16,7 @@ import sys
 import time
 from pathlib import Path
 from typing import Any
-from urllib.parse import quote
+from urllib.parse import parse_qs, quote, unquote, urlsplit
 
 import httpx
 
@@ -29,6 +29,9 @@ from deepseek_api import request_deepseek_json
 
 
 VIDEO_EXTENSIONS = {".mp4", ".mov", ".m4v", ".mkv", ".webm"}
+AUDIO_EXTENSIONS = {".mp3", ".m4a", ".aac", ".wav", ".flac", ".ogg", ".opus", ".wma", ".aiff"}
+IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp", ".gif", ".heic", ".avif"}
+MEDIA_VALIDATION_TIMEOUT_SECONDS = 20
 TIKHUB_VIDEO_SEARCH_URL = "https://api.tikhub.io/api/v1/douyin/search/fetch_video_search_v2"
 TIKHUB_VIDEO_SEARCH_ENDPOINTS = (
     ("video_v2", TIKHUB_VIDEO_SEARCH_URL),
@@ -595,6 +598,12 @@ def fetch_candidates(
                         if not key or key in seen:
                             continue
                         seen.add(key)
+                        rejection = candidate_media_rejection_reason(item)
+                        if rejection:
+                            run_info.setdefault("media_candidate_rejections", []).append(
+                                {"aweme_id": item.get("aweme_id"), "reason": rejection}
+                            )
+                            continue
                         candidates.append(item)
                         page_items += 1
                     run_info.setdefault("tikhub_search", []).append(
@@ -1116,9 +1125,9 @@ def request_tikhub_search(
     run_info: dict[str, Any],
 ) -> dict[str, Any]:
     """Try current and compatible TikHub search endpoints within one request budget."""
-    endpoints = ordered_search_endpoints(preferred_endpoint)
     last_error = "No TikHub endpoint was attempted"
     attempts_log = run_info.setdefault("tikhub_attempts", [])
+    endpoints = ordered_search_endpoints(preferred_endpoint, attempts_log)
 
     for endpoint_name, endpoint_url in endpoints:
         endpoint_payload = compatible_search_payload(payload, endpoint_name)
@@ -1205,9 +1214,26 @@ def request_tikhub_search(
     }
 
 
-def ordered_search_endpoints(preferred_endpoint: str) -> list[tuple[str, str]]:
+def ordered_search_endpoints(
+    preferred_endpoint: str,
+    attempts_log: list[dict[str, Any]] | None = None,
+) -> list[tuple[str, str]]:
+    attempts_log = attempts_log or []
+    successful = {attempt.get("endpoint") for attempt in attempts_log if attempt.get("outcome") == "success"}
+    incompatible = {
+        attempt.get("endpoint")
+        for attempt in attempts_log
+        if attempt.get("endpoint") in {"video_v2", "video_v1"}
+        and attempt.get("outcome") == "http_error"
+        and attempt.get("http_status") in {400, 404, 405, 422}
+    } - successful
+    # A later keyword failure does not invalidate an endpoint that worked in
+    # this run. Only stop re-probing video APIs that have never succeeded.
     endpoints = list(TIKHUB_VIDEO_SEARCH_ENDPOINTS)
-    return sorted(endpoints, key=lambda item: 0 if item[0] == preferred_endpoint else 1)
+    return sorted(
+        (item for item in endpoints if item[0] not in incompatible),
+        key=lambda item: 0 if item[0] == preferred_endpoint else 1,
+    )
 
 
 def compatible_search_payload(payload: dict[str, Any], endpoint_name: str) -> dict[str, Any]:
@@ -1295,13 +1321,22 @@ def normalize_aweme(aweme: dict[str, Any], source_keyword: str, source_dir: Path
     )
     if not share_url and aweme_id:
         share_url = f"https://www.douyin.com/video/{aweme_id}"
+    media_urls = extract_aweme_media_urls(aweme)
+    rejection = ""
+    # A note may still contain video.play_addr: it is commonly the slideshow's
+    # background music. Cover/thumbnail fields alone are not image-post evidence.
+    if int_or_zero(aweme.get("aweme_type")) == 68 or aweme.get("image_post_info"):
+        rejection = "explicit image post"
+    elif media_urls and all(explicit_nonvideo_url_kind(url) for url in media_urls):
+        rejection = "only audio/image download URLs"
     return {
         "aweme_id": aweme_id,
         "content_id": aweme_id,
         "platform": "douyin",
         "title": title,
         "url": str(share_url),
-        "download_urls": extract_video_urls(aweme),
+        "download_urls": [url for url in media_urls if not explicit_nonvideo_url_kind(url)],
+        "media_rejection_reason": rejection,
         "duration_ms": int_or_zero(video.get("duration") or aweme.get("duration")),
         "like_count": int_or_zero(stats.get("digg_count") or stats.get("like_count")),
         "comment_count": int_or_zero(stats.get("comment_count")),
@@ -1317,7 +1352,7 @@ def normalize_aweme(aweme: dict[str, Any], source_keyword: str, source_dir: Path
     }
 
 
-def extract_video_urls(aweme: dict[str, Any]) -> list[str]:
+def extract_aweme_media_urls(aweme: dict[str, Any]) -> list[str]:
     video = first_dict(aweme.get("video"))
     urls: list[str] = []
 
@@ -1339,6 +1374,49 @@ def extract_video_urls(aweme: dict[str, Any]) -> list[str]:
     return dedupe_keep_order([url for url in urls if url.startswith(("http://", "https://"))])
 
 
+def explicit_nonvideo_url_kind(url: str) -> str:
+    """Recognize affirmative audio/image signals while retaining opaque CDN URLs."""
+    try:
+        parsed = urlsplit(url)
+    except ValueError:
+        return ""
+    extension = Path(unquote(parsed.path)).suffix.lower()
+    if extension in AUDIO_EXTENSIONS:
+        return "audio"
+    if extension in IMAGE_EXTENSIONS:
+        return "image"
+    for key, values in parse_qs(parsed.query).items():
+        if key.lower() not in {"mime_type", "mime", "content_type", "content-type"}:
+            continue
+        for value in values:
+            lowered = value.lower()
+            if lowered.startswith(("audio/", "audio_")):
+                return "audio"
+            if lowered.startswith(("image/", "image_")):
+                return "image"
+    return ""
+
+
+def extract_video_urls(aweme: dict[str, Any]) -> list[str]:
+    return [url for url in extract_aweme_media_urls(aweme) if not explicit_nonvideo_url_kind(url)]
+
+
+def candidate_media_rejection_reason(item: dict[str, Any]) -> str:
+    rejection = str(item.get("media_rejection_reason") or "")
+    if rejection:
+        return rejection
+    try:
+        page_path = unquote(urlsplit(str(item.get("url") or "")).path).lower()
+    except ValueError:
+        page_path = ""
+    if str(item.get("platform") or "douyin") == "douyin" and re.search(r"/(?:share/)?note(?:/|$)", page_path):
+        return "Douyin image-note page"
+    urls = [url for url in item.get("download_urls") or [] if isinstance(url, str) and url]
+    if urls and all(explicit_nonvideo_url_kind(url) for url in urls):
+        return "only audio/image download URLs"
+    return ""
+
+
 def select_candidates(
     candidates: list[dict[str, Any]],
     limit: int,
@@ -1354,7 +1432,7 @@ def select_candidates(
     processed_ids: set[str],
     hot_context: dict[str, Any],
 ) -> list[dict[str, Any]]:
-    scoped = candidates
+    scoped = [item for item in candidates if not candidate_media_rejection_reason(item)]
     if processed_ids:
         scoped = [item for item in scoped if candidate_identity(item).isdisjoint(processed_ids)]
     # Duration is a soft ranking preference. Very short videos can still win when
@@ -2400,8 +2478,16 @@ def download_selected(
                 break
             aweme_id = str(item.get("aweme_id") or f"rank{idx}")
             platform = str(item.get("platform") or "douyin")
+            rejection = candidate_media_rejection_reason(item)
+            if rejection:
+                stats.append({"aweme_id": aweme_id, "platform": platform, "status": "skipped", "error": rejection})
+                continue
             file_id = safe_file_id(aweme_id)
-            urls = [url for url in item.get("download_urls") or [] if isinstance(url, str)]
+            urls = [
+                url for url in item.get("download_urls") or []
+                if isinstance(url, str) and url.startswith(("http://", "https://"))
+                and not explicit_nonvideo_url_kind(url)
+            ]
             urls = urls[: max(1, args.download_max_urls)]
             for url_idx, url in enumerate(urls, 1):
                 target = downloads_dir / f"{idx:02d}_{platform}_{file_id}.mp4"
@@ -2422,6 +2508,7 @@ def download_selected(
                                 bytes_written += len(chunk)
                     if bytes_written <= 0:
                         raise ValueError("downloaded empty file")
+                    media_validation = validate_downloaded_video(temp_target)
                     temp_target.replace(target)
                     selected_dir.mkdir(parents=True, exist_ok=True)
                     shutil.copy2(target, selected_dir / target.name)
@@ -2435,6 +2522,7 @@ def download_selected(
                             "url_index": url_idx,
                             "bytes": bytes_written,
                             "path": str(target),
+                            "media_validation": media_validation,
                         }
                     )
                     break
@@ -2467,6 +2555,59 @@ def download_selected(
             if aweme_id not in downloaded:
                 run_info["errors"].append(f"TikHub download failed aweme_id={aweme_id}")
     return downloaded
+
+
+def validate_downloaded_video(path: Path) -> dict[str, Any]:
+    """Require a real video stream and one decoded frame before admitting a clip."""
+    try:
+        probe = subprocess.run(
+            ["ffprobe", "-v", "error", "-show_streams", "-show_format", "-of", "json", str(path)],
+            check=False, capture_output=True, text=True,
+            timeout=MEDIA_VALIDATION_TIMEOUT_SECONDS,
+        )
+        if probe.returncode != 0:
+            raise ValueError(f"video probe failed: {normalize_space(probe.stderr)[:400]}")
+        metadata = json.loads(probe.stdout)
+        streams = [
+            stream for stream in metadata.get("streams", [])
+            if stream.get("codec_type") == "video"
+            and not int_or_zero((stream.get("disposition") or {}).get("attached_pic"))
+            and int_or_zero(stream.get("width")) > 0 and int_or_zero(stream.get("height")) > 0
+        ]
+        if not streams:
+            raise ValueError("download has no video stream (audio/image-only or invalid payload)")
+        stream = streams[0]
+        durations = []
+        for value in (stream.get("duration"), (metadata.get("format") or {}).get("duration")):
+            try:
+                duration = float(value)
+            except (TypeError, ValueError):
+                continue
+            if math.isfinite(duration) and duration > 0:
+                durations.append(duration)
+        if not durations:
+            raise ValueError("download has no positive video duration")
+        decoded = subprocess.run(
+            [
+                "ffmpeg", "-v", "error", "-nostdin", "-xerror", "-threads", "1",
+                "-i", str(path), "-map", f"0:{int_or_zero(stream.get('index'))}",
+                "-an", "-sn", "-dn", "-frames:v", "1", "-f", "framehash", "-",
+            ],
+            check=False, capture_output=True, text=True,
+            timeout=MEDIA_VALIDATION_TIMEOUT_SECONDS,
+        )
+        decoded_frames = [line for line in decoded.stdout.splitlines() if line.strip() and not line.startswith("#")]
+        if decoded.returncode != 0 or not decoded_frames:
+            raise ValueError(f"video frame decode failed: {normalize_space(decoded.stderr)[:400]}")
+    except (OSError, subprocess.TimeoutExpired, json.JSONDecodeError) as exc:
+        raise ValueError(f"video validation failed: {normalize_space(str(exc))[:400]}") from exc
+    return {
+        "video_stream_index": int_or_zero(stream.get("index")),
+        "width": int_or_zero(stream.get("width")),
+        "height": int_or_zero(stream.get("height")),
+        "duration_seconds": max(durations),
+        "decoded_frames": len(decoded_frames),
+    }
 
 
 def download_page_video(url: str, target: Path, *, timeout_seconds: int) -> dict[str, Any]:
@@ -2509,7 +2650,15 @@ def download_page_video(url: str, target: Path, *, timeout_seconds: int) -> dict
         error = normalize_space(completed.stderr or completed.stdout or f"yt-dlp exit {completed.returncode}")
         cleanup_download_parts(target)
         return {"status": "failed", "error": error[:500]}
-    return {"status": "downloaded", "bytes": target.stat().st_size, "path": str(target)}
+    try:
+        media_validation = validate_downloaded_video(target)
+    except ValueError as exc:
+        cleanup_download_parts(target)
+        return {"status": "failed", "error": str(exc)}
+    return {
+        "status": "downloaded", "bytes": target.stat().st_size, "path": str(target),
+        "media_validation": media_validation,
+    }
 
 
 def cleanup_download_parts(target: Path) -> None:

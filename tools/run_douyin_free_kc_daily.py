@@ -22,18 +22,18 @@ if str(TOOLS_DIR) not in sys.path:
 VIDEO_EXTENSIONS = {".mp4", ".mov", ".m4v", ".mkv", ".webm"}
 DEFAULT_SEED_KEYWORDS = ",".join(
     [
-        "娱乐",
-        "明星",
-        "娱乐圈",
-        "综艺",
-        "热播剧 演员",
-        "明星 评论区",
+        "综艺 名场面",
         "明星 采访",
         "明星 舞台",
+        "娱乐圈",
         "明星 红毯",
+        "热播剧 演员",
         "演唱会 明星",
-        "综艺 名场面",
+        "综艺",
+        "娱乐",
+        "明星",
         "演员 名场面",
+        "明星 评论区",
         "娱乐圈 热议",
         "内娱 争议",
         "新剧 主演",
@@ -347,6 +347,7 @@ def main() -> int:
         if args.yt_dlp_download:
             discovery_cmd.append("--yt-dlp-download")
     run(discovery_cmd, summary)
+    exclude_processed_selected(run_dir, args.processed_manifest, args.output_date, summary)
     enforce_selected_diversity(run_dir, args.max_videos_per_celebrity, summary)
 
     selected_dir = run_dir / "selected"
@@ -508,6 +509,56 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--skip-kc", action="store_true", help="Alias for skipping KC packaging after download.")
     parser.add_argument("--install-downloader-deps", action="store_true")
     return parser.parse_args()
+
+
+def exclude_processed_selected(
+    run_dir: Path,
+    processed_manifest: Path,
+    output_date: str,
+    summary: dict[str, Any],
+) -> None:
+    """Apply the committed source ledger to every provider, including free fallback."""
+    from run_douyin_tikhub_daily import candidate_identity, load_processed_ids, safe_file_id
+
+    # Discovery's pending IDs are intentionally not committed to this ledger.
+    # Include earlier dates as well as today's recovery/current-provider outputs,
+    # matching TikHub's existing cross-day source deduplication.
+    manifest_path = project_path(processed_manifest)
+    processed_ids = load_processed_ids(manifest_path)
+    if not processed_ids:
+        return
+    metadata_path = run_dir / "reports" / "selected.json"
+    try:
+        metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return
+    if not isinstance(metadata, list):
+        return
+    rejected = [item for item in metadata if isinstance(item, dict) and not candidate_identity(item).isdisjoint(processed_ids)]
+    accepted = [item for item in metadata if item not in rejected]
+    removed_files: list[str] = []
+    for path in (run_dir / "selected").glob("*"):
+        if not path.is_file() or path.suffix.lower() not in VIDEO_EXTENSIONS:
+            continue
+        rank, separator, file_id = path.stem.partition("_")
+        # Both downloaders name copies <rank>_[<platform>_]<source-id>.<ext>.
+        # Match the complete source ID so a short ID cannot delete another clip.
+        file_id = file_id if separator and rank.isdigit() else path.stem
+        if any(
+            file_id in {safe_file_id(str(source_id)), f"{item.get('platform') or 'douyin'}_{safe_file_id(str(source_id))}"}
+            for item in rejected
+            for source_id in (item.get("aweme_id"), item.get("content_id")) if source_id
+        ):
+            removed_files.append(path.name)
+            path.unlink()
+    metadata_path.write_text(json.dumps(accepted, ensure_ascii=False, indent=2), encoding="utf-8")
+    summary["processed_source_filter"] = {
+        "manifest": str(manifest_path),
+        "output_date": output_date,
+        "excluded_ids": [str(item.get("aweme_id") or item.get("content_id") or "") for item in rejected],
+        "removed_files": removed_files,
+        "remaining_candidates": len(accepted),
+    }
 
 
 def enforce_selected_diversity(

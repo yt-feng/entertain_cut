@@ -284,6 +284,25 @@ jobs:
           python -m pip install --retries 5 --timeout 60 --upgrade pip
           python -m pip install --retries 5 --timeout 60 pillow httpx yt-dlp
 
+      - name: Restore verified same-day KC artifacts before generating the gap
+        if: ${{ !cancelled() && (github.event_name != 'workflow_dispatch' || (github.event.inputs.search_only != 'true' && github.event.inputs.selected_artifact_run_id == '' && github.event.inputs.kc_artifact_run_id == '')) }}
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python tools/restore_kc_artifacts.py \
+            --repo "$GITHUB_REPOSITORY" \
+            --workflow douyin-free-kc-daily.yml \
+            --branch "$GITHUB_REF_NAME" \
+            --current-run-id "$GITHUB_RUN_ID" \
+            --output-date "$KC_OUTPUT_DATE" \
+            --output-dir "$KC_OUTPUT_DIR" \
+            --limit "$KC_LIMIT" \
+            --outputs-file work/kc_existing_outputs.txt \
+            --processed-manifest outputs/kc_entertain/processed_aweme_ids.json \
+            --work-dir work/kc_recovery \
+            --github-env "$GITHUB_ENV"
+
       - name: Cache Whisper model
         if: ${{ (github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true') && (github.event_name != 'workflow_dispatch' || github.event.inputs.kc_artifact_run_id == '') }}
         uses: actions/cache@v4
@@ -753,6 +772,8 @@ jobs:
             work/auto_kc_douyin_free/source_failures/*.json
             work/kc_delivery_summary.json
             work/kc_publish_summary.json
+            work/kc_recovery/summary.json
+            work/kc_recovery/processed_manifest.json
           if-no-files-found: ignore
           retention-days: 14
         continue-on-error: true
