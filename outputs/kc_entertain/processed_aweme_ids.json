@@ -1,7 +1,135 @@
 {
-  "updated_at": "2026-09-20T02:32:47.307566+00:00",
-  "count": 402,
+  "updated_at": "2026-09-21T01:33:34.245742+00:00",
+  "count": 407,
   "items": [
+    {
+      "aweme_id": "7687426017153931176",
+      "content_id": "7687426017153931176",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7687426017153931176/?region=US&mid=6936422273893009410&u_code=0&did=MS4wLjABAAAAd8Ay5jnlLQ2qis8G5kaybOW0-9cmnNIQgqHEg9iiXNXAf9-lA5P2pDHRLhPP7AbO&iid=MS4wLjABAAAAMGjiahdF250f4hy5GVH0jeqRrg_7t1UMzkrBIrPsppxlhLGFyUyqPPLGKpZfl7yN&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=elEknNKd8ZuX9Iva1BUpP7seqxKfh_C9NH8n5uiV5T4-&share_version=320900&ts=1789953631&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "64岁关礼杰，63岁张兆辉现身谭咏麟演唱会\n#谭咏麟演唱会 #关礼杰 #张兆辉 #港星 #路人视角 \n两位都是谭校长明星足球队的成员",
+      "author": "大湾区明星📷",
+      "like_count": 7606,
+      "comment_count": 1502,
+      "share_count": 456,
+      "duration_ms": 42300,
+      "create_time_iso": "2026-09-20T01:39:09+00:00",
+      "known_entities": [
+        "谭咏麟演唱会"
+      ],
+      "verified_entities": [
+        "谭咏麟演唱会",
+        "关礼杰",
+        "张兆辉"
+      ],
+      "primary_celebrities": [
+        "关礼杰",
+        "张兆辉",
+        "谭咏麟"
+      ],
+      "quality_score": 243.262,
+      "output_date": "2026-09-21",
+      "selected_at": "2026-09-21T01:33:34.245742+00:00"
+    },
+    {
+      "aweme_id": "7687530191970782518",
+      "content_id": "7687530191970782518",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7687530191970782518/?region=US&mid=7687530117014293291&u_code=0&did=MS4wLjABAAAAdLtcQ7S4ssdiVqSR13TLoVfAvIVHkSnuaP40ONhkAFFftsQtnmUDMJ3B8eeKx2z9&iid=MS4wLjABAAAAdG7mfuOM8yfObNQri8wwWGvnysVexZGiJpktpLWP8jajMuOlHnJV4vzwSLO_BskS&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=0lBjB2s.cNWr0sto1ZweK.nFatn1t_uebfZvhkCAjNs-&share_version=320900&ts=1789953620&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "“蛇精本精”#撒贝宁  现场“作妖”，居然连“白娘子”#赵雅芝  出手都没制服！#你好时光第二季  #综艺名场面  #文娱体万象观",
+      "author": "央视文艺",
+      "like_count": 8586,
+      "comment_count": 151,
+      "share_count": 282,
+      "duration_ms": 26005,
+      "create_time_iso": "2026-09-20T11:30:00+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "你好时光第二季",
+        "撒贝宁",
+        "赵雅芝"
+      ],
+      "primary_celebrities": [
+        "撒贝宁",
+        "赵雅芝"
+      ],
+      "quality_score": 174.336,
+      "output_date": "2026-09-21",
+      "selected_at": "2026-09-21T01:33:34.245742+00:00"
+    },
+    {
+      "aweme_id": "7687491870779973733",
+      "content_id": "7687491870779973733",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7687491870779973733/?region=US&mid=7626273151214783273&u_code=0&did=MS4wLjABAAAAdLtcQ7S4ssdiVqSR13TLoVfAvIVHkSnuaP40ONhkAFFftsQtnmUDMJ3B8eeKx2z9&iid=MS4wLjABAAAAdG7mfuOM8yfObNQri8wwWGvnysVexZGiJpktpLWP8jajMuOlHnJV4vzwSLO_BskS&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=CGcXdDITuTs_vYk.p81hiZ1KHRixSvn65.fkWr_Gue4-&share_version=320900&ts=1789953620&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "完全没有偶像包袱的小沈月\n#沈月 #萌妹 #综艺名场面 #安利",
+      "author": "心月来信",
+      "like_count": 4327,
+      "comment_count": 64,
+      "share_count": 158,
+      "duration_ms": 12500,
+      "create_time_iso": "2026-09-20T05:54:42+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "沈月"
+      ],
+      "primary_celebrities": [
+        "沈月"
+      ],
+      "quality_score": 148.402,
+      "output_date": "2026-09-21",
+      "selected_at": "2026-09-21T01:33:34.245742+00:00"
+    },
+    {
+      "aweme_id": "7687265783625731185",
+      "content_id": "7687265783625731185",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7687265783625731185/?region=US&mid=7687265741493947162&u_code=0&did=MS4wLjABAAAAdLtcQ7S4ssdiVqSR13TLoVfAvIVHkSnuaP40ONhkAFFftsQtnmUDMJ3B8eeKx2z9&iid=MS4wLjABAAAAdG7mfuOM8yfObNQri8wwWGvnysVexZGiJpktpLWP8jajMuOlHnJV4vzwSLO_BskS&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=TdGndKUB8l1FWxOOoxzCQtOCFw0kEKvvP.Z0gVltuxo-&share_version=320900&ts=1789953620&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "伊能静敢说张菲应对机智，死丫头我平时对你不差\n#张菲 #费玉清 #一开口就震惊全场 #爆笑名场面 #台湾综艺节目",
+      "author": "单身快乐",
+      "like_count": 1856,
+      "comment_count": 50,
+      "share_count": 17,
+      "duration_ms": 45815,
+      "create_time_iso": "2026-09-20T10:30:00+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "伊能静",
+        "张菲",
+        "费玉清"
+      ],
+      "primary_celebrities": [
+        "伊能静",
+        "张菲",
+        "费玉清"
+      ],
+      "quality_score": 148.067,
+      "output_date": "2026-09-21",
+      "selected_at": "2026-09-21T01:33:34.245742+00:00"
+    },
+    {
+      "aweme_id": "7687611225651660475",
+      "content_id": "7687611225651660475",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7687611225651660475/?region=US&mid=7687611202433616690&u_code=0&did=MS4wLjABAAAAjqeADIVvF1MMhays162i6eAqIOoEetEdVqV5Uu-vjs0&iid=MS4wLjABAAAAlSIyrGaLQPaRXYb3bHLXFAicgQryOGmTANRcQrCs_QI&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=RU_onFRxWuVMl4p776iaoU7mOc9DgZ9W0dimA9lZx0w-&share_version=320900&ts=1789953624&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "好明媚好可爱的女明星啊啊啊#程潇 #女爱豆舞台 #甜妹的舞台魅力可爱加倍",
+      "author": "月夜浔程_🍓",
+      "like_count": 6980,
+      "comment_count": 53,
+      "share_count": 413,
+      "duration_ms": 17640,
+      "create_time_iso": "2026-09-20T13:37:50+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "程潇"
+      ],
+      "primary_celebrities": [
+        "程潇"
+      ],
+      "quality_score": 147.85399999999998,
+      "output_date": "2026-09-21",
+      "selected_at": "2026-09-21T01:33:34.245742+00:00"
+    },
     {
       "aweme_id": "7687273785385506815",
       "content_id": "7687273785385506815",
