@@ -75,6 +75,27 @@ class PrepareKcDeliveryTests(unittest.TestCase):
             self.assertTrue(report["minimum_met"])
             self.assertFalse(report["target_met"])
 
+    def test_cli_can_record_a_deferred_shortage_without_an_error(self) -> None:
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            outputs_file = root / "outputs.txt"
+            outputs_file.write_text("", encoding="utf-8")
+            summary_file = root / "summary.json"
+            argv = [
+                "prepare_kc_delivery.py",
+                "--output-dir", str(root),
+                "--outputs-file", str(outputs_file),
+                "--summary-file", str(summary_file),
+                "--limit", "5",
+                "--min-delivery", "3",
+                "--allow-insufficient",
+            ]
+            with mock.patch.object(sys, "argv", argv):
+                self.assertEqual(delivery.main(), 0)
+            report = json.loads(summary_file.read_text(encoding="utf-8"))
+            self.assertEqual(report["status"], "insufficient_videos")
+            self.assertFalse(report["deliverable"])
+
     def test_cli_preserves_partial_output_for_artifact_only(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:
             root = Path(temp_dir)

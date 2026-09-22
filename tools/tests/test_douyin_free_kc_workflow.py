@@ -83,6 +83,8 @@ class DouyinFreeKcWorkflowContractTests(unittest.TestCase):
             "      - name: Upload all KC videos and prepare Git-safe copies\n",
         )
         self.assertIn('--min-delivery "$KC_MIN_DELIVERY"', prepare)
+        self.assertIn("--allow-insufficient", prepare)
+        self.assertNotIn("continue-on-error: true", prepare)
 
     def test_upload_accepts_minimum_but_webdav_prune_requires_full_target(self) -> None:
         publish = self.step_block(

@@ -28,7 +28,7 @@ def main() -> int:
         f"{report['selected_count']}/{report['limit']} current-run videos."
     )
     print(f"Summary: {args.summary_file}")
-    return 0 if report["deliverable"] else 2
+    return 0 if report["deliverable"] or args.allow_insufficient else 2
 
 
 def parse_args() -> argparse.Namespace:
@@ -47,6 +47,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--min-delivery", type=int,
         help="Minimum selected videos that may be delivered; defaults to the full limit.",
+    )
+    parser.add_argument(
+        "--allow-insufficient",
+        action="store_true",
+        help="Write the incomplete summary and exit successfully for deferred delivery.",
     )
     return parser.parse_args()
 

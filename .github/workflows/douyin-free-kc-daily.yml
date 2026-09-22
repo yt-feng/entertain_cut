@@ -605,7 +605,6 @@ jobs:
 
       - name: Prepare current-run KC videos for delivery
         if: ${{ !cancelled() && (github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true') }}
-        continue-on-error: true
         run: |
           python tools/prepare_kc_delivery.py \
             --output-dir "$KC_OUTPUT_DIR" \
@@ -614,7 +613,8 @@ jobs:
             --outputs-file work/auto_kc_douyin_free/last_run_outputs.txt \
             --summary-file work/kc_delivery_summary.json \
             --limit "$KC_LIMIT" \
-            --min-delivery "$KC_MIN_DELIVERY"
+            --min-delivery "$KC_MIN_DELIVERY" \
+            --allow-insufficient
 
       - name: Classify KC delivery outcome
         if: ${{ !cancelled() && (github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true') }}
