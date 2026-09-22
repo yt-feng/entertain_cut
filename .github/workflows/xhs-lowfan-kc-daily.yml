@@ -183,9 +183,31 @@ jobs:
           print(records[-1].get("status", "") if records else "")
           PY
           )"
-          if [[ "$daily_status" == "deferred" || "$daily_status" == "delivered" ]]; then
+          if [[ "$daily_status" == "delivered" ]]; then
             echo "KC_SKIP=true" >> "$GITHUB_ENV"
-            echo "Business-date delivery state is already $daily_status; skipping compensation run."
+            echo "Business-date delivery state is already delivered; skipping compensation run."
+          elif [[ "$daily_status" == "deferred" ]]; then
+            defer_reason="$(python3 - "$KC_OUTPUT_DATE" <<'PY'
+          import json
+          import sys
+          from pathlib import Path
+
+          path = Path("xhs2vid/state/daily_delivery_state.json")
+          payload = json.loads(path.read_text(encoding="utf-8")) if path.is_file() else {}
+          date = sys.argv[1]
+          records = [item for item in payload.get("items", []) if item.get("date") == date]
+          print(records[-1].get("reason", "") if records else "")
+          PY
+            )"
+            case "$defer_reason" in
+              tikhub_access_blocked|tikhub_author_lookup_unavailable|tikhub_endpoint_unavailable)
+                echo "Retryable TikHub defer ($defer_reason); running compensation attempt."
+                ;;
+              *)
+                echo "Business-date delivery state is deferred for non-provider reason $defer_reason; skipping compensation run."
+                echo "KC_SKIP=true" >> "$GITHUB_ENV"
+                ;;
+            esac
           fi
 
       - name: Find reusable partial artifacts

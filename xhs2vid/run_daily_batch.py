@@ -433,6 +433,8 @@ def main() -> None:
         "items": [],
     }
     apimart_slots_used = 0
+    deferred_reason = ""
+    deferred_message = ""
 
     for candidate_index, note in enumerate(candidates, 1):
         if sum(item.get("status") == "success" for item in summary["items"]) >= args.limit:
@@ -529,6 +531,15 @@ def main() -> None:
                 f"output#{item_index} {output.name}"
             )
         except Exception as exc:  # noqa: BLE001
+            blocked_marker = note_dir / "tikhub_access_blocked.json"
+            if blocked_marker.is_file():
+                marker = json.loads(blocked_marker.read_text(encoding="utf-8"))
+                deferred_reason = str(marker.get("reason") or "tikhub_access_blocked")
+                deferred_message = str(marker.get("message") or exc)
+                item["status"] = "deferred"
+                item["error"] = deferred_message[:1000]
+                print(f"[deferred] candidate {note_id}: {deferred_message}")
+                break
             item["status"] = "failed"
             item["error"] = f"{type(exc).__name__}: {exc}"[:1000]
             (note_dir / "error.txt").write_text(
@@ -539,6 +550,64 @@ def main() -> None:
         (batch_dir / "daily_summary.json").write_text(
             json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8"
         )
+
+    if deferred_reason:
+        successes = [item for item in summary["items"] if item.get("status") == "success"]
+        summary["completed_at"] = datetime.now(BEIJING).isoformat()
+        summary["succeeded"] = len(successes)
+        summary["target_met"] = False
+        summary["status"] = "deferred"
+        summary["defer_reason"] = deferred_reason
+        summary["defer_message"] = deferred_message
+        summary["apimart_create_slot_limit"] = args.limit
+        summary["apimart_create_slots_used"] = apimart_slots_used
+        if budget_file.is_file():
+            budget = json.loads(budget_file.read_text(encoding="utf-8"))
+            summary["tikhub_requests_used"] = int(budget.get("used", 0))
+            summary["tikhub_request_limit"] = int(budget.get("limit", args.request_limit))
+        summary_path = batch_dir / "daily_summary.json"
+        summary_path.write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
+        shutil.copy2(summary_path, output_dir / "daily_summary.json")
+        copy_discovery_evidence(discovery_dir, output_dir)
+        new_processed = {
+            "date": args.date,
+            "items": [
+                {
+                    "note_id": item["note_id"],
+                    "title": item["title"],
+                    "output": Path(item["output"]).name,
+                    "rendered_at": summary["completed_at"],
+                    "author_fans": item.get("author_fans"),
+                    "liked_count": item.get("liked_count"),
+                    "comments_count": item.get("comments_count"),
+                }
+                for item in successes
+            ],
+        }
+        (output_dir / "new_processed.json").write_text(
+            json.dumps(new_processed, ensure_ascii=False, indent=2), encoding="utf-8"
+        )
+        write_delivery_status(
+            output_dir / "delivery_status.json",
+            {
+                "date": args.date,
+                "status": "deferred",
+                "reason": deferred_reason,
+                "message": deferred_message,
+                "retryable": True,
+                "target": args.limit,
+                "succeeded": len(successes),
+                "completed_at": summary["completed_at"],
+            },
+        )
+        latest_file = args.work_root.expanduser().resolve() / "latest_run.txt"
+        latest_file.parent.mkdir(parents=True, exist_ok=True)
+        latest_file.write_text(str(batch_dir), encoding="utf-8")
+        print(
+            f"[deferred] {deferred_reason}: {deferred_message} "
+            f"evidence={output_dir}"
+        )
+        return
 
     successes = [item for item in summary["items"] if item.get("status") == "success"]
     summary["completed_at"] = datetime.now(BEIJING).isoformat()

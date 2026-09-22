@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""发现今天的小红书低粉爆款笔记(TikHub app_v2 接口)。
+"""发现今天的小红书低粉爆款笔记(TikHub app_v2/web_v3/web_v2 接口)。
 
 选择逻辑:
 - 多个情感类关键词, time_filter=一天内, 普通笔记, general/最多点赞 双通道
@@ -50,6 +50,18 @@ BUDGET: TikHubRequestBudget | None = None
 HOT_TERMS: list[str] = []
 ACCESS_BLOCKING_STATUSES = frozenset({401, 402, 403, 429})
 ACCESS_BLOCKED: "TikHubAccessBlocked | None" = None
+ACTIVE_SEARCH_ENDPOINT: str | None = None
+
+SEARCH_ENDPOINTS = (
+    "/api/v1/xiaohongshu/app_v2/search_notes",
+    "/api/v1/xiaohongshu/web_v3/fetch_search_notes",
+    "/api/v1/xiaohongshu/web_v2/fetch_search_notes",
+)
+USER_ENDPOINTS = (
+    "/api/v1/xiaohongshu/app_v2/get_user_info",
+    "/api/v1/xiaohongshu/web_v3/fetch_user_info",
+    "/api/v1/xiaohongshu/web_v2/fetch_user_info",
+)
 
 
 class TikHubAccessBlocked(RuntimeError):
@@ -102,9 +114,9 @@ def author_lookup_pool(fresh: list[dict]) -> list[dict]:
     return [note for note in fresh if note["liked_count"] >= LIKES_MIN]
 
 
-def api_get(path: str, params: dict) -> dict:
+def api_get(path: str, params: dict, *, ignore_access_block: bool = False) -> dict:
     global ACCESS_BLOCKED
-    if ACCESS_BLOCKED is not None:
+    if ACCESS_BLOCKED is not None and not ignore_access_block:
         raise ACCESS_BLOCKED
     last_exc: Exception | None = None
     for attempt in range(MAX_ATTEMPTS):
@@ -122,8 +134,10 @@ def api_get(path: str, params: dict) -> dict:
             last_exc = exc
             status_code = exc.response.status_code
             if status_code in ACCESS_BLOCKING_STATUSES:
-                ACCESS_BLOCKED = TikHubAccessBlocked(status_code, path)
-                raise ACCESS_BLOCKED from exc
+                blocked = TikHubAccessBlocked(status_code, path)
+                if not ignore_access_block:
+                    ACCESS_BLOCKED = blocked
+                raise blocked from exc
             if attempt + 1 < MAX_ATTEMPTS:
                 time.sleep(1.5 * (attempt + 1))
         except Exception as exc:  # noqa: BLE001
@@ -133,6 +147,214 @@ def api_get(path: str, params: dict) -> dict:
     raise last_exc  # type: ignore[misc]
 
 
+def search_params(
+    path: str,
+    keyword: str,
+    page: int,
+    sort_type: str,
+    *,
+    search_id: str = "",
+    session_id: str = "",
+) -> dict:
+    """Build the parameter names used by each documented TikHub surface."""
+    if "/web_v3/" in path:
+        params = {
+            "keyword": keyword,
+            "page": page,
+            "sort": "popularity_descending" if sort_type != "general" else "general",
+            "note_type": "normal",
+        }
+        return params
+    if "/web_v2/" in path:
+        return {
+            "keywords": keyword,
+            "page": page,
+            "sort_type": "popularity_descending" if sort_type != "general" else "general",
+            "note_type": "normal",
+        }
+    params = {
+        "keyword": keyword,
+        "page": page,
+        "sort_type": sort_type,
+        "note_type": "普通笔记",
+        "time_filter": "一天内",
+    }
+    if search_id:
+        params["search_id"] = search_id
+    if session_id:
+        params["search_session_id"] = session_id
+    return params
+
+
+def search_notes(
+    keyword: str,
+    page: int,
+    sort_type: str,
+    *,
+    search_id: str = "",
+    session_id: str = "",
+) -> tuple[dict, str]:
+    """Use the first working XHS surface and remember it for this run.
+
+    A 402 on app_v2 is not retried three times and is not allowed to abort the
+    run before the documented web surfaces get one probe each. If every
+    surface is blocked, the caller receives one structured access error.
+    """
+    global ACCESS_BLOCKED, ACTIVE_SEARCH_ENDPOINT
+    endpoints = list(SEARCH_ENDPOINTS)
+    if ACTIVE_SEARCH_ENDPOINT in endpoints:
+        endpoints.remove(ACTIVE_SEARCH_ENDPOINT)
+        endpoints.insert(0, ACTIVE_SEARCH_ENDPOINT)
+    blocked: list[TikHubAccessBlocked] = []
+    last_error: Exception | None = None
+    for path in endpoints:
+        try:
+            data = api_get(
+                path,
+                search_params(
+                    path,
+                    keyword,
+                    page,
+                    sort_type,
+                    search_id=search_id,
+                    session_id=session_id,
+                ),
+                ignore_access_block=True,
+            )
+            ACTIVE_SEARCH_ENDPOINT = path
+            ACCESS_BLOCKED = None
+            return data, path
+        except RequestBudgetExceeded:
+            raise
+        except TikHubAccessBlocked as exc:
+            blocked.append(exc)
+            print(f"[warn] search endpoint blocked: {exc}")
+        except Exception as exc:  # noqa: BLE001
+            last_error = exc
+            print(f"[warn] search endpoint unavailable {path}: {exc}")
+    if blocked:
+        ACCESS_BLOCKED = blocked[-1]
+        raise ACCESS_BLOCKED
+    if last_error is not None:
+        raise last_error
+    raise RuntimeError(f"no TikHub search endpoint available for {keyword!r}")
+
+
+def response_items(data: dict) -> list[dict]:
+    """Find the result list across app_v2/web_v2/web_v3 response wrappers."""
+    def looks_like_item(value: object) -> bool:
+        if not isinstance(value, dict):
+            return False
+        return any(
+            key in value
+            for key in ("note", "note_card", "note_info", "note_id", "id")
+        )
+
+    def walk(value: object, depth: int = 0) -> list[dict]:
+        if depth > 6:
+            return []
+        if isinstance(value, list):
+            items = [item for item in value if looks_like_item(item)]
+            if items:
+                return items
+            for item in value:
+                found = walk(item, depth + 1)
+                if found:
+                    return found
+            return []
+        if isinstance(value, dict):
+            for key in ("items", "notes", "note_list", "data", "result"):
+                if key in value:
+                    found = walk(value[key], depth + 1)
+                    if found:
+                        return found
+            for nested in value.values():
+                found = walk(nested, depth + 1)
+                if found:
+                    return found
+        return []
+
+    return walk(data)
+
+
+def first_mapping(*values: object) -> dict:
+    return next((value for value in values if isinstance(value, dict)), {})
+
+
+def image_url(image: object) -> str:
+    if isinstance(image, str):
+        return image
+    if not isinstance(image, dict):
+        return ""
+    for key in ("url_size_large", "url_default", "url_large", "url", "url_pre"):
+        value = image.get(key)
+        if value:
+            return str(value)
+    for key in ("info_list", "url_list"):
+        nested = image.get(key)
+        if isinstance(nested, list):
+            for item in nested:
+                value = image_url(item)
+                if value:
+                    return value
+    return ""
+
+
+def normalize_search_item(item: dict, keyword: str) -> dict | None:
+    note = first_mapping(item.get("note"), item.get("note_card"), item.get("note_info"))
+    if not note:
+        note = item
+    note_type = note.get("type") or note.get("note_type") or "normal"
+    if str(note_type).lower() not in {"normal", "image", "图文", ""}:
+        return None
+    nid = str(note.get("id") or note.get("note_id") or note.get("nid") or "")
+    if not nid:
+        return None
+    stats = first_mapping(note.get("interact_info"), note.get("interact"), note.get("stats"))
+    user = first_mapping(note.get("user"), note.get("user_info"), note.get("author"))
+    images = (
+        note.get("images_list")
+        or note.get("image_list")
+        or note.get("images")
+        or note.get("image_list_v2")
+        or []
+    )
+    if not isinstance(images, list):
+        images = []
+    timestamp = (
+        note.get("timestamp")
+        or note.get("time")
+        or note.get("create_time")
+        or note.get("last_update_time")
+    )
+    return {
+        "note_id": nid,
+        "title": note.get("title") or note.get("display_title") or "",
+        "desc": note.get("desc") or note.get("description") or "",
+        "liked_count": parse_count(
+            note.get("liked_count", stats.get("liked_count", stats.get("like_count", 0)))
+        ),
+        "comments_count": parse_count(
+            note.get("comments_count", stats.get("comments_count", stats.get("comment_count", 0)))
+        ),
+        "collected_count": parse_count(
+            note.get("collected_count", stats.get("collected_count", stats.get("collect_count", 0)))
+        ),
+        "shared_count": parse_count(
+            note.get("shared_count", stats.get("shared_count", stats.get("share_count", 0)))
+        ),
+        "timestamp": normalize_timestamp(timestamp),
+        "cover_url": image_url(images[0]) if images else image_url(note.get("cover")),
+        "images_count": len(images),
+        "author_id": str(
+            user.get("userid") or user.get("user_id") or user.get("uid") or user.get("id") or ""
+        ),
+        "author_name": user.get("nickname") or user.get("name") or "",
+        "author_fans": embedded_author_fans(user),
+        "keyword": keyword,
+    }
+
+
 def search_all() -> dict[str, dict]:
     notes: dict[str, dict] = {}
     for kw in KEYWORDS:
@@ -140,18 +362,14 @@ def search_all() -> dict[str, dict]:
             search_id = ""
             session_id = ""
             for page in range(1, PAGES + 1):
-                params = {
-                    "keyword": kw,
-                    "page": page,
-                    "sort_type": sort_type,
-                    "note_type": "普通笔记",
-                    "time_filter": "一天内",
-                }
-                if search_id:
-                    params["search_id"] = search_id
-                    params["search_session_id"] = session_id
                 try:
-                    data = api_get("/api/v1/xiaohongshu/app_v2/search_notes", params)
+                    data, endpoint = search_notes(
+                        kw,
+                        page,
+                        sort_type,
+                        search_id=search_id,
+                        session_id=session_id,
+                    )
                 except RequestBudgetExceeded:
                     raise
                 except TikHubAccessBlocked:
@@ -162,43 +380,17 @@ def search_all() -> dict[str, dict]:
                 payload = data.get("data") or {}
                 search_id = payload.get("search_id") or search_id
                 session_id = payload.get("search_session_id") or session_id
-                items = (payload.get("data") or {}).get("items") or []
+                items = response_items(data)
                 got = 0
                 for item in items:
-                    note = item.get("note") or {}
-                    nid = note.get("id")
-                    if not nid or note.get("type") != "normal":
+                    rec = normalize_search_item(item, kw)
+                    if rec is None:
                         continue
-                    images = note.get("images_list") or []
-                    cover = ""
-                    if images:
-                        cover = (
-                            images[0].get("url_size_large")
-                            or images[0].get("url")
-                            or ""
-                        )
-                    user = note.get("user") or {}
-                    rec = {
-                        "note_id": nid,
-                        "title": note.get("title") or "",
-                        "desc": note.get("desc") or "",
-                        "liked_count": parse_count(note.get("liked_count")),
-                        "comments_count": parse_count(note.get("comments_count")),
-                        "collected_count": parse_count(note.get("collected_count")),
-                        "shared_count": parse_count(note.get("shared_count")),
-                        "timestamp": normalize_timestamp(note.get("timestamp")),
-                        "cover_url": cover,
-                        "images_count": len(images),
-                        "author_id": user.get("userid") or "",
-                        "author_name": user.get("nickname") or "",
-                        "author_fans": embedded_author_fans(user),
-                        "keyword": kw,
-                    }
-                    prev = notes.get(nid)
+                    prev = notes.get(rec["note_id"])
                     if not prev or rec["liked_count"] > prev["liked_count"]:
-                        notes[nid] = rec
+                        notes[rec["note_id"]] = rec
                     got += 1
-                print(f"[info] {kw}/{sort_type} p{page}: {got} notes")
+                print(f"[info] {kw}/{sort_type} p{page} via {endpoint}: {got} notes")
                 time.sleep(0.4)
     return notes
 
@@ -206,31 +398,69 @@ def search_all() -> dict[str, dict]:
 def author_fans(user_id: str) -> int:
     if not user_id:
         return -1
-    try:
-        data = api_get(
-            "/api/v1/xiaohongshu/app_v2/get_user_info", {"user_id": user_id}
-        )
-    except RequestBudgetExceeded:
-        raise
-    except TikHubAccessBlocked as exc:
-        print(f"[warn] author lookup circuit opened: {exc}")
-        return -1
-    except Exception as exc:  # noqa: BLE001
-        print(f"[warn] user {user_id}: {exc}")
-        return -1
-    import re
+    global ACCESS_BLOCKED
+    endpoint_order = list(USER_ENDPOINTS)
+    if ACTIVE_SEARCH_ENDPOINT and "/web_v3/" in ACTIVE_SEARCH_ENDPOINT:
+        endpoint_order = [USER_ENDPOINTS[1], USER_ENDPOINTS[2], USER_ENDPOINTS[0]]
+    elif ACTIVE_SEARCH_ENDPOINT and "/web_v2/" in ACTIVE_SEARCH_ENDPOINT:
+        endpoint_order = [USER_ENDPOINTS[2], USER_ENDPOINTS[1], USER_ENDPOINTS[0]]
+    blocked: list[TikHubAccessBlocked] = []
+    for path in endpoint_order:
+        try:
+            data = api_get(path, {"user_id": user_id}, ignore_access_block=True)
+            ACCESS_BLOCKED = None
+            fans = extract_fans(data)
+            if fans >= 0:
+                return fans
+        except RequestBudgetExceeded:
+            raise
+        except TikHubAccessBlocked as exc:
+            blocked.append(exc)
+            print(f"[warn] author endpoint blocked: {exc}")
+        except Exception as exc:  # noqa: BLE001
+            print(f"[warn] user {user_id} via {path}: {exc}")
+    if blocked:
+        ACCESS_BLOCKED = blocked[-1]
+        print(f"[warn] author lookup circuit opened: {ACCESS_BLOCKED}")
+    return -1
 
-    blob = json.dumps(data.get("data") or {}, ensure_ascii=False)
-    m = re.search(r'"fans"\s*:\s*"?(\d+)', blob)
-    return int(m.group(1)) if m else -1
+
+def extract_fans(data: dict) -> int:
+    """Extract follower counts without treating unrelated numeric fields as fans."""
+    keys = ("fans", "fans_count", "followers", "follower_count", "follower_num")
+
+    def walk(value: object, depth: int = 0) -> int:
+        if depth > 8:
+            return -1
+        if isinstance(value, dict):
+            for key in keys:
+                if key in value and value[key] not in (None, ""):
+                    return parse_count(value[key])
+            for nested in value.values():
+                found = walk(nested, depth + 1)
+                if found >= 0:
+                    return found
+        elif isinstance(value, list):
+            for nested in value:
+                found = walk(nested, depth + 1)
+                if found >= 0:
+                    return found
+        return -1
+
+    return walk(data)
 
 
 def embedded_author_fans(user: dict) -> int | None:
     """Use a follower count already present in search results when available."""
-    for key in ("fans", "followers", "follower_count", "fans_count"):
-        value = user.get(key)
-        if value not in (None, ""):
-            return parse_count(value)
+    mappings = [user]
+    for key in ("interact_info", "stats", "fans_info"):
+        if isinstance(user.get(key), dict):
+            mappings.append(user[key])
+    for mapping in mappings:
+        for key in ("fans", "followers", "follower_count", "fans_count", "follower_num"):
+            value = mapping.get(key)
+            if value not in (None, ""):
+                return parse_count(value)
     return None
 
 
@@ -348,7 +578,7 @@ def parse_args() -> argparse.Namespace:
 
 
 def main() -> None:
-    global ACCESS_BLOCKED, BUDGET, HOT_TERMS, KEYWORDS, MAX_ATTEMPTS, OUT_DIR, PAGES, TOP_AUTHOR_CHECK
+    global ACCESS_BLOCKED, ACTIVE_SEARCH_ENDPOINT, BUDGET, HOT_TERMS, KEYWORDS, MAX_ATTEMPTS, OUT_DIR, PAGES, TOP_AUTHOR_CHECK
     args = parse_args()
     OUT_DIR = args.out_dir.expanduser().resolve()
     OUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -381,6 +611,7 @@ def main() -> None:
         else datetime.fromtimestamp(now, beijing).date()
     )
     ACCESS_BLOCKED = None
+    ACTIVE_SEARCH_ENDPOINT = None
     try:
         notes = search_all()
     except RequestBudgetExceeded as exc:

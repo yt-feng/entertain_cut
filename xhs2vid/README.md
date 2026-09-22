@@ -49,7 +49,7 @@ python3 xhs2vid/run_daily_batch.py \
 #    产出 work/chosen_note.json / work/selected_notes.json / work/candidates.json
 python3 xhs2vid/discover_note.py
 
-# 2. 抓素材: 下载笔记封面, get_note_comments(sort_strategy=like_count)
+# 2. 抓素材: 下载笔记封面, app_v2 评论接口失败时回退 web_v3/web_v2，按点赞取评论
 #    取最热前三条评论 → work/cover.png / work/top_comments.json
 python3 xhs2vid/fetch_assets.py
 
@@ -123,7 +123,7 @@ mkdir -p "$RUN_DIR"
 
 ## 依赖
 
-- TikHub API key: `api_key/tikhub.txt`(用 `/api/v1/xiaohongshu/app_v2/*` 接口)
+- TikHub API key: `api_key/tikhub.txt`（优先使用 `/api/v1/xiaohongshu/app_v2/*`，访问被拒时按一次性探测回退 `/api/v1/xiaohongshu/web_v3/*`、`/api/v1/xiaohongshu/web_v2/*`）
 - python: `pip install -r requirements-xhs2vid.txt`
 - 系统: ffmpeg/ffprobe；本机可用 macOS `say`，Action 使用剪映轻量在线 TTS
 - 字体: macOS Hiragino Sans GB；Ubuntu Action 安装 Noto Sans CJK

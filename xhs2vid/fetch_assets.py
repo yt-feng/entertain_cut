@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""抓取选中笔记的封面图、最热评论和对应子评论(TikHub app_v2 接口)。"""
+"""抓取选中笔记的封面图、最热评论和对应子评论(TikHub 多端点回退)。"""
 from __future__ import annotations
 
 import argparse
@@ -24,6 +24,18 @@ WORK = ROOT / "xhs2vid" / "work"
 NOTE: dict = {}
 MAX_ATTEMPTS = 3
 BUDGET: TikHubRequestBudget | None = None
+ACCESS_BLOCKING_STATUSES = frozenset({401, 402, 403, 429})
+ACCESS_BLOCKED: "TikHubAccessBlocked | None" = None
+ACTIVE_COMMENT_ENDPOINT: str | None = None
+
+
+class TikHubAccessBlocked(RuntimeError):
+    """All usable comment endpoints rejected this run's TikHub access."""
+
+    def __init__(self, status_code: int, path: str) -> None:
+        self.status_code = status_code
+        self.path = path
+        super().__init__(f"TikHub access blocked with HTTP {status_code} at {path}")
 
 client = httpx.Client(
     headers={
@@ -42,7 +54,10 @@ cover_client = httpx.Client(
 )
 
 
-def api_get(path: str, params: dict) -> dict:
+def api_get(path: str, params: dict, *, ignore_access_block: bool = False) -> dict:
+    global ACCESS_BLOCKED
+    if ACCESS_BLOCKED is not None and not ignore_access_block:
+        raise ACCESS_BLOCKED
     last_exc: Exception | None = None
     for attempt in range(MAX_ATTEMPTS):
         try:
@@ -55,11 +70,77 @@ def api_get(path: str, params: dict) -> dict:
             return response.json()
         except RequestBudgetExceeded:
             raise
+        except httpx.HTTPStatusError as exc:
+            last_exc = exc
+            if exc.response.status_code in ACCESS_BLOCKING_STATUSES:
+                blocked = TikHubAccessBlocked(exc.response.status_code, path)
+                if not ignore_access_block:
+                    ACCESS_BLOCKED = blocked
+                raise blocked from exc
+            if attempt + 1 < MAX_ATTEMPTS:
+                time.sleep(1.5 * (attempt + 1))
         except Exception as exc:  # noqa: BLE001
             last_exc = exc
             if attempt + 1 < MAX_ATTEMPTS:
                 time.sleep(1.5 * (attempt + 1))
     raise last_exc  # type: ignore[misc]
+
+
+def comment_requests(note_id: str) -> list[tuple[str, dict]]:
+    """Documented app/web comment surfaces, in preference order."""
+    return [
+        (
+            "/api/v1/xiaohongshu/app_v2/get_note_comments",
+            {
+                "note_id": note_id,
+                "cursor": "",
+                "index": 0,
+                "pageArea": "UNFOLDED",
+                "sort_strategy": "like_count",
+            },
+        ),
+        (
+            "/api/v1/xiaohongshu/web_v3/fetch_note_comments",
+            {"note_id": note_id, "cursor": ""},
+        ),
+        (
+            "/api/v1/xiaohongshu/web_v2/fetch_note_comments",
+            {"note_id": note_id, "cursor": ""},
+        ),
+    ]
+
+
+def fetch_with_endpoint_fallback(
+    requests: list[tuple[str, dict]],
+) -> tuple[dict, str]:
+    global ACCESS_BLOCKED, ACTIVE_COMMENT_ENDPOINT
+    ordered_requests = list(requests)
+    if ACTIVE_COMMENT_ENDPOINT:
+        ordered_requests.sort(
+            key=lambda request: request[0] != ACTIVE_COMMENT_ENDPOINT
+        )
+    blocked: list[TikHubAccessBlocked] = []
+    last_error: Exception | None = None
+    for path, params in ordered_requests:
+        try:
+            data = api_get(path, params, ignore_access_block=True)
+            ACCESS_BLOCKED = None
+            ACTIVE_COMMENT_ENDPOINT = path
+            return data, path
+        except RequestBudgetExceeded:
+            raise
+        except TikHubAccessBlocked as exc:
+            blocked.append(exc)
+            print(f"[warn] TikHub endpoint blocked: {exc}")
+        except Exception as exc:  # noqa: BLE001
+            last_error = exc
+            print(f"[warn] TikHub endpoint unavailable {path}: {exc}")
+    if blocked:
+        ACCESS_BLOCKED = blocked[-1]
+        raise ACCESS_BLOCKED
+    if last_error is not None:
+        raise last_error
+    raise RuntimeError("no TikHub endpoint available")
 
 
 def extract_comment_items(data: dict) -> list[dict]:
@@ -134,16 +215,8 @@ def normalize_comment(item: dict) -> dict:
 
 
 def fetch_comments(note_id: str) -> list[dict]:
-    data = api_get(
-        "/api/v1/xiaohongshu/app_v2/get_note_comments",
-        {
-            "note_id": note_id,
-            "cursor": "",
-            "index": 0,
-            "pageArea": "UNFOLDED",
-            "sort_strategy": "like_count",
-        },
-    )
+    data, endpoint = fetch_with_endpoint_fallback(comment_requests(note_id))
+    print(f"[info] comments fetched via {endpoint}")
     (WORK / "comments_raw.json").write_text(
         json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8"
     )
@@ -177,21 +250,46 @@ def fetch_missing_subcomments(
         if not comment_id:
             continue
         try:
-            data = api_get(
-                "/api/v1/xiaohongshu/app_v2/get_note_sub_comments",
-                {
-                    "note_id": note_id,
-                    "comment_id": comment_id,
-                    "cursor": "",
-                    "index": 1,
-                },
+            data, endpoint = fetch_with_endpoint_fallback(
+                [
+                    (
+                        "/api/v1/xiaohongshu/app_v2/get_note_sub_comments",
+                        {
+                            "note_id": note_id,
+                            "comment_id": comment_id,
+                            "cursor": "",
+                            "index": 1,
+                        },
+                    ),
+                    (
+                        "/api/v1/xiaohongshu/web_v3/fetch_sub_comments",
+                        {
+                            "note_id": note_id,
+                            "root_comment_id": comment_id,
+                            "num": 10,
+                            "cursor": "",
+                        },
+                    ),
+                    (
+                        "/api/v1/xiaohongshu/web_v2/fetch_sub_comments",
+                        {
+                            "note_id": note_id,
+                            "comment_id": comment_id,
+                            "cursor": "",
+                        },
+                    ),
+                ]
             )
         except RequestBudgetExceeded:
             raise
+        except TikHubAccessBlocked as exc:
+            print(f"[warn] subcomments access circuit opened: {exc}")
+            break
         except Exception as exc:  # noqa: BLE001
             print(f"[warn] subcomments {comment_id}: {exc}")
             continue
         calls += 1
+        print(f"[info] subcomments {comment_id} fetched via {endpoint}")
         (WORK / f"subcomments_{comment_id}.json").write_text(
             json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8"
         )
@@ -255,11 +353,13 @@ def parse_args() -> argparse.Namespace:
 
 
 def main() -> None:
-    global BUDGET, MAX_ATTEMPTS, NOTE, WORK
+    global ACCESS_BLOCKED, ACTIVE_COMMENT_ENDPOINT, BUDGET, MAX_ATTEMPTS, NOTE, WORK
     args = parse_args()
     WORK = args.work_dir.expanduser().resolve()
     NOTE = json.loads((WORK / "chosen_note.json").read_text(encoding="utf-8"))
     MAX_ATTEMPTS = args.max_attempts
+    ACCESS_BLOCKED = None
+    ACTIVE_COMMENT_ENDPOINT = None
     if not KEY:
         raise SystemExit(
             "TikHub API key missing: set TIKHUB_API_KEY or create api_key/tikhub.txt"
@@ -295,7 +395,26 @@ def main() -> None:
             cover.convert("RGB").save(WORK / "cover.png")
         print(f"[info] cover saved: {cover_path} ({len(image_response.content)} bytes)")
 
-    comments = load_cached_comments() if args.reuse_comments_cache else fetch_comments(NOTE["note_id"])
+    try:
+        comments = load_cached_comments() if args.reuse_comments_cache else fetch_comments(NOTE["note_id"])
+    except TikHubAccessBlocked as exc:
+        (WORK / "tikhub_access_blocked.json").write_text(
+            json.dumps(
+                {
+                    "status": "deferred",
+                    "reason": "tikhub_access_blocked",
+                    "message": str(exc),
+                    "note_id": NOTE.get("note_id", ""),
+                    "status_code": exc.status_code,
+                    "path": exc.path,
+                },
+                ensure_ascii=False,
+                indent=2,
+            ),
+            encoding="utf-8",
+        )
+        print(f"[deferred] {exc}")
+        raise SystemExit(75) from exc
     top3 = select_comment_threads(comments, limit=3)
     fetch_missing_subcomments(
         NOTE["note_id"],

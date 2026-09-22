@@ -87,6 +87,87 @@ class XhsDailyTests(unittest.TestCase):
                 discover.MAX_ATTEMPTS = old_attempts
                 discover.ACCESS_BLOCKED = old_blocked
 
+    def test_search_falls_back_from_app_v2_to_documented_web_v3(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            budget = discover.TikHubRequestBudget(Path(temporary) / "budget.json", limit=10)
+            blocked = Mock()
+            blocked.raise_for_status.side_effect = httpx.HTTPStatusError(
+                "payment required",
+                request=Mock(),
+                response=Mock(status_code=402),
+            )
+            working = Mock()
+            working.raise_for_status.return_value = None
+            working.json.return_value = {
+                "data": {
+                    "items": [
+                        {
+                            "note_card": {
+                                "note_id": "web-note",
+                                "display_title": "Web fallback",
+                                "desc": "desc",
+                                "type": "normal",
+                                "interact_info": {
+                                    "liked_count": "2.1万",
+                                    "comment_count": 18,
+                                },
+                                "image_list": [{"url_default": "https://cdn.example/cover.jpg"}],
+                                "user": {"user_id": "author-1", "nickname": "author"},
+                                "time": 1_788_134_400_000,
+                            }
+                        }
+                    ]
+                }
+            }
+            old_budget, old_blocked, old_endpoint = (
+                discover.BUDGET,
+                discover.ACCESS_BLOCKED,
+                discover.ACTIVE_SEARCH_ENDPOINT,
+            )
+            try:
+                discover.BUDGET = budget
+                discover.ACCESS_BLOCKED = None
+                discover.ACTIVE_SEARCH_ENDPOINT = None
+                with patch.object(discover.client, "get", side_effect=[blocked, working]) as request:
+                    data, endpoint = discover.search_notes("情感", 1, "general")
+                self.assertEqual(endpoint, "/api/v1/xiaohongshu/web_v3/fetch_search_notes")
+                note = discover.normalize_search_item(data["data"]["items"][0], "情感")
+                self.assertEqual(note["note_id"], "web-note")
+                self.assertEqual(note["liked_count"], 21_000)
+                self.assertEqual(request.call_count, 2)
+                self.assertEqual(budget.snapshot()["used"], 2)
+            finally:
+                discover.BUDGET, discover.ACCESS_BLOCKED, discover.ACTIVE_SEARCH_ENDPOINT = (
+                    old_budget,
+                    old_blocked,
+                    old_endpoint,
+                )
+
+    def test_comments_fall_back_from_app_v2_to_web_v3(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            budget = fetch.TikHubRequestBudget(Path(temporary) / "budget.json", limit=10)
+            blocked = Mock()
+            blocked.raise_for_status.side_effect = httpx.HTTPStatusError(
+                "payment required",
+                request=Mock(),
+                response=Mock(status_code=402),
+            )
+            working = Mock()
+            working.raise_for_status.return_value = None
+            working.json.return_value = {"data": {"comments": [{"id": "c1", "content": "真实评论"}]}}
+            old_budget, old_blocked = fetch.BUDGET, fetch.ACCESS_BLOCKED
+            try:
+                fetch.BUDGET = budget
+                fetch.ACCESS_BLOCKED = None
+                with patch.object(fetch.client, "get", side_effect=[blocked, working]) as request:
+                    data, endpoint = fetch.fetch_with_endpoint_fallback(fetch.comment_requests("note-1"))
+                self.assertEqual(endpoint, "/api/v1/xiaohongshu/web_v3/fetch_note_comments")
+                self.assertEqual(fetch.extract_comment_items(data)[0]["id"], "c1")
+                self.assertEqual(request.call_count, 2)
+                self.assertEqual(budget.snapshot()["used"], 2)
+            finally:
+                fetch.BUDGET, fetch.ACCESS_BLOCKED = old_budget, old_blocked
+
     def test_deferred_discovery_writes_machine_readable_evidence(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             old_output, old_blocked = discover.OUT_DIR, discover.ACCESS_BLOCKED
@@ -107,6 +188,15 @@ class XhsDailyTests(unittest.TestCase):
                 self.assertEqual(json.loads((Path(temporary) / "selected_notes.json").read_text()), [])
             finally:
                 discover.OUT_DIR, discover.ACCESS_BLOCKED = old_output, old_blocked
+
+    def test_workflow_retries_provider_defers_but_skips_completed_delivery(self) -> None:
+        workflow_text = (ROOT / ".github/workflows/xhs-lowfan-kc-daily.yml").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn('if [[ "$daily_status" == "delivered" ]]; then', workflow_text)
+        self.assertIn("tikhub_access_blocked|tikhub_author_lookup_unavailable|tikhub_endpoint_unavailable)", workflow_text)
+        self.assertIn("running compensation attempt", workflow_text)
+        self.assertIn("actions/upload-artifact@v7", workflow_text)
 
     def test_delivery_state_replaces_same_business_date(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
