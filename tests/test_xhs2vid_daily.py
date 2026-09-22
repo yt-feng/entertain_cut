@@ -7,7 +7,10 @@ from pathlib import Path
 import sys
 import tempfile
 import unittest
+from unittest.mock import Mock, patch
 import wave
+
+import httpx
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -28,6 +31,7 @@ fetch = load_module("xhs_fetch_test", XHS / "fetch_assets.py")
 batch = load_module("xhs_batch_test", XHS / "run_daily_batch.py")
 renderer = load_module("xhs_renderer_test", XHS / "render_video.py")
 recorder = load_module("xhs_recorder_test", XHS / "record_processed.py")
+delivery_state = load_module("xhs_delivery_state_test", XHS / "record_delivery_state.py")
 import prepare_resume as resume  # noqa: E402
 import workflow_support as workflow  # noqa: E402
 
@@ -53,6 +57,124 @@ class XhsDailyTests(unittest.TestCase):
             [note["note_id"] for note in pool],
             ["recent-viral-a", "recent-viral-b"],
         )
+
+    def test_tikhub_402_opens_one_run_wide_circuit_without_retries(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            budget = discover.TikHubRequestBudget(Path(temporary) / "budget.json", limit=10)
+            response = Mock()
+            response.raise_for_status.side_effect = httpx.HTTPStatusError(
+                "payment required",
+                request=Mock(),
+                response=Mock(status_code=402),
+            )
+            old_budget, old_attempts, old_blocked = (
+                discover.BUDGET,
+                discover.MAX_ATTEMPTS,
+                discover.ACCESS_BLOCKED,
+            )
+            try:
+                discover.BUDGET = budget
+                discover.MAX_ATTEMPTS = 3
+                discover.ACCESS_BLOCKED = None
+                with patch.object(discover.client, "get", return_value=response) as request:
+                    with self.assertRaises(discover.TikHubAccessBlocked):
+                        discover.api_get("/api/v1/xiaohongshu/app_v2/get_user_info", {})
+                    self.assertEqual(request.call_count, 1)
+                self.assertEqual(budget.snapshot()["used"], 1)
+                self.assertEqual(discover.ACCESS_BLOCKED.status_code, 402)
+            finally:
+                discover.BUDGET = old_budget
+                discover.MAX_ATTEMPTS = old_attempts
+                discover.ACCESS_BLOCKED = old_blocked
+
+    def test_deferred_discovery_writes_machine_readable_evidence(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            old_output, old_blocked = discover.OUT_DIR, discover.ACCESS_BLOCKED
+            try:
+                discover.OUT_DIR = Path(temporary)
+                discover.ACCESS_BLOCKED = None
+                payload = discover.write_discovery_status(
+                    "deferred",
+                    "tikhub_author_lookup_unavailable",
+                    message="HTTP 402",
+                    candidate_count=1,
+                )
+                self.assertEqual(payload["status"], "deferred")
+                self.assertEqual(
+                    json.loads((Path(temporary) / "discovery_status.json").read_text())["reason"],
+                    "tikhub_author_lookup_unavailable",
+                )
+                self.assertEqual(json.loads((Path(temporary) / "selected_notes.json").read_text()), [])
+            finally:
+                discover.OUT_DIR, discover.ACCESS_BLOCKED = old_output, old_blocked
+
+    def test_delivery_state_replaces_same_business_date(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            state_path = Path(temporary) / "daily_delivery_state.json"
+            delivery_state.update_state(
+                state_path,
+                "2026-09-22",
+                "deferred",
+                reason="tikhub_access_blocked",
+            )
+            delivery_state.update_state(
+                state_path,
+                "2026-09-22",
+                "delivered",
+                reason="verified_upload",
+                target=5,
+                succeeded=5,
+            )
+            payload = json.loads(state_path.read_text(encoding="utf-8"))
+            self.assertEqual(len(payload["items"]), 1)
+            self.assertEqual(payload["items"][0]["status"], "delivered")
+
+    def test_batch_turns_expected_discovery_defer_into_successful_evidence(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            old_root, old_script_dir = batch.ROOT, batch.SCRIPT_DIR
+            old_argv = sys.argv
+            try:
+                batch.ROOT = root
+                batch.SCRIPT_DIR = root / "xhs2vid"
+                batch.SCRIPT_DIR.mkdir()
+                processed = root / "processed.json"
+                processed.write_text(json.dumps({"items": []}), encoding="utf-8")
+                sys.argv = [
+                    "run_daily_batch.py",
+                    "--limit", "1",
+                    "--date", "2026-09-22",
+                    "--work-root", str(root / "work"),
+                    "--output-dir", str(root / "output"),
+                    "--processed-manifest", str(processed),
+                    "--no-hot-context",
+                    "--avatar-provider", "local",
+                    "--request-limit", "10",
+                ]
+
+                def fake_run(command: list[str], *, cwd: Path = batch.ROOT) -> None:
+                    discovery_dir = Path(command[2])
+                    discovery_dir.mkdir(parents=True, exist_ok=True)
+                    (discovery_dir / "discovery_status.json").write_text(
+                        json.dumps(
+                            {
+                                "status": "deferred",
+                                "reason": "tikhub_access_blocked",
+                                "message": "HTTP 402",
+                            }
+                        ),
+                        encoding="utf-8",
+                    )
+
+                with patch.object(batch, "run", side_effect=fake_run):
+                    batch.main()
+                status = json.loads((root / "output" / "delivery_status.json").read_text())
+                self.assertEqual(status["status"], "deferred")
+                self.assertEqual(status["reason"], "tikhub_access_blocked")
+                self.assertFalse(list((root / "output").glob("*.mp4")))
+            finally:
+                batch.ROOT, batch.SCRIPT_DIR = old_root, old_script_dir
+                sys.argv = old_argv
 
     def test_resume_batch_accepts_page_two_and_output_five(self) -> None:
         old_argv = sys.argv

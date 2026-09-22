@@ -48,6 +48,18 @@ TOP_AUTHOR_CHECK = 12
 MAX_ATTEMPTS = 3
 BUDGET: TikHubRequestBudget | None = None
 HOT_TERMS: list[str] = []
+ACCESS_BLOCKING_STATUSES = frozenset({401, 402, 403, 429})
+ACCESS_BLOCKED: "TikHubAccessBlocked | None" = None
+
+
+class TikHubAccessBlocked(RuntimeError):
+    """A run-wide TikHub condition that should not be retried per candidate."""
+
+    def __init__(self, status_code: int, path: str) -> None:
+        self.status_code = status_code
+        self.path = path
+        super().__init__(f"TikHub access blocked with HTTP {status_code} at {path}")
+
 
 client = httpx.Client(
     base_url=BASE,
@@ -91,6 +103,9 @@ def author_lookup_pool(fresh: list[dict]) -> list[dict]:
 
 
 def api_get(path: str, params: dict) -> dict:
+    global ACCESS_BLOCKED
+    if ACCESS_BLOCKED is not None:
+        raise ACCESS_BLOCKED
     last_exc: Exception | None = None
     for attempt in range(MAX_ATTEMPTS):
         try:
@@ -103,6 +118,14 @@ def api_get(path: str, params: dict) -> dict:
             return resp.json()
         except RequestBudgetExceeded:
             raise
+        except httpx.HTTPStatusError as exc:
+            last_exc = exc
+            status_code = exc.response.status_code
+            if status_code in ACCESS_BLOCKING_STATUSES:
+                ACCESS_BLOCKED = TikHubAccessBlocked(status_code, path)
+                raise ACCESS_BLOCKED from exc
+            if attempt + 1 < MAX_ATTEMPTS:
+                time.sleep(1.5 * (attempt + 1))
         except Exception as exc:  # noqa: BLE001
             last_exc = exc
             if attempt + 1 < MAX_ATTEMPTS:
@@ -130,6 +153,8 @@ def search_all() -> dict[str, dict]:
                 try:
                     data = api_get("/api/v1/xiaohongshu/app_v2/search_notes", params)
                 except RequestBudgetExceeded:
+                    raise
+                except TikHubAccessBlocked:
                     raise
                 except Exception as exc:  # noqa: BLE001
                     print(f"[warn] search {kw}/{sort_type} p{page}: {exc}")
@@ -166,6 +191,7 @@ def search_all() -> dict[str, dict]:
                         "images_count": len(images),
                         "author_id": user.get("userid") or "",
                         "author_name": user.get("nickname") or "",
+                        "author_fans": embedded_author_fans(user),
                         "keyword": kw,
                     }
                     prev = notes.get(nid)
@@ -186,6 +212,9 @@ def author_fans(user_id: str) -> int:
         )
     except RequestBudgetExceeded:
         raise
+    except TikHubAccessBlocked as exc:
+        print(f"[warn] author lookup circuit opened: {exc}")
+        return -1
     except Exception as exc:  # noqa: BLE001
         print(f"[warn] user {user_id}: {exc}")
         return -1
@@ -194,6 +223,48 @@ def author_fans(user_id: str) -> int:
     blob = json.dumps(data.get("data") or {}, ensure_ascii=False)
     m = re.search(r'"fans"\s*:\s*"?(\d+)', blob)
     return int(m.group(1)) if m else -1
+
+
+def embedded_author_fans(user: dict) -> int | None:
+    """Use a follower count already present in search results when available."""
+    for key in ("fans", "followers", "follower_count", "fans_count"):
+        value = user.get(key)
+        if value not in (None, ""):
+            return parse_count(value)
+    return None
+
+
+def write_discovery_status(
+    status: str,
+    reason: str,
+    *,
+    message: str = "",
+    total_notes: int = 0,
+    fresh_notes: int = 0,
+    eligible_notes: int = 0,
+    candidate_count: int = 0,
+    selected_count: int = 0,
+) -> dict:
+    payload = {
+        "status": status,
+        "reason": reason,
+        "retryable": status == "deferred",
+        "message": message,
+        "total_notes": total_notes,
+        "fresh_notes": fresh_notes,
+        "eligible_notes": eligible_notes,
+        "candidate_count": candidate_count,
+        "selected_count": selected_count,
+        "tikhub_access_blocked": ACCESS_BLOCKED is not None,
+        "tikhub_blocked_status": ACCESS_BLOCKED.status_code if ACCESS_BLOCKED else None,
+    }
+    (OUT_DIR / "discovery_status.json").write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+    if status == "deferred":
+        for name in ("candidates.json", "selected_notes.json"):
+            (OUT_DIR / name).write_text("[]\n", encoding="utf-8")
+    return payload
 
 
 def parse_args() -> argparse.Namespace:
@@ -277,7 +348,7 @@ def parse_args() -> argparse.Namespace:
 
 
 def main() -> None:
-    global BUDGET, HOT_TERMS, KEYWORDS, MAX_ATTEMPTS, OUT_DIR, PAGES, TOP_AUTHOR_CHECK
+    global ACCESS_BLOCKED, BUDGET, HOT_TERMS, KEYWORDS, MAX_ATTEMPTS, OUT_DIR, PAGES, TOP_AUTHOR_CHECK
     args = parse_args()
     OUT_DIR = args.out_dir.expanduser().resolve()
     OUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -309,7 +380,25 @@ def main() -> None:
         if args.target_date
         else datetime.fromtimestamp(now, beijing).date()
     )
-    notes = search_all()
+    ACCESS_BLOCKED = None
+    try:
+        notes = search_all()
+    except RequestBudgetExceeded as exc:
+        write_discovery_status(
+            "deferred",
+            "tikhub_request_budget_exhausted",
+            message=str(exc),
+        )
+        print(f"[deferred] {exc}")
+        return
+    except TikHubAccessBlocked as exc:
+        write_discovery_status(
+            "deferred",
+            "tikhub_access_blocked",
+            message=str(exc),
+        )
+        print(f"[deferred] {exc}")
+        return
     fresh = [
         n
         for n in notes.values()
@@ -339,14 +428,41 @@ def main() -> None:
         f"[info] total {len(notes)} notes, fresh with comments: {len(fresh)}, "
         f"viral-like eligible: {len(eligible_for_lookup)}"
     )
+    if not eligible_for_lookup:
+        write_discovery_status(
+            "deferred",
+            "no_recent_viral_candidates",
+            message="No recent notes met the minimum likes/comments/search evidence.",
+            total_notes=len(notes),
+            fresh_notes=len(fresh),
+        )
+        print("[deferred] no recent viral-like candidates")
+        return
 
     candidates = []
     fans_by_author: dict[str, int] = {}
     for rec in eligible_for_lookup[:TOP_AUTHOR_CHECK]:
         author_id = rec["author_id"]
-        if author_id not in fans_by_author:
-            fans_by_author[author_id] = author_fans(author_id)
-        fans = fans_by_author[author_id]
+        if rec.get("author_fans") is not None:
+            fans = int(rec["author_fans"])
+        elif author_id not in fans_by_author:
+            try:
+                fans_by_author[author_id] = author_fans(author_id)
+            except RequestBudgetExceeded as exc:
+                write_discovery_status(
+                    "deferred",
+                    "tikhub_request_budget_exhausted",
+                    message=str(exc),
+                    total_notes=len(notes),
+                    fresh_notes=len(fresh),
+                    eligible_notes=len(eligible_for_lookup),
+                    candidate_count=len(candidates),
+                )
+                print(f"[deferred] {exc}")
+                return
+            fans = fans_by_author[author_id]
+        else:
+            fans = fans_by_author[author_id]
         rec["author_fans"] = fans
         candidates.append(rec)
         print(
@@ -354,6 +470,8 @@ def main() -> None:
             f"粉丝 {fans:>7} | {rec['title'][:30]} | {rec['note_id']}"
         )
         time.sleep(0.4)
+        if ACCESS_BLOCKED is not None:
+            break
 
     low_fan = [
         candidate
@@ -362,10 +480,27 @@ def main() -> None:
         and candidate["liked_count"] >= LIKES_MIN
     ]
     if args.strict_low_fan and not low_fan:
-        raise SystemExit(
-            "no strict low-fan viral candidate found "
-            f"(fans <= {FANS_MAX}, likes >= {LIKES_MIN})"
+        reason = (
+            "tikhub_author_lookup_unavailable"
+            if ACCESS_BLOCKED is not None
+            else "no_strict_low_fan_candidate"
         )
+        message = (
+            str(ACCESS_BLOCKED)
+            if ACCESS_BLOCKED is not None
+            else f"No candidate met fans <= {FANS_MAX}, likes >= {LIKES_MIN}."
+        )
+        write_discovery_status(
+            "deferred",
+            reason,
+            message=message,
+            total_notes=len(notes),
+            fresh_notes=len(fresh),
+            eligible_notes=len(eligible_for_lookup),
+            candidate_count=len(candidates),
+        )
+        print(f"[deferred] {message}")
+        return
     pool = low_fan or [c for c in candidates if c["liked_count"] >= LIKES_MIN] or candidates
     def viral_score(candidate: dict) -> float:
         likes = candidate["liked_count"]
@@ -402,7 +537,17 @@ def main() -> None:
         reverse=True,
     )
     if not pool:
-        raise SystemExit("no candidate found")
+        write_discovery_status(
+            "deferred",
+            "no_candidate_after_quality_filter",
+            message="No candidate remained after quality filtering.",
+            total_notes=len(notes),
+            fresh_notes=len(fresh),
+            eligible_notes=len(eligible_for_lookup),
+            candidate_count=len(candidates),
+        )
+        print("[deferred] no candidate after quality filtering")
+        return
     # Reserve up to two slots for genuine same-day entertainment-hot matches,
     # then fill with the strongest generic low-fan posts. This keeps the daily
     # batch varied instead of turning all five outputs into one hot topic.
@@ -435,6 +580,15 @@ def main() -> None:
     )
     (OUT_DIR / "selected_notes.json").write_text(
         json.dumps(selected, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+    write_discovery_status(
+        "ready",
+        "quality_gate_passed",
+        total_notes=len(notes),
+        fresh_notes=len(fresh),
+        eligible_notes=len(eligible_for_lookup),
+        candidate_count=len(candidates),
+        selected_count=len(selected),
     )
     print(
         f"\n[selected] {len(selected)}/{args.limit}: "

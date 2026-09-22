@@ -79,6 +79,18 @@ def processed_note_ids(path: Path) -> list[str]:
     return result
 
 
+def write_delivery_status(path: Path, payload: dict) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+def copy_discovery_evidence(discovery_dir: Path, output_dir: Path) -> None:
+    for name in ("candidates.json", "selected_notes.json", "discovery_status.json"):
+        source = discovery_dir / name
+        if source.is_file():
+            shutil.copy2(source, output_dir / name)
+
+
 def selected_reply_count(comments: list[dict]) -> int:
     return sum(bool(comment.get("sub_comments")) for comment in comments)
 
@@ -286,6 +298,15 @@ def main() -> None:
     discovery_dir.mkdir(parents=True, exist_ok=True)
     notes_root.mkdir(parents=True, exist_ok=True)
     output_dir.mkdir(parents=True, exist_ok=True)
+    write_delivery_status(
+        output_dir / "delivery_status.json",
+        {
+            "date": args.date,
+            "status": "running",
+            "target": args.limit,
+            "started_at": datetime.now(BEIJING).isoformat(),
+        },
+    )
     # Keep the live counter in the always-uploaded evidence directory, even
     # when discovery exits before a first video can be rendered.
     budget_file = output_dir / "tikhub_request_budget.json"
@@ -335,11 +356,73 @@ def main() -> None:
         discovery_command.extend(["--exclude-note-id", note_id])
     run(discovery_command)
 
+    discovery_status_path = discovery_dir / "discovery_status.json"
+    if not discovery_status_path.is_file():
+        raise RuntimeError("discovery completed without discovery_status.json")
+    discovery_status = json.loads(discovery_status_path.read_text(encoding="utf-8"))
+    if discovery_status.get("status") == "deferred":
+        completed_at = datetime.now(BEIJING).isoformat()
+        budget = (
+            json.loads(budget_file.read_text(encoding="utf-8"))
+            if budget_file.is_file()
+            else {}
+        )
+        summary = {
+            "date": args.date,
+            "status": "deferred",
+            "defer_reason": discovery_status.get("reason") or "discovery_deferred",
+            "defer_message": discovery_status.get("message") or "",
+            "started_at": discovery_status.get("started_at") or "",
+            "completed_at": completed_at,
+            "requested": args.limit,
+            "start_index": args.start_index,
+            "batch_dir": str(batch_dir),
+            "output_dir": str(output_dir),
+            "budget_file": str(budget_file),
+            "candidate_count": 0,
+            "items": [],
+            "succeeded": 0,
+            "target_met": False,
+            "tikhub_requests_used": int(budget.get("used", 0)),
+            "tikhub_request_limit": int(budget.get("limit", args.request_limit)),
+            "discovery_status": discovery_status,
+        }
+        summary_path = batch_dir / "daily_summary.json"
+        summary_path.write_text(
+            json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8"
+        )
+        shutil.copy2(summary_path, output_dir / "daily_summary.json")
+        copy_discovery_evidence(discovery_dir, output_dir)
+        write_delivery_status(
+            output_dir / "delivery_status.json",
+            {
+                "date": args.date,
+                "status": "deferred",
+                "reason": summary["defer_reason"],
+                "message": summary["defer_message"],
+                "retryable": True,
+                "target": args.limit,
+                "succeeded": 0,
+                "completed_at": completed_at,
+            },
+        )
+        latest_file = args.work_root.expanduser().resolve() / "latest_run.txt"
+        latest_file.parent.mkdir(parents=True, exist_ok=True)
+        latest_file.write_text(str(batch_dir), encoding="utf-8")
+        print(
+            f"[deferred] {summary['defer_reason']}: {summary['defer_message']}"
+            f" evidence={output_dir}"
+        )
+        return
+    if discovery_status.get("status") != "ready":
+        raise RuntimeError(f"unknown discovery status: {discovery_status.get('status')!r}")
+
     candidates = json.loads(
         (discovery_dir / "selected_notes.json").read_text(encoding="utf-8")
     )
     summary: dict = {
         "date": args.date,
+        "status": "rendering",
         "started_at": datetime.now(BEIJING).isoformat(),
         "requested": args.limit,
         "start_index": args.start_index,
@@ -461,6 +544,7 @@ def main() -> None:
     summary["completed_at"] = datetime.now(BEIJING).isoformat()
     summary["succeeded"] = len(successes)
     summary["target_met"] = len(successes) == args.limit
+    summary["status"] = "ready" if summary["target_met"] else "incomplete"
     summary["apimart_create_slot_limit"] = args.limit
     summary["apimart_create_slots_used"] = apimart_slots_used
     if budget_file.is_file():
@@ -471,10 +555,18 @@ def main() -> None:
     summary_path = batch_dir / "daily_summary.json"
     summary_path.write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
     shutil.copy2(summary_path, output_dir / "daily_summary.json")
-    for discovery_name in ("candidates.json", "selected_notes.json"):
-        discovery_file = discovery_dir / discovery_name
-        if discovery_file.is_file():
-            shutil.copy2(discovery_file, output_dir / discovery_name)
+    copy_discovery_evidence(discovery_dir, output_dir)
+    write_delivery_status(
+        output_dir / "delivery_status.json",
+        {
+            "date": args.date,
+            "status": summary["status"],
+            "reason": "quality_gate_passed" if summary["target_met"] else "render_incomplete",
+            "target": args.limit,
+            "succeeded": len(successes),
+            "completed_at": summary["completed_at"],
+        },
+    )
     new_processed = {
         "date": args.date,
         "items": [

@@ -133,6 +133,9 @@ jobs:
           echo "KC_AVATAR_PROVIDER=$avatar_provider" >> "$GITHUB_ENV"
           echo "KC_RESUME_RUN_IDS=$resume_run_ids" >> "$GITHUB_ENV"
           echo "KC_RESUME_ARTIFACT_DATE=$resume_artifact_date" >> "$GITHUB_ENV"
+          echo "KC_DEFERRED=false" >> "$GITHUB_ENV"
+          echo "KC_DEFER_REASON=" >> "$GITHUB_ENV"
+          echo "KC_DEFERRED_DETAIL=" >> "$GITHUB_ENV"
 
       - name: Skip a duplicate scheduled delivery
         shell: bash
@@ -165,6 +168,24 @@ jobs:
           if (( delivered_count >= 5 )); then
             echo "KC_SKIP=true" >> "$GITHUB_ENV"
             echo "Five business-date videos already delivered; skipping this scheduled run."
+            exit 0
+          fi
+
+          daily_status="$(python3 - "$KC_OUTPUT_DATE" <<'PY'
+          import json
+          import sys
+          from pathlib import Path
+
+          path = Path("xhs2vid/state/daily_delivery_state.json")
+          payload = json.loads(path.read_text(encoding="utf-8")) if path.is_file() else {}
+          date = sys.argv[1]
+          records = [item for item in payload.get("items", []) if item.get("date") == date]
+          print(records[-1].get("status", "") if records else "")
+          PY
+          )"
+          if [[ "$daily_status" == "deferred" || "$daily_status" == "delivered" ]]; then
+            echo "KC_SKIP=true" >> "$GITHUB_ENV"
+            echo "Business-date delivery state is already $daily_status; skipping compensation run."
           fi
 
       - name: Find reusable partial artifacts
@@ -297,8 +318,38 @@ jobs:
           top_author_check="$((remaining_tikhub_budget - search_calls - missing - 3))"
           if (( top_author_check > 20 )); then top_author_check="20"; fi
           if (( top_author_check < missing )); then
-            echo "Only $remaining_tikhub_budget TikHub requests remain; cannot search and verify $missing missing videos"
-            exit 1
+            defer_reason="resume_budget_exhausted"
+            defer_detail="Only $remaining_tikhub_budget TikHub requests remain; cannot search and verify $missing missing videos"
+            mkdir -p "$KC_OUTPUT_DIR"
+            python3 - "$KC_OUTPUT_DIR" "$KC_OUTPUT_DATE" "$defer_reason" "$defer_detail" "$KC_TARGET_COUNT" "$resume_count" <<'PY'
+          import json
+          import sys
+          from pathlib import Path
+
+          output_dir = Path(sys.argv[1])
+          output_dir.mkdir(parents=True, exist_ok=True)
+          output_dir.joinpath("delivery_status.json").write_text(
+              json.dumps(
+                  {
+                      "date": sys.argv[2],
+                      "status": "deferred",
+                      "reason": sys.argv[3],
+                      "message": sys.argv[4],
+                      "retryable": True,
+                      "target": int(sys.argv[5]),
+                      "succeeded": int(sys.argv[6]),
+                  },
+                  ensure_ascii=False,
+                  indent=2,
+              ),
+              encoding="utf-8",
+          )
+          PY
+            echo "KC_DEFERRED=true" >> "$GITHUB_ENV"
+            echo "KC_DEFER_REASON=$defer_reason" >> "$GITHUB_ENV"
+            echo "KC_DEFERRED_DETAIL=$defer_detail" >> "$GITHUB_ENV"
+            echo "[deferred] $defer_detail"
+            exit 0
           fi
 
           echo "KC_BATCH_LIMIT=$missing" >> "$GITHUB_ENV"
@@ -313,7 +364,7 @@ jobs:
           echo "TikHub recovery budget: $remaining_tikhub_budget (prior $prior_tikhub_used; pages $search_pages; author checks $top_author_check)."
 
       - name: Check required secrets
-        if: env.KC_SKIP != 'true'
+        if: env.KC_SKIP != 'true' && env.KC_DEFERRED != 'true'
         shell: bash
         run: |
           missing=()
@@ -332,7 +383,7 @@ jobs:
           fi
 
       - name: Discover and render today's low-follower viral posts
-        if: env.KC_SKIP != 'true' && env.KC_UPLOAD_ONLY != 'true'
+        if: env.KC_SKIP != 'true' && env.KC_DEFERRED != 'true' && env.KC_UPLOAD_ONLY != 'true'
         run: |
           python xhs2vid/run_daily_batch.py \
             --limit "$KC_BATCH_LIMIT" \
@@ -348,8 +399,29 @@ jobs:
             --work-root work/xhs_daily \
             --output-dir "$KC_OUTPUT_DIR"
 
+      - name: Apply structured batch outcome
+        if: env.KC_SKIP != 'true' && env.KC_DEFERRED != 'true' && env.KC_UPLOAD_ONLY != 'true'
+        shell: bash
+        run: |
+          if [[ ! -f "$KC_OUTPUT_DIR/delivery_status.json" ]]; then
+            echo "Missing structured delivery status"
+            exit 1
+          fi
+          batch_status="$(jq -r '.status // ""' "$KC_OUTPUT_DIR/delivery_status.json")"
+          if [[ "$batch_status" == "deferred" ]]; then
+            reason="$(jq -r '.reason // "discovery_deferred"' "$KC_OUTPUT_DIR/delivery_status.json")"
+            detail="$(jq -r '.message // ""' "$KC_OUTPUT_DIR/delivery_status.json")"
+            echo "KC_DEFERRED=true" >> "$GITHUB_ENV"
+            echo "KC_DEFER_REASON=$reason" >> "$GITHUB_ENV"
+            echo "KC_DEFERRED_DETAIL=$detail" >> "$GITHUB_ENV"
+            echo "[deferred] $reason: $detail"
+          elif [[ "$batch_status" != "ready" ]]; then
+            echo "Unexpected batch status: $batch_status"
+            exit 1
+          fi
+
       - name: Require exactly the requested MP4 count
-        if: env.KC_SKIP != 'true'
+        if: env.KC_SKIP != 'true' && env.KC_DEFERRED != 'true'
         shell: bash
         run: |
           shopt -s nullglob
@@ -432,7 +504,7 @@ jobs:
           echo "Verified exact output count: ${#videos[@]}"
 
       - name: Upload and verify in Jianguoyun
-        if: env.KC_SKIP != 'true'
+        if: env.KC_SKIP != 'true' && env.KC_DEFERRED != 'true'
         run: |
           python xhs2vid/upload_jianguoyun.py \
             --source-dir "$KC_OUTPUT_DIR" \
@@ -442,7 +514,7 @@ jobs:
             --manifest "$KC_OUTPUT_DIR/jianguoyun_upload_manifest.json"
 
       - name: Require requested verified Jianguoyun uploads
-        if: env.KC_SKIP != 'true'
+        if: env.KC_SKIP != 'true' && env.KC_DEFERRED != 'true'
         run: |
           python - "$KC_OUTPUT_DIR/jianguoyun_upload_manifest.json" "$KC_TARGET_COUNT" <<'PY'
           import json
@@ -461,18 +533,38 @@ jobs:
           PY
 
       - name: Record uploaded posts for cross-day dedupe
-        if: env.KC_SKIP != 'true'
+        if: env.KC_SKIP != 'true' && env.KC_DEFERRED != 'true'
         run: |
           python xhs2vid/record_processed.py \
             --new "$KC_COMBINED_PROCESSED" \
             --manifest xhs2vid/state/processed_note_ids.json
+          python xhs2vid/record_delivery_state.py \
+            --state xhs2vid/state/daily_delivery_state.json \
+            --date "$KC_OUTPUT_DATE" \
+            --status delivered \
+            --reason verified_upload \
+            --target "$KC_TARGET_COUNT" \
+            --succeeded "$KC_TARGET_COUNT" \
+            --run-id "$GITHUB_RUN_ID"
 
-      - name: Commit only the dedupe ledger
+      - name: Record deferred delivery state
+        if: env.KC_SKIP != 'true' && env.KC_DEFERRED == 'true'
+        run: |
+          python xhs2vid/record_delivery_state.py \
+            --state xhs2vid/state/daily_delivery_state.json \
+            --date "$KC_OUTPUT_DATE" \
+            --status deferred \
+            --reason "$KC_DEFER_REASON" \
+            --message "$KC_DEFERRED_DETAIL" \
+            --target "$KC_TARGET_COUNT" \
+            --run-id "$GITHUB_RUN_ID"
+
+      - name: Commit delivery state
         if: env.KC_SKIP != 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add xhs2vid/state/processed_note_ids.json
+          git add xhs2vid/state/processed_note_ids.json xhs2vid/state/daily_delivery_state.json
           if git diff --cached --quiet; then
             echo "No dedupe state change"
             exit 0
