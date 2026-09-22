@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "date": "2026-09-22",
+      "status": "deferred",
+      "reason": "insufficient_videos",
+      "message": "Only 0/5 KC video(s) are available; minimum delivery is 3. The scheduled delivery is deferred.",
+      "target": 5,
+      "succeeded": 0,
+      "updated_at": "2026-09-22T02:40:48+00:00",
+      "run_id": "35679633072"
+    }
+  ]
+}
