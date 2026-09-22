@@ -431,7 +431,6 @@ jobs:
 
       - name: Try free Cookie source to fill missing KC videos
         if: ${{ !cancelled() && steps.primary_kc_check.outputs.ready != 'true' && (github.event_name != 'workflow_dispatch' || (github.event.inputs.search_only != 'true' && github.event.inputs.selected_artifact_run_id == '' && github.event.inputs.kc_artifact_run_id == '')) }}
-        continue-on-error: true
         run: |
           rm -f work/tikhub_primary_outputs.txt
           if [[ -f work/auto_kc_douyin_free/last_run_outputs.txt ]]; then
@@ -458,7 +457,9 @@ jobs:
             extra_args+=(--require-deepseek-quality)
           fi
 
-          python tools/run_douyin_free_kc_daily.py \
+          set +e
+          timeout --signal=TERM --kill-after=30s 15m \
+            python tools/run_douyin_free_kc_daily.py \
             --provider free \
             --install-downloader-deps \
             --limit "$fallback_limit" \
@@ -489,6 +490,13 @@ jobs:
             --encoder libx264 \
             --threads 2 \
             "${extra_args[@]}"
+          fallback_exit=$?
+          set -e
+          if [[ "$fallback_exit" == "124" || "$fallback_exit" == "137" || "$fallback_exit" == "143" ]]; then
+            echo "Free fallback reached its 15-minute budget; recording the available batch as deferred."
+            exit 0
+          fi
+          exit "$fallback_exit"
 
       - name: Download selected videos from prior free run
         if: ${{ !cancelled() && github.event_name == 'workflow_dispatch' && github.event.inputs.selected_artifact_run_id != '' && github.event.inputs.kc_artifact_run_id == '' }}

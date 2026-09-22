@@ -125,6 +125,15 @@ class DouyinFreeKcWorkflowContractTests(unittest.TestCase):
         self.assertNotIn("--work-root work/douyin_free_daily", fallback)
         self.assertIn("work/douyin_reports_artifact/free_fallback", self.workflow)
 
+    def test_free_fallback_has_a_bounded_expected_timeout_without_masking_failures(self) -> None:
+        fallback = self.step_block(
+            "      - name: Try free Cookie source to fill missing KC videos\n",
+            "      - name: Download selected videos from prior free run\n",
+        )
+        self.assertIn("timeout --signal=TERM --kill-after=30s 15m", fallback)
+        self.assertIn('if [[ "$fallback_exit" == "124" || "$fallback_exit" == "137" || "$fallback_exit" == "143" ]]', fallback)
+        self.assertNotIn("continue-on-error: true", fallback)
+
     def test_compensation_reuses_only_same_day_and_requests_remaining_gap(self) -> None:
         stage = self.step_block(
             "      - name: Reuse same-day published videos for scheduled compensation\n",
