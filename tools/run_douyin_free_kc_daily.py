@@ -364,10 +364,12 @@ def main() -> int:
 
     if not selected_files:
         summary["kc_skipped"] = "no selected videos"
+        summary["status"] = "deferred"
+        summary["defer_reason"] = "no_selected_videos"
         write_summary(run_dir, summary)
         print("No selected videos were downloaded; KC packaging skipped.")
         print(f"Reports: {run_dir / 'reports'}")
-        return 3
+        return 0
 
     packaging_target = resolve_packaging_target(
         selected_count=len(selected_files),
@@ -377,6 +379,8 @@ def main() -> int:
     if packaging_target <= 0:
         minimum_selected = min(max(1, int(args.limit)), max(1, int(args.min_selected_videos)))
         summary["kc_skipped"] = f"only {len(selected_files)} selected videos; minimum is {minimum_selected}"
+        summary["status"] = "deferred"
+        summary["defer_reason"] = "insufficient_selected_videos"
         write_summary(run_dir, summary)
         print(
             f"Only {len(selected_files)}/{args.limit} selected videos were downloaded; "
@@ -384,7 +388,7 @@ def main() -> int:
             flush=True,
         )
         print(f"Reports: {run_dir / 'reports'}")
-        return 3
+        return 0
 
     summary["kc_packaging_target"] = packaging_target
     summary["kc_target_met"] = len(selected_files) >= max(1, int(args.limit))

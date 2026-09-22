@@ -38,10 +38,32 @@ class DouyinFreeKcWorkflowContractTests(unittest.TestCase):
     def test_scheduled_compensation_skips_after_five_are_on_main(self) -> None:
         guard = self.step_block("  delivery_guard:\n", "  tavily-hot-context-smoke:\n")
         self.assertIn("contents/outputs/kc_entertain/${output_date}", guard)
+        self.assertIn("contents/state/douyin_free_kc_daily.json", guard)
+        self.assertIn('[[ "$state_status" == "deferred"', guard)
         self.assertIn("published_count >= KC_LIMIT", guard)
         self.assertIn('echo "should_run=false"', guard)
         self.assertIn("needs: delivery_guard", self.workflow)
         self.assertIn("needs.delivery_guard.outputs.should_run == 'true'", self.workflow)
+
+    def test_shortage_is_structured_defer_and_recorded_once(self) -> None:
+        classify = self.step_block(
+            "      - name: Classify KC delivery outcome\n",
+            "      - name: Upload all KC videos and prepare Git-safe copies\n",
+        )
+        self.assertIn("tools/classify_kc_delivery.py", classify)
+        self.assertIn("--runner-summary work/douyin_free_fallback/latest/kc_daily_summary.json", classify)
+        record = self.step_block(
+            "      - name: Record deferred KC delivery state\n",
+            "      - name: Commit deferred KC delivery state\n",
+        )
+        self.assertIn("--status deferred", record)
+        self.assertIn("state/douyin_free_kc_daily.json", record)
+        self.assertIn("KC_DEFERRED", self.workflow)
+        self.assertIn("KC delivery was deferred with structured evidence", self.workflow)
+
+    def test_artifacts_use_current_upload_action_runtime(self) -> None:
+        self.assertNotIn("actions/upload-artifact@v5", self.workflow)
+        self.assertIn("actions/upload-artifact@v7", self.workflow)
 
     def test_partial_outputs_are_packaged_and_merged_before_delivery(self) -> None:
         self.assertEqual(self.workflow.count("--min-selected-videos 1"), 2)

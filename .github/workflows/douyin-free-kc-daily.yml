@@ -82,6 +82,20 @@ jobs:
             exit 0
           fi
 
+          state_file="${RUNNER_TEMP}/douyin-kc-delivery-state.json"
+          state_status=""
+          if gh api --method GET \
+            "repos/${GITHUB_REPOSITORY}/contents/state/douyin_free_kc_daily.json" \
+            -f "ref=${DEFAULT_BRANCH}" --jq '.content' 2>/dev/null | base64 -d > "$state_file"; then
+            state_status="$(jq -r --arg date "$output_date" '.items[]? | select(.date == $date) | .status' "$state_file" 2>/dev/null | tail -n 1)"
+          fi
+          if [[ "$state_status" == "deferred" || "$state_status" == "delivered" ]]; then
+            echo "published_count=state_${state_status}" >> "$GITHUB_OUTPUT"
+            echo "should_run=false" >> "$GITHUB_OUTPUT"
+            echo "Today's scheduled delivery is already marked ${state_status}; skipping repeated compensation."
+            exit 0
+          fi
+
           response_file="${RUNNER_TEMP}/kc-published.json"
           if ! gh api --method GET \
             "repos/${GITHUB_REPOSITORY}/contents/outputs/kc_entertain/${output_date}" \
@@ -130,7 +144,7 @@ jobs:
 
       - name: Upload Tavily context report
         if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: tavily-hot-context-report
           path: work/tavily_hot_context_smoke/reports/hot_context.json
@@ -228,6 +242,7 @@ jobs:
           output_date="$(TZ=Asia/Shanghai date +%F)"
           echo "KC_OUTPUT_DATE=${output_date}" >> "$GITHUB_ENV"
           echo "KC_OUTPUT_DIR=outputs/kc_entertain/${output_date}" >> "$GITHUB_ENV"
+          echo "KC_DEFERRED=false" >> "$GITHUB_ENV"
           if [[ ! "$KC_LIMIT" =~ ^[1-9][0-9]*$ ]]; then
             echo "::error::KC limit must be a positive integer."
             exit 1
@@ -601,10 +616,26 @@ jobs:
             --limit "$KC_LIMIT" \
             --min-delivery "$KC_MIN_DELIVERY"
 
+      - name: Classify KC delivery outcome
+        if: ${{ !cancelled() && (github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true') }}
+        run: |
+          python tools/classify_kc_delivery.py \
+            --delivery-summary work/kc_delivery_summary.json \
+            --runner-summary work/douyin_free_daily/latest/kc_daily_summary.json \
+            --runner-summary work/douyin_free_fallback/latest/kc_daily_summary.json \
+            --limit "$KC_LIMIT" \
+            --minimum "$KC_MIN_DELIVERY" \
+            --outcome-file work/kc_delivery_outcome.json \
+            --github-env "$GITHUB_ENV"
+
       - name: Upload all KC videos and prepare Git-safe copies
         if: ${{ !cancelled() && (github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true') }}
         continue-on-error: true
         run: |
+          if [[ "${KC_DEFERRED:-false}" == "true" ]]; then
+            echo "KC delivery deferred; preserving artifacts without publishing an incomplete batch."
+            exit 0
+          fi
           target_met="$(python -c 'import json; print(str(bool(json.load(open("work/kc_delivery_summary.json")).get("target_met"))).lower())' 2>/dev/null || echo false)"
           minimum_met="$(python -c 'import json; print(str(bool(json.load(open("work/kc_delivery_summary.json")).get("minimum_met"))).lower())' 2>/dev/null || echo false)"
           selected_count="$(python -c 'import json; print(int(json.load(open("work/kc_delivery_summary.json")).get("selected_count", 0)))' 2>/dev/null || echo 0)"
@@ -652,6 +683,10 @@ jobs:
       - name: Commit KC videos to main
         if: ${{ !cancelled() && (github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true') }}
         run: |
+          if [[ "${KC_DEFERRED:-false}" == "true" ]]; then
+            echo "KC delivery deferred; no incomplete video batch will be committed."
+            exit 0
+          fi
           if ! python tools/verify_kc_delivery.py \
             --delivery-summary work/kc_delivery_summary.json \
             --publish-summary work/kc_publish_summary.json \
@@ -755,7 +790,7 @@ jobs:
 
       - name: Upload reports
         if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: douyin-free-daily-reports
           path: |
@@ -771,6 +806,7 @@ jobs:
             work/auto_kc_douyin_free/**/quality_skip.json
             work/auto_kc_douyin_free/source_failures/*.json
             work/kc_delivery_summary.json
+            work/kc_delivery_outcome.json
             work/kc_publish_summary.json
             work/kc_recovery/summary.json
             work/kc_recovery/processed_manifest.json
@@ -780,7 +816,7 @@ jobs:
 
       - name: Upload selected videos
         if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: douyin-free-selected-videos
           path: work/douyin_free_daily/latest/selected
@@ -790,7 +826,7 @@ jobs:
 
       - name: Upload KC videos
         if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: kc-entertain-videos
           path: work/kc_artifact
@@ -798,9 +834,48 @@ jobs:
           retention-days: 14
         continue-on-error: true
 
+      - name: Record deferred KC delivery state
+        if: ${{ !cancelled() }}
+        run: |
+          if [[ "${KC_DEFERRED:-false}" != "true" ]]; then
+            echo "KC delivery is not deferred; no deferred state to record."
+            exit 0
+          fi
+          succeeded="$(python -c 'import json; print(int(json.load(open("work/kc_delivery_summary.json")).get("selected_count", 0)))')"
+          python tools/record_daily_delivery_state.py \
+            --state-file state/douyin_free_kc_daily.json \
+            --date "$KC_OUTPUT_DATE" \
+            --status deferred \
+            --target "$KC_LIMIT" \
+            --succeeded "$succeeded" \
+            --reason "$KC_DEFER_REASON" \
+            --message "$KC_DEFER_MESSAGE" \
+            --run-id "$GITHUB_RUN_ID"
+
+      - name: Commit deferred KC delivery state
+        if: ${{ !cancelled() }}
+        run: |
+          if [[ "${KC_DEFERRED:-false}" != "true" ]]; then
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add state/douyin_free_kc_daily.json
+          if git diff --cached --quiet; then
+            echo "Deferred KC delivery state is already recorded."
+            exit 0
+          fi
+          git commit -m "Record deferred Douyin KC delivery ${KC_OUTPUT_DATE}"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
+
       - name: Verify daily delivery
         if: ${{ !cancelled() && (github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true') }}
         run: |
+          if [[ "${KC_DEFERRED:-false}" == "true" ]]; then
+            echo "KC delivery was deferred with structured evidence; final publication verification is not applicable."
+            exit 0
+          fi
           python tools/verify_kc_delivery.py \
             --delivery-summary work/kc_delivery_summary.json \
             --publish-summary work/kc_publish_summary.json \
