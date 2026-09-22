@@ -320,7 +320,7 @@ jobs:
 
       - name: Cache Whisper model
         if: ${{ (github.event_name != 'workflow_dispatch' || github.event.inputs.search_only != 'true') && (github.event_name != 'workflow_dispatch' || github.event.inputs.kc_artifact_run_id == '') }}
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         continue-on-error: true
         with:
           path: models/ggml-small.bin

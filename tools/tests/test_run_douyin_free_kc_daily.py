@@ -154,6 +154,35 @@ class SelectedProcessedGuardTests(unittest.TestCase):
 
 
 class PackagingTargetTests(unittest.TestCase):
+    def test_deferred_provider_summary_is_mirrored_to_latest(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            run_dir = root / "run"
+            work_root = root / "work"
+
+            def fake_run(command: list[str], summary: dict) -> None:
+                (run_dir / "reports").mkdir(parents=True)
+                (run_dir / "reports/selected.json").write_text("[]", encoding="utf-8")
+
+            argv = [
+                "daily", "--provider", "tikhub", "--limit", "5",
+                "--run-dir", str(run_dir), "--work-root", str(work_root),
+                "--output-dir", str(root / "output"), "--kc-work-dir", str(root / "kc"),
+            ]
+            with (
+                mock.patch.object(sys, "argv", argv),
+                mock.patch.object(daily, "resolve_python", return_value=sys.executable),
+                mock.patch.object(daily, "run", side_effect=fake_run),
+                mock.patch.object(daily, "enforce_selected_diversity"),
+            ):
+                self.assertEqual(daily.main(), 0)
+
+            latest_summary = work_root / "latest" / "kc_daily_summary.json"
+            self.assertTrue(latest_summary.exists())
+            summary = json.loads(latest_summary.read_text(encoding="utf-8"))
+            self.assertEqual(summary["status"], "deferred")
+            self.assertEqual(summary["defer_reason"], "no_selected_videos")
+
     def test_child_failure_preserves_fresh_partial_outputs_but_never_stale_outputs(self) -> None:
         for fresh_count in (0, 3):
             with self.subTest(fresh_count=fresh_count), tempfile.TemporaryDirectory() as temporary:

@@ -354,10 +354,10 @@ def main() -> int:
     selected_files = sorted(path for path in selected_dir.glob("*") if path.suffix.lower() in VIDEO_EXTENSIONS)
     summary["selected_file_count"] = len(selected_files)
     summary["selected_files"] = [str(path) for path in selected_files]
-    mirror_latest(run_dir, work_root / "latest")
 
     if args.search_only or args.skip_kc:
         write_summary(run_dir, summary)
+        mirror_latest(run_dir, work_root / "latest")
         print(f"Discovery complete. Selected videos: {len(selected_files)}")
         print(f"Run directory: {run_dir}")
         return 0
@@ -367,6 +367,7 @@ def main() -> int:
         summary["status"] = "deferred"
         summary["defer_reason"] = "no_selected_videos"
         write_summary(run_dir, summary)
+        mirror_latest(run_dir, work_root / "latest")
         print("No selected videos were downloaded; KC packaging skipped.")
         print(f"Reports: {run_dir / 'reports'}")
         return 0
@@ -382,6 +383,7 @@ def main() -> int:
         summary["status"] = "deferred"
         summary["defer_reason"] = "insufficient_selected_videos"
         write_summary(run_dir, summary)
+        mirror_latest(run_dir, work_root / "latest")
         print(
             f"Only {len(selected_files)}/{args.limit} selected videos were downloaded; "
             f"minimum for KC publishing is {minimum_selected}. KC packaging skipped.",
@@ -450,6 +452,7 @@ def main() -> int:
             output_paths=kc_outputs,
         )
     write_summary(run_dir, summary)
+    mirror_latest(run_dir, work_root / "latest")
     print(f"KC outputs: {len(kc_outputs)}")
     print(f"Run directory: {run_dir}")
     return 2 if packaging_failed or len(kc_outputs) < packaging_target else 0
