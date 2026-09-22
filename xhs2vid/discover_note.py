@@ -54,11 +54,16 @@ ACTIVE_SEARCH_ENDPOINT: str | None = None
 
 SEARCH_ENDPOINTS = (
     "/api/v1/xiaohongshu/app_v2/search_notes",
+    "/api/v1/xiaohongshu/app/search_notes",
+    "/api/v1/xiaohongshu/web/search_notes",
+    "/api/v1/xiaohongshu/web/search_notes_v3",
     "/api/v1/xiaohongshu/web_v3/fetch_search_notes",
     "/api/v1/xiaohongshu/web_v2/fetch_search_notes",
 )
 USER_ENDPOINTS = (
     "/api/v1/xiaohongshu/app_v2/get_user_info",
+    "/api/v1/xiaohongshu/app/get_user_info",
+    "/api/v1/xiaohongshu/web/get_user_info",
     "/api/v1/xiaohongshu/web_v3/fetch_user_info",
     "/api/v1/xiaohongshu/web_v2/fetch_user_info",
 )
@@ -172,6 +177,27 @@ def search_params(
             "sort_type": "popularity_descending" if sort_type != "general" else "general",
             "note_type": "normal",
         }
+    if "/web/" in path:
+        return {
+            "keyword": keyword,
+            "page": page,
+            "sort": "popularity_descending" if sort_type != "general" else "general",
+            "noteType": "normal",
+            "noteTime": "一天内",
+        }
+    if "/app/" in path:
+        params = {
+            "keyword": keyword,
+            "page": page,
+            "sort_type": "popularity_descending" if sort_type != "general" else "general",
+            "filter_note_type": "普通笔记",
+            "filter_note_time": "一天内",
+        }
+        if search_id:
+            params["search_id"] = search_id
+        if session_id:
+            params["session_id"] = session_id
+        return params
     params = {
         "keyword": keyword,
         "page": page,

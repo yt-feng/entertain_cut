@@ -100,6 +100,14 @@ def comment_requests(note_id: str) -> list[tuple[str, dict]]:
             },
         ),
         (
+            "/api/v1/xiaohongshu/app/get_note_comments",
+            {"note_id": note_id, "start": 0, "sort_strategy": "like_count"},
+        ),
+        (
+            "/api/v1/xiaohongshu/web/get_note_comments",
+            {"note_id": note_id, "lastCursor": ""},
+        ),
+        (
             "/api/v1/xiaohongshu/web_v3/fetch_note_comments",
             {"note_id": note_id, "cursor": ""},
         ),
@@ -260,6 +268,14 @@ def fetch_missing_subcomments(
                             "cursor": "",
                             "index": 1,
                         },
+                    ),
+                    (
+                        "/api/v1/xiaohongshu/app/get_sub_comments",
+                        {"note_id": note_id, "comment_id": comment_id, "start": 0},
+                    ),
+                    (
+                        "/api/v1/xiaohongshu/web/get_note_comment_replies",
+                        {"note_id": note_id, "comment_id": comment_id, "lastCursor": ""},
                     ),
                     (
                         "/api/v1/xiaohongshu/web_v3/fetch_sub_comments",

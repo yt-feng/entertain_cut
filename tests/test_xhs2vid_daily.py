@@ -87,7 +87,7 @@ class XhsDailyTests(unittest.TestCase):
                 discover.MAX_ATTEMPTS = old_attempts
                 discover.ACCESS_BLOCKED = old_blocked
 
-    def test_search_falls_back_from_app_v2_to_documented_web_v3(self) -> None:
+    def test_search_falls_back_from_app_v2_to_legacy_app_surface(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             budget = discover.TikHubRequestBudget(Path(temporary) / "budget.json", limit=10)
             blocked = Mock()
@@ -130,7 +130,7 @@ class XhsDailyTests(unittest.TestCase):
                 discover.ACTIVE_SEARCH_ENDPOINT = None
                 with patch.object(discover.client, "get", side_effect=[blocked, working]) as request:
                     data, endpoint = discover.search_notes("情感", 1, "general")
-                self.assertEqual(endpoint, "/api/v1/xiaohongshu/web_v3/fetch_search_notes")
+                self.assertEqual(endpoint, "/api/v1/xiaohongshu/app/search_notes")
                 note = discover.normalize_search_item(data["data"]["items"][0], "情感")
                 self.assertEqual(note["note_id"], "web-note")
                 self.assertEqual(note["liked_count"], 21_000)
@@ -143,7 +143,7 @@ class XhsDailyTests(unittest.TestCase):
                     old_endpoint,
                 )
 
-    def test_comments_fall_back_from_app_v2_to_web_v3(self) -> None:
+    def test_comments_fall_back_from_app_v2_to_legacy_app_surface(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             budget = fetch.TikHubRequestBudget(Path(temporary) / "budget.json", limit=10)
             blocked = Mock()
@@ -161,7 +161,7 @@ class XhsDailyTests(unittest.TestCase):
                 fetch.ACCESS_BLOCKED = None
                 with patch.object(fetch.client, "get", side_effect=[blocked, working]) as request:
                     data, endpoint = fetch.fetch_with_endpoint_fallback(fetch.comment_requests("note-1"))
-                self.assertEqual(endpoint, "/api/v1/xiaohongshu/web_v3/fetch_note_comments")
+                self.assertEqual(endpoint, "/api/v1/xiaohongshu/app/get_note_comments")
                 self.assertEqual(fetch.extract_comment_items(data)[0]["id"], "c1")
                 self.assertEqual(request.call_count, 2)
                 self.assertEqual(budget.snapshot()["used"], 2)
