@@ -3,13 +3,13 @@
   "items": [
     {
       "date": "2026-09-22",
-      "status": "deferred",
-      "reason": "tikhub_access_blocked",
-      "message": "TikHub access blocked with HTTP 402 at /api/v1/xiaohongshu/app_v2/search_notes",
-      "target": 1,
-      "succeeded": 0,
-      "updated_at": "2026-09-22T21:11:30.455092+08:00",
-      "run_id": "35731761701"
+      "status": "delivered",
+      "reason": "verified_upload",
+      "message": "",
+      "target": 5,
+      "succeeded": 5,
+      "updated_at": "2026-09-23T01:51:56.215697+08:00",
+      "run_id": "35759321905"
     }
   ]
 }
