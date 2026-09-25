@@ -1,7 +1,159 @@
 {
-  "updated_at": "2026-09-24T01:50:02.945957+00:00",
-  "count": 417,
+  "updated_at": "2026-09-25T02:17:26.242402+00:00",
+  "count": 422,
   "items": [
+    {
+      "aweme_id": "7688974318071694195",
+      "content_id": "7688974318071694195",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7688974318071694195/?region=US&mid=7688974266175539994&u_code=0&did=MS4wLjABAAAAWl8ldPpG47AhYv6VI6bqvdXIc5-hfIFXA1KDHJWlwXg&iid=MS4wLjABAAAAOZwtsCDmNbYI9QeDgUJWcOn1f0t1kpYVPmsqy4pOv-o&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=QG6uNmLyXcNfQu10PBuuM.GeKc2PadPfq2wCeORYXuQ-&share_version=320900&ts=1790300779&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "太搞笑了 “我不想再当直男了”哈哈哈哈哈哈哈哈综艺名场面又被幂幂见证哈哈哈哈#杨幂 #花儿与少年 #花少4 #韩东君 #wink追星神器",
+      "author": "奇迹小柒",
+      "like_count": 16445,
+      "comment_count": 443,
+      "share_count": 14411,
+      "duration_ms": 92809,
+      "create_time_iso": "2026-09-24T05:47:20+00:00",
+      "known_entities": [
+        "杨幂",
+        "花儿与少年",
+        "花少4",
+        "韩东君",
+        "wink追星神器",
+        "综艺名场面"
+      ],
+      "verified_entities": [
+        "杨幂",
+        "花儿与少年",
+        "花少4",
+        "韩东君",
+        "wink追星神器",
+        "综艺名场面"
+      ],
+      "primary_celebrities": [
+        "杨幂"
+      ],
+      "quality_score": 284.653,
+      "output_date": "2026-09-25",
+      "selected_at": "2026-09-25T02:17:26.242402+00:00"
+    },
+    {
+      "aweme_id": "7688931957438871955",
+      "content_id": "7688931957438871955",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7688931957438871955/?region=US&mid=7688931907215674150&u_code=0&did=MS4wLjABAAAAWl8ldPpG47AhYv6VI6bqvdXIc5-hfIFXA1KDHJWlwXg&iid=MS4wLjABAAAAOZwtsCDmNbYI9QeDgUJWcOn1f0t1kpYVPmsqy4pOv-o&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=OGpQ9XqZCPhXhhvXe7Lz2VPejCeBLthVBQYwj4qrWQo-&share_version=320900&ts=1790300779&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "吾辈楷模 长大了给每个人都要吹这个牛😂#童言无忌萌翻全场 #综艺名场面分享",
+      "author": "詹詹的快乐日常",
+      "like_count": 11046,
+      "comment_count": 111,
+      "share_count": 2203,
+      "duration_ms": 23940,
+      "create_time_iso": "2026-09-24T03:02:58+00:00",
+      "known_entities": [
+        "童言无忌萌翻全场",
+        "综艺名场面分享",
+        "综艺名场面"
+      ],
+      "verified_entities": [
+        "童言无忌萌翻全场",
+        "综艺名场面分享",
+        "综艺名场面"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 244.04,
+      "output_date": "2026-09-25",
+      "selected_at": "2026-09-25T02:17:26.242402+00:00"
+    },
+    {
+      "aweme_id": "7689036121648516367",
+      "content_id": "7689036121648516367",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7689036121648516367/?region=US&mid=7689036078048742195&u_code=0&did=MS4wLjABAAAAcNtl3qVjdEUdOt7FBqkWSJYVkd0UkIF6oyGWg7PfhZg&iid=MS4wLjABAAAAPneZfVw-nLdmM4QHtVgOkx_23UPtyyD19wKaxUq2bno&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=.D_cDHdjZt3lAQ2OOpZe3SDGzy_j_iDgS4ejKPMnw00-&share_version=320900&ts=1790300793&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#花少9要做艺人核心熟人局  花少9筹备，锁定90-95顶流花，期待值拉满了~ #花少9  #白鹿  #赵露思",
+      "author": "容易火娱乐",
+      "like_count": 5654,
+      "comment_count": 3532,
+      "share_count": 1345,
+      "duration_ms": 29745,
+      "create_time_iso": "2026-09-24T09:47:15+00:00",
+      "known_entities": [
+        "白鹿",
+        "赵露思",
+        "花少9要做艺人核心熟人局",
+        "花少9"
+      ],
+      "verified_entities": [
+        "白鹿",
+        "赵露思",
+        "花少9要做艺人核心熟人局",
+        "花少9"
+      ],
+      "primary_celebrities": [
+        "白鹿",
+        "赵露思"
+      ],
+      "quality_score": 250.49599999999998,
+      "output_date": "2026-09-25",
+      "selected_at": "2026-09-25T02:17:26.242402+00:00"
+    },
+    {
+      "aweme_id": "7689021484418243749",
+      "content_id": "7689021484418243749",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7689021484418243749/?region=US&mid=7689021450044476201&u_code=0&did=MS4wLjABAAAAWl8ldPpG47AhYv6VI6bqvdXIc5-hfIFXA1KDHJWlwXg&iid=MS4wLjABAAAAOZwtsCDmNbYI9QeDgUJWcOn1f0t1kpYVPmsqy4pOv-o&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=PhM2yTNRK3pICrQj2VEIsQnBU.fwCdZI77sJBLr3lPw-&share_version=320900&ts=1790300779&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "整期节目都在针对他，到处都是“暗示”#乔任梁#kimi乔任梁#综艺名场面#正能量",
+      "author": "看复活的天亮",
+      "like_count": 4440,
+      "comment_count": 177,
+      "share_count": 309,
+      "duration_ms": 35967,
+      "create_time_iso": "2026-09-24T08:50:21+00:00",
+      "known_entities": [
+        "综艺名场面",
+        "乔任梁",
+        "kimi乔任梁",
+        "正能量"
+      ],
+      "verified_entities": [
+        "综艺名场面",
+        "乔任梁",
+        "kimi乔任梁",
+        "正能量"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 234.33800000000002,
+      "output_date": "2026-09-25",
+      "selected_at": "2026-09-25T02:17:26.242402+00:00"
+    },
+    {
+      "aweme_id": "7688920951958710592",
+      "content_id": "7688920951958710592",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7688920951958710592/?region=US&mid=7688920910547536650&u_code=0&did=MS4wLjABAAAAWl8ldPpG47AhYv6VI6bqvdXIc5-hfIFXA1KDHJWlwXg&iid=MS4wLjABAAAAOZwtsCDmNbYI9QeDgUJWcOn1f0t1kpYVPmsqy4pOv-o&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=UZ0GASjfRiDdaIreVJPd0ubAnOp2qMkbIkR7iDvQnKM-&share_version=320900&ts=1790300779&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "谁来了都绷不住 #火星情报局第七季  #综艺名场面分享 #笑到停不下来 薛哥，哈哈哈哈哈哈哈哈哈哈",
+      "author": "勤快的小帅",
+      "like_count": 2226,
+      "comment_count": 77,
+      "share_count": 3665,
+      "duration_ms": 93067,
+      "create_time_iso": "2026-09-24T02:20:14+00:00",
+      "known_entities": [
+        "综艺名场面分享",
+        "综艺名场面",
+        "火星情报局第七季",
+        "笑到停不下来"
+      ],
+      "verified_entities": [
+        "综艺名场面分享",
+        "综艺名场面",
+        "火星情报局第七季",
+        "笑到停不下来"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 229.422,
+      "output_date": "2026-09-25",
+      "selected_at": "2026-09-25T02:17:26.242402+00:00"
+    },
     {
       "aweme_id": "7688582315211237760",
       "content_id": "7688582315211237760",
