@@ -1,7 +1,131 @@
 {
-  "updated_at": "2026-09-25T02:17:26.242402+00:00",
-  "count": 422,
+  "updated_at": "2026-09-26T02:25:27.480544+00:00",
+  "count": 427,
   "items": [
+    {
+      "aweme_id": "7689345532234178530",
+      "content_id": "7689345532234178530",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7689345532234178530/?region=US&mid=7689345516865424174&u_code=0&did=MS4wLjABAAAA-A93nTUsnowN_T1HCn50CWIw3PskQYntM2n92z8c4p1nBs0I3DDYKbacysxy7X-Z&iid=MS4wLjABAAAAfOQkrzhC4Ur2d47HC0Rl47-DybHSSTHMdZNwzaeuAiDoCMjCh614sTZPGADMZSMl&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=_.XjJ.EiGiZ8wQnJ8az96F440p4HyV5JamOM2zTNLuA-&share_version=320900&ts=1790387286&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "“老吃家这一块。”#张一山 #高能少年团 #综艺名场面 #剪映",
+      "author": "沐.",
+      "like_count": 134678,
+      "comment_count": 459,
+      "share_count": 37538,
+      "duration_ms": 48267,
+      "create_time_iso": "2026-09-25T05:47:50+00:00",
+      "known_entities": [
+        "张一山"
+      ],
+      "verified_entities": [
+        "张一山",
+        "高能少年团"
+      ],
+      "primary_celebrities": [
+        "张一山"
+      ],
+      "quality_score": 274.92,
+      "output_date": "2026-09-26",
+      "selected_at": "2026-09-26T02:25:27.480544+00:00"
+    },
+    {
+      "aweme_id": "7689347245979749673",
+      "content_id": "7689347245979749673",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7689347245979749673/?region=US&mid=7689347334240553771&u_code=0&did=MS4wLjABAAAA-A93nTUsnowN_T1HCn50CWIw3PskQYntM2n92z8c4p1nBs0I3DDYKbacysxy7X-Z&iid=MS4wLjABAAAAfOQkrzhC4Ur2d47HC0Rl47-DybHSSTHMdZNwzaeuAiDoCMjCh614sTZPGADMZSMl&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=ldoNSJAgaDNzDb7XmituMqL2hsmb1c.DOqvX6IliljU-&share_version=320900&ts=1790387286&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "陈哲远参加综艺，真是给自己吃美了#搞笑 #陈哲远 #综艺 #李乃文 #大哥小助理",
+      "author": "追娱大明星",
+      "like_count": 84837,
+      "comment_count": 717,
+      "share_count": 24995,
+      "duration_ms": 98755,
+      "create_time_iso": "2026-09-25T05:54:36+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "陈哲远",
+        "李乃文"
+      ],
+      "primary_celebrities": [
+        "陈哲远",
+        "李乃文"
+      ],
+      "quality_score": 235.865,
+      "output_date": "2026-09-26",
+      "selected_at": "2026-09-26T02:25:27.480544+00:00"
+    },
+    {
+      "aweme_id": "7689416568124452328",
+      "content_id": "7689416568124452328",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7689416568124452328/?region=US&mid=7689416561924328246&u_code=0&did=MS4wLjABAAAA4GheFpibkzFuLVibA3TZQZqSHmqyF8TjgeyXax0Uft4&iid=MS4wLjABAAAAPyB2PTFPjatWQOOLHshFZrfoXDN8rXvk8W-VjBJuDLg&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=slEgRHxtL4SsYidefUiKUG5S51_wLOo79tAA_Bi8QOw-&share_version=320900&ts=1790387295&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "收到#白鹿 比心啦！#红毯  #BAZAARGALA2026",
+      "author": "腾讯视频",
+      "like_count": 17331,
+      "comment_count": 515,
+      "share_count": 949,
+      "duration_ms": 23614,
+      "create_time_iso": "2026-09-25T10:23:30+00:00",
+      "known_entities": [
+        "白鹿"
+      ],
+      "verified_entities": [
+        "白鹿",
+        "BAZAARGALA2026"
+      ],
+      "primary_celebrities": [
+        "白鹿"
+      ],
+      "quality_score": 231.49,
+      "output_date": "2026-09-26",
+      "selected_at": "2026-09-26T02:25:27.480544+00:00"
+    },
+    {
+      "aweme_id": "5190961727026813082",
+      "content_id": "5190961727026813082",
+      "platform": "kuaishou",
+      "url": "https://www.kuaishou.com/short-video/5190961727026813082",
+      "title": "今天时尚芭莎明星红毯造型都好美 看的我眼前一亮又一亮啊 大家颜值和状态都好在线 真的不要质疑能进娱乐圈的每张脸啊 #红毯 #明星 #颜值 #权威 #时尚芭莎红毯 #造型",
+      "author": "大板凳娱乐",
+      "like_count": 16211,
+      "comment_count": 1106,
+      "share_count": 1194,
+      "duration_ms": 40433,
+      "create_time_iso": "2026-09-25T11:13:38+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "时尚芭莎红毯"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 219.662,
+      "output_date": "2026-09-26",
+      "selected_at": "2026-09-26T02:25:27.480544+00:00"
+    },
+    {
+      "aweme_id": "7689412692670500147",
+      "content_id": "7689412692670500147",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7689412692670500147/?region=US&mid=7689412791056354091&u_code=0&did=MS4wLjABAAAA-A93nTUsnowN_T1HCn50CWIw3PskQYntM2n92z8c4p1nBs0I3DDYKbacysxy7X-Z&iid=MS4wLjABAAAAfOQkrzhC4Ur2d47HC0Rl47-DybHSSTHMdZNwzaeuAiDoCMjCh614sTZPGADMZSMl&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=444e0Nss6TscGz2Q93FHmvAJh6LvNkBl4.SctgdQV0A-&share_version=320900&ts=1790387286&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "月圆之夜，花少2又又又反转了，竟然是明暗双狼\n#花少2 #花学 #井柏然 #许晴 #综艺",
+      "author": "草莓松饼",
+      "like_count": 7396,
+      "comment_count": 250,
+      "share_count": 5342,
+      "duration_ms": 150400,
+      "create_time_iso": "2026-09-25T10:08:35+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "花少2",
+        "井柏然",
+        "许晴"
+      ],
+      "primary_celebrities": [
+        "井柏然",
+        "许晴"
+      ],
+      "quality_score": 193.368,
+      "output_date": "2026-09-26",
+      "selected_at": "2026-09-26T02:25:27.480544+00:00"
+    },
     {
       "aweme_id": "7688974318071694195",
       "content_id": "7688974318071694195",
