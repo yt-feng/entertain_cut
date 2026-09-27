@@ -1,7 +1,69 @@
 {
-  "updated_at": "2026-09-27T01:54:46.290034+00:00",
-  "count": 430,
+  "updated_at": "2026-09-27T02:26:36.128524+00:00",
+  "count": 432,
   "items": [
+    {
+      "aweme_id": "7689801509592826795",
+      "content_id": "7689801509592826795",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7689801509592826795/?region=CN&mid=7689801474821786404&u_code=ikkjdh2c&did=MS4wLjABAAAAt4KJRahbtiL8AkpeSoPBA3OSuIYYifHNYPg1pXZMLHWzLwhv9URfRBf6bjOOBzOc&iid=MS4wLjABAAAABWdcWR0OWuPKg5p9XZtUGT9B-6-GA81gHZHCctI3F9MBJ4Y9L_ZOWuMx2dpUu_Te&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=xU9hQ8hjLTS30LXu87LvVDM6mWA0.uyKbFv6B5cIWKQ-&share_version=400300&ts=1790474613&from_aid=1128&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "所有人都应该做到人剧分离 #娱乐圈 #井柏然 #营销 #cp  #电视剧",
+      "author": "小鹿之眼",
+      "like_count": 4640,
+      "comment_count": 972,
+      "share_count": 2074,
+      "duration_ms": 195667,
+      "create_time_iso": "2026-09-26T11:17:15+00:00",
+      "known_entities": [
+        "娱乐圈",
+        "井柏然",
+        "营销",
+        "cp"
+      ],
+      "verified_entities": [
+        "井柏然",
+        "娱乐圈",
+        "营销",
+        "cp"
+      ],
+      "primary_celebrities": [
+        "井柏然"
+      ],
+      "quality_score": 238.506,
+      "output_date": "2026-09-27",
+      "selected_at": "2026-09-27T02:26:36.128524+00:00"
+    },
+    {
+      "aweme_id": "7689720263848351909",
+      "content_id": "7689720263848351909",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7689720263848351909/?region=US&mid=7670491128495900713&u_code=0&did=MS4wLjABAAAAEzZ5T6P5kifbbMFzkOey08l7ikkJ2zNqAFsAev_ZS50B_65keVfkGcOvtYe5zprO&iid=MS4wLjABAAAAQHfeUPRJw432DJSddFJIEFHUDUFAYje3qpI2XirQbeoCvKI6o6ROWXcmM3EtrBkF&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=8HqwT83yLn3auUyi44Bib88bKM8lo9k3pGNNtkO9obo-&share_version=320900&ts=1790474895&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "又幸福了，小如 血压直线“飙升”#综艺名场面 #花儿与少年2026 #吴君如#邓为#王星越",
+      "author": "moonlight",
+      "like_count": 1309,
+      "comment_count": 61,
+      "share_count": 712,
+      "duration_ms": 37334,
+      "create_time_iso": "2026-09-26T06:01:59+00:00",
+      "known_entities": [
+        "邓为",
+        "花儿与少年"
+      ],
+      "verified_entities": [
+        "邓为",
+        "花儿与少年",
+        "吴君如",
+        "王星越"
+      ],
+      "primary_celebrities": [
+        "邓为",
+        "吴君如",
+        "王星越"
+      ],
+      "quality_score": 186.447,
+      "output_date": "2026-09-27",
+      "selected_at": "2026-09-27T02:26:36.128524+00:00"
+    },
     {
       "aweme_id": "7689728685134471525",
       "content_id": "7689728685134471525",
