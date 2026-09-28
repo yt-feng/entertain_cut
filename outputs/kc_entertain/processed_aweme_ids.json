@@ -1,7 +1,145 @@
 {
-  "updated_at": "2026-09-27T02:26:36.128524+00:00",
-  "count": 432,
+  "updated_at": "2026-09-28T02:29:16.857422+00:00",
+  "count": 437,
   "items": [
+    {
+      "aweme_id": "7690083346123425274",
+      "content_id": "7690083346123425274",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7690083346123425274/?region=US&mid=7690083220976978703&u_code=0&did=MS4wLjABAAAAY0y4PjuGx_mMlyuYg3Re5eaLjSc4fHFBRGBTZIuqNBmX4cqrnsQuNjDX5JOauBs2&iid=MS4wLjABAAAALcwIuA2qUogI5M5J7_jEbUljAibJinulHGxxjtqmpBDTMN9N96iyz1XhBBDPaXub&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=bLv7AHLS2wTiu9i6pOgWvWQd9KhVSGAguzVGLRYHkfg-&share_version=320900&ts=1790560425&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "慌里慌张的李克勤😂后半夜1点才唱完 #演唱会现场 #纪元回声 #livehouse现场实录",
+      "author": "老王爱睡觉",
+      "like_count": 7447,
+      "comment_count": 1523,
+      "share_count": 531,
+      "duration_ms": 72167,
+      "create_time_iso": "2026-09-27T05:30:55+00:00",
+      "known_entities": [
+        "演唱会现场",
+        "纪元回声",
+        "livehouse现场实录"
+      ],
+      "verified_entities": [
+        "李克勤",
+        "演唱会现场",
+        "纪元回声",
+        "livehouse现场实录"
+      ],
+      "primary_celebrities": [
+        "李克勤"
+      ],
+      "quality_score": 254.84900000000002,
+      "output_date": "2026-09-28",
+      "selected_at": "2026-09-28T02:29:16.857422+00:00"
+    },
+    {
+      "aweme_id": "7690236492606185059",
+      "content_id": "7690236492606185059",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7690236492606185059/?region=US&mid=7690236507981925156&u_code=0&did=MS4wLjABAAAAY0y4PjuGx_mMlyuYg3Re5eaLjSc4fHFBRGBTZIuqNBmX4cqrnsQuNjDX5JOauBs2&iid=MS4wLjABAAAALcwIuA2qUogI5M5J7_jEbUljAibJinulHGxxjtqmpBDTMN9N96iyz1XhBBDPaXub&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=Xgb.pG4w44DLfr7ahkmBNLYWjKIITMvxQ29dFIBjZj0-&share_version=320900&ts=1790560425&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "侯浪救场第一曲 #纪元回声巡回演唱会#侯浪#不再犹豫#李克勤",
+      "author": "震威观",
+      "like_count": 4769,
+      "comment_count": 1050,
+      "share_count": 736,
+      "duration_ms": 275784,
+      "create_time_iso": "2026-09-27T15:25:13+00:00",
+      "known_entities": [
+        "纪元回声"
+      ],
+      "verified_entities": [
+        "李克勤",
+        "侯浪",
+        "纪元回声"
+      ],
+      "primary_celebrities": [
+        "李克勤",
+        "侯浪"
+      ],
+      "quality_score": 241.906,
+      "output_date": "2026-09-28",
+      "selected_at": "2026-09-28T02:29:16.857422+00:00"
+    },
+    {
+      "aweme_id": "7690101398562887545",
+      "content_id": "7690101398562887545",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7690101398562887545/?region=US&mid=7690101341972187950&u_code=0&did=MS4wLjABAAAAJFEfYhaW3pnFE__hKjMOJLpyAandOof5-wCSZoOBoIIeR274yqep4MeRy03vtxWc&iid=MS4wLjABAAAAMqRlsZQbBKWZIBSN0TpzcNOeAKbnveeZuxjpprhdgqdJ6W2ZQWT5R2NGvrAoh45w&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=a6URRg9rQzwqTKk3Euf4F7Jm4y_YSZ1uHTxChW7m884-&share_version=320900&ts=1790560421&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#戚薇 身穿32斤3D打印水花裙,用小推车推着走红毯,还“吐槽”真的很重 #出席活动一个比一个美明星现场活动你更喜欢哪一个",
+      "author": "风云战火",
+      "like_count": 5468,
+      "comment_count": 432,
+      "share_count": 4990,
+      "duration_ms": 11567,
+      "create_time_iso": "2026-09-27T06:40:58+00:00",
+      "known_entities": [
+        "戚薇",
+        "出席活动一个比一个美明星现场活动"
+      ],
+      "verified_entities": [
+        "戚薇",
+        "出席活动一个比一个美明星现场活动"
+      ],
+      "primary_celebrities": [
+        "戚薇"
+      ],
+      "quality_score": 237.902,
+      "output_date": "2026-09-28",
+      "selected_at": "2026-09-28T02:29:16.857422+00:00"
+    },
+    {
+      "aweme_id": "5222205451067081304",
+      "content_id": "5222205451067081304",
+      "platform": "kuaishou",
+      "url": "https://www.kuaishou.com/short-video/5222205451067081304",
+      "title": "#明星娱乐 #戚薇 #娱乐资讯 #时尚芭莎 戚薇芭莎16公斤液态礼服，如水似冰极具视觉冲击，清冷湿发配透明波浪长裙，红毯氛围感封神！",
+      "author": "阿布娱乐",
+      "like_count": 1777,
+      "comment_count": 1098,
+      "share_count": 404,
+      "duration_ms": 13266,
+      "create_time_iso": "2026-09-27T05:24:57+00:00",
+      "known_entities": [
+        "戚薇"
+      ],
+      "verified_entities": [
+        "戚薇"
+      ],
+      "primary_celebrities": [
+        "戚薇"
+      ],
+      "quality_score": 232.497,
+      "output_date": "2026-09-28",
+      "selected_at": "2026-09-28T02:29:16.857422+00:00"
+    },
+    {
+      "aweme_id": "7690060051797885169",
+      "content_id": "7690060051797885169",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7690060051797885169/?region=US&mid=7378228111722924059&u_code=0&did=MS4wLjABAAAAY0y4PjuGx_mMlyuYg3Re5eaLjSc4fHFBRGBTZIuqNBmX4cqrnsQuNjDX5JOauBs2&iid=MS4wLjABAAAALcwIuA2qUogI5M5J7_jEbUljAibJinulHGxxjtqmpBDTMN9N96iyz1XhBBDPaXub&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=Mdu8ESTXf2fU5KhHDmAolsOpA8ZfN0oKkobN_HrViic-&share_version=320900&ts=1790560415&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "1高情商的黄渤也扛不住崔老师的提问#明星名嘴 #综艺名场面回顾 #崔永元 #黄渤春晚跑步机是半永久吧",
+      "author": "一修高能综艺社",
+      "like_count": 2151,
+      "comment_count": 168,
+      "share_count": 19,
+      "duration_ms": 16267,
+      "create_time_iso": "2026-09-27T04:00:32+00:00",
+      "known_entities": [
+        "名场面"
+      ],
+      "verified_entities": [
+        "黄渤",
+        "崔永元",
+        "名场面"
+      ],
+      "primary_celebrities": [
+        "黄渤",
+        "崔永元"
+      ],
+      "quality_score": 198.403,
+      "output_date": "2026-09-28",
+      "selected_at": "2026-09-28T02:29:16.857422+00:00"
+    },
     {
       "aweme_id": "7689801509592826795",
       "content_id": "7689801509592826795",
