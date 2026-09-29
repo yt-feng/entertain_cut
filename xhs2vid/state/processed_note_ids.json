@@ -1,7 +1,59 @@
 {
   "version": 1,
-  "updated_at": "2026-09-28T02:04:23.472634+08:00",
+  "updated_at": "2026-09-29T20:20:47.321760+08:00",
   "items": [
+    {
+      "note_id": "6aba1af9000000000a01e54f",
+      "title": "锐评光与夜之恋陆沉主线",
+      "output": "01_锐评光与夜之恋陆沉主线_0a01e54f.mp4",
+      "rendered_at": "2026-09-29T04:21:24.033940+08:00",
+      "author_fans": 7,
+      "liked_count": 498,
+      "comments_count": 147,
+      "source_run_id": "36491177384",
+      "source_output": "01_锐评光与夜之恋陆沉主线_0a01e54f.mp4",
+      "delivery_date": "2026-09-28",
+      "uploaded_at": "2026-09-29T20:20:47.321760+08:00"
+    },
+    {
+      "note_id": "6ab9db37000000000a026ec8",
+      "title": "捞！求lululemon scuba情侣瓜女生回应",
+      "output": "02_捞！求lululemon_scuba情侣瓜女生回应_0a026ec8.mp4",
+      "rendered_at": "2026-09-29T04:21:24.033940+08:00",
+      "author_fans": 520,
+      "liked_count": 758,
+      "comments_count": 252,
+      "source_run_id": "36491177384",
+      "source_output": "02_捞！求lululemon_scuba情侣瓜女生回应_0a026ec8.mp4",
+      "delivery_date": "2026-09-28",
+      "uploaded_at": "2026-09-29T20:20:47.321760+08:00"
+    },
+    {
+      "note_id": "6ab9d9170000000014001a8c",
+      "title": "月休两天？见一个举报一个",
+      "output": "03_月休两天？见一个举报一个_14001a8c.mp4",
+      "rendered_at": "2026-09-29T04:21:24.033940+08:00",
+      "author_fans": 11,
+      "liked_count": 211,
+      "comments_count": 46,
+      "source_run_id": "36491177384",
+      "source_output": "03_月休两天？见一个举报一个_14001a8c.mp4",
+      "delivery_date": "2026-09-28",
+      "uploaded_at": "2026-09-29T20:20:47.321760+08:00"
+    },
+    {
+      "note_id": "6ab9d019000000000a023383",
+      "title": "那些因为口误而闹出的笑话",
+      "output": "04_那些因为口误而闹出的笑话_0a023383.mp4",
+      "rendered_at": "2026-09-29T04:21:24.033940+08:00",
+      "author_fans": 65,
+      "liked_count": 369,
+      "comments_count": 4,
+      "source_run_id": "36491177384",
+      "source_output": "04_那些因为口误而闹出的笑话_0a023383.mp4",
+      "delivery_date": "2026-09-28",
+      "uploaded_at": "2026-09-29T20:20:47.321760+08:00"
+    },
     {
       "note_id": "6ab873f2000000000a020b81",
       "title": "路人快要垂直入坑了",
