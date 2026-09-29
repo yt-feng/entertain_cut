@@ -60,6 +60,16 @@
       "succeeded": 5,
       "updated_at": "2026-09-28T02:04:23.510219+08:00",
       "run_id": "36336176136"
+    },
+    {
+      "date": "2026-09-28",
+      "status": "deferred",
+      "reason": "resume_budget_exhausted",
+      "message": "Only 0 TikHub requests remain; cannot search and verify 1 missing videos",
+      "target": 5,
+      "succeeded": 0,
+      "updated_at": "2026-09-29T08:31:26.387535+08:00",
+      "run_id": "36503445505"
     }
   ]
 }
