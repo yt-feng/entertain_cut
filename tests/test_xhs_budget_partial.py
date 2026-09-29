@@ -357,6 +357,23 @@ class WorkflowOutcomeTests(unittest.TestCase):
         self.assertIn('remaining_tikhub_budget="$((99 - prior_tikhub_used))"', workflow)
         ci = (shared.ROOT / '.github/workflows/kc-pipeline-tests.yml').read_text()
         self.assertIn("discover -s tests -p 'test_xhs*.py'", ci)
+        # render_video imports its CJK fonts at module load. Keep the package
+        # and the concrete files as an explicit CI contract so a future test
+        # expansion cannot silently reintroduce the runner-only failure from
+        # runs 36565162394 and 36565257532.
+        ci_install = ci.split('      - name: Install test dependencies\n', 1)[1].split(
+            '      - name: Run offline pipeline and delivery regressions\n', 1
+        )[0]
+        self.assertIn('fonts-noto-cjk', ci_install)
+        self.assertIn('test -s /usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc', ci_install)
+        self.assertIn('test -s /usr/share/fonts/opentype/noto/NotoSansCJK-Bold.ttc', ci_install)
+        daily = (shared.ROOT / '.github/workflows/xhs-lowfan-kc-daily.yml').read_text()
+        daily_install = daily.split('      - name: Install media and font dependencies\n', 1)[1].split(
+            '      - name: Configure batch and optional cloud resume\n', 1
+        )[0]
+        self.assertIn('fonts-noto-cjk', daily_install)
+        self.assertIn('test -s /usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc', daily_install)
+        self.assertIn('test -s /usr/share/fonts/opentype/noto/NotoSansCJK-Bold.ttc', daily_install)
 
 if __name__ == '__main__':
     unittest.main()
