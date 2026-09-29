@@ -12,6 +12,10 @@ class RequestBudgetExceeded(RuntimeError):
     """Raised before an HTTP attempt would exceed the configured budget."""
 
 
+class RequestBudgetReserved(RequestBudgetExceeded):
+    """The remaining requests belong to a later stage, not this caller."""
+
+
 class TikHubRequestBudget:
     def __init__(self, path: Path, *, limit: int) -> None:
         if not 1 <= limit < 100:
@@ -39,12 +43,19 @@ class TikHubRequestBudget:
         )
         temporary.replace(self.path)
 
-    def consume(self, label: str) -> int:
+    def consume(self, label: str, *, reserve: int = 0) -> int:
+        if type(reserve) is not int or reserve < 0:
+            raise ValueError("request reservation must be a nonnegative integer")
         state = self._read()
         used = int(state.get("used", 0))
         if used >= self.limit:
             raise RequestBudgetExceeded(
                 f"TikHub request budget exhausted ({used}/{self.limit})"
+            )
+        if self.limit - used <= reserve:
+            raise RequestBudgetReserved(
+                f"TikHub stage budget reached ({used}/{self.limit}); "
+                f"preserving {reserve} requests for later stages"
             )
         used += 1
         attempts = list(state.get("attempts") or [])

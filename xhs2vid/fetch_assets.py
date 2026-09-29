@@ -79,7 +79,7 @@ def api_get(path: str, params: dict, *, ignore_access_block: bool = False) -> di
                 raise blocked from exc
             if attempt + 1 < MAX_ATTEMPTS:
                 time.sleep(1.5 * (attempt + 1))
-        except Exception as exc:  # noqa: BLE001
+        except httpx.HTTPError as exc:
             last_exc = exc
             if attempt + 1 < MAX_ATTEMPTS:
                 time.sleep(1.5 * (attempt + 1))
@@ -136,11 +136,14 @@ def fetch_with_endpoint_fallback(
             ACTIVE_COMMENT_ENDPOINT = path
             return data, path
         except RequestBudgetExceeded:
+            if blocked:
+                ACCESS_BLOCKED = blocked[-1]
+                raise ACCESS_BLOCKED
             raise
         except TikHubAccessBlocked as exc:
             blocked.append(exc)
             print(f"[warn] TikHub endpoint blocked: {exc}")
-        except Exception as exc:  # noqa: BLE001
+        except httpx.HTTPError as exc:
             last_error = exc
             print(f"[warn] TikHub endpoint unavailable {path}: {exc}")
     if blocked:
@@ -301,7 +304,7 @@ def fetch_missing_subcomments(
         except TikHubAccessBlocked as exc:
             print(f"[warn] subcomments access circuit opened: {exc}")
             break
-        except Exception as exc:  # noqa: BLE001
+        except httpx.HTTPError as exc:
             print(f"[warn] subcomments {comment_id}: {exc}")
             continue
         calls += 1
@@ -373,6 +376,10 @@ def main() -> None:
     args = parse_args()
     WORK = args.work_dir.expanduser().resolve()
     NOTE = json.loads((WORK / "chosen_note.json").read_text(encoding="utf-8"))
+    # A reused work directory must not turn a later unrelated failure into an
+    # old provider/budget deferment.
+    for name in ("tikhub_access_blocked.json", "tikhub_budget_exhausted.json"):
+        (WORK / name).unlink(missing_ok=True)
     MAX_ATTEMPTS = args.max_attempts
     ACCESS_BLOCKED = None
     ACTIVE_COMMENT_ENDPOINT = None
@@ -386,6 +393,8 @@ def main() -> None:
         .resolve(),
         limit=args.request_limit,
     )
+    if not args.reuse_comments_cache and BUDGET.snapshot()["remaining"] == 0:
+        defer_exhausted_budget()
 
     if args.reuse_comments_cache and (WORK / "cover.png").is_file():
         print(f"[info] cover reused: {WORK / 'cover.png'}")
@@ -398,7 +407,7 @@ def main() -> None:
                 image_response = cover_client.get(cover_url)
                 image_response.raise_for_status()
                 break
-            except Exception as exc:  # noqa: BLE001
+            except httpx.HTTPError as exc:
                 last_cover_error = exc
                 image_response = None
                 if attempt < 2:
@@ -413,6 +422,8 @@ def main() -> None:
 
     try:
         comments = load_cached_comments() if args.reuse_comments_cache else fetch_comments(NOTE["note_id"])
+    except RequestBudgetExceeded:
+        defer_exhausted_budget()
     except TikHubAccessBlocked as exc:
         (WORK / "tikhub_access_blocked.json").write_text(
             json.dumps(
@@ -450,6 +461,19 @@ def main() -> None:
             f"{comment['ip_location']} | {comment['text'][:60]}"
         )
     print("[budget]", json.dumps(BUDGET.snapshot(), ensure_ascii=False))
+
+
+def defer_exhausted_budget() -> None:
+    """Expose only a typed exhausted budget across the subprocess boundary."""
+    snapshot = BUDGET.snapshot()
+    if snapshot["remaining"] != 0:
+        raise RuntimeError("budget deferment requires an exhausted shared counter")
+    (WORK / "tikhub_budget_exhausted.json").write_text(json.dumps({
+        "status": "deferred", "reason": "tikhub_request_budget_exhausted",
+        "note_id": NOTE["note_id"], "budget": snapshot,
+        "message": f"TikHub request budget exhausted ({snapshot['used']}/{snapshot['limit']})",
+    }, ensure_ascii=False, indent=2), encoding="utf-8")
+    raise SystemExit(75)
 
 
 if __name__ == "__main__":

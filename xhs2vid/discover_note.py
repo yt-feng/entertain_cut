@@ -20,7 +20,7 @@ from zoneinfo import ZoneInfo
 
 import httpx
 
-from tikhub_budget import RequestBudgetExceeded, TikHubRequestBudget
+from tikhub_budget import RequestBudgetExceeded, RequestBudgetReserved, TikHubRequestBudget
 
 ROOT = Path(__file__).resolve().parent.parent
 KEY_FILE = ROOT / "api_key" / "tikhub.txt"
@@ -47,6 +47,8 @@ FANS_MAX = 20000
 TOP_AUTHOR_CHECK = 12
 MAX_ATTEMPTS = 3
 BUDGET: TikHubRequestBudget | None = None
+RESERVED_REQUESTS = 0
+BUDGET_STOP: dict | None = None
 HOT_TERMS: list[str] = []
 ACCESS_BLOCKING_STATUSES = frozenset({401, 402, 403, 429})
 ACCESS_BLOCKED: "TikHubAccessBlocked | None" = None
@@ -128,7 +130,7 @@ def api_get(path: str, params: dict, *, ignore_access_block: bool = False) -> di
         try:
             if BUDGET is None:
                 raise RuntimeError("TikHub request budget is not initialized")
-            number = BUDGET.consume(f"GET {path}")
+            number = BUDGET.consume(f"GET {path}", reserve=RESERVED_REQUESTS)
             print(f"[budget] TikHub attempt {number}/{BUDGET.limit}: {path}")
             resp = client.get(path, params=params)
             resp.raise_for_status()
@@ -145,7 +147,7 @@ def api_get(path: str, params: dict, *, ignore_access_block: bool = False) -> di
                 raise blocked from exc
             if attempt + 1 < MAX_ATTEMPTS:
                 time.sleep(1.5 * (attempt + 1))
-        except Exception as exc:  # noqa: BLE001
+        except httpx.HTTPError as exc:
             last_exc = exc
             if attempt + 1 < MAX_ATTEMPTS:
                 time.sleep(1.5 * (attempt + 1))
@@ -251,11 +253,16 @@ def search_notes(
             ACCESS_BLOCKED = None
             return data, path
         except RequestBudgetExceeded:
+            # A stage stop must not relabel an observed auth/access block as
+            # an ordinary lack of budget when no fallback has succeeded.
+            if blocked:
+                ACCESS_BLOCKED = blocked[-1]
+                raise ACCESS_BLOCKED
             raise
         except TikHubAccessBlocked as exc:
             blocked.append(exc)
             print(f"[warn] search endpoint blocked: {exc}")
-        except Exception as exc:  # noqa: BLE001
+        except httpx.HTTPError as exc:
             last_error = exc
             print(f"[warn] search endpoint unavailable {path}: {exc}")
     if blocked:
@@ -382,6 +389,7 @@ def normalize_search_item(item: dict, keyword: str) -> dict | None:
 
 
 def search_all() -> dict[str, dict]:
+    global BUDGET_STOP
     notes: dict[str, dict] = {}
     for kw in KEYWORDS:
         for sort_type in SORTS:
@@ -396,11 +404,15 @@ def search_all() -> dict[str, dict]:
                         search_id=search_id,
                         session_id=session_id,
                     )
+                except RequestBudgetReserved as exc:
+                    BUDGET_STOP = {"stage": "search", "message": str(exc)}
+                    print(f"[budget] {exc}; retaining {len(notes)} discovered notes")
+                    return notes
                 except RequestBudgetExceeded:
                     raise
                 except TikHubAccessBlocked:
                     raise
-                except Exception as exc:  # noqa: BLE001
+                except httpx.HTTPError as exc:
                     print(f"[warn] search {kw}/{sort_type} p{page}: {exc}")
                     continue
                 payload = data.get("data") or {}
@@ -439,11 +451,14 @@ def author_fans(user_id: str) -> int:
             if fans >= 0:
                 return fans
         except RequestBudgetExceeded:
+            if blocked:
+                ACCESS_BLOCKED = blocked[-1]
+                return -1
             raise
         except TikHubAccessBlocked as exc:
             blocked.append(exc)
             print(f"[warn] author endpoint blocked: {exc}")
-        except Exception as exc:  # noqa: BLE001
+        except httpx.HTTPError as exc:
             print(f"[warn] user {user_id} via {path}: {exc}")
     if blocked:
         ACCESS_BLOCKED = blocked[-1]
@@ -513,6 +528,7 @@ def write_discovery_status(
         "selected_count": selected_count,
         "tikhub_access_blocked": ACCESS_BLOCKED is not None,
         "tikhub_blocked_status": ACCESS_BLOCKED.status_code if ACCESS_BLOCKED else None,
+        "budget_stop": BUDGET_STOP,
     }
     (OUT_DIR / "discovery_status.json").write_text(
         json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8"
@@ -532,6 +548,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--top-author-check", type=int, default=TOP_AUTHOR_CHECK)
     parser.add_argument("--max-attempts", type=int, default=MAX_ATTEMPTS)
     parser.add_argument("--request-limit", type=int, default=90)
+    parser.add_argument("--reserve-requests", type=int, default=0,
+                        help="Keep these shared requests for later comment fetching.")
     parser.add_argument(
         "--budget-file",
         type=Path,
@@ -585,6 +603,8 @@ def parse_args() -> argparse.Namespace:
         parser.error("--max-attempts must be between 1 and 3")
     if not 1 <= args.request_limit < 100:
         parser.error("--request-limit must be between 1 and 99")
+    if not 0 <= args.reserve_requests < 100:
+        parser.error("--reserve-requests must be between 0 and 99")
     if not 1 <= args.limit <= 20:
         parser.error("--limit must be between 1 and 20")
     if args.keywords is not None:
@@ -605,6 +625,7 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     global ACCESS_BLOCKED, ACTIVE_SEARCH_ENDPOINT, BUDGET, HOT_TERMS, KEYWORDS, MAX_ATTEMPTS, OUT_DIR, PAGES, TOP_AUTHOR_CHECK
+    global RESERVED_REQUESTS, BUDGET_STOP
     args = parse_args()
     OUT_DIR = args.out_dir.expanduser().resolve()
     OUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -638,6 +659,11 @@ def main() -> None:
     )
     ACCESS_BLOCKED = None
     ACTIVE_SEARCH_ENDPOINT = None
+    BUDGET_STOP = None
+    # Every actual retry/fallback must respect this ceiling, not merely the
+    # nominal keyword/page count planned by the workflow. Author calls get
+    # their own slots; after search those slots are released to author lookup.
+    RESERVED_REQUESTS = args.reserve_requests + TOP_AUTHOR_CHECK
     try:
         notes = search_all()
     except RequestBudgetExceeded as exc:
@@ -656,6 +682,7 @@ def main() -> None:
         )
         print(f"[deferred] {exc}")
         return
+    RESERVED_REQUESTS = args.reserve_requests
     fresh = [
         n
         for n in notes.values()
@@ -688,7 +715,7 @@ def main() -> None:
     if not eligible_for_lookup:
         write_discovery_status(
             "deferred",
-            "no_recent_viral_candidates",
+            "tikhub_stage_budget_reserved" if BUDGET_STOP else "no_recent_viral_candidates",
             message="No recent notes met the minimum likes/comments/search evidence.",
             total_notes=len(notes),
             fresh_notes=len(fresh),
@@ -705,6 +732,10 @@ def main() -> None:
         elif author_id not in fans_by_author:
             try:
                 fans_by_author[author_id] = author_fans(author_id)
+            except RequestBudgetReserved as exc:
+                BUDGET_STOP = {"stage": "author", "message": str(exc)}
+                print(f"[budget] {exc}; retaining {len(candidates)} verified candidates")
+                break
             except RequestBudgetExceeded as exc:
                 write_discovery_status(
                     "deferred",
@@ -740,6 +771,7 @@ def main() -> None:
         reason = (
             "tikhub_author_lookup_unavailable"
             if ACCESS_BLOCKED is not None
+            else "tikhub_stage_budget_reserved" if BUDGET_STOP
             else "no_strict_low_fan_candidate"
         )
         message = (

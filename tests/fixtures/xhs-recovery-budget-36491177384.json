@@ -1,0 +1,295 @@
+{
+  "run_id": 36491177384,
+  "prior_used": 57,
+  "cumulative_cap": 99,
+  "current_cap": 42,
+  "resumed_count": 4,
+  "missing_count": 1,
+  "search_attempts": 37,
+  "author_attempts": 5,
+  "attempts": [
+    {
+      "log_line": 1329,
+      "attempt": 1,
+      "limit": 42,
+      "endpoint": "/api/v1/xiaohongshu/app_v2/search_notes"
+    },
+    {
+      "log_line": 1331,
+      "attempt": 2,
+      "limit": 42,
+      "endpoint": "/api/v1/xiaohongshu/app_v2/search_notes"
+    },
+    {
+      "log_line": 1333,
+      "attempt": 3,
+      "limit": 42,
+      "endpoint": "/api/v1/xiaohongshu/app_v2/search_notes"
+    },
+    {
+      "log_line": 1335,
+      "attempt": 4,
+      "limit": 42,
+      "endpoint": "/api/v1/xiaohongshu/app_v2/search_notes"
+    },
+    {
+      "log_line": 1337,
+      "attempt": 5,
+      "limit": 42,
+      "endpoint": "/api/v1/xiaohongshu/app_v2/search_notes"
+    },
+    {
+      "log_line": 1339,
+      "attempt": 6,
+      "limit": 42,
+      "endpoint": "/api/v1/xiaohongshu/app_v2/search_notes"
+    },
+    {
+      "log_line": 1341,
+      "attempt": 7,
+      "limit": 42,
+      "endpoint": "/api/v1/xiaohongshu/app_v2/search_notes"
+    },
+    {
+      "log_line": 1344,
+      "attempt": 8,
+      "limit": 42,
+      "endpoint": "/api/v1/xiaohongshu/app/search_notes"
+    },
+    {
+      "log_line": 1347,
+      "attempt": 9,
+      "limit": 42,
+      "endpoint": "/api/v1/xiaohongshu/web/search_notes"
+    },
+    {
+      "log_line": 1350,
+      "attempt": 10,
+      "limit": 42,
+      "endpoint": "/api/v1/xiaohongshu/web/search_notes_v3"
+    },
+    {
+      "log_line": 1353,
+      "attempt": 11,
+      "limit": 42,
+      "endpoint": "/api/v1/xiaohongshu/web_v3/fetch_search_notes"
+    },
+    {
+      "log_line": 1356,
+      "attempt": 12,
+      "limit": 42,
+      "endpoint": "/api/v1/xiaohongshu/web_v2/fetch_search_notes"
+    },
+    {
+      "log_line": 1361,
+      "attempt": 13,
+      "limit": 42,
+      "endpoint": "/api/v1/xiaohongshu/app_v2/search_notes"
+    },
+    {
+      "log_line": 1363,
+      "attempt": 14,
+      "limit": 42,
+      "endpoint": "/api/v1/xiaohongshu/app_v2/search_notes"
+    },
+    {
+      "log_line": 1365,
+      "attempt": 15,
+      "limit": 42,
+      "endpoint": "/api/v1/xiaohongshu/app_v2/search_notes"
+    },
+    {
+      "log_line": 1367,
+      "attempt": 16,
+      "limit": 42,
+      "endpoint": "/api/v1/xiaohongshu/app_v2/search_notes"
+    },
+    {
+      "log_line": 1369,
+      "attempt": 17,
+      "limit": 42,
+      "endpoint": "/api/v1/xiaohongshu/app_v2/search_notes"
+    },
+    {
+      "log_line": 1371,
+      "attempt": 18,
+      "limit": 42,
+      "endpoint": "/api/v1/xiaohongshu/app_v2/search_notes"
+    },
+    {
+      "log_line": 1373,
+      "attempt": 19,
+      "limit": 42,
+      "endpoint": "/api/v1/xiaohongshu/app_v2/search_notes"
+    },
+    {
+      "log_line": 1375,
+      "attempt": 20,
+      "limit": 42,
+      "endpoint": "/api/v1/xiaohongshu/app_v2/search_notes"
+    },
+    {
+      "log_line": 1377,
+      "attempt": 21,
+      "limit": 42,
+      "endpoint": "/api/v1/xiaohongshu/app_v2/search_notes"
+    },
+    {
+      "log_line": 1379,
+      "attempt": 22,
+      "limit": 42,
+      "endpoint": "/api/v1/xiaohongshu/app_v2/search_notes"
+    },
+    {
+      "log_line": 1381,
+      "attempt": 23,
+      "limit": 42,
+      "endpoint": "/api/v1/xiaohongshu/app_v2/search_notes"
+    },
+    {
+      "log_line": 1383,
+      "attempt": 24,
+      "limit": 42,
+      "endpoint": "/api/v1/xiaohongshu/app_v2/search_notes"
+    },
+    {
+      "log_line": 1385,
+      "attempt": 25,
+      "limit": 42,
+      "endpoint": "/api/v1/xiaohongshu/app_v2/search_notes"
+    },
+    {
+      "log_line": 1387,
+      "attempt": 26,
+      "limit": 42,
+      "endpoint": "/api/v1/xiaohongshu/app_v2/search_notes"
+    },
+    {
+      "log_line": 1389,
+      "attempt": 27,
+      "limit": 42,
+      "endpoint": "/api/v1/xiaohongshu/app_v2/search_notes"
+    },
+    {
+      "log_line": 1391,
+      "attempt": 28,
+      "limit": 42,
+      "endpoint": "/api/v1/xiaohongshu/app_v2/search_notes"
+    },
+    {
+      "log_line": 1393,
+      "attempt": 29,
+      "limit": 42,
+      "endpoint": "/api/v1/xiaohongshu/app_v2/search_notes"
+    },
+    {
+      "log_line": 1395,
+      "attempt": 30,
+      "limit": 42,
+      "endpoint": "/api/v1/xiaohongshu/app_v2/search_notes"
+    },
+    {
+      "log_line": 1397,
+      "attempt": 31,
+      "limit": 42,
+      "endpoint": "/api/v1/xiaohongshu/app_v2/search_notes"
+    },
+    {
+      "log_line": 1399,
+      "attempt": 32,
+      "limit": 42,
+      "endpoint": "/api/v1/xiaohongshu/app_v2/search_notes"
+    },
+    {
+      "log_line": 1401,
+      "attempt": 33,
+      "limit": 42,
+      "endpoint": "/api/v1/xiaohongshu/app_v2/search_notes"
+    },
+    {
+      "log_line": 1403,
+      "attempt": 34,
+      "limit": 42,
+      "endpoint": "/api/v1/xiaohongshu/app_v2/search_notes"
+    },
+    {
+      "log_line": 1405,
+      "attempt": 35,
+      "limit": 42,
+      "endpoint": "/api/v1/xiaohongshu/app_v2/search_notes"
+    },
+    {
+      "log_line": 1407,
+      "attempt": 36,
+      "limit": 42,
+      "endpoint": "/api/v1/xiaohongshu/app_v2/search_notes"
+    },
+    {
+      "log_line": 1409,
+      "attempt": 37,
+      "limit": 42,
+      "endpoint": "/api/v1/xiaohongshu/app_v2/search_notes"
+    },
+    {
+      "log_line": 1412,
+      "attempt": 38,
+      "limit": 42,
+      "endpoint": "/api/v1/xiaohongshu/app_v2/get_user_info"
+    },
+    {
+      "log_line": 1414,
+      "attempt": 39,
+      "limit": 42,
+      "endpoint": "/api/v1/xiaohongshu/app_v2/get_user_info"
+    },
+    {
+      "log_line": 1416,
+      "attempt": 40,
+      "limit": 42,
+      "endpoint": "/api/v1/xiaohongshu/app_v2/get_user_info"
+    },
+    {
+      "log_line": 1418,
+      "attempt": 41,
+      "limit": 42,
+      "endpoint": "/api/v1/xiaohongshu/app_v2/get_user_info"
+    },
+    {
+      "log_line": 1420,
+      "attempt": 42,
+      "limit": 42,
+      "endpoint": "/api/v1/xiaohongshu/app_v2/get_user_info"
+    }
+  ],
+  "original_candidate_note_ids": [
+    "6ab99f3b000000000a02212a",
+    "6ab9efba000000001403946e",
+    "6ab9cb2b000000001a02a5fe"
+  ],
+  "actual_new_videos": 0,
+  "root_cause": "No enforced stage reservation;5 extra search fallbacks consume later-comment allowance.",
+  "verified_candidate_metadata": [
+    {
+      "note_id": "6ab99f3b000000000a02212a",
+      "keyword": "那英 娱乐",
+      "author_fans": 262,
+      "liked_count": 2761,
+      "comments_count": 321
+    },
+    {
+      "note_id": "6ab9efba000000001403946e",
+      "keyword": "那英 娱乐",
+      "author_fans": 1043,
+      "liked_count": 370,
+      "comments_count": 35
+    },
+    {
+      "note_id": "6ab9cb2b000000001a02a5fe",
+      "keyword": "再引热议 娱乐",
+      "author_fans": 1007,
+      "liked_count": 597,
+      "comments_count": 22
+    }
+  ],
+  "candidate_evidence": "Artifact 11001493929 selected_notes.json; source keywords were searched before the 32-attempt boundary. Bodies and comment responses are not included."
+}
