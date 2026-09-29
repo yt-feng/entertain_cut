@@ -1,7 +1,147 @@
 {
-  "updated_at": "2026-09-28T02:29:16.857422+00:00",
-  "count": 437,
+  "updated_at": "2026-09-29T03:00:14.372281+00:00",
+  "count": 442,
   "items": [
+    {
+      "aweme_id": "7690524541714071909",
+      "content_id": "7690524541714071909",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7690524541714071909/?region=US&mid=7654957023035164678&u_code=0&did=MS4wLjABAAAAh0j-5AddcrxiIBfz6Pko1pRw-JEInYlAPrbI_0ujt0IbdAr8S_-8MHbixKZPJRzQ&iid=MS4wLjABAAAAaUbR2sJEEdvlFmJQMDc1dkOLoK9b7dsHZgRJQBcvNDHxPeiL6-0vFPbvR--P9BW3&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=QcoQp.XP_XnjbEbJileZsvoPXwfxu0UGvPH9HmOieW4-&share_version=320900&ts=1790649945&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#蒋欣 #马苏 美女同框状态如何？",
+      "author": "娱乐圈小蜜",
+      "like_count": 10671,
+      "comment_count": 1278,
+      "share_count": 3256,
+      "duration_ms": 9700,
+      "create_time_iso": "2026-09-28T10:02:59+00:00",
+      "known_entities": [
+        "蒋欣",
+        "马苏"
+      ],
+      "verified_entities": [
+        "蒋欣",
+        "马苏"
+      ],
+      "primary_celebrities": [
+        "蒋欣",
+        "马苏"
+      ],
+      "quality_score": 260.916,
+      "output_date": "2026-09-29",
+      "selected_at": "2026-09-29T03:00:14.372281+00:00"
+    },
+    {
+      "aweme_id": "7690425985665885928",
+      "content_id": "7690425985665885928",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7690425985665885928/?region=US&mid=7690425956074294042&u_code=0&did=MS4wLjABAAAAppTl2VTxGtY_egNVKbD2S2U4oC9gKJkj2k33HMyVb5PQX_iE8KNZp-tIazfwrzaY&iid=MS4wLjABAAAA73AUWD7oZ1woyP8sDde4QpZNT9sxDgNr-qtXtjDJoUdM2HaORiqe3ruvYNTkQNo8&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=2_YAeLtCbHeI4AWJtGb4rRv1UtZPTg2NhTZJoOpPcTk-&share_version=320900&ts=1790649937&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "“你怎么不等我嘎了再告诉我？”#综艺名场面  #张大大 #傅晓东 #黄子韬 #剪映",
+      "author": "命苦",
+      "like_count": 5732,
+      "comment_count": 306,
+      "share_count": 25035,
+      "duration_ms": 26767,
+      "create_time_iso": "2026-09-28T03:40:33+00:00",
+      "known_entities": [
+        "综艺名场面",
+        "张大大",
+        "傅晓东",
+        "黄子韬",
+        "剪映"
+      ],
+      "verified_entities": [
+        "综艺名场面",
+        "张大大",
+        "傅晓东",
+        "黄子韬"
+      ],
+      "primary_celebrities": [
+        "张大大",
+        "傅晓东",
+        "黄子韬"
+      ],
+      "quality_score": 242.052,
+      "output_date": "2026-09-29",
+      "selected_at": "2026-09-29T03:00:14.372281+00:00"
+    },
+    {
+      "aweme_id": "7690496631464443817",
+      "content_id": "7690496631464443817",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7690496631464443817/?region=US&mid=7690496569824660234&u_code=0&did=MS4wLjABAAAAppTl2VTxGtY_egNVKbD2S2U4oC9gKJkj2k33HMyVb5PQX_iE8KNZp-tIazfwrzaY&iid=MS4wLjABAAAA73AUWD7oZ1woyP8sDde4QpZNT9sxDgNr-qtXtjDJoUdM2HaORiqe3ruvYNTkQNo8&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=DKiorPoGYVYuA_IhznRZSTNJs7oP8uM4jLoBjXzn1a4-&share_version=320900&ts=1790649937&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "我要笑死了你知道吗屁呜#auautnp #综艺名场面分享 #搞笑 #邱玉晨",
+      "author": "AuausaveLove",
+      "like_count": 3804,
+      "comment_count": 101,
+      "share_count": 1260,
+      "duration_ms": 47700,
+      "create_time_iso": "2026-09-28T08:14:41+00:00",
+      "known_entities": [
+        "综艺名场面"
+      ],
+      "verified_entities": [
+        "综艺名场面",
+        "邱玉晨"
+      ],
+      "primary_celebrities": [
+        "邱玉晨"
+      ],
+      "quality_score": 212.87800000000001,
+      "output_date": "2026-09-29",
+      "selected_at": "2026-09-29T03:00:14.372281+00:00"
+    },
+    {
+      "aweme_id": "7690473785099196598",
+      "content_id": "7690473785099196598",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7690473785099196598/?region=US&mid=7690473748222315290&u_code=0&did=MS4wLjABAAAAppTl2VTxGtY_egNVKbD2S2U4oC9gKJkj2k33HMyVb5PQX_iE8KNZp-tIazfwrzaY&iid=MS4wLjABAAAA73AUWD7oZ1woyP8sDde4QpZNT9sxDgNr-qtXtjDJoUdM2HaORiqe3ruvYNTkQNo8&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=_MOEZ9VJkYsHU5HmuuP7NVOWrnT3GKaCYVzzcnXKGdU-&share_version=320900&ts=1790649937&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "拆台还得看张真源 #张真源  #时代少年团张真源 #综艺名场面",
+      "author": "Re、",
+      "like_count": 5208,
+      "comment_count": 27,
+      "share_count": 1353,
+      "duration_ms": 10100,
+      "create_time_iso": "2026-09-28T06:46:02+00:00",
+      "known_entities": [
+        "综艺名场面",
+        "张真源",
+        "时代少年团张真源"
+      ],
+      "verified_entities": [
+        "张真源",
+        "时代少年团张真源",
+        "综艺名场面"
+      ],
+      "primary_celebrities": [
+        "张真源"
+      ],
+      "quality_score": 211.89,
+      "output_date": "2026-09-29",
+      "selected_at": "2026-09-29T03:00:14.372281+00:00"
+    },
+    {
+      "aweme_id": "7690633570515681171",
+      "content_id": "7690633570515681171",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7690633570515681171/?region=US&mid=7690633535195073321&u_code=0&did=MS4wLjABAAAAtMt55AiTwK_y-lOKyndMGuzyeUK5fOT6p6SDLlrcmjYA1PUW15MgJXgL9Sf6kNBe&iid=MS4wLjABAAAA1m32th-Ny49xLXJMYT2sJB1YZFaGP3TK7xUrTK9GwGixfcANppfCcoXjQz0hWlTG&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=0bso4Jf2gVmtb_JzqLM6bh5VQj3i.LzrcWGrvvtY7oY-&share_version=320900&ts=1790649949&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "短剧演员们的努力终于被主流认可，这波排面直接拉满了#金鹰节微短剧荣誉单元#短剧演员首次亮相金鹰节",
+      "author": "娱乐星探官",
+      "like_count": 4284,
+      "comment_count": 49,
+      "share_count": 35,
+      "duration_ms": 39312,
+      "create_time_iso": "2026-09-28T17:06:06+00:00",
+      "known_entities": [
+        "金鹰节微短剧荣誉单元"
+      ],
+      "verified_entities": [
+        "金鹰节微短剧荣誉单元"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 175.472,
+      "output_date": "2026-09-29",
+      "selected_at": "2026-09-29T03:00:14.372281+00:00"
+    },
     {
       "aweme_id": "7690083346123425274",
       "content_id": "7690083346123425274",
