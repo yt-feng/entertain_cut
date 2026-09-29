@@ -233,7 +233,7 @@ class XhsDailyTests(unittest.TestCase):
                 sys.argv = [
                     "run_daily_batch.py",
                     "--limit", "1",
-                    "--date", "2026-09-22",
+                    "--date", datetime.now(batch.BEIJING).date().isoformat(),
                     "--work-root", str(root / "work"),
                     "--output-dir", str(root / "output"),
                     "--processed-manifest", str(processed),

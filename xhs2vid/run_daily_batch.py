@@ -310,7 +310,7 @@ def main() -> None:
     # Keep the live counter in the always-uploaded evidence directory, even
     # when discovery exits before a first video can be rendered.
     budget_file = output_dir / "tikhub_request_budget.json"
-    TikHubRequestBudget(budget_file, limit=args.request_limit)
+    request_budget = TikHubRequestBudget(budget_file, limit=args.request_limit)
     for name in ("new_processed.json", "daily_summary.json"):
         (output_dir / name).write_text(
             json.dumps({"date": args.date, "items": []}), encoding="utf-8"
@@ -343,6 +343,9 @@ def main() -> None:
         "--max-attempts", str(args.max_attempts),
         "--request-limit", str(args.request_limit),
         "--budget-file", str(budget_file),
+        # Keep comment attempts plus a small fallback allowance out of both
+        # search and author lookup. The shared daily limit remains unchanged.
+        "--reserve-requests", str(args.limit * args.max_attempts + 3),
         "--limit", str(desired_candidates),
         "--strict-low-fan",
         "--prefer-same-day",
@@ -420,6 +423,8 @@ def main() -> None:
     candidates = json.loads(
         (discovery_dir / "selected_notes.json").read_text(encoding="utf-8")
     )
+    if not isinstance(candidates, list) or not candidates:
+        raise RuntimeError("ready discovery must contain selected candidates")
     summary: dict = {
         "date": args.date,
         "status": "rendering",
@@ -438,6 +443,10 @@ def main() -> None:
 
     for candidate_index, note in enumerate(candidates, 1):
         if sum(item.get("status") == "success" for item in summary["items"]) >= args.limit:
+            break
+        if request_budget.snapshot()["remaining"] == 0:
+            deferred_reason = "tikhub_request_budget_exhausted"
+            deferred_message = "No shared requests remain for candidate comments."
             break
         note_id = str(note["note_id"])
         note["hot_context"] = {
@@ -531,8 +540,22 @@ def main() -> None:
                 f"output#{item_index} {output.name}"
             )
         except Exception as exc:  # noqa: BLE001
+            budget_marker = note_dir / "tikhub_budget_exhausted.json"
             blocked_marker = note_dir / "tikhub_access_blocked.json"
-            if blocked_marker.is_file():
+            if (isinstance(exc, subprocess.CalledProcessError) and exc.returncode == 75
+                    and budget_marker.is_file()):
+                marker = json.loads(budget_marker.read_text(encoding="utf-8"))
+                if (marker.get("note_id") != note_id
+                        or marker.get("reason") != "tikhub_request_budget_exhausted"
+                        or request_budget.snapshot()["remaining"] != 0):
+                    raise RuntimeError("Invalid budget exhaustion evidence") from exc
+                deferred_reason = marker["reason"]
+                deferred_message = str(marker.get("message") or deferred_reason)
+                item["status"] = "deferred"
+                item["error"] = deferred_message
+                break
+            if (isinstance(exc, subprocess.CalledProcessError) and exc.returncode == 75
+                    and blocked_marker.is_file()):
                 marker = json.loads(blocked_marker.read_text(encoding="utf-8"))
                 deferred_reason = str(marker.get("reason") or "tikhub_access_blocked")
                 deferred_message = str(marker.get("message") or exc)
@@ -551,7 +574,18 @@ def main() -> None:
             json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8"
         )
 
-    if deferred_reason:
+    # A short strict candidate pool is an expected incomplete delivery, not a
+    # renderer failure. Never reclassify an earlier real item failure just
+    # because a later candidate hit a provider/budget limit.
+    successes = [item for item in summary["items"] if item.get("status") == "success"]
+    failures = [item for item in summary["items"] if item.get("status") == "failed"]
+    if len(successes) < args.limit and not failures and not deferred_reason:
+        deferred_reason = "insufficient_strict_candidates"
+        deferred_message = f"Rendered {len(successes)}/{args.limit}; strict eligible candidates exhausted."
+    if deferred_reason and failures:
+        summary["later_defer_reason"] = deferred_reason
+        summary["later_defer_message"] = deferred_message
+    if deferred_reason and not failures:
         successes = [item for item in summary["items"] if item.get("status") == "success"]
         summary["completed_at"] = datetime.now(BEIJING).isoformat()
         summary["succeeded"] = len(successes)

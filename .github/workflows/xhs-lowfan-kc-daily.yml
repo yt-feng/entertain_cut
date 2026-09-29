@@ -203,6 +203,9 @@ jobs:
               tikhub_access_blocked|tikhub_author_lookup_unavailable|tikhub_endpoint_unavailable)
                 echo "Retryable TikHub defer ($defer_reason); running compensation attempt."
                 ;;
+              insufficient_strict_candidates|tikhub_stage_budget_reserved)
+                echo "Partial eligible batch ($defer_reason); resuming within the cumulative 99-request limit."
+                ;;
               *)
                 echo "Business-date delivery state is deferred for non-provider reason $defer_reason; skipping compensation run."
                 echo "KC_SKIP=true" >> "$GITHUB_ENV"
@@ -297,6 +300,7 @@ jobs:
           echo "KC_PROCESSED_MANIFEST=xhs2vid/state/processed_note_ids.json" >> "$GITHUB_ENV"
           echo "KC_RESUME_PROCESSED=" >> "$GITHUB_ENV"
           echo "KC_UPLOAD_ONLY=false" >> "$GITHUB_ENV"
+          echo "KC_COMPLETED_COUNT=0" >> "$GITHUB_ENV"
 
           if [[ -z "$KC_RESUME_RUN_IDS" ]]; then
             exit 0
@@ -312,6 +316,7 @@ jobs:
             --validate-media \
             --summary "$resume_summary"
           resume_count="$(jq -r .resumed_count "$resume_summary")"
+          echo "KC_COMPLETED_COUNT=$resume_count" >> "$GITHUB_ENV"
           prior_tikhub_used="$(jq -r .prior_tikhub_requests "$resume_summary")"
           resume_manifest="$(jq -r .resume_manifest "$resume_summary")"
 
@@ -430,6 +435,12 @@ jobs:
             exit 1
           fi
           batch_status="$(jq -r '.status // ""' "$KC_OUTPUT_DIR/delivery_status.json")"
+          batch_succeeded="$(jq -er '.succeeded | select(type == "number" and . == floor and . >= 0)' "$KC_OUTPUT_DIR/delivery_status.json")"
+          if (( batch_succeeded > KC_BATCH_LIMIT || KC_COMPLETED_COUNT + batch_succeeded > KC_TARGET_COUNT )); then
+            echo "Invalid completed-video count in batch outcome"
+            exit 1
+          fi
+          echo "KC_COMPLETED_COUNT=$((KC_COMPLETED_COUNT + batch_succeeded))" >> "$GITHUB_ENV"
           if [[ "$batch_status" == "deferred" ]]; then
             reason="$(jq -r '.reason // "discovery_deferred"' "$KC_OUTPUT_DIR/delivery_status.json")"
             detail="$(jq -r '.message // ""' "$KC_OUTPUT_DIR/delivery_status.json")"
@@ -579,6 +590,7 @@ jobs:
             --reason "$KC_DEFER_REASON" \
             --message "$KC_DEFERRED_DETAIL" \
             --target "$KC_TARGET_COUNT" \
+            --succeeded "$KC_COMPLETED_COUNT" \
             --run-id "$GITHUB_RUN_ID"
 
       - name: Commit delivery state
