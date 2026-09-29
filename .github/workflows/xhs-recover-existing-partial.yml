@@ -1,0 +1,107 @@
+name: XHS Recover Existing Partial Delivery
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_run_id:
+        description: 'Completed main XHS daily run with four videos and all 99 TikHub requests used'
+        required: true
+        type: string
+      output_date:
+        description: 'Original artifact and delivery date (YYYY-MM-DD); business target stays 5'
+        required: true
+        type: string
+
+permissions:
+  actions: read
+  contents: write
+
+# Serialize ledger writes with the daily producer; never cancel either writer.
+concurrency:
+  group: xhs-lowfan-kc-daily
+  cancel-in-progress: false
+
+jobs:
+  recover-existing:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: main
+          fetch-depth: 0
+          sparse-checkout: |
+            xhs2vid
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+      - name: Validate source run and original business date
+        env:
+          GH_TOKEN: ${{ github.token }}
+          INPUT_RUN_ID: ${{ inputs.source_run_id }}
+          INPUT_DATE: ${{ inputs.output_date }}
+        shell: bash
+        run: |
+          [[ "$INPUT_RUN_ID" =~ ^[0-9]+$ ]] || { echo 'source_run_id must be numeric'; exit 1; }
+          output_date="$(python xhs2vid/workflow_support.py --event workflow_dispatch --requested-date "$INPUT_DATE")"
+          [[ -n "$INPUT_DATE" && "$output_date" == "$INPUT_DATE" ]] || { echo 'Original date is required'; exit 1; }
+          mkdir -p work/xhs_partial
+          gh api "repos/$GITHUB_REPOSITORY/actions/runs/$INPUT_RUN_ID" > work/xhs_partial/source-run.json
+          python xhs2vid/recover_partial_delivery.py validate-run \
+            --metadata work/xhs_partial/source-run.json --run-id "$INPUT_RUN_ID" --repository "$GITHUB_REPOSITORY"
+          echo "KC_SOURCE_RUN=$INPUT_RUN_ID" >> "$GITHUB_ENV"
+          echo "KC_OUTPUT_DATE=$output_date" >> "$GITHUB_ENV"
+          echo "KC_OUTPUT_DIR=outputs/xhs_partial/$output_date" >> "$GITHUB_ENV"
+      - name: Download only the selected existing artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh run download "$KC_SOURCE_RUN" --repo "$GITHUB_REPOSITORY" \
+            --name "xhs-lowfan-kc-$KC_OUTPUT_DATE" --dir "work/xhs_partial/runs/$KC_SOURCE_RUN"
+      - name: Install media validator
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends ffmpeg
+      - name: Validate exhausted budget and four existing videos against the five-item goal
+        run: |
+          python xhs2vid/recover_partial_delivery.py prepare \
+            --resume-root work/xhs_partial/runs --date "$KC_OUTPUT_DATE" --output-dir "$KC_OUTPUT_DIR" \
+            --processed-manifest xhs2vid/state/processed_note_ids.json \
+            --delivery-state xhs2vid/state/daily_delivery_state.json
+      - name: Upload and verify the four prepared files
+        env:
+          JIANGUOYUN_WEBDAV_URL: ${{ secrets.JIANGUOYUN_WEBDAV_URL }}
+          JIANGUOYUN_REMOTE_ROOT: ${{ vars.JIANGUOYUN_REMOTE_ROOT || '我的坚果云/KC Desk Notes/Ops' }}
+          JIANGUOYUN_USERNAME: ${{ secrets.JIANGUOYUN_WEBDAV_USER || secrets.JIANGUOYUN_WEBDAV_USERNAME || secrets.JIANGUOYUN_USERNAME }}
+          JIANGUOYUN_APP_PASSWORD: ${{ secrets.JIANGUOYUN_WEBDAV_PASSWORD || secrets.JIANGUOYUN_APP_PASSWORD }}
+        run: |
+          python xhs2vid/upload_jianguoyun.py --source-dir "$KC_OUTPUT_DIR" \
+            --remote-root "$JIANGUOYUN_REMOTE_ROOT" --date "$KC_OUTPUT_DATE" --category "Portal 娱乐" \
+            --manifest "$KC_OUTPUT_DIR/jianguoyun_upload_manifest.json"
+      - name: Record verified partial delivery without completing the daily target
+        run: |
+          python xhs2vid/recover_partial_delivery.py finalize --output-dir "$KC_OUTPUT_DIR" \
+            --upload-manifest "$KC_OUTPUT_DIR/jianguoyun_upload_manifest.json" \
+            --processed-manifest xhs2vid/state/processed_note_ids.json \
+            --delivery-state xhs2vid/state/daily_delivery_state.json --run-id "$GITHUB_RUN_ID"
+          echo 'Four existing videos were uploaded and verified. Daily delivery remains 4/5; no new generation or TikHub requests.' >> "$GITHUB_STEP_SUMMARY"
+      - name: Persist partial receipt and cross-day deduplication
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add xhs2vid/state/processed_note_ids.json xhs2vid/state/daily_delivery_state.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Record verified partial XHS delivery $KC_OUTPUT_DATE (4/5)"
+          git pull --rebase origin main
+          git push origin HEAD:main
+      - name: Preserve recovery evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: xhs-partial-recovery-${{ github.run_id }}
+          path: |
+            outputs/xhs_partial
+            work/xhs_partial/source-run.json
+          if-no-files-found: warn
+          retention-days: 7
