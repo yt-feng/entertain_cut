@@ -1,7 +1,33 @@
 {
-  "updated_at": "2026-09-30T03:04:46.584688+00:00",
-  "count": 445,
+  "updated_at": "2026-09-30T05:46:33.540462+00:00",
+  "count": 446,
   "items": [
+    {
+      "aweme_id": "7690983967462041713",
+      "content_id": "7690983967462041713",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7690983967462041713/?region=CN&mid=7585179444368984882&u_code=15m3e2he7&did=MS4wLjABAAAAtbxcjrCjAz1GG1u7bxcp1J7gDKHMCG7y2DI1hgqbnm-OwgUAvZSRPENfvnF0EduG&iid=MS4wLjABAAAAviAjUBMr-TURExE6eb1RpYDkaci1ZfOvuLffrZDGZ1K0PZc8ypKnFSHv_MmfJWLH&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=MF5tZFEzApj8IgojLtEQU9w.nwmFOeZ_2luCQEMy7jw-&share_version=370800&ts=1790747028&from_aid=2329&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#朱亚文 获第33届金鹰奖最佳男配角 高清镜头下这42岁状态好好",
+      "author": "娱乐圈小蜜",
+      "like_count": 12961,
+      "comment_count": 838,
+      "share_count": 1931,
+      "duration_ms": 10843,
+      "create_time_iso": "2026-09-29T15:45:48+00:00",
+      "known_entities": [
+        "朱亚文"
+      ],
+      "verified_entities": [
+        "朱亚文",
+        "第33届金鹰奖"
+      ],
+      "primary_celebrities": [
+        "朱亚文"
+      ],
+      "quality_score": 231.875,
+      "output_date": "2026-09-30",
+      "selected_at": "2026-09-30T05:46:33.540462+00:00"
+    },
     {
       "aweme_id": "7690976698704646118",
       "content_id": "7690976698704646118",
