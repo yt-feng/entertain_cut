@@ -1,7 +1,98 @@
 {
-  "updated_at": "2026-09-29T03:00:14.372281+00:00",
-  "count": 442,
+  "updated_at": "2026-09-30T03:04:46.584688+00:00",
+  "count": 445,
   "items": [
+    {
+      "aweme_id": "7690976698704646118",
+      "content_id": "7690976698704646118",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7690976698704646118/?region=CN&mid=7114580613889263617&u_code=363d5hmbg7jc&did=MS4wLjABAAAAYszYTg1z4XoVny-MC6BmiDEHSH8Qi7HmPeCgE10bse2ZiUGiW8bH3t4W3hBTGZ8C&iid=MS4wLjABAAAArVatYzMuE1ln8T79Gx6UlYR9cBwH-3GWl10CiGE3z2vPni1H8AAAJZvzPUtgLlXZ&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=SD..w7xjWIfJhJnSS1sWUw4c6kBARk0Id7CvBjiMwhs-&share_version=400500&ts=1790737328&from_aid=1128&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "恭喜于和伟宋佳荣获第33届金鹰奖最佳男女主🎉两位实至名归！！#于和伟 #宋佳",
+      "author": "娱乐圈小蜜",
+      "like_count": 1936,
+      "comment_count": 76,
+      "share_count": 76,
+      "duration_ms": 13200,
+      "create_time_iso": "2026-09-29T15:17:35+00:00",
+      "known_entities": [
+        "金鹰奖"
+      ],
+      "verified_entities": [
+        "金鹰奖",
+        "于和伟",
+        "宋佳"
+      ],
+      "primary_celebrities": [
+        "于和伟",
+        "宋佳"
+      ],
+      "quality_score": 174.671,
+      "output_date": "2026-09-30",
+      "selected_at": "2026-09-30T03:04:46.584688+00:00"
+    },
+    {
+      "url": "https://www.iesdouyin.com/share/video/7690826072342124777/?region=CN&mid=7690826013450144562&u_code=hhedg7hd&did=MS4wLjABAAAAThJqoeNaW1_YyIdlzVlxnPhV7nl2y4pT1W8mOt97eVckkrFuC8JDHQQvAjD7N7gu&iid=MS4wLjABAAAAqRAc6s-FheHiz07RY9DVpdynaTFoP-8kNBAKkvi6_v9qTn-WCqIvPeYDG6IqhJw3&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=enukoRvdQdcH1mwcAIPcCMf24CYadGZWY1QhsoFIZP0-&share_version=400600&ts=1790722729&from_aid=1128&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "我到底什么时候看这段能不笑啊哈哈哈哈 咪被迫逃单 咪的天塌了#丁禹兮 #丁禹兮中餐厅 #综艺名场面 #搞笑",
+      "author": "杏仁糊（兮兮的安全出口版）",
+      "like_count": 4687,
+      "comment_count": 21,
+      "share_count": 121,
+      "duration_ms": 28467,
+      "create_time_iso": "2026-09-29T05:33:05+00:00",
+      "known_entities": [
+        "丁禹兮",
+        "中餐厅",
+        "综艺名场面",
+        "丁禹兮中餐厅",
+        "搞笑"
+      ],
+      "verified_entities": [
+        "丁禹兮",
+        "中餐厅",
+        "综艺名场面"
+      ],
+      "primary_celebrities": [
+        "丁禹兮"
+      ],
+      "quality_score": 200.984,
+      "aweme_id": "7690826072342124777",
+      "content_id": "7690826072342124777",
+      "platform": "douyin",
+      "output_date": "2026-09-30",
+      "selected_at": "2026-09-30T03:00:43.268188+00:00",
+      "recovered_from_run_id": "36658598472"
+    },
+    {
+      "url": "https://www.iesdouyin.com/share/video/7690862009344717817/?region=US&mid=7690861933561760538&u_code=0&did=MS4wLjABAAAAq2dd6cSznLneaxbUmaiYKvjgrv55a6eNYGe-KWpfH4jhmQ8yQCmij-KkSrSRsaXv&iid=MS4wLjABAAAAqrRQor709dflI26DOrMB2kfMAvgp1R-pxmOwCl0F52uTIYp52SGMWG7BhhN__BEX&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=1L11hB9quadTeKVjnDFjqQwMNqMrM__y.yX70E7Q5D8-&share_version=320900&ts=1790735147&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "托到李一桐的脸了！！！今天不洗手了🥰 #李一桐 #我不是大师 #我不是大师抖音追剧团",
+      "author": "草莓牛奶味的Haru",
+      "like_count": 78630,
+      "comment_count": 352,
+      "share_count": 8673,
+      "duration_ms": 8100,
+      "create_time_iso": "2026-09-29T07:52:32+00:00",
+      "known_entities": [
+        "李一桐",
+        "我不是大师",
+        "我不是大师抖音追剧团",
+        "娱乐圈"
+      ],
+      "verified_entities": [
+        "李一桐",
+        "我不是大师",
+        "我不是大师抖音追剧团"
+      ],
+      "primary_celebrities": [
+        "李一桐"
+      ],
+      "quality_score": 248.795,
+      "aweme_id": "7690862009344717817",
+      "content_id": "7690862009344717817",
+      "platform": "douyin",
+      "output_date": "2026-09-30",
+      "selected_at": "2026-09-30T03:00:40.876046+00:00",
+      "recovered_from_run_id": "36658598472"
+    },
     {
       "aweme_id": "7690524541714071909",
       "content_id": "7690524541714071909",
