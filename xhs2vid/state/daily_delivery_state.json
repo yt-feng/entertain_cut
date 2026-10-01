@@ -94,12 +94,12 @@
     {
       "date": "2026-10-01",
       "status": "deferred",
-      "reason": "insufficient_strict_candidates",
-      "message": "Rendered 4/5; strict eligible candidates exhausted.",
+      "reason": "no_strict_low_fan_candidate",
+      "message": "No candidate met fans <= 20000, likes >= 200.",
       "target": 5,
       "succeeded": 4,
-      "updated_at": "2026-10-02T03:25:44.703565+08:00",
-      "run_id": "36907662974"
+      "updated_at": "2026-10-02T05:15:58.217463+08:00",
+      "run_id": "36927278423"
     }
   ]
 }
