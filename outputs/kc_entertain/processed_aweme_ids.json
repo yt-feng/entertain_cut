@@ -1,7 +1,111 @@
 {
-  "updated_at": "2026-09-30T05:46:33.540462+00:00",
-  "count": 446,
+  "updated_at": "2026-10-01T02:45:46.823022+00:00",
+  "count": 450,
   "items": [
+    {
+      "aweme_id": "7691167824635343721",
+      "content_id": "7691167824635343721",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7691167824635343721/?region=US&mid=7691167792649390884&u_code=0&did=MS4wLjABAAAAewZNrF8DRQtz440xw-4TrICwR39cy-jskNF8q3vAqzmWGBaZmU_DOA3S04KOdxCD&iid=MS4wLjABAAAAEoOAkSUfAhiGGRLoO3tz0rWBo4tOZCG2nX4kJODRVe2Ab2iIjOCMB8bsMahgbqa5&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=0NlrxpQrDDoOVMHXppQ3Qr9izRU5hZ_tivBwMFGlIko-&share_version=320900&ts=1790821642&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "“这谁绷得住”#真正男子汉 #综艺名场面 #黄子韬 #搞笑 #梨花泠",
+      "author": "梨花泠",
+      "like_count": 97255,
+      "comment_count": 1023,
+      "share_count": 52694,
+      "duration_ms": 64467,
+      "create_time_iso": "2026-09-30T03:39:15+00:00",
+      "known_entities": [
+        "真正男子汉",
+        "综艺名场面",
+        "黄子韬",
+        "搞笑",
+        "梨花泠"
+      ],
+      "verified_entities": [
+        "真正男子汉",
+        "综艺名场面",
+        "黄子韬",
+        "搞笑",
+        "梨花泠"
+      ],
+      "primary_celebrities": [
+        "黄子韬"
+      ],
+      "quality_score": 299.416,
+      "output_date": "2026-10-01",
+      "selected_at": "2026-10-01T02:45:46.823022+00:00"
+    },
+    {
+      "aweme_id": "7691175560344903931",
+      "content_id": "7691175560344903931",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7691175560344903931/?region=US&mid=7691175541728234281&u_code=0&did=MS4wLjABAAAAewZNrF8DRQtz440xw-4TrICwR39cy-jskNF8q3vAqzmWGBaZmU_DOA3S04KOdxCD&iid=MS4wLjABAAAAEoOAkSUfAhiGGRLoO3tz0rWBo4tOZCG2nX4kJODRVe2Ab2iIjOCMB8bsMahgbqa5&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=N3NZqxtpccIwH7d7xY6jIAES4BJhBRy9jjTJzVajsnY-&share_version=320900&ts=1790821642&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "模仿哑巴那段给我笑成💩了 #大小s #文英阿姨 #综艺名场面 #做饭 #剪映",
+      "author": "你不必定义我",
+      "like_count": 36973,
+      "comment_count": 1893,
+      "share_count": 65031,
+      "duration_ms": 40589,
+      "create_time_iso": "2026-09-30T04:09:17+00:00",
+      "known_entities": [
+        "综艺名场面",
+        "大小s"
+      ],
+      "verified_entities": [
+        "综艺名场面",
+        "大小s"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 287.509,
+      "output_date": "2026-10-01",
+      "selected_at": "2026-10-01T02:45:46.823022+00:00"
+    },
+    {
+      "aweme_id": "5208131708403964065",
+      "content_id": "5208131708403964065",
+      "platform": "kuaishou",
+      "url": "https://www.kuaishou.com/short-video/5208131708403964065",
+      "title": "游本昌告别仪式今日举行，胡歌从长沙连夜赶到北京送别，民众排队献花，一眼望不到头。（剪辑：文捷）",
+      "author": "湖北日报",
+      "like_count": 4267,
+      "comment_count": 489,
+      "share_count": 41,
+      "duration_ms": 11000,
+      "create_time_iso": "2026-09-30T04:41:34+00:00",
+      "known_entities": [
+        "胡歌"
+      ],
+      "verified_entities": [
+        "胡歌"
+      ],
+      "primary_celebrities": [
+        "胡歌"
+      ],
+      "quality_score": 205.047,
+      "output_date": "2026-10-01",
+      "selected_at": "2026-10-01T02:45:46.823022+00:00"
+    },
+    {
+      "aweme_id": "7691175658852423013",
+      "content_id": "7691175658852423013",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7691175658852423013/?region=US&mid=7691175578547899151&u_code=0&did=MS4wLjABAAAAewZNrF8DRQtz440xw-4TrICwR39cy-jskNF8q3vAqzmWGBaZmU_DOA3S04KOdxCD&iid=MS4wLjABAAAAEoOAkSUfAhiGGRLoO3tz0rWBo4tOZCG2nX4kJODRVe2Ab2iIjOCMB8bsMahgbqa5&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=drx4bc8Tfo8g2bUvL7makBJgqauicv7y97CwTFOqWaA-&share_version=320900&ts=1790821642&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "疑似甜甜交通综艺新节目流出#谭谈交通经典名场面",
+      "author": "周董的腿毛",
+      "like_count": 8184,
+      "comment_count": 545,
+      "share_count": 4836,
+      "duration_ms": 69684,
+      "create_time_iso": "2026-09-30T10:00:00+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "谭谈交通经典名场面"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 201.915,
+      "output_date": "2026-10-01",
+      "selected_at": "2026-10-01T02:45:46.823022+00:00"
+    },
     {
       "aweme_id": "7690983967462041713",
       "content_id": "7690983967462041713",
