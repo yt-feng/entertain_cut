@@ -1,7 +1,124 @@
 {
-  "updated_at": "2026-10-01T03:21:14.529642+00:00",
-  "count": 451,
+  "updated_at": "2026-10-02T02:42:55.050025+00:00",
+  "count": 455,
   "items": [
+    {
+      "aweme_id": "7691591078197936378",
+      "content_id": "7691591078197936378",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7691591078197936378/?region=CN&mid=7691591040969116466&u_code=i33ga27c&did=MS4wLjABAAAAMrq3T-bWzCXYCyutOasIkyw2w1trogwVwu0A8-Ct5tw&iid=MS4wLjABAAAAJJGui9owHUAjoVp-udL01TD3MR5mRgyiK2CfEHdoM8ce6bNzW08-sCW_R4sZvGW-&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=hcxZ7shwGM56OLIJm_6bl8q6JVpQyjlMen22GU5f0LY-&share_version=400500&ts=1790908169&from_aid=1128&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "我笑的好痛苦，哥的综艺感越来越强了#黄景瑜名场面 #最有魅力的黄景瑜 #黄景瑜",
+      "author": "cacanot",
+      "like_count": 2182,
+      "comment_count": 106,
+      "share_count": 864,
+      "duration_ms": 62973,
+      "create_time_iso": "2026-10-01T07:01:43+00:00",
+      "known_entities": [
+        "黄景瑜名场面",
+        "最有魅力的黄景瑜",
+        "黄景瑜"
+      ],
+      "verified_entities": [
+        "黄景瑜名场面",
+        "最有魅力的黄景瑜",
+        "黄景瑜"
+      ],
+      "primary_celebrities": [
+        "黄景瑜"
+      ],
+      "quality_score": 237.035,
+      "output_date": "2026-10-02",
+      "selected_at": "2026-10-02T02:42:55.050025+00:00"
+    },
+    {
+      "aweme_id": "7691666073154627321",
+      "content_id": "7691666073154627321",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7691666073154627321/?region=CN&mid=7691666024499841834&u_code=4063hae9b38h&did=MS4wLjABAAAAfXsoMhlOSQ5-wxeSJNCPw7dYqa6YVR6CilvE7j09X3c&iid=MS4wLjABAAAAPwLPU-J5WI0Z3acQxgVWWs-ViwyM7DLROsTHyesvZlk8uX_EMoIEqVxmKc3vFN4w&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=AS5h4vabBZWn.N_sIvcGPI6K3CBf_SWijrHUvWp7aWA-&share_version=400600&ts=1790906824&from_aid=1128&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#亮司 《夏天的风》舞台直拍好好听！#抖音落日合唱派对",
+      "author": "娱乐众生相",
+      "like_count": 9578,
+      "comment_count": 114,
+      "share_count": 150,
+      "duration_ms": 25239,
+      "create_time_iso": "2026-10-01T11:52:43+00:00",
+      "known_entities": [
+        "夏天的风",
+        "亮司",
+        "抖音落日合唱派对"
+      ],
+      "verified_entities": [
+        "夏天的风",
+        "亮司",
+        "抖音落日合唱派对"
+      ],
+      "primary_celebrities": [
+        "亮司"
+      ],
+      "quality_score": 227.25099999999998,
+      "output_date": "2026-10-02",
+      "selected_at": "2026-10-02T02:42:55.050025+00:00"
+    },
+    {
+      "aweme_id": "7691544196041845114",
+      "content_id": "7691544196041845114",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7691544196041845114/?region=US&mid=7691544166966299435&u_code=0&did=MS4wLjABAAAArKee_OQ-0pB8AJpEbvZ0W-UBeWM2Rk3Z4m_kzkPMqF0&iid=MS4wLjABAAAA9xR-6U5ElIeH-H_bGvflBnyNEdizGsuVGgaQht-XW5g&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=_IrwroXkjmUGUvuU9trikCh4j5toI_kJt6_hLPutM9I-&share_version=320900&ts=1790908306&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "喜欢他俩 #杨紫 #明星采访 #张一山 #明星访谈现场 #减肥",
+      "author": "徐老三的榨菜影视剪辑✨",
+      "like_count": 3945,
+      "comment_count": 78,
+      "share_count": 245,
+      "duration_ms": 29815,
+      "create_time_iso": "2026-10-01T03:59:47+00:00",
+      "known_entities": [
+        "杨紫",
+        "明星采访",
+        "张一山",
+        "明星访谈现场",
+        "减肥"
+      ],
+      "verified_entities": [
+        "杨紫",
+        "明星采访",
+        "张一山",
+        "明星访谈现场",
+        "减肥"
+      ],
+      "primary_celebrities": [
+        "杨紫",
+        "张一山"
+      ],
+      "quality_score": 199.522,
+      "output_date": "2026-10-02",
+      "selected_at": "2026-10-02T02:42:55.050025+00:00"
+    },
+    {
+      "aweme_id": "5230368228467714063",
+      "content_id": "5230368228467714063",
+      "platform": "kuaishou",
+      "url": "https://www.kuaishou.com/short-video/5230368228467714063",
+      "title": "#赵今麦 #明星不止 #海边沙滩美女",
+      "author": "时尚星图(全明星)",
+      "like_count": 1774,
+      "comment_count": 35,
+      "share_count": 43,
+      "duration_ms": 24350,
+      "create_time_iso": "2026-10-01T11:20:46+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "赵今麦",
+        "明星不止",
+        "海边沙滩美女"
+      ],
+      "primary_celebrities": [
+        "赵今麦"
+      ],
+      "quality_score": 117.072,
+      "output_date": "2026-10-02",
+      "selected_at": "2026-10-02T02:42:55.050025+00:00"
+    },
     {
       "aweme_id": "7691296422452415759",
       "content_id": "7691296422452415759",
