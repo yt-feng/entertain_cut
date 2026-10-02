@@ -1,7 +1,62 @@
 {
   "version": 1,
-  "updated_at": "2026-10-01T03:23:45.226383+08:00",
+  "updated_at": "2026-10-03T02:24:51.315400+08:00",
   "items": [
+    {
+      "note_id": "6abf74de000000001a023a99",
+      "title": "《神探之痕迹》上海路演生图",
+      "output": "01_《神探之痕迹》上海路演生图_1a023a99.mp4",
+      "rendered_at": "2026-10-03T02:24:20.431235+08:00",
+      "author_fans": 47,
+      "liked_count": 789,
+      "comments_count": 45,
+      "delivery_date": "2026-10-02",
+      "uploaded_at": "2026-10-03T02:24:51.315400+08:00"
+    },
+    {
+      "note_id": "6abfa07d000000001a0277c8",
+      "title": "好影帝…他眼神都给我看…",
+      "output": "02_好影帝…他眼神都给我看…_1a0277c8.mp4",
+      "rendered_at": "2026-10-03T02:24:20.431235+08:00",
+      "author_fans": 34,
+      "liked_count": 210,
+      "comments_count": 18,
+      "delivery_date": "2026-10-02",
+      "uploaded_at": "2026-10-03T02:24:51.315400+08:00"
+    },
+    {
+      "note_id": "6abf2bee0000000002012277",
+      "title": "（三）继 踩到麦昆鞋子后续",
+      "output": "03_（三）继_踩到麦昆鞋子后续_02012277.mp4",
+      "rendered_at": "2026-10-03T02:24:20.431235+08:00",
+      "author_fans": 79,
+      "liked_count": 736,
+      "comments_count": 954,
+      "delivery_date": "2026-10-02",
+      "uploaded_at": "2026-10-03T02:24:51.315400+08:00"
+    },
+    {
+      "note_id": "6abf00e60000000002013200",
+      "title": "这是真的在教女生如何在恋爱中避坑",
+      "output": "04_这是真的在教女生如何在恋爱中避坑_02013200.mp4",
+      "rendered_at": "2026-10-03T02:24:20.431235+08:00",
+      "author_fans": 14260,
+      "liked_count": 5539,
+      "comments_count": 450,
+      "delivery_date": "2026-10-02",
+      "uploaded_at": "2026-10-03T02:24:51.315400+08:00"
+    },
+    {
+      "note_id": "6abedd14000000000e03c800",
+      "title": "小舅子哪二次力挽狂澜救姐夫刘欢于绝境？",
+      "output": "05_小舅子哪二次力挽狂澜救姐夫刘欢于绝境？_0e03c800.mp4",
+      "rendered_at": "2026-10-03T02:24:20.431235+08:00",
+      "author_fans": 636,
+      "liked_count": 1113,
+      "comments_count": 238,
+      "delivery_date": "2026-10-02",
+      "uploaded_at": "2026-10-03T02:24:51.315400+08:00"
+    },
     {
       "note_id": "6abd15a0000000001802b644",
       "title": "野生菌这大招看来大事很妙",
