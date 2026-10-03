@@ -1,7 +1,32 @@
 {
-  "updated_at": "2026-10-03T02:39:24.648614+00:00",
-  "count": 459,
+  "updated_at": "2026-10-03T03:02:33.780433+00:00",
+  "count": 460,
   "items": [
+    {
+      "aweme_id": "7691981845264672411",
+      "content_id": "7691981845264672411",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7691981845264672411/?region=US&mid=7691981708186438435&u_code=0&did=MS4wLjABAAAAEV7ZKu5thZCo5zLk9fv6tRYmMMAfmOWu9yCOZ38eeYkukM_hc8x9OMrW2xlINJ_b&iid=MS4wLjABAAAAksoS_6nNI-wBt16NxgXr7Ec-jaDAQI69ZIHEQ1NzvSoHtokFaUxJ20bmntvJtmyW&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=AeWaZUL01SuSvNLicUt3gdd1t4xJzMvE_tDeMCWNLeI-&share_version=320900&ts=1790996084&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "都去看第九期陪看好嘛！嘴角咧得合不拢了都～ #综艺名场面 #恋爱综艺 #思译cp #恋综cp #综艺节目互动",
+      "author": "荔椰绒",
+      "like_count": 5785,
+      "comment_count": 86,
+      "share_count": 677,
+      "duration_ms": 95100,
+      "create_time_iso": "2026-10-02T08:18:05+00:00",
+      "known_entities": [
+        "综艺名场面",
+        "恋爱综艺"
+      ],
+      "verified_entities": [
+        "综艺名场面",
+        "恋爱综艺"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 225.132,
+      "output_date": "2026-10-03",
+      "selected_at": "2026-10-03T03:02:33.780433+00:00"
+    },
     {
       "aweme_id": "7691925662597292773",
       "content_id": "7691925662597292773",
