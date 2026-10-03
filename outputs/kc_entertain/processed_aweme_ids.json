@@ -1,7 +1,129 @@
 {
-  "updated_at": "2026-10-02T02:42:55.050025+00:00",
-  "count": 455,
+  "updated_at": "2026-10-03T02:39:24.648614+00:00",
+  "count": 459,
   "items": [
+    {
+      "aweme_id": "7691925662597292773",
+      "content_id": "7691925662597292773",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7691925662597292773/?region=CN&mid=7691925633642875702&u_code=1ed48hm06lai&did=MS4wLjABAAAAtiFTOCuJ_8h2PKc4nfdjVo3cjUrWOyTr7AJxOayR03Y&iid=MS4wLjABAAAAL04pcuO48ODcU-FFFF5-6BoaSezfeG7_HGABF2H7-Rw&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=Y0mtGvXW4TsO8COs5SKBZFz.tpuAXxStixnG3lMlonA-&share_version=400600&ts=1790993259&from_aid=1128&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "“这谁能忍住不笑啊”#真正男子汉 #杨幂 #综艺名场面 #女兵 #梨花泠",
+      "author": "梨花泠",
+      "like_count": 157227,
+      "comment_count": 1291,
+      "share_count": 25914,
+      "duration_ms": 69234,
+      "create_time_iso": "2026-10-02T04:40:03+00:00",
+      "known_entities": [
+        "杨幂",
+        "真正男子汉",
+        "综艺名场面",
+        "女兵",
+        "梨花泠"
+      ],
+      "verified_entities": [
+        "杨幂",
+        "真正男子汉",
+        "综艺名场面",
+        "女兵",
+        "梨花泠"
+      ],
+      "primary_celebrities": [
+        "杨幂"
+      ],
+      "quality_score": 303.947,
+      "output_date": "2026-10-03",
+      "selected_at": "2026-10-03T02:39:24.648614+00:00"
+    },
+    {
+      "aweme_id": "7691915726952631594",
+      "content_id": "7691915726952631594",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7691915726952631594/?region=US&mid=7691915725145180969&u_code=0&did=MS4wLjABAAAA9cGoXCGnKoXMcCUgMsb13lMgtFbeHlEi3UfpolvJBJc&iid=MS4wLjABAAAABiEDSOnfWFe09wFZzRLpMFxGVH4iYvfFvQ-7usUiPV4&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=INamSxbmFDhLw2LZqr_3N3YZ87y3yNjZycaxtxK7eF8-&share_version=320900&ts=1790993633&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "国庆仪式感一秒拉满！周深与万人合唱《灯火里的中国》❤️ #最好的祝福献给祖国#爱国的心在这一刻同频了 #抖音落日合唱派对",
+      "author": "人民网",
+      "like_count": 78542,
+      "comment_count": 48,
+      "share_count": 1057,
+      "duration_ms": 23081,
+      "create_time_iso": "2026-10-02T04:01:34+00:00",
+      "known_entities": [
+        "周深",
+        "灯火里的中国",
+        "最好的祝福献给祖国",
+        "爱国的心在这一刻同频了",
+        "抖音落日合唱派对"
+      ],
+      "verified_entities": [
+        "周深",
+        "灯火里的中国",
+        "最好的祝福献给祖国",
+        "爱国的心在这一刻同频了",
+        "抖音落日合唱派对"
+      ],
+      "primary_celebrities": [
+        "周深"
+      ],
+      "quality_score": 229.47899999999998,
+      "output_date": "2026-10-03",
+      "selected_at": "2026-10-03T02:39:24.648614+00:00"
+    },
+    {
+      "aweme_id": "7692065921078640037",
+      "content_id": "7692065921078640037",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7692065921078640037/?region=US&mid=6761976602743180046&u_code=0&did=MS4wLjABAAAAioEJjoW2VcNdlTtq2nn8qHMmygpME1bYkWFEbEfRl_8&iid=MS4wLjABAAAAYvuHHXvPm0ww-f1TZlq_2M1cz73LpThY718iRtM_Uuc&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=9uRjH7sYNQoYOcH2qlrw5OkXB.wIVoMMfjM2eciLbZ0-&share_version=320900&ts=1790993640&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "你也舍不得收官对吧🥺今晚又下雨又哭.. #邓紫棋 #邓紫棋深圳演唱会",
+      "author": "Sleeping Beauty.",
+      "like_count": 8534,
+      "comment_count": 360,
+      "share_count": 3241,
+      "duration_ms": 132842,
+      "create_time_iso": "2026-10-02T13:44:20+00:00",
+      "known_entities": [
+        "邓紫棋",
+        "邓紫棋深圳演唱会"
+      ],
+      "verified_entities": [
+        "邓紫棋",
+        "邓紫棋深圳演唱会"
+      ],
+      "primary_celebrities": [
+        "邓紫棋"
+      ],
+      "quality_score": 241.616,
+      "output_date": "2026-10-03",
+      "selected_at": "2026-10-03T02:39:24.648614+00:00"
+    },
+    {
+      "aweme_id": "7692036991307768305",
+      "content_id": "7692036991307768305",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7692036991307768305/?region=US&mid=7364265955076753409&u_code=0&did=MS4wLjABAAAAioEJjoW2VcNdlTtq2nn8qHMmygpME1bYkWFEbEfRl_8&iid=MS4wLjABAAAAYvuHHXvPm0ww-f1TZlq_2M1cz73LpThY718iRtM_Uuc&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=NZna_tZn8sZWQOB2TxzrL6mzUuUzfiOsY1yrZsZKOFE-&share_version=320900&ts=1790993640&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "秀地控股2026星耀枣庄演唱会，姚晓棠与观众合作挑战闪身步#这就是枣庄 #演唱会现场 #姚晓棠 #闪身步",
+      "author": "枣庄正能量",
+      "like_count": 1848,
+      "comment_count": 71,
+      "share_count": 1296,
+      "duration_ms": 15267,
+      "create_time_iso": "2026-10-02T11:52:04+00:00",
+      "known_entities": [
+        "这就是枣庄",
+        "演唱会现场",
+        "姚晓棠"
+      ],
+      "verified_entities": [
+        "这就是枣庄",
+        "演唱会现场",
+        "姚晓棠"
+      ],
+      "primary_celebrities": [
+        "姚晓棠"
+      ],
+      "quality_score": 201.426,
+      "output_date": "2026-10-03",
+      "selected_at": "2026-10-03T02:39:24.648614+00:00"
+    },
     {
       "aweme_id": "7691591078197936378",
       "content_id": "7691591078197936378",
