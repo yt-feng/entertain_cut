@@ -118,8 +118,8 @@
       "message": "TikHub access blocked with HTTP 402 at /api/v1/xiaohongshu/app_v2/search_notes",
       "target": 5,
       "succeeded": 0,
-      "updated_at": "2026-10-04T03:21:30.683577+08:00",
-      "run_id": "37147552174"
+      "updated_at": "2026-10-04T07:19:06.915073+08:00",
+      "run_id": "37161338835"
     }
   ]
 }
