@@ -120,6 +120,16 @@
       "succeeded": 0,
       "updated_at": "2026-10-04T07:19:06.915073+08:00",
       "run_id": "37161338835"
+    },
+    {
+      "date": "2026-10-04",
+      "status": "deferred",
+      "reason": "tikhub_access_blocked",
+      "message": "TikHub access blocked with HTTP 402 at /api/v1/xiaohongshu/app_v2/search_notes",
+      "target": 5,
+      "succeeded": 0,
+      "updated_at": "2026-10-05T00:59:00.833623+08:00",
+      "run_id": "37218721483"
     }
   ]
 }
