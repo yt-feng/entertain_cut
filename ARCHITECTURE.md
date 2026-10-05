@@ -272,6 +272,16 @@ python3 render_entertain_vertical.py
 - 手动勾选 `quality_api_only` 可只验证 Tavily 事实证据与 DeepSeek 标题证据链，不搜索或处理视频
 - `work/caption_plan.json` 只保存字幕内容，不保存密钥
 
+## API 账户状态与邮件提醒
+
+- `Provider API Health` 在 main 每小时第 7 分钟、手动触发，以及相关 XHS / Douyin 工作流结束后运行。它只 GET TikHub 用户状态和 DeepSeek 余额，不生成内容、不搜索或处理视频。
+- 监控直接使用本仓库已有的 `TIKHUB_API_KEY`、`DEEPSEEK_API_KEY`，从 `rpt_edit` 的固定 commit 读取共享探测脚本；不复制 provider key，也不新增邮件 Secret。
+- 探测到密钥、余额、权限等问题时生成结构化报告，工作流仍成功；脚本或报告校验失败保持失败，避免把每小时账户提醒变成重复 Actions 失败通知。
+- 唯一公开 artifact 为 `provider-health-report`，保留 3 天且最多 32 KiB。上传前验证字段白名单、来源、时间和两个固定 credential slot；仅含状态枚举、Secret 名称和运行元数据，不含密钥、响应正文、邮箱或确切余额。
+- `rpt_edit` 中心监控读取该报告，复用已有邮件配置发送去重的账户提醒和恢复通知。邮件接入、收件配置和发送状态由中心监控管理。
+- XHS 的 401 / 402 / 403 分别记为 `tikhub_auth_invalid` / `tikhub_payment_required` / `tikhub_permission_denied`，自动补偿停止；429 记为 `tikhub_rate_limited`，保留有限重试。旧状态中的明确 HTTP 401 / 402 / 403 也会归入同类。
+- 402 表示付款或套餐访问要求，只有账户探测证据明确时才称为余额不足。本地 99 次请求预算、素材不足与账户余额分别记录；已有成片与真正的解析、渲染失败处理保持原样。
+
 ## 当前输出
 
 当前多明星成片：

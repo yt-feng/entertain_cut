@@ -21,6 +21,7 @@ from zoneinfo import ZoneInfo
 import httpx
 
 from tikhub_budget import RequestBudgetExceeded, RequestBudgetReserved, TikHubRequestBudget
+from tikhub_access import TikHubAccessBlocked, deferred_retryable, normalize_access_reason
 
 ROOT = Path(__file__).resolve().parent.parent
 KEY_FILE = ROOT / "api_key" / "tikhub.txt"
@@ -69,15 +70,6 @@ USER_ENDPOINTS = (
     "/api/v1/xiaohongshu/web_v3/fetch_user_info",
     "/api/v1/xiaohongshu/web_v2/fetch_user_info",
 )
-
-
-class TikHubAccessBlocked(RuntimeError):
-    """A run-wide TikHub condition that should not be retried per candidate."""
-
-    def __init__(self, status_code: int, path: str) -> None:
-        self.status_code = status_code
-        self.path = path
-        super().__init__(f"TikHub access blocked with HTTP {status_code} at {path}")
 
 
 client = httpx.Client(
@@ -516,10 +508,13 @@ def write_discovery_status(
     candidate_count: int = 0,
     selected_count: int = 0,
 ) -> dict:
+    reason = normalize_access_reason(
+        reason, status_code=ACCESS_BLOCKED.status_code if ACCESS_BLOCKED else None, message=message,
+    )
     payload = {
         "status": status,
         "reason": reason,
-        "retryable": status == "deferred",
+        "retryable": status == "deferred" and deferred_retryable(reason),
         "message": message,
         "total_notes": total_notes,
         "fresh_notes": fresh_notes,

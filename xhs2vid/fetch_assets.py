@@ -14,6 +14,7 @@ import httpx
 from PIL import Image
 
 from tikhub_budget import RequestBudgetExceeded, TikHubRequestBudget
+from tikhub_access import TikHubAccessBlocked
 
 ROOT = Path(__file__).resolve().parent.parent
 KEY_FILE = ROOT / "api_key" / "tikhub.txt"
@@ -28,14 +29,6 @@ ACCESS_BLOCKING_STATUSES = frozenset({401, 402, 403, 429})
 ACCESS_BLOCKED: "TikHubAccessBlocked | None" = None
 ACTIVE_COMMENT_ENDPOINT: str | None = None
 
-
-class TikHubAccessBlocked(RuntimeError):
-    """All usable comment endpoints rejected this run's TikHub access."""
-
-    def __init__(self, status_code: int, path: str) -> None:
-        self.status_code = status_code
-        self.path = path
-        super().__init__(f"TikHub access blocked with HTTP {status_code} at {path}")
 
 client = httpx.Client(
     headers={
@@ -429,7 +422,8 @@ def main() -> None:
             json.dumps(
                 {
                     "status": "deferred",
-                    "reason": "tikhub_access_blocked",
+                    "reason": exc.reason,
+                    "retryable": exc.retryable,
                     "message": str(exc),
                     "note_id": NOTE.get("note_id", ""),
                     "status_code": exc.status_code,

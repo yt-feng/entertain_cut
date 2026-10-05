@@ -1,0 +1,19 @@
+{
+  "run_id": "37244197361",
+  "source": "GitHub Actions log; response bodies were not retained",
+  "attempts": [
+    {"path": "/api/v1/xiaohongshu/app_v2/search_notes", "status": 402},
+    {"path": "/api/v1/xiaohongshu/app/search_notes", "status": 404},
+    {"path": "/api/v1/xiaohongshu/web/search_notes", "status": 404},
+    {"path": "/api/v1/xiaohongshu/web/search_notes_v3", "status": 404},
+    {"path": "/api/v1/xiaohongshu/web_v3/fetch_search_notes", "status": 404},
+    {"path": "/api/v1/xiaohongshu/web_v2/fetch_search_notes", "status": 404}
+  ],
+  "persisted": {
+    "status": "deferred",
+    "reason": "tikhub_access_blocked",
+    "message": "TikHub access blocked with HTTP 402 at /api/v1/xiaohongshu/app_v2/search_notes",
+    "target": 5,
+    "succeeded": 0
+  }
+}

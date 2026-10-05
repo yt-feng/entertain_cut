@@ -21,6 +21,7 @@ import traceback
 from zoneinfo import ZoneInfo
 
 from tikhub_budget import TikHubRequestBudget
+from tikhub_access import deferred_retryable, normalize_access_reason
 from workflow_support import require_recent_discovery_date
 
 
@@ -364,6 +365,11 @@ def main() -> None:
         raise RuntimeError("discovery completed without discovery_status.json")
     discovery_status = json.loads(discovery_status_path.read_text(encoding="utf-8"))
     if discovery_status.get("status") == "deferred":
+        discovery_status["reason"] = normalize_access_reason(
+            discovery_status.get("reason") or "discovery_deferred",
+            status_code=discovery_status.get("tikhub_blocked_status"),
+            message=str(discovery_status.get("message") or ""),
+        )
         completed_at = datetime.now(BEIJING).isoformat()
         budget = (
             json.loads(budget_file.read_text(encoding="utf-8"))
@@ -403,7 +409,7 @@ def main() -> None:
                 "status": "deferred",
                 "reason": summary["defer_reason"],
                 "message": summary["defer_message"],
-                "retryable": True,
+                "retryable": deferred_retryable(summary["defer_reason"]),
                 "target": args.limit,
                 "succeeded": 0,
                 "completed_at": completed_at,
@@ -557,7 +563,11 @@ def main() -> None:
             if (isinstance(exc, subprocess.CalledProcessError) and exc.returncode == 75
                     and blocked_marker.is_file()):
                 marker = json.loads(blocked_marker.read_text(encoding="utf-8"))
-                deferred_reason = str(marker.get("reason") or "tikhub_access_blocked")
+                deferred_reason = normalize_access_reason(
+                    str(marker.get("reason") or "tikhub_access_blocked"),
+                    status_code=marker.get("status_code"),
+                    message=str(marker.get("message") or ""),
+                )
                 deferred_message = str(marker.get("message") or exc)
                 item["status"] = "deferred"
                 item["error"] = deferred_message[:1000]
@@ -628,7 +638,7 @@ def main() -> None:
                 "status": "deferred",
                 "reason": deferred_reason,
                 "message": deferred_message,
-                "retryable": True,
+                "retryable": deferred_retryable(deferred_reason),
                 "target": args.limit,
                 "succeeded": len(successes),
                 "completed_at": summary["completed_at"],
