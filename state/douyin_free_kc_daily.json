@@ -20,6 +20,16 @@
       "succeeded": 0,
       "updated_at": "2026-10-04T03:01:06+00:00",
       "run_id": "37171926901"
+    },
+    {
+      "date": "2026-10-05",
+      "status": "deferred",
+      "reason": "insufficient_videos",
+      "message": "Only 0/5 KC video(s) are available; minimum delivery is 3. The scheduled delivery is deferred.",
+      "target": 5,
+      "succeeded": 0,
+      "updated_at": "2026-10-05T02:15:49+00:00",
+      "run_id": "37253896405"
     }
   ]
 }
