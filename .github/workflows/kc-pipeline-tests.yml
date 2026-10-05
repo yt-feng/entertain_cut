@@ -6,6 +6,7 @@ on:
     paths:
       - '.github/workflows/douyin-free-kc-daily.yml'
       - '.github/workflows/kc-pipeline-tests.yml'
+      - '.github/workflows/provider-api-health.yml'
       - 'tools/**'
       - 'auto_kc_entertain.py'
       - 'deepseek_api.py'
@@ -19,6 +20,7 @@ on:
     paths:
       - '.github/workflows/douyin-free-kc-daily.yml'
       - '.github/workflows/kc-pipeline-tests.yml'
+      - '.github/workflows/provider-api-health.yml'
       - 'tools/**'
       - 'auto_kc_entertain.py'
       - 'deepseek_api.py'

@@ -192,15 +192,20 @@ jobs:
           import sys
           from pathlib import Path
 
+          from xhs2vid.tikhub_access import normalize_access_reason
+
           path = Path("xhs2vid/state/daily_delivery_state.json")
           payload = json.loads(path.read_text(encoding="utf-8")) if path.is_file() else {}
           date = sys.argv[1]
           records = [item for item in payload.get("items", []) if item.get("date") == date]
-          print(records[-1].get("reason", "") if records else "")
+          record = records[-1] if records else {}
+          print(normalize_access_reason(
+              record.get("reason", ""), message=str(record.get("message") or ""),
+          ))
           PY
             )"
             case "$defer_reason" in
-              tikhub_access_blocked|tikhub_author_lookup_unavailable|tikhub_endpoint_unavailable)
+              tikhub_rate_limited|tikhub_access_blocked|tikhub_author_lookup_unavailable|tikhub_endpoint_unavailable)
                 echo "Retryable TikHub defer ($defer_reason); running compensation attempt."
                 ;;
               insufficient_strict_candidates|tikhub_stage_budget_reserved)

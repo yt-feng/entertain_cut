@@ -1,0 +1,90 @@
+name: Provider API Health
+
+on:
+  schedule:
+    - cron: '7 * * * *'
+  workflow_dispatch:
+  workflow_run:
+    workflows:
+      - XHS Low-Fan KC Daily
+      - Douyin Free Selected KC Daily
+      - Douyin Entertainment KC
+    branches: [main]
+    types: [completed]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: provider-api-health
+  cancel-in-progress: false
+
+jobs:
+  probe:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout pinned shared health monitor
+        uses: actions/checkout@v6
+        with:
+          repository: yt-feng/rpt_edit
+          ref: 3120c93083e2a36706093e2d275f15fcda5c9f55
+          path: .provider-health
+          persist-credentials: false
+          sparse-checkout: scripts/provider_health_monitor.py
+          sparse-checkout-cone-mode: false
+      - name: Read provider account health
+        env:
+          TIKHUB_API_KEY: ${{ secrets.TIKHUB_API_KEY }}
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          PROVIDER_TIKHUB_LOW_BALANCE: ${{ vars.PROVIDER_TIKHUB_LOW_BALANCE || '5' }}
+          PROVIDER_DEEPSEEK_LOW_CNY: ${{ vars.PROVIDER_DEEPSEEK_LOW_CNY || '20' }}
+          PROVIDER_DEEPSEEK_LOW_USD: ${{ vars.PROVIDER_DEEPSEEK_LOW_USD || '5' }}
+        run: |
+          python3 .provider-health/scripts/provider_health_monitor.py \
+            --key tikhub:TIKHUB_API_KEY \
+            --key deepseek:DEEPSEEK_API_KEY \
+            --output "$RUNNER_TEMP/provider-health-report.json"
+      - name: Validate public artifact
+        run: |
+          python3 - <<'PY'
+          import importlib.util
+          import json
+          import os
+          from pathlib import Path
+          import sys
+
+          path = Path(os.environ["RUNNER_TEMP"]) / "provider-health-report.json"
+          if path.stat().st_size > 32768:
+              raise SystemExit("Provider health report exceeds the public artifact size limit")
+          report = json.loads(path.read_text(encoding="utf-8"))
+          spec = importlib.util.spec_from_file_location(
+              "provider_health_monitor", ".provider-health/scripts/provider_health_monitor.py",
+          )
+          module = importlib.util.module_from_spec(spec)
+          sys.modules[spec.name] = module
+          spec.loader.exec_module(module)
+          module.validate_report(
+              report,
+              now=module.utc_now(),
+              repository=os.environ["GITHUB_REPOSITORY"],
+              run_id=os.environ["GITHUB_RUN_ID"],
+              run_attempt=int(os.environ["GITHUB_RUN_ATTEMPT"]),
+              commit=os.environ["GITHUB_SHA"],
+              workflow=".github/workflows/provider-api-health.yml",
+          )
+          expected = {("tikhub", "TIKHUB_API_KEY"), ("deepseek", "DEEPSEEK_API_KEY")}
+          actual = [(check["provider"], check["slot"]) for check in report["checks"]]
+          if len(actual) != len(expected) or set(actual) != expected:
+              raise SystemExit("Provider health report has unexpected credential slots")
+          # Upload the validated object, not potentially different raw JSON bytes.
+          path.write_text(json.dumps(report, sort_keys=True) + "\n", encoding="utf-8")
+          PY
+      - name: Upload public health status
+        uses: actions/upload-artifact@v7
+        with:
+          name: provider-health-report
+          path: ${{ runner.temp }}/provider-health-report.json
+          if-no-files-found: error
+          retention-days: 3
