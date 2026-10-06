@@ -1,7 +1,31 @@
 {
-  "updated_at": "2026-10-06T03:21:53.076481+00:00",
-  "count": 463,
+  "updated_at": "2026-10-06T03:39:38.594819+00:00",
+  "count": 464,
   "items": [
+    {
+      "aweme_id": "7693091619898117625",
+      "content_id": "7693091619898117625",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7693091619898117625/?region=CN&mid=7693091546334300943&u_code=140g2e79b&did=MS4wLjABAAAA6qJwshtl_MvGS6B0448yf--_buNwLwMFs6dkroycb79mi99RzUI-tRRBWVZpbx73&iid=MS4wLjABAAAA-ylDQ-rnca1t_jYY0Ya0LmKuorMjkCrvLR2dmrBzGc4sNy0EzvJjltwnG7hqJ3sX&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=FzeNPagZQuNqdy7bN0IuvSRXGc2kmEby09bcEnk2O4E-&share_version=400500&ts=1791257246&from_aid=1128&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "第四季已经玩疯了 #白敬亭 #现在就出发4 #综艺名场面",
+      "author": "亭路小妖",
+      "like_count": 5761,
+      "comment_count": 88,
+      "share_count": 1119,
+      "duration_ms": 20086,
+      "create_time_iso": "2026-10-05T08:04:34+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "白敬亭",
+        "现在就出发4"
+      ],
+      "primary_celebrities": [
+        "白敬亭"
+      ],
+      "quality_score": 165.511,
+      "output_date": "2026-10-06",
+      "selected_at": "2026-10-06T03:39:38.594819+00:00"
+    },
     {
       "aweme_id": "7693123609473328379",
       "content_id": "7693123609473328379",
