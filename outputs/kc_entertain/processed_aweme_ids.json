@@ -1,7 +1,78 @@
 {
-  "updated_at": "2026-10-03T03:02:33.780433+00:00",
-  "count": 460,
+  "updated_at": "2026-10-06T03:21:53.076481+00:00",
+  "count": 463,
   "items": [
+    {
+      "aweme_id": "7693123609473328379",
+      "content_id": "7693123609473328379",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7693123609473328379/?region=CN&mid=7647734400414664740&u_code=1460k34gi&did=MS4wLjABAAAA_dJXc45uPBdRqiBZNAFBcIU9R6ZP_CZjSOI9sgjbC7U&iid=MS4wLjABAAAAcMIPWKWO04-VbhNiLPMVS51-l-YXaObGOGHWvJ_r_qWs-QOdoneCsPEU3DFf0K-T&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=_lwZYMH079dDbpTqTrK6Zp36dvvc9aPzb7BWnpl3KaU-&share_version=400200&ts=1791256414&from_aid=1128&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "梗要在本人面前才好玩\n#沈腾 #王楚然 #现在就出发 #综艺名场面",
+      "author": "鲜香胳肢窝",
+      "like_count": 54634,
+      "comment_count": 289,
+      "share_count": 8314,
+      "duration_ms": 8500,
+      "create_time_iso": "2026-10-05T10:08:42+00:00",
+      "known_entities": [
+        "沈腾"
+      ],
+      "verified_entities": [
+        "沈腾",
+        "王楚然",
+        "现在就出发"
+      ],
+      "primary_celebrities": [
+        "沈腾"
+      ],
+      "quality_score": 234.025,
+      "output_date": "2026-10-06",
+      "selected_at": "2026-10-06T03:21:53.076481+00:00"
+    },
+    {
+      "aweme_id": "7693083481115915185",
+      "content_id": "7693083481115915185",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7693083481115915185/?region=US&mid=7559781678903248934&u_code=0&did=MS4wLjABAAAAGcjqSKkIPc7ouXC915qiLpsM-TrbxCWV3wxt17c2gCg&iid=MS4wLjABAAAAX0rFRRisynwrqewc8Bwb9olgeO8BE5Y68XtCtEnNIoE&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=MBUz4zo4vp5qudiOjZvQ4gc2Du1fF4EGnl1FFU8Q_rw-&share_version=320900&ts=1791256590&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "不愧是冠军#吴宜泽 这球打的太漂亮了👍🏻#开球吧少女 #台球顶流们在综艺里梦幻联动了",
+      "author": "娱乐圈小蜜",
+      "like_count": 19980,
+      "comment_count": 483,
+      "share_count": 1124,
+      "duration_ms": 10900,
+      "create_time_iso": "2026-10-05T07:32:59+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "吴宜泽",
+        "开球吧少女"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 179.377,
+      "output_date": "2026-10-06",
+      "selected_at": "2026-10-06T03:21:53.076481+00:00"
+    },
+    {
+      "aweme_id": "7693065687832623097",
+      "content_id": "7693065687832623097",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7693065687832623097/?region=US&mid=6859860581516576775&u_code=0&did=MS4wLjABAAAAGcjqSKkIPc7ouXC915qiLpsM-TrbxCWV3wxt17c2gCg&iid=MS4wLjABAAAAX0rFRRisynwrqewc8Bwb9olgeO8BE5Y68XtCtEnNIoE&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=f.Z17lxD0UKsUy1im8B4Q_QoZm1ZLYZox4Lh2Lfeq.A-&share_version=320900&ts=1791256590&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "九球天后#潘晓婷 亮相#开球吧少女 发布会 黑西装造型又美又飒！#台球顶流们在综艺里梦幻联动了",
+      "author": "娱乐圈小蜜",
+      "like_count": 4097,
+      "comment_count": 139,
+      "share_count": 184,
+      "duration_ms": 17400,
+      "create_time_iso": "2026-10-05T06:23:56+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "潘晓婷",
+        "开球吧少女"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 140.876,
+      "output_date": "2026-10-06",
+      "selected_at": "2026-10-06T03:21:53.076481+00:00"
+    },
     {
       "aweme_id": "7691981845264672411",
       "content_id": "7691981845264672411",
