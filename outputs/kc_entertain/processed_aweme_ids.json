@@ -1,7 +1,160 @@
 {
-  "updated_at": "2026-10-06T06:46:42.007706+00:00",
-  "count": 465,
+  "updated_at": "2026-10-07T03:03:55.955120+00:00",
+  "count": 470,
   "items": [
+    {
+      "aweme_id": "7693481238640147322",
+      "content_id": "7693481238640147322",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7693481238640147322/?region=US&mid=7513146465401801510&u_code=0&did=MS4wLjABAAAAt7WRohX22ofgKiSRI00xaX93JYSh9VpMNkMqp7wlhX0c7JY5baCkM9rgB-eoBC5k&iid=MS4wLjABAAAAqqEl7iuw8ZnrfHmS3zAAVM0TM_mXsyfkVEp2jD8rMYd_Yvff4OSFSNdtZ2_5FDjP&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=nRnbesyo3TC_9Irk4DQzgpnjA4MA4Zy1Cl6QOMIqsAc-&share_version=320900&ts=1791340690&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "为这一季狼人杀的小羊捏一把汗\n#王楚然 #天选综艺人 #现在就出发 #狼人杀",
+      "author": "鲜香胳肢窝",
+      "like_count": 31996,
+      "comment_count": 486,
+      "share_count": 5556,
+      "duration_ms": 25400,
+      "create_time_iso": "2026-10-06T09:16:29+00:00",
+      "known_entities": [
+        "王楚然",
+        "天选综艺人",
+        "现在就出发",
+        "狼人杀"
+      ],
+      "verified_entities": [
+        "王楚然",
+        "天选综艺人",
+        "现在就出发",
+        "狼人杀"
+      ],
+      "primary_celebrities": [
+        "王楚然"
+      ],
+      "quality_score": 256.90999999999997,
+      "output_date": "2026-10-07",
+      "selected_at": "2026-10-07T03:03:55.955120+00:00"
+    },
+    {
+      "aweme_id": "7693403923164871665",
+      "content_id": "7693403923164871665",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7693403923164871665/?region=US&mid=7693403853936446242&u_code=0&did=MS4wLjABAAAA3X5WtokKOHZWSp_nplJK1nMCdzk_sH7m5X7_wHT6ATA&iid=MS4wLjABAAAAdrYA7kqxs0Jxv3705SCnXtS1yg77fGoeGn-BLTNnZBU&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=1HhUv2HY3zo5dAnKFTaFLXstpU9QqzQGzTRAHjC7jZI-&share_version=320900&ts=1791340686&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "人这一辈子，谁都有跌入低谷的时候。可以暂时沉默，可以短暂休息，但内心千万不能认输。困难能压垮身体，却打不倒一颗不服输的心。沉下心熬过去，总有拨云见日那天#影视行业 #短剧 #演员李嘉明 #短剧丢失的孩子 @制片人贾良 @演员南北笙《丢失的孩子》红果预约 @家的味道（努力版）",
+      "author": "演员李嘉明 短剧《丢失的孩子》红果热播中",
+      "like_count": 19968,
+      "comment_count": 1629,
+      "share_count": 54,
+      "duration_ms": 102144,
+      "create_time_iso": "2026-10-06T04:16:28+00:00",
+      "known_entities": [
+        "丢失的孩子",
+        "影视行业",
+        "短剧",
+        "演员李嘉明",
+        "短剧丢失的孩子"
+      ],
+      "verified_entities": [
+        "丢失的孩子",
+        "影视行业",
+        "短剧",
+        "演员李嘉明",
+        "短剧丢失的孩子"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 255.35399999999998,
+      "output_date": "2026-10-07",
+      "selected_at": "2026-10-07T03:03:55.955120+00:00"
+    },
+    {
+      "aweme_id": "7693527389310514803",
+      "content_id": "7693527389310514803",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7693527389310514803/?region=US&mid=7693527342920551195&u_code=0&did=MS4wLjABAAAAzHZlkioZk7jMVXfMR8VXHtI7Mt8jQ6w3mbV8vWF6kvqbUIN1dYa9A0LqdnVoeLgH&iid=MS4wLjABAAAAAfDOTS91DsPSxvRQmvgQAubZL4H5rfd760fPEx44Wua8TOPO_BgT6vy7VxVHTZqJ&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=BuZBSsa4jjK9twdDYFWRjcCCLRoJYPfhFmpZRi3oQ2g-&share_version=320900&ts=1791340674&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "你是说本来生虎 醒远 和大小王都有双人舞台吗\n#苏醒 #再就业男团 #这谁顶得住啊 #名场面",
+      "author": "Salt Fries_薯条",
+      "like_count": 4092,
+      "comment_count": 121,
+      "share_count": 633,
+      "duration_ms": 63867,
+      "create_time_iso": "2026-10-06T12:15:34+00:00",
+      "known_entities": [
+        "名场面",
+        "苏醒",
+        "再就业男团",
+        "这谁顶得住啊"
+      ],
+      "verified_entities": [
+        "名场面",
+        "苏醒",
+        "再就业男团",
+        "这谁顶得住啊"
+      ],
+      "primary_celebrities": [
+        "苏醒"
+      ],
+      "quality_score": 237.854,
+      "output_date": "2026-10-07",
+      "selected_at": "2026-10-07T03:03:55.955120+00:00"
+    },
+    {
+      "aweme_id": "7693437847446389914",
+      "content_id": "7693437847446389914",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7693437847446389914/?region=US&mid=7693437789479766820&u_code=0&did=MS4wLjABAAAAzHZlkioZk7jMVXfMR8VXHtI7Mt8jQ6w3mbV8vWF6kvqbUIN1dYa9A0LqdnVoeLgH&iid=MS4wLjABAAAAAfDOTS91DsPSxvRQmvgQAubZL4H5rfd760fPEx44Wua8TOPO_BgT6vy7VxVHTZqJ&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=DuIBnUEMUOPogo5vmBiuSGicbeuuRvFRL7BLcMtJh7o-&share_version=320900&ts=1791340674&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#蔡康永 #综艺名场面分享",
+      "author": "襄水之阳",
+      "like_count": 7540,
+      "comment_count": 337,
+      "share_count": 367,
+      "duration_ms": 18134,
+      "create_time_iso": "2026-10-06T06:28:07+00:00",
+      "known_entities": [
+        "蔡康永",
+        "综艺名场面分享",
+        "名场面"
+      ],
+      "verified_entities": [
+        "蔡康永",
+        "综艺名场面分享",
+        "名场面"
+      ],
+      "primary_celebrities": [
+        "蔡康永"
+      ],
+      "quality_score": 229.729,
+      "output_date": "2026-10-07",
+      "selected_at": "2026-10-07T03:03:55.955120+00:00"
+    },
+    {
+      "aweme_id": "7693520181495111803",
+      "content_id": "7693520181495111803",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7693520181495111803/?region=US&mid=7693520161428835081&u_code=0&did=MS4wLjABAAAAt7WRohX22ofgKiSRI00xaX93JYSh9VpMNkMqp7wlhX0c7JY5baCkM9rgB-eoBC5k&iid=MS4wLjABAAAAqqEl7iuw8ZnrfHmS3zAAVM0TM_mXsyfkVEp2jD8rMYd_Yvff4OSFSNdtZ2_5FDjP&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=zWw0TQwx8xlgGZSgaYsb_nKL_7kJkMQpQ51ZsUeOC04-&share_version=320900&ts=1791340690&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "针对最近的体团演争议…艾伦苏做出了回应 每次都是他😭\n#再就业男团 #苏醒 #0713 #放肆快乐 #安利",
+      "author": "Goodluck💫",
+      "like_count": 2196,
+      "comment_count": 56,
+      "share_count": 268,
+      "duration_ms": 39473,
+      "create_time_iso": "2026-10-06T11:47:37+00:00",
+      "known_entities": [
+        "苏醒",
+        "再就业男团",
+        "0713",
+        "放肆快乐"
+      ],
+      "verified_entities": [
+        "苏醒",
+        "再就业男团",
+        "0713",
+        "放肆快乐"
+      ],
+      "primary_celebrities": [
+        "苏醒"
+      ],
+      "quality_score": 217.85199999999998,
+      "output_date": "2026-10-07",
+      "selected_at": "2026-10-07T03:03:55.955120+00:00"
+    },
     {
       "aweme_id": "7693072295925859178",
       "content_id": "7693072295925859178",
