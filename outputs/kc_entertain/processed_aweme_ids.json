@@ -1,7 +1,114 @@
 {
-  "updated_at": "2026-10-07T03:03:55.955120+00:00",
-  "count": 470,
+  "updated_at": "2026-10-08T03:02:18.682804+00:00",
+  "count": 474,
   "items": [
+    {
+      "aweme_id": "7693839859098479798",
+      "content_id": "7693839859098479798",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7693839859098479798/?region=US&mid=7693839816995228426&u_code=0&did=MS4wLjABAAAAAUu8Ih9fq47v_q0a3MWoyOK__a1sZMB4l9IbMC4_Wcg&iid=MS4wLjABAAAAaWEUqWnL1caQu95SF2x9wCxnmI5Rmg2gi9DKUU4A9pI&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=a.rPytzyRlAauB8y2_OLmysVenfdxGBptarUq7Hv7Dk-&share_version=320900&ts=1791428045&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#老艺术家的故事 #综艺名场面分享 #李敖大师 #老艺术家的信仰坚守 #台湾综艺",
+      "author": "油管搬运工（主页内容更精彩）",
+      "like_count": 14691,
+      "comment_count": 612,
+      "share_count": 944,
+      "duration_ms": 28567,
+      "create_time_iso": "2026-10-07T08:28:07+00:00",
+      "known_entities": [
+        "老艺术家的故事",
+        "综艺名场面分享",
+        "李敖大师",
+        "老艺术家的信仰坚守",
+        "台湾综艺"
+      ],
+      "verified_entities": [
+        "李敖大师",
+        "台湾综艺",
+        "综艺名场面分享",
+        "老艺术家的故事",
+        "老艺术家的信仰坚守"
+      ],
+      "primary_celebrities": [
+        "李敖"
+      ],
+      "quality_score": 232.864,
+      "output_date": "2026-10-08",
+      "selected_at": "2026-10-08T03:02:18.682804+00:00"
+    },
+    {
+      "aweme_id": "5244441977747033949",
+      "content_id": "5244441977747033949",
+      "platform": "kuaishou",
+      "url": "https://www.kuaishou.com/short-video/5244441977747033949",
+      "title": "#韩国女团 #演唱会 #明星娱乐 聚光灯下的周子瑜，碎花舞台氛围感拉满！",
+      "author": "阿布娱乐",
+      "like_count": 2073,
+      "comment_count": 249,
+      "share_count": 81,
+      "duration_ms": 10200,
+      "create_time_iso": "2026-10-07T20:21:29+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "韩国女团",
+        "演唱会",
+        "周子瑜"
+      ],
+      "primary_celebrities": [
+        "周子瑜"
+      ],
+      "quality_score": 169.58599999999998,
+      "output_date": "2026-10-08",
+      "selected_at": "2026-10-08T03:02:18.682804+00:00"
+    },
+    {
+      "aweme_id": "7693760837434426299",
+      "content_id": "7693760837434426299",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7693760837434426299/?region=US&mid=7693760778658155290&u_code=0&did=MS4wLjABAAAAAUu8Ih9fq47v_q0a3MWoyOK__a1sZMB4l9IbMC4_Wcg&iid=MS4wLjABAAAAaWEUqWnL1caQu95SF2x9wCxnmI5Rmg2gi9DKUU4A9pI&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=dmKwWH81MpLkeU2bp.GCxcOdbllOeViol21dZUG5DSE-&share_version=320900&ts=1791428045&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "笑死我了！谁懂#综艺搞笑片段 #十个勤天搞笑名场面 #十个勤天 #十个勤天做大做强 @抖音小助手 @DOU+上热门",
+      "author": "后陡门玥亮",
+      "like_count": 6000,
+      "comment_count": 61,
+      "share_count": 5240,
+      "duration_ms": 20167,
+      "create_time_iso": "2026-10-07T03:21:29+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "十个勤天",
+        "综艺搞笑片段",
+        "十个勤天搞笑名场面"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 156.662,
+      "output_date": "2026-10-08",
+      "selected_at": "2026-10-08T03:02:18.682804+00:00"
+    },
+    {
+      "aweme_id": "7693762361362247076",
+      "content_id": "7693762361362247076",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7693762361362247076/?region=US&mid=7617042918033197860&u_code=0&did=MS4wLjABAAAAAUu8Ih9fq47v_q0a3MWoyOK__a1sZMB4l9IbMC4_Wcg&iid=MS4wLjABAAAAaWEUqWnL1caQu95SF2x9wCxnmI5Rmg2gi9DKUU4A9pI&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=hc.H0ydAePdQ_SBLNdeK.cZN37NcW2GQiPtLMZ5vu4k-&share_version=320900&ts=1791428045&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "跑男开锁名场面反复回看依旧热血🥰\n冷静开锁，奋力奔跑，面对追赶也绝不退缩，一句永不言弃，在李沁身上展现得淋漓尽致，又勇敢又拼，永远为这份韧劲动容👍#李沁#跑男#跑男名场面#综艺名场面#永不言弃",
+      "author": "玲Arlene",
+      "like_count": 1224,
+      "comment_count": 68,
+      "share_count": 32,
+      "duration_ms": 43667,
+      "create_time_iso": "2026-10-07T03:27:23+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "李沁",
+        "跑男",
+        "跑男名场面",
+        "综艺名场面"
+      ],
+      "primary_celebrities": [
+        "李沁"
+      ],
+      "quality_score": 145.41,
+      "output_date": "2026-10-08",
+      "selected_at": "2026-10-08T03:02:18.682804+00:00"
+    },
     {
       "aweme_id": "7693481238640147322",
       "content_id": "7693481238640147322",
