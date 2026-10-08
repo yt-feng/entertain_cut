@@ -160,6 +160,16 @@
       "succeeded": 5,
       "updated_at": "2026-10-08T03:39:39.396369+08:00",
       "run_id": "37671587116"
+    },
+    {
+      "date": "2026-10-08",
+      "status": "delivered",
+      "reason": "verified_upload",
+      "message": "",
+      "target": 5,
+      "succeeded": 5,
+      "updated_at": "2026-10-09T03:37:07.984225+08:00",
+      "run_id": "37828496810"
     }
   ]
 }
