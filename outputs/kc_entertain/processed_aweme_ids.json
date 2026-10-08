@@ -1,7 +1,36 @@
 {
-  "updated_at": "2026-10-08T03:02:18.682804+00:00",
-  "count": 474,
+  "updated_at": "2026-10-08T03:19:54.648575+00:00",
+  "count": 475,
   "items": [
+    {
+      "aweme_id": "7693763065627972005",
+      "content_id": "7693763065627972005",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7693763065627972005/?region=US&mid=7693763035231931190&u_code=0&did=MS4wLjABAAAACYk1iWPQz7oM7A9YbQqYu1k6m6394GoIBuAN5WuUgr4&iid=MS4wLjABAAAAFWR_xhdLlYIZr0fOQOXwIvpSafE1TKa5WAfg-dpe-CM&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=EYLny6X75SW3Gg2LY2x614VDMuSGEBOn8fBIQc7.4mc-&share_version=320900&ts=1791429412&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "演员真的需要很强的信念感 这能不笑场吗哈哈哈@刘学义 @谭松韵seven @电视剧兰香如故（火热播出中 \n#沉浸式追剧体验 #好演员值得被期待 #古装剧名场面分享 #追剧 #国庆",
+      "author": "刘甜甜lxy（兰香如故热播版）",
+      "like_count": 5206,
+      "comment_count": 218,
+      "share_count": 1683,
+      "duration_ms": 24900,
+      "create_time_iso": "2026-10-07T03:30:07+00:00",
+      "known_entities": [
+        "兰香如故",
+        "沉浸式追剧体验"
+      ],
+      "verified_entities": [
+        "兰香如故",
+        "刘学义",
+        "谭松韵"
+      ],
+      "primary_celebrities": [
+        "刘学义",
+        "谭松韵"
+      ],
+      "quality_score": 224.61599999999999,
+      "output_date": "2026-10-08",
+      "selected_at": "2026-10-08T03:19:54.648575+00:00"
+    },
     {
       "aweme_id": "7693839859098479798",
       "content_id": "7693839859098479798",
