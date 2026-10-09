@@ -173,13 +173,13 @@
     },
     {
       "date": "2026-10-09",
-      "status": "deferred",
-      "reason": "insufficient_strict_candidates",
-      "message": "Rendered 4/5; strict eligible candidates exhausted.",
+      "status": "delivered",
+      "reason": "verified_upload",
+      "message": "",
       "target": 5,
-      "succeeded": 4,
-      "updated_at": "2026-10-10T02:51:42.661481+08:00",
-      "run_id": "37973607902"
+      "succeeded": 5,
+      "updated_at": "2026-10-10T05:18:03.575603+08:00",
+      "run_id": "37991646635"
     }
   ]
 }
