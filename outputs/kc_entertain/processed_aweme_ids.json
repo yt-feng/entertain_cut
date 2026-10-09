@@ -1,7 +1,165 @@
 {
-  "updated_at": "2026-10-08T03:19:54.648575+00:00",
-  "count": 475,
+  "updated_at": "2026-10-09T03:26:43.136649+00:00",
+  "count": 480,
   "items": [
+    {
+      "aweme_id": "7694183326655416933",
+      "content_id": "7694183326655416933",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7694183326655416933/?region=US&mid=7694183100691057443&u_code=0&did=MS4wLjABAAAAaa3IT6JSM09DShgSbI1-7g6NbNsiNZjHZXSb3Gg96uE&iid=MS4wLjABAAAAnMjW0riyL3Ui1pizqQ-IAJRj8JO39Wj-ffnaa8O7VZ0&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=NkZZronkUnLR8rsHN38.n7g2UurNG49RXGEAYukuGKg-&share_version=320900&ts=1791515366&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "小嘴依旧稳定输出 #白敬亭  #现在就出发 #现在就出发4 #综艺名场面 #剪映",
+      "author": "亭路小妖",
+      "like_count": 18768,
+      "comment_count": 201,
+      "share_count": 14104,
+      "duration_ms": 17000,
+      "create_time_iso": "2026-10-08T06:40:58+00:00",
+      "known_entities": [
+        "白敬亭",
+        "现在就出发",
+        "现在就出发4",
+        "综艺名场面",
+        "剪映"
+      ],
+      "verified_entities": [
+        "白敬亭",
+        "现在就出发",
+        "现在就出发4",
+        "综艺名场面"
+      ],
+      "primary_celebrities": [
+        "白敬亭"
+      ],
+      "quality_score": 260.426,
+      "output_date": "2026-10-09",
+      "selected_at": "2026-10-09T03:26:43.136649+00:00"
+    },
+    {
+      "aweme_id": "7694213999398833417",
+      "content_id": "7694213999398833417",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7694213999398833417/?region=US&mid=7694213995162536713&u_code=0&did=MS4wLjABAAAASfoJGEdJPNrpQ1BbJFMqsBI9L9EBo-n1y1Z4APiBH0d_iGYxMMyk8IpMecJrOLcv&iid=MS4wLjABAAAAGkac2auWMLoEtDcpdATFeomKhN0U8g4wturtEPQtVf26QUdwJQW9HnTBmdmc8qHJ&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=X8zoAes.z2WVN6whkaYbiqzSIpNWRQk.VG6IGcWFJG4-&share_version=320900&ts=1791515359&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "刘学义兰香如故演得最过瘾的一场戏 #人民文娱对话刘学义 刘学义回忆拍摄电视剧《#兰香如故 》时演得最过瘾的一场戏，是其饰演的林锦岐在为知己报仇时的一场对峙戏。虽然年过四旬，但林锦岐依旧有一股足以让对手胆寒的狠厉之气。#刘学义",
+      "author": "人民文娱",
+      "like_count": 17533,
+      "comment_count": 606,
+      "share_count": 1035,
+      "duration_ms": 70187,
+      "create_time_iso": "2026-10-08T08:40:03+00:00",
+      "known_entities": [
+        "兰香如故",
+        "林锦岐",
+        "人民文娱对话刘学义",
+        "刘学义"
+      ],
+      "verified_entities": [
+        "兰香如故",
+        "林锦岐",
+        "人民文娱对话刘学义",
+        "刘学义"
+      ],
+      "primary_celebrities": [
+        "刘学义"
+      ],
+      "quality_score": 256.721,
+      "output_date": "2026-10-09",
+      "selected_at": "2026-10-09T03:26:43.136649+00:00"
+    },
+    {
+      "aweme_id": "7694001441513582435",
+      "content_id": "7694001441513582435",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7694001441513582435/?region=US&mid=7694001275398048538&u_code=0&did=MS4wLjABAAAASfoJGEdJPNrpQ1BbJFMqsBI9L9EBo-n1y1Z4APiBH0d_iGYxMMyk8IpMecJrOLcv&iid=MS4wLjABAAAAGkac2auWMLoEtDcpdATFeomKhN0U8g4wturtEPQtVf26QUdwJQW9HnTBmdmc8qHJ&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=y1njFDr0DWKvCZS6IQg5hZm4kQURzygG7Lh3c1KvUzg-&share_version=320900&ts=1791515359&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "点点微光汇聚在一起，也很耀眼 #兰香如故 #许兰香 #林绣芄 #谭松韵 #吴甜甜",
+      "author": "电视剧兰香如故（火热播出中",
+      "like_count": 21301,
+      "comment_count": 236,
+      "share_count": 216,
+      "duration_ms": 39200,
+      "create_time_iso": "2026-10-08T10:59:00+00:00",
+      "known_entities": [
+        "兰香如故",
+        "许兰香",
+        "林绣芄",
+        "谭松韵",
+        "吴甜甜"
+      ],
+      "verified_entities": [
+        "兰香如故",
+        "许兰香",
+        "林绣芄",
+        "谭松韵",
+        "吴甜甜"
+      ],
+      "primary_celebrities": [
+        "谭松韵"
+      ],
+      "quality_score": 239.85399999999998,
+      "output_date": "2026-10-09",
+      "selected_at": "2026-10-09T03:26:43.136649+00:00"
+    },
+    {
+      "aweme_id": "7694000168900164672",
+      "content_id": "7694000168900164672",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7694000168900164672/?region=US&mid=7693999965697280804&u_code=0&did=MS4wLjABAAAASfoJGEdJPNrpQ1BbJFMqsBI9L9EBo-n1y1Z4APiBH0d_iGYxMMyk8IpMecJrOLcv&iid=MS4wLjABAAAAGkac2auWMLoEtDcpdATFeomKhN0U8g4wturtEPQtVf26QUdwJQW9HnTBmdmc8qHJ&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=WV.VLWkA_2TL9PteQPHaSYUZU3TApKOJfPqV2v1HoKQ-&share_version=320900&ts=1791515359&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "记录“难绷”的一天 #兰香如故 #许兰香 #林锦岐 #林绣芄 #林绣茹",
+      "author": "电视剧兰香如故（火热播出中",
+      "like_count": 11600,
+      "comment_count": 276,
+      "share_count": 218,
+      "duration_ms": 44304,
+      "create_time_iso": "2026-10-08T07:59:00+00:00",
+      "known_entities": [
+        "兰香如故",
+        "许兰香",
+        "林锦岐",
+        "林绣芄",
+        "林绣茹"
+      ],
+      "verified_entities": [
+        "兰香如故",
+        "许兰香",
+        "林锦岐",
+        "林绣芄",
+        "林绣茹"
+      ],
+      "primary_celebrities": [
+        "谭松韵"
+      ],
+      "quality_score": 233.282,
+      "output_date": "2026-10-09",
+      "selected_at": "2026-10-09T03:26:43.136649+00:00"
+    },
+    {
+      "aweme_id": "7694242280648016305",
+      "content_id": "7694242280648016305",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7694242280648016305/?region=US&mid=7694242251794664234&u_code=0&did=MS4wLjABAAAAsqlRYnU5uDe-DiBY8fkl_mTCj7zvlHy4pR3JL2sZ4RoAch0UIjWzeIwnpQMZBwKq&iid=MS4wLjABAAAArjzsmK93Rbv1bTnqdUrl5zig6EfAJ6gx0PxqNiH_pVEvaY4ouxVi00KD5_NymXDa&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=0H.AcFuj8iQX4NNaKmrefWMvIB7zm_GFd.SDbu2zZaE-&share_version=320900&ts=1791515374&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "凡人粉恭喜杨洋老祖拿下sda亚洲明星奖 #韩立 #杨洋 #颁奖典礼现场 #凡人修仙传 #红毯",
+      "author": "静脉森林",
+      "like_count": 5220,
+      "comment_count": 365,
+      "share_count": 678,
+      "duration_ms": 40167,
+      "create_time_iso": "2026-10-08T10:29:43+00:00",
+      "known_entities": [
+        "韩立"
+      ],
+      "verified_entities": [
+        "韩立",
+        "杨洋",
+        "凡人修仙传",
+        "颁奖典礼现场",
+        "红毯"
+      ],
+      "primary_celebrities": [
+        "杨洋"
+      ],
+      "quality_score": 219.04000000000002,
+      "output_date": "2026-10-09",
+      "selected_at": "2026-10-09T03:26:43.136649+00:00"
+    },
     {
       "aweme_id": "7693763065627972005",
       "content_id": "7693763065627972005",
