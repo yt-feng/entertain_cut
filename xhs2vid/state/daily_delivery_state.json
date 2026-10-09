@@ -170,6 +170,16 @@
       "succeeded": 5,
       "updated_at": "2026-10-09T03:37:07.984225+08:00",
       "run_id": "37828496810"
+    },
+    {
+      "date": "2026-10-09",
+      "status": "deferred",
+      "reason": "insufficient_strict_candidates",
+      "message": "Rendered 4/5; strict eligible candidates exhausted.",
+      "target": 5,
+      "succeeded": 4,
+      "updated_at": "2026-10-10T02:51:42.661481+08:00",
+      "run_id": "37973607902"
     }
   ]
 }
