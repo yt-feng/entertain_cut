@@ -1,7 +1,156 @@
 {
-  "updated_at": "2026-10-09T03:26:43.136649+00:00",
-  "count": 480,
+  "updated_at": "2026-10-10T03:05:47.620206+00:00",
+  "count": 485,
   "items": [
+    {
+      "aweme_id": "7694613698963124090",
+      "content_id": "7694613698963124090",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7694613698963124090/?region=US&mid=7694613588316670720&u_code=0&did=MS4wLjABAAAAQsFZ5UZH4vfhJwR1ZYTvhX-zyaBtHu2xyhH8xClBprUkGsWn6sG9yJitLOdIsI59&iid=MS4wLjABAAAArrab1_T9WYI2pSxB3yBMiUvcNZqUzgrU04jkvlmEts1RMriaZulsaRxYETNpRy9X&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=UpJ56TTdVJxr2z50SWCBH.tDkngWqt3Se.4KchltAgE-&share_version=320900&ts=1791599690&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "娱乐圈里，刘亦菲和唐嫣的友情确实令大家羡慕#刘亦菲 #唐嫣 #剪映",
+      "author": "樊拍凯摄",
+      "like_count": 13123,
+      "comment_count": 1066,
+      "share_count": 14295,
+      "duration_ms": 14140,
+      "create_time_iso": "2026-10-09T10:31:00+00:00",
+      "known_entities": [
+        "刘亦菲",
+        "唐嫣",
+        "剪映"
+      ],
+      "verified_entities": [
+        "刘亦菲",
+        "唐嫣",
+        "剪映"
+      ],
+      "primary_celebrities": [
+        "刘亦菲",
+        "唐嫣"
+      ],
+      "quality_score": 256.559,
+      "output_date": "2026-10-10",
+      "selected_at": "2026-10-10T03:05:47.620206+00:00"
+    },
+    {
+      "aweme_id": "7694590074176415409",
+      "content_id": "7694590074176415409",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7694590074176415409/?region=US&mid=7694590040714480384&u_code=0&did=MS4wLjABAAAAOIsh2a0IJhkhH85kGLKuP-wlMidR0xVcIwZEAkj1CgPYq3_X0OtLXHyqrxKoubB5&iid=MS4wLjABAAAAwfQl-7BcNwXTd1OW51Ya_-DRR6cmN8PuCDr4vqzUNDCxQS5KAnLhPtQh1lILHFEn&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=2Ya7we6U_Wvq5HWwu0314pcjYCB.PPWAM1KRXsBsP3U-&share_version=320900&ts=1791599693&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "幸好又赌了一把！去了红毯！！\n普普郝帅！！！#郝熠然 #明星红毯 #明星红毯造型",
+      "author": "性感母蟑螂猛捏185肌肉男大外痔（yyy",
+      "like_count": 3961,
+      "comment_count": 240,
+      "share_count": 159,
+      "duration_ms": 227240,
+      "create_time_iso": "2026-10-09T08:59:20+00:00",
+      "known_entities": [
+        "郝熠然",
+        "明星红毯",
+        "明星红毯造型"
+      ],
+      "verified_entities": [
+        "郝熠然",
+        "明星红毯",
+        "明星红毯造型"
+      ],
+      "primary_celebrities": [
+        "郝熠然"
+      ],
+      "quality_score": 223.14100000000002,
+      "output_date": "2026-10-10",
+      "selected_at": "2026-10-10T03:05:47.620206+00:00"
+    },
+    {
+      "aweme_id": "7694622277866768805",
+      "content_id": "7694622277866768805",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7694622277866768805/?region=US&mid=7112475680335464480&u_code=0&did=MS4wLjABAAAAQsFZ5UZH4vfhJwR1ZYTvhX-zyaBtHu2xyhH8xClBprUkGsWn6sG9yJitLOdIsI59&iid=MS4wLjABAAAArrab1_T9WYI2pSxB3yBMiUvcNZqUzgrU04jkvlmEts1RMriaZulsaRxYETNpRy9X&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=0xpNpAukai5Ulqcolz9zS7WTtBKWgvMYYG1qJJF0l_c-&share_version=320900&ts=1791599690&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#高圆圆 #张鲁一 同框#飞天奖 红毯 两位状态如何？",
+      "author": "娱乐圈小蜜",
+      "like_count": 5302,
+      "comment_count": 126,
+      "share_count": 304,
+      "duration_ms": 12200,
+      "create_time_iso": "2026-10-09T11:04:18+00:00",
+      "known_entities": [
+        "高圆圆",
+        "张鲁一",
+        "飞天奖"
+      ],
+      "verified_entities": [
+        "高圆圆",
+        "张鲁一",
+        "飞天奖"
+      ],
+      "primary_celebrities": [
+        "高圆圆",
+        "张鲁一"
+      ],
+      "quality_score": 222.884,
+      "output_date": "2026-10-10",
+      "selected_at": "2026-10-10T03:05:47.620206+00:00"
+    },
+    {
+      "aweme_id": "7694587155528753905",
+      "content_id": "7694587155528753905",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7694587155528753905/?region=US&mid=7495955189163395108&u_code=0&did=MS4wLjABAAAAQsFZ5UZH4vfhJwR1ZYTvhX-zyaBtHu2xyhH8xClBprUkGsWn6sG9yJitLOdIsI59&iid=MS4wLjABAAAArrab1_T9WYI2pSxB3yBMiUvcNZqUzgrU04jkvlmEts1RMriaZulsaRxYETNpRy9X&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=aeQZMSjEKIIap4XZ3X.ckT4GhzxVilEsQFwBGv8Cnlw-&share_version=320900&ts=1791599690&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#罗云熙 #沈羽洁 #方逸伦 同框亮相#魅影神捕抖音追剧团 #魅影神捕 美女帅哥们们站一起好养眼！",
+      "author": "娱乐圈小蜜",
+      "like_count": 4637,
+      "comment_count": 195,
+      "share_count": 530,
+      "duration_ms": 10067,
+      "create_time_iso": "2026-10-09T08:48:01+00:00",
+      "known_entities": [
+        "罗云熙",
+        "沈羽洁",
+        "方逸伦",
+        "魅影神捕抖音追剧团",
+        "魅影神捕"
+      ],
+      "verified_entities": [
+        "罗云熙",
+        "沈羽洁",
+        "方逸伦",
+        "魅影神捕抖音追剧团",
+        "魅影神捕"
+      ],
+      "primary_celebrities": [
+        "罗云熙",
+        "沈羽洁",
+        "方逸伦"
+      ],
+      "quality_score": 215.449,
+      "output_date": "2026-10-10",
+      "selected_at": "2026-10-10T03:05:47.620206+00:00"
+    },
+    {
+      "aweme_id": "7694208429527905147",
+      "content_id": "7694208429527905147",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7694208429527905147/?region=US&mid=7694208411957054251&u_code=0&did=MS4wLjABAAAAzTGJ8Fy_RGnxGs5J8qcYE-i3VfPC217O5ACirvKGujwHD1FXE6-vBU-Wy4s0BHNJ&iid=MS4wLjABAAAAtPjABNa0q27rwUTR4hWAZE2-fbQdLQMUSQ_wxQ_lZLO3_hOGpHT6fdvxHHDX1wKV&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=3YTNoNa5UcxXdYSsBhjtBeFx10heZC3AKrx5bW1sksw-&share_version=320900&ts=1791599682&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "这段好搞笑😂 #短视频变现 #爸爸当家 #李承铉 #搞笑 #综艺名场面",
+      "author": "趁现在",
+      "like_count": 3903,
+      "comment_count": 209,
+      "share_count": 120,
+      "duration_ms": 14667,
+      "create_time_iso": "2026-10-09T05:18:00+00:00",
+      "known_entities": [
+        "短视频变现"
+      ],
+      "verified_entities": [
+        "短视频变现"
+      ],
+      "primary_celebrities": [
+        "李承铉"
+      ],
+      "quality_score": 197.387,
+      "output_date": "2026-10-10",
+      "selected_at": "2026-10-10T03:05:47.620206+00:00"
+    },
     {
       "aweme_id": "7694183326655416933",
       "content_id": "7694183326655416933",
