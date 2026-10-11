@@ -1,7 +1,168 @@
 {
-  "updated_at": "2026-10-10T03:05:47.620206+00:00",
-  "count": 485,
+  "updated_at": "2026-10-11T02:46:33.586742+00:00",
+  "count": 490,
   "items": [
+    {
+      "aweme_id": "7694872140038578294",
+      "content_id": "7694872140038578294",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7694872140038578294/?region=US&mid=7694872127312251684&u_code=0&did=MS4wLjABAAAApgXS5z-Fv75mcozeSa57P1H053Y_kwUae4D_gfiIRlY6f1rZd1tLqVnuRolrLICm&iid=MS4wLjABAAAANzTPpww2-z11Q_Bnl9JmYpzeVSiZtnWHaVre3ik_pqyZrVLrcmwDgjlpXHtZLxqb&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=2HaLbs.5YAxCezWu.4.RD.ctDVIk9O5rOQPAyqnSuA0-&share_version=320900&ts=1791684819&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "“来军营净做俯卧撑了”#真正男子汉 #综艺名场面 #黄子韬 #俯卧撑 #梨花泠",
+      "author": "梨花泠",
+      "like_count": 64826,
+      "comment_count": 311,
+      "share_count": 19022,
+      "duration_ms": 61134,
+      "create_time_iso": "2026-10-10T03:13:54+00:00",
+      "known_entities": [
+        "真正男子汉",
+        "综艺名场面",
+        "黄子韬",
+        "俯卧撑",
+        "梨花泠"
+      ],
+      "verified_entities": [
+        "真正男子汉",
+        "综艺名场面",
+        "黄子韬",
+        "俯卧撑",
+        "梨花泠"
+      ],
+      "primary_celebrities": [
+        "黄子韬"
+      ],
+      "quality_score": 284.411,
+      "output_date": "2026-10-11",
+      "selected_at": "2026-10-11T02:46:33.586742+00:00"
+    },
+    {
+      "aweme_id": "7694897656229513171",
+      "content_id": "7694897656229513171",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7694897656229513171/?region=US&mid=7578964900446980142&u_code=0&did=MS4wLjABAAAAfPVFa2ZMgn__5pCkbQ099aFvZVo0ZwnusTkIAexydUcuZ6dGcAHUKk2JxariEHIF&iid=MS4wLjABAAAAJa7-GPYz_YgGdz9jQyqxgBo7LxYYUTWrgpZmrz4nk0uhYeifLOB_Gm0BfG9QE7Sr&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=O3rTurzc3HZsirjLUa3k1doZ5s8DgOPd8V7MjMECOGs-&share_version=320900&ts=1791684816&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "盛家二哥哥，中了！！！\n#王仁君 #飞天奖 #知否 #浴血荣光",
+      "author": "(∩_∩)瑶瑶",
+      "like_count": 282288,
+      "comment_count": 7021,
+      "share_count": 16589,
+      "duration_ms": 6900,
+      "create_time_iso": "2026-10-10T04:52:55+00:00",
+      "known_entities": [
+        "浴血荣光",
+        "王仁君",
+        "飞天奖",
+        "知否"
+      ],
+      "verified_entities": [
+        "浴血荣光",
+        "王仁君",
+        "飞天奖",
+        "知否"
+      ],
+      "primary_celebrities": [
+        "王仁君"
+      ],
+      "quality_score": 279.45,
+      "output_date": "2026-10-11",
+      "selected_at": "2026-10-11T02:46:33.586742+00:00"
+    },
+    {
+      "aweme_id": "7694970858708249802",
+      "content_id": "7694970858708249802",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7694970858708249802/?region=US&mid=7667425408891145001&u_code=0&did=MS4wLjABAAAAVcvMuM3EhoNRN-pPTfhrj0P-Gq6JB-YUqxof-xVS0fwuu1TVArUQoj6E31RF-d74&iid=MS4wLjABAAAAKv7azGgoGcsoeKQUuByohB4JG5RGvIPFGp67QbYYchQikMla_Em7Yov4uINSjbEL&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=wLjBjlgl02EtnikNHa4uCrUIWT91_dz8vPljJNOm65s-&share_version=320900&ts=1791684827&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "秀场见到刘些宁啦💕宝宝简直太美了❗️ #刘些宁#女明星红毯状态好绝 #婚纱时装周",
+      "author": "小初也.",
+      "like_count": 17320,
+      "comment_count": 72,
+      "share_count": 2338,
+      "duration_ms": 9534,
+      "create_time_iso": "2026-10-10T09:36:59+00:00",
+      "known_entities": [
+        "刘些宁",
+        "女明星红毯状态好绝",
+        "婚纱时装周"
+      ],
+      "verified_entities": [
+        "刘些宁",
+        "女明星红毯状态好绝",
+        "婚纱时装周"
+      ],
+      "primary_celebrities": [
+        "刘些宁"
+      ],
+      "quality_score": 231.179,
+      "output_date": "2026-10-11",
+      "selected_at": "2026-10-11T02:46:33.586742+00:00"
+    },
+    {
+      "aweme_id": "7695036866719323761",
+      "content_id": "7695036866719323761",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7695036866719323761/?region=US&mid=7695036825894669119&u_code=0&did=MS4wLjABAAAAfPVFa2ZMgn__5pCkbQ099aFvZVo0ZwnusTkIAexydUcuZ6dGcAHUKk2JxariEHIF&iid=MS4wLjABAAAAJa7-GPYz_YgGdz9jQyqxgBo7LxYYUTWrgpZmrz4nk0uhYeifLOB_Gm0BfG9QE7Sr&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=Q2WqAtufIaClKrYtA7YUPjEyOrLd48AAS2VAkM7dmkc-&share_version=320900&ts=1791684816&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "第35届中国电视剧“飞天奖”，王仁君4分钟获奖感言，现场视角 燃遍全网#飞天奖 #王仁君 #浴血荣光",
+      "author": "奔腾融媒·内蒙古卫视",
+      "like_count": 1681,
+      "comment_count": 149,
+      "share_count": 215,
+      "duration_ms": 260087,
+      "create_time_iso": "2026-10-10T13:53:07+00:00",
+      "known_entities": [
+        "浴血荣光",
+        "王仁君",
+        "飞天奖",
+        "获奖感言"
+      ],
+      "verified_entities": [
+        "浴血荣光",
+        "王仁君",
+        "飞天奖",
+        "获奖感言"
+      ],
+      "primary_celebrities": [
+        "王仁君"
+      ],
+      "quality_score": 228.325,
+      "output_date": "2026-10-11",
+      "selected_at": "2026-10-11T02:46:33.586742+00:00"
+    },
+    {
+      "aweme_id": "7695031332691044699",
+      "content_id": "7695031332691044699",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7695031332691044699/?region=US&mid=7695031291699710739&u_code=0&did=MS4wLjABAAAApgXS5z-Fv75mcozeSa57P1H053Y_kwUae4D_gfiIRlY6f1rZd1tLqVnuRolrLICm&iid=MS4wLjABAAAANzTPpww2-z11Q_Bnl9JmYpzeVSiZtnWHaVre3ik_pqyZrVLrcmwDgjlpXHtZLxqb&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=kAasBEJY2TlgPVqJmtUF21tVVZtn2qkHl66soqMK8GE-&share_version=320900&ts=1791684819&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "三姐大姐不要和我抢啦，完啦又多了竞争对手 #邓为 #林依晨 #吴君如#花儿与少年2026 #综艺名场面",
+      "author": "张小帆",
+      "like_count": 4722,
+      "comment_count": 78,
+      "share_count": 354,
+      "duration_ms": 10934,
+      "create_time_iso": "2026-10-10T13:31:38+00:00",
+      "known_entities": [
+        "邓为",
+        "花儿与少年",
+        "综艺名场面",
+        "林依晨",
+        "吴君如",
+        "花儿与少年2026"
+      ],
+      "verified_entities": [
+        "邓为",
+        "花儿与少年",
+        "综艺名场面",
+        "林依晨",
+        "吴君如",
+        "花儿与少年2026"
+      ],
+      "primary_celebrities": [
+        "邓为",
+        "林依晨",
+        "吴君如"
+      ],
+      "quality_score": 224.826,
+      "output_date": "2026-10-11",
+      "selected_at": "2026-10-11T02:46:33.586742+00:00"
+    },
     {
       "aweme_id": "7694613698963124090",
       "content_id": "7694613698963124090",
