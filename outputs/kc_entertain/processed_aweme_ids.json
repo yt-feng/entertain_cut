@@ -1,7 +1,145 @@
 {
-  "updated_at": "2026-10-11T02:46:33.586742+00:00",
-  "count": 490,
+  "updated_at": "2026-10-12T03:11:07.354992+00:00",
+  "count": 495,
   "items": [
+    {
+      "aweme_id": "7695408755185546431",
+      "content_id": "7695408755185546431",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7695408755185546431/?region=US&mid=7695408696247012111&u_code=0&did=MS4wLjABAAAAYVAf4M_mDsGzdHxu9HA5KCkc_eU2VClBFFcAuz2NctML4LAeYPmQWFET8aCwYhNo&iid=MS4wLjABAAAAX6n5qfKMHzoVvqkXIk5vaOpmbhh9PBkn24HYvo5BtxBUdapp9lIPENT63xUnGBXH&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=JzZncEFRhtgXX1SeWwEyrpoCgK7lTmBZG83zO0mmum4-&share_version=320900&ts=1791773102&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "爱这个#昼以继夜 \n#卡戎谭盐盐 #梁思伟张晋宜 #刘宇航朱小雪\n#2026美好奇妙夜",
+      "author": "过儿短剧",
+      "like_count": 18473,
+      "comment_count": 567,
+      "share_count": 1487,
+      "duration_ms": 17367,
+      "create_time_iso": "2026-10-11T13:56:14+00:00",
+      "known_entities": [
+        "昼以继夜",
+        "卡戎谭盐盐",
+        "梁思伟张晋宜",
+        "刘宇航朱小雪",
+        "2026美好奇妙夜"
+      ],
+      "verified_entities": [
+        "昼以继夜",
+        "卡戎谭盐盐",
+        "梁思伟张晋宜",
+        "刘宇航朱小雪",
+        "2026美好奇妙夜"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 244.384,
+      "output_date": "2026-10-12",
+      "selected_at": "2026-10-12T03:11:07.354992+00:00"
+    },
+    {
+      "aweme_id": "7695403417740670897",
+      "content_id": "7695403417740670897",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7695403417740670897/?region=US&mid=7695403355922631459&u_code=0&did=MS4wLjABAAAAYVAf4M_mDsGzdHxu9HA5KCkc_eU2VClBFFcAuz2NctML4LAeYPmQWFET8aCwYhNo&iid=MS4wLjABAAAAX6n5qfKMHzoVvqkXIk5vaOpmbhh9PBkn24HYvo5BtxBUdapp9lIPENT63xUnGBXH&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=DXL5sI9hFUKOffblDZaqWnEaqA5FvqvH4VcqgKDWbO0-&share_version=320900&ts=1791773102&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#2026美好奇妙夜 #蔡琴 你的眼神👀别那样看着我的眼睛💧",
+      "author": "戏客",
+      "like_count": 10739,
+      "comment_count": 197,
+      "share_count": 64,
+      "duration_ms": 32400,
+      "create_time_iso": "2026-10-11T13:35:32+00:00",
+      "known_entities": [
+        "2026美好奇妙夜",
+        "蔡琴"
+      ],
+      "verified_entities": [
+        "2026美好奇妙夜",
+        "蔡琴"
+      ],
+      "primary_celebrities": [
+        "蔡琴"
+      ],
+      "quality_score": 213.256,
+      "output_date": "2026-10-12",
+      "selected_at": "2026-10-12T03:11:07.354992+00:00"
+    },
+    {
+      "aweme_id": "7695408843693998052",
+      "content_id": "7695408843693998052",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7695408843693998052/?region=US&mid=7695408789809515274&u_code=0&did=MS4wLjABAAAAYVAf4M_mDsGzdHxu9HA5KCkc_eU2VClBFFcAuz2NctML4LAeYPmQWFET8aCwYhNo&iid=MS4wLjABAAAAX6n5qfKMHzoVvqkXIk5vaOpmbhh9PBkn24HYvo5BtxBUdapp9lIPENT63xUnGBXH&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=g2BnQgBvtd2.d_bvk9qONaIspa7Sjeaqn.hu9EvSsSg-&share_version=320900&ts=1791773102&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#2026美好奇妙夜 #蔡琴#蔡琴宣布2028年后不在舞台上唱歌 且听且珍惜",
+      "author": "一个剧有趣",
+      "like_count": 6739,
+      "comment_count": 599,
+      "share_count": 225,
+      "duration_ms": 75200,
+      "create_time_iso": "2026-10-11T13:56:35+00:00",
+      "known_entities": [
+        "2026美好奇妙夜",
+        "蔡琴",
+        "蔡琴宣布2028年后不在舞台上唱"
+      ],
+      "verified_entities": [
+        "2026美好奇妙夜",
+        "蔡琴",
+        "蔡琴宣布2028年后不在舞台上唱"
+      ],
+      "primary_celebrities": [
+        "蔡琴"
+      ],
+      "quality_score": 254.246,
+      "output_date": "2026-10-12",
+      "selected_at": "2026-10-12T03:11:07.354992+00:00"
+    },
+    {
+      "aweme_id": "7695393584615415717",
+      "content_id": "7695393584615415717",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7695393584615415717/?region=US&mid=7695393526149237546&u_code=0&did=MS4wLjABAAAAYVAf4M_mDsGzdHxu9HA5KCkc_eU2VClBFFcAuz2NctML4LAeYPmQWFET8aCwYhNo&iid=MS4wLjABAAAAX6n5qfKMHzoVvqkXIk5vaOpmbhh9PBkn24HYvo5BtxBUdapp9lIPENT63xUnGBXH&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=pMRmDkVLI606igu4rgrOmK0qCltnfnq5G8rwDXnmXD4-&share_version=320900&ts=1791773102&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "这事你怎么看呢？有必要拿三个奖吗？咱们评论区交流一下！#宋佳 #王仁君 #飞天奖 #娱乐圈",
+      "author": "李亭哲",
+      "like_count": 2069,
+      "comment_count": 1073,
+      "share_count": 56,
+      "duration_ms": 118200,
+      "create_time_iso": "2026-10-11T12:57:21+00:00",
+      "known_entities": [
+        "宋佳"
+      ],
+      "verified_entities": [
+        "宋佳"
+      ],
+      "primary_celebrities": [
+        "宋佳"
+      ],
+      "quality_score": 220.289,
+      "output_date": "2026-10-12",
+      "selected_at": "2026-10-12T03:11:07.354992+00:00"
+    },
+    {
+      "aweme_id": "7695286576947121226",
+      "content_id": "7695286576947121226",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7695286576947121226/?region=US&mid=7606906460090943526&u_code=0&did=MS4wLjABAAAA_ejklpuClAI8rBIbKc2L7vXrNNHonYLpBrw8VtOiYJUcmIYI6y89JuwE2vlOZEt6&iid=MS4wLjABAAAAlWAH9CnKv5D-FD3lTjAfk3N5G4lFumWLhoPvEgUbp8ICH49HODn4TYlx-xWmssqj&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=NBKF57P.s9aBF1tJOuNkK2UayPSLi3SFHMmNv1jxACM-&share_version=320900&ts=1791773096&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "生理期好像确实可以吃冰的东西#综艺爆笑片段 #戚薇#张雨绮 #芒果tv #综艺名场面分享",
+      "author": "柒晚卿",
+      "like_count": 1719,
+      "comment_count": 710,
+      "share_count": 204,
+      "duration_ms": 15634,
+      "create_time_iso": "2026-10-11T06:02:08+00:00",
+      "known_entities": [
+        "综艺名场面分享"
+      ],
+      "verified_entities": [
+        "综艺名场面分享"
+      ],
+      "primary_celebrities": [
+        "戚薇",
+        "张雨绮"
+      ],
+      "quality_score": 210.667,
+      "output_date": "2026-10-12",
+      "selected_at": "2026-10-12T03:11:07.354992+00:00"
+    },
     {
       "aweme_id": "7694872140038578294",
       "content_id": "7694872140038578294",
