@@ -1,7 +1,62 @@
 {
   "version": 1,
-  "updated_at": "2026-10-12T02:17:04.164833+08:00",
+  "updated_at": "2026-10-13T06:02:58.398987+08:00",
   "items": [
+    {
+      "note_id": "6acc9572000000000b0057f1",
+      "title": "刚刚！成毅",
+      "output": "01_刚刚！成毅_0b0057f1.mp4",
+      "rendered_at": "2026-10-13T06:02:27.311403+08:00",
+      "author_fans": 4433,
+      "liked_count": 2217,
+      "comments_count": 297,
+      "delivery_date": "2026-10-12",
+      "uploaded_at": "2026-10-13T06:02:58.398987+08:00"
+    },
+    {
+      "note_id": "6acc9264000000001b02ee68",
+      "title": "我们ee在影视寒冬“中暑”了",
+      "output": "02_我们ee在影视寒冬“中暑”了_1b02ee68.mp4",
+      "rendered_at": "2026-10-13T06:02:27.311403+08:00",
+      "author_fans": 236,
+      "liked_count": 690,
+      "comments_count": 59,
+      "delivery_date": "2026-10-12",
+      "uploaded_at": "2026-10-13T06:02:58.398987+08:00"
+    },
+    {
+      "note_id": "6acc931b000000001203fc5a",
+      "title": "两个角色？这个应该明年上映吧？",
+      "output": "03_两个角色？这个应该明年上映吧？_1203fc5a.mp4",
+      "rendered_at": "2026-10-13T06:02:27.311403+08:00",
+      "author_fans": 149,
+      "liked_count": 2877,
+      "comments_count": 194,
+      "delivery_date": "2026-10-12",
+      "uploaded_at": "2026-10-13T06:02:58.398987+08:00"
+    },
+    {
+      "note_id": "6accccf2000000000b0041f6",
+      "title": "感觉每次面试到一半就被原生性格顶号了",
+      "output": "04_感觉每次面试到一半就被原生性格顶号了_0b0041f6.mp4",
+      "rendered_at": "2026-10-13T06:02:27.311403+08:00",
+      "author_fans": 13,
+      "liked_count": 1527,
+      "comments_count": 95,
+      "delivery_date": "2026-10-12",
+      "uploaded_at": "2026-10-13T06:02:58.398987+08:00"
+    },
+    {
+      "note_id": "6acc41650000000015002c2a",
+      "title": "在国企被边缘化，2年多了，该如何调整自己",
+      "output": "05_在国企被边缘化，2年多了，该如何调整自己_15002c2a.mp4",
+      "rendered_at": "2026-10-13T06:02:27.311403+08:00",
+      "author_fans": 102,
+      "liked_count": 488,
+      "comments_count": 838,
+      "delivery_date": "2026-10-12",
+      "uploaded_at": "2026-10-13T06:02:58.398987+08:00"
+    },
     {
       "note_id": "6acb23fe000000000a024c3d",
       "title": "#我家那闺女2026 #代露娃 #感恩 #我家那闺女",
