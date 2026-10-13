@@ -1,7 +1,124 @@
 {
-  "updated_at": "2026-10-12T03:11:07.354992+00:00",
-  "count": 495,
+  "updated_at": "2026-10-13T04:21:50.692035+00:00",
+  "count": 500,
   "items": [
+    {
+      "aweme_id": "7695719315555548587",
+      "content_id": "7695719315555548587",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7695719315555548587/?region=US&mid=7695719283653266202&u_code=0&did=MS4wLjABAAAAVnNL8xYR7iNgGUSDKxN6sb3RoyxIhdAjX--ltpcpXs4DzbdqMbt0g9ogeZQmEQGa&iid=MS4wLjABAAAA0cOUlN2hwmuytsVsxUS4qoPuNI_cSipHGK9trCxBhFQAH9gJTjIGlgNLoDZMN7BT&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=O5EwBZeQG7P9oUl34ARV4mFB4QDZsSTg7VC.LTla2v8-&share_version=320900&ts=1791863318&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "谢娜：读取汪涵语录中。怎么没人一起笑呢#综艺名场面 #谢娜",
+      "author": "擂佳音",
+      "like_count": 9133,
+      "comment_count": 182,
+      "share_count": 3880,
+      "duration_ms": 27516,
+      "create_time_iso": "2026-10-12T10:01:23+00:00",
+      "known_entities": [
+        "谢娜"
+      ],
+      "verified_entities": [
+        "谢娜"
+      ],
+      "primary_celebrities": [
+        "谢娜"
+      ],
+      "quality_score": 201.086,
+      "output_date": "2026-10-13",
+      "selected_at": "2026-10-13T04:21:50.692035+00:00"
+    },
+    {
+      "aweme_id": "7695801834464675146",
+      "content_id": "7695801834464675146",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7695801834464675146/?region=US&mid=7695801736396917547&u_code=0&did=MS4wLjABAAAAVnNL8xYR7iNgGUSDKxN6sb3RoyxIhdAjX--ltpcpXs4DzbdqMbt0g9ogeZQmEQGa&iid=MS4wLjABAAAA0cOUlN2hwmuytsVsxUS4qoPuNI_cSipHGK9trCxBhFQAH9gJTjIGlgNLoDZMN7BT&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=H1oxtNLFaVSngYxXmGEplMG6ZjgGwUbgaTwa8RkRxhE-&share_version=320900&ts=1791863318&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "能上康熙的嘉宾一个比一个有才啊哈哈哈 #综艺名场面分享 #笑到停不下来 #康熙来了 #我要上热门 @DOU+上热门 @抖音创作灵感 @抖音来客官方助推官",
+      "author": "花生什么树了",
+      "like_count": 5164,
+      "comment_count": 77,
+      "share_count": 5418,
+      "duration_ms": 99534,
+      "create_time_iso": "2026-10-12T15:21:35+00:00",
+      "known_entities": [],
+      "verified_entities": [],
+      "primary_celebrities": [],
+      "quality_score": 186.615,
+      "output_date": "2026-10-13",
+      "selected_at": "2026-10-13T04:21:50.692035+00:00"
+    },
+    {
+      "aweme_id": "7695630203304986459",
+      "content_id": "7695630203304986459",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7695630203304986459/?region=US&mid=7695630166860565311&u_code=0&did=MS4wLjABAAAAVnNL8xYR7iNgGUSDKxN6sb3RoyxIhdAjX--ltpcpXs4DzbdqMbt0g9ogeZQmEQGa&iid=MS4wLjABAAAA0cOUlN2hwmuytsVsxUS4qoPuNI_cSipHGK9trCxBhFQAH9gJTjIGlgNLoDZMN7BT&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=n0qNvWfUAqH_5eOKTt8pYUvhzlKEFb82xYQX1P_8vQo-&share_version=320900&ts=1791863318&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "😱郭麒麟这眼神直接给我整懵住！这反应也太真实了，反复刷三遍都笑到打鸣🤣#郭麒麟 #笑到停不下来 #综艺名场面分享 #此处通往繁星越看越上头  #此处通往繁星",
+      "author": "陳景禾·春叙",
+      "like_count": 7125,
+      "comment_count": 162,
+      "share_count": 3222,
+      "duration_ms": 112400,
+      "create_time_iso": "2026-10-12T04:15:34+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "郭麒麟"
+      ],
+      "primary_celebrities": [
+        "郭麒麟"
+      ],
+      "quality_score": 186.087,
+      "output_date": "2026-10-13",
+      "selected_at": "2026-10-13T04:21:50.692035+00:00"
+    },
+    {
+      "aweme_id": "7695648598029410801",
+      "content_id": "7695648598029410801",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7695648598029410801/?region=US&mid=7695648396355209999&u_code=0&did=MS4wLjABAAAArVTGL923HmkIXHsfselXvtcv0X6LNiFd0Pw98tO-4I6eZl06IURyk7ndsIFQO2wq&iid=MS4wLjABAAAAzM5vDx_aINq9hTOee4dX_cgj8tOkbv_BtyaULAv3Y_KcRH95rcluBNHueQUY1859&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=LJZOi2yGxWF0dv6CUSAzcyf3bnDgrrpTqfxcQqDeJ4w-&share_version=320900&ts=1791863326&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "来啊～继续看明星，看亲切热烈的红毯后台💕#吴京 #易烊千玺 #胡军 #易烊千玺说没什么是不可能的",
+      "author": "星途璀璨",
+      "like_count": 7061,
+      "comment_count": 162,
+      "share_count": 7015,
+      "duration_ms": 11912,
+      "create_time_iso": "2026-10-12T05:26:57+00:00",
+      "known_entities": [
+        "易烊千玺"
+      ],
+      "verified_entities": [
+        "易烊千玺"
+      ],
+      "primary_celebrities": [
+        "易烊千玺"
+      ],
+      "quality_score": 178.723,
+      "output_date": "2026-10-13",
+      "selected_at": "2026-10-13T04:21:50.692035+00:00"
+    },
+    {
+      "aweme_id": "7695735765992767113",
+      "content_id": "7695735765992767113",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7695735765992767113/?region=US&mid=7695735746912996115&u_code=0&did=MS4wLjABAAAA72bToAam29DajXHh1YUG_Zo7FVDHU5kMaFQ4DQUbWqpjM3skZQxcyADKgIichtKG&iid=MS4wLjABAAAATXVIm8umC2Yy7bgVqYVv_uDBDUdEx_X_iZwL9upWiX_0q0WyDfFxI8xhPJ9xkV-V&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=8O_yntOPkcmze5to_ED9STrReiXIW86zLWc.CIBSUhY-&share_version=320900&ts=1791863329&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "双角色同时登顶热度榜，成毅实力出圈！\n据欢网大数据最新待播角色热度指数，演员成毅凭借《两京十五日》朱瞻基、《狩谎》林彦廷两个角色，分别拿下榜单TOP1与TOP3，古装历史、现代悬疑双赛道领跑待播市场。从帝王到探员，反差角色收获高人气。此前《赴山海》收官一年长尾热度不减，全网有效播放量突破18亿，扎实演技收获观众信任。（南宁晚报）",
+      "author": "大国重器",
+      "like_count": 2256,
+      "comment_count": 124,
+      "share_count": 161,
+      "duration_ms": 27100,
+      "create_time_iso": "2026-10-12T11:05:12+00:00",
+      "known_entities": [
+        "成毅"
+      ],
+      "verified_entities": [
+        "成毅"
+      ],
+      "primary_celebrities": [
+        "成毅"
+      ],
+      "quality_score": 170.817,
+      "output_date": "2026-10-13",
+      "selected_at": "2026-10-13T04:21:50.692035+00:00"
+    },
     {
       "aweme_id": "7695408755185546431",
       "content_id": "7695408755185546431",
