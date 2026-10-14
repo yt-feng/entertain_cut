@@ -1,7 +1,148 @@
 {
-  "updated_at": "2026-10-13T04:21:50.692035+00:00",
-  "count": 500,
+  "updated_at": "2026-10-14T03:11:49.866015+00:00",
+  "count": 505,
   "items": [
+    {
+      "aweme_id": "7695975934004415227",
+      "content_id": "7695975934004415227",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7695975934004415227/?region=US&mid=7695975878857100068&u_code=0&did=MS4wLjABAAAAhqVtPH8foWP1mNqZENf_VA7Xdq1y-1WDyX5wOseD4i9IXeM0hMwxDxgOghTiRnoq&iid=MS4wLjABAAAAXbeu5QU9pIhSe46Be4jdUN2ZBXQ1w4nJUCGBMcny_CfaSC0DY15gDJ-KqAizR94e&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=MuGQIIitRrKWWW1lz_4Yqi6x.vJgCxulK2ZZc0FhyHU-&share_version=320900&ts=1791943808&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "黄子韬：没有对比就没有伤害#真正男子汉 #综艺名场面 #搞笑 #黄子韬 #梨花泠",
+      "author": "梨花泠",
+      "like_count": 89266,
+      "comment_count": 1404,
+      "share_count": 67845,
+      "duration_ms": 70200,
+      "create_time_iso": "2026-10-13T02:37:11+00:00",
+      "known_entities": [
+        "真正男子汉",
+        "综艺名场面",
+        "搞笑",
+        "黄子韬",
+        "梨花泠"
+      ],
+      "verified_entities": [
+        "真正男子汉",
+        "综艺名场面",
+        "搞笑",
+        "黄子韬",
+        "梨花泠"
+      ],
+      "primary_celebrities": [
+        "黄子韬"
+      ],
+      "quality_score": 304.435,
+      "output_date": "2026-10-14",
+      "selected_at": "2026-10-14T03:11:49.866015+00:00"
+    },
+    {
+      "aweme_id": "7696116195099004210",
+      "content_id": "7696116195099004210",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7696116195099004210/?region=US&mid=7672577458768398355&u_code=0&did=MS4wLjABAAAAxBJQSU_BxmEXUH4Zh3hobxbS_2Pd4DWhqk6Y6lETAUMalCe7ny2C0OFZnlohnGxE&iid=MS4wLjABAAAAkzqCZCewjsNvRMib9TGkDhaJG5v9ovAMpChdmAFpRZMlqY5utTvwdPY6T6Zp8Baa&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=zrPXXcMuAOhn92gdTYpTM7NUVrJnCuEqalnXbVVd3dY-&share_version=320900&ts=1791943822&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "“范德彪演唱会”视频热播，竟是博主魔改明星演唱会名场面，把杰克逊、朴宰范、鸟叔换成范德彪，律师：涉嫌侵权歌手、范伟、拍摄者   #媒体原创  #媒体精选计划",
+      "author": "红星新闻",
+      "like_count": 16854,
+      "comment_count": 2718,
+      "share_count": 3538,
+      "duration_ms": 35711,
+      "create_time_iso": "2026-10-13T11:41:35+00:00",
+      "known_entities": [
+        "歌手",
+        "媒体原创",
+        "媒体精选计划",
+        "演唱会"
+      ],
+      "verified_entities": [
+        "歌手",
+        "媒体原创",
+        "媒体精选计划",
+        "演唱会"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 296.524,
+      "output_date": "2026-10-14",
+      "selected_at": "2026-10-14T03:11:49.866015+00:00"
+    },
+    {
+      "aweme_id": "7696046000750557859",
+      "content_id": "7696046000750557859",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7696046000750557859/?region=US&mid=7696045986652703530&u_code=0&did=MS4wLjABAAAAxBJQSU_BxmEXUH4Zh3hobxbS_2Pd4DWhqk6Y6lETAUMalCe7ny2C0OFZnlohnGxE&iid=MS4wLjABAAAAkzqCZCewjsNvRMib9TGkDhaJG5v9ovAMpChdmAFpRZMlqY5utTvwdPY6T6Zp8Baa&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=.0hEOU9YqMUPlJOuGsw7rDI.tMHQiiAmcHPUonmls.w-&share_version=320900&ts=1791943822&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "要逗死我了#演唱会现场记录 #全开麦演唱会现场",
+      "author": "吃大灰狼的小白兔",
+      "like_count": 56791,
+      "comment_count": 804,
+      "share_count": 59034,
+      "duration_ms": 244367,
+      "create_time_iso": "2026-10-13T07:09:04+00:00",
+      "known_entities": [
+        "演唱会现场记录",
+        "全开麦演唱会现场",
+        "演唱会"
+      ],
+      "verified_entities": [
+        "演唱会现场记录",
+        "全开麦演唱会现场",
+        "演唱会"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 277.44800000000004,
+      "output_date": "2026-10-14",
+      "selected_at": "2026-10-14T03:11:49.866015+00:00"
+    },
+    {
+      "aweme_id": "7696080110562184458",
+      "content_id": "7696080110562184458",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7696080110562184458/?region=US&mid=7696080173229214491&u_code=0&did=MS4wLjABAAAA5e-KAVRNQzz7riwuR7UWVOME6X2u1XlyfmIOxOB-0Yg7oefenWt2kOfIe-aBj7xI&iid=MS4wLjABAAAAuOMDtc6EuvTwZRxdygT6kZ1g7C2aqEKv9lukhe3sOAFwAFq8EyZEVT4TUsbeGtEW&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=debMToRvOkpqrT29WLxcf7H6gsOI6Dh6BLcWbk3nB3Y-&share_version=320900&ts=1791943803&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "你问为什么那么多人喜欢成毅！看vcr：#成毅  #用进步小曲打开成毅",
+      "author": "芒果捞娱",
+      "like_count": 12606,
+      "comment_count": 463,
+      "share_count": 1313,
+      "duration_ms": 141085,
+      "create_time_iso": "2026-10-13T09:21:30+00:00",
+      "known_entities": [
+        "成毅",
+        "用进步小曲打开成毅"
+      ],
+      "verified_entities": [
+        "成毅",
+        "用进步小曲打开成毅"
+      ],
+      "primary_celebrities": [
+        "成毅"
+      ],
+      "quality_score": 255.506,
+      "output_date": "2026-10-14",
+      "selected_at": "2026-10-14T03:11:49.866015+00:00"
+    },
+    {
+      "aweme_id": "7696066691398159658",
+      "content_id": "7696066691398159658",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7696066691398159658/?region=US&mid=7696066765293620031&u_code=0&did=MS4wLjABAAAAxBJQSU_BxmEXUH4Zh3hobxbS_2Pd4DWhqk6Y6lETAUMalCe7ny2C0OFZnlohnGxE&iid=MS4wLjABAAAAkzqCZCewjsNvRMib9TGkDhaJG5v9ovAMpChdmAFpRZMlqY5utTvwdPY6T6Zp8Baa&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=P3JN_VsUkQU_5GW2eaBxezDcEXYRPTSfqnegMW16Tlk-&share_version=320900&ts=1791943822&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "65岁叶蒨文演唱会险些跌落舞台 #明星 #演唱会",
+      "author": "原汁盐味",
+      "like_count": 12343,
+      "comment_count": 646,
+      "share_count": 631,
+      "duration_ms": 16672,
+      "create_time_iso": "2026-10-13T08:29:26+00:00",
+      "known_entities": [
+        "演唱会"
+      ],
+      "verified_entities": [
+        "演唱会"
+      ],
+      "primary_celebrities": [
+        "叶蒨文"
+      ],
+      "quality_score": 229.527,
+      "output_date": "2026-10-14",
+      "selected_at": "2026-10-14T03:11:49.866015+00:00"
+    },
     {
       "aweme_id": "7695719315555548587",
       "content_id": "7695719315555548587",
