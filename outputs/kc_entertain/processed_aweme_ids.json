@@ -1,7 +1,136 @@
 {
-  "updated_at": "2026-10-14T03:11:49.866015+00:00",
-  "count": 505,
+  "updated_at": "2026-10-15T05:29:23.300751+00:00",
+  "count": 510,
   "items": [
+    {
+      "aweme_id": "7696414235317218937",
+      "content_id": "7696414235317218937",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7696414235317218937/?region=US&mid=7696414188977326899&u_code=0&did=MS4wLjABAAAAeqyx7QzsUaTT3_ezrj5koPEaE0WKEs1-O6QeiuUaYrnNI97N2-bBNzP8lTIzJOyD&iid=MS4wLjABAAAAPF-i5Wa90LiMyFnnR38LS3K2ccmUjsZSOwbqBVWlQXJRi-8Ec2Psj9k2a-ICCzSi&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=pnPNEnlu3EwdwGB2a5ia8.TwgeL5bAaN_LiFya9AKHg-&share_version=320900&ts=1792041481&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "笨蛋，nice catch！ #梁世灿 #朱宇宰 #综艺名场面 #韩综 #韩语翻译",
+      "author": "小梨韩剧场🍐",
+      "like_count": 5406,
+      "comment_count": 56,
+      "share_count": 6715,
+      "duration_ms": 11355,
+      "create_time_iso": "2026-10-14T06:58:00+00:00",
+      "known_entities": [
+        "梁世灿",
+        "朱宇宰",
+        "综艺名场面",
+        "韩综",
+        "韩语翻译"
+      ],
+      "verified_entities": [
+        "梁世灿",
+        "朱宇宰",
+        "综艺名场面",
+        "韩综",
+        "韩语翻译"
+      ],
+      "primary_celebrities": [
+        "梁世灿",
+        "朱宇宰"
+      ],
+      "quality_score": 220.34199999999998,
+      "output_date": "2026-10-15",
+      "selected_at": "2026-10-15T05:29:23.300751+00:00"
+    },
+    {
+      "aweme_id": "5207005806172542377",
+      "content_id": "5207005806172542377",
+      "platform": "kuaishou",
+      "url": "https://www.kuaishou.com/short-video/5207005806172542377",
+      "title": "#娱乐资讯 #蔡依林 #明星娱乐 #演唱会 家人们谁懂啊！蔡依林这套紫色舞台造型太惊艳，又唱又跳状态拉满，舞台控制力真的绝了！",
+      "author": "阿布娱乐",
+      "like_count": 3150,
+      "comment_count": 660,
+      "share_count": 182,
+      "duration_ms": 15000,
+      "create_time_iso": "2026-10-14T13:53:59+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "蔡依林",
+        "演唱会",
+        "舞台"
+      ],
+      "primary_celebrities": [
+        "蔡依林"
+      ],
+      "quality_score": 175.648,
+      "output_date": "2026-10-15",
+      "selected_at": "2026-10-15T05:29:23.300751+00:00"
+    },
+    {
+      "aweme_id": "7696393679803860315",
+      "content_id": "7696393679803860315",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7696393679803860315/?region=US&mid=7696393694894951222&u_code=0&did=MS4wLjABAAAAZKNOnmI2P1Zk-7pL1ongJKa7sDXC3w1_tot9qllUaxehfoxS4ioc92haI0Wv7AuC&iid=MS4wLjABAAAAb5MOUW5DUeyjwmehukdiQ5MLox9czXF7KWrxvAUeEEZ2E_-cXJ4u1Ss6BQwkgcAE&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=WOGxfdVGqxWnmYu8Qplje61Sbh04cO.wTRAK2j1sQoM-&share_version=320900&ts=1792041489&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "飞天颁奖盛典结束明星退场#明星活动现场 #红毯现场 #实力派偶像 #王仁君#宋佳于适闫妮迟蓬于和伟秦海璐胡军朱亚文",
+      "author": "庄稼人",
+      "like_count": 1628,
+      "comment_count": 245,
+      "share_count": 196,
+      "duration_ms": 58567,
+      "create_time_iso": "2026-10-14T05:38:15+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "飞天颁奖盛典",
+        "红毯现场",
+        "明星活动现场"
+      ],
+      "primary_celebrities": [
+        "宋佳",
+        "于适",
+        "闫妮",
+        "于和伟",
+        "秦海璐",
+        "胡军",
+        "朱亚文",
+        "王仁君"
+      ],
+      "quality_score": 155.231,
+      "output_date": "2026-10-15",
+      "selected_at": "2026-10-15T05:29:23.300751+00:00"
+    },
+    {
+      "url": "https://www.iesdouyin.com/share/video/7696426795462538233/?region=US&mid=7696426754688289574&u_code=0&did=MS4wLjABAAAAXYeVSdv_kOJlgj2QpwJwuIBUGqdy09FQiHyNdKzMtuprYkhVbvSCoj_SQKDD4ZTC&iid=MS4wLjABAAAAGQi6PZvlIL9FQCNPmQyKPdaCAZPwYtNeGklOe5KFRJ2AJqwId7SQqmB_GvGo70OG&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=E78RjUijadpNpstiFa.ZOMsq4.fqYXRzS1udYHIdxFs-&share_version=320900&ts=1792028736&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "果然好东西只能从官方以外的地方欣赏#谭松韵 #刘学义 #兰香如故 #明星综艺录制现场 #内容引起舒适",
+      "author": "(*˘︶˘*).。.:*♡",
+      "like_count": 1782,
+      "comment_count": 48,
+      "share_count": 55,
+      "duration_ms": 89667,
+      "create_time_iso": "2026-10-14T07:46:45+00:00",
+      "known_entities": [],
+      "primary_celebrities": [],
+      "quality_score": 116.495,
+      "aweme_id": "7696426795462538233",
+      "content_id": "7696426795462538233",
+      "platform": "douyin",
+      "output_date": "2026-10-15",
+      "selected_at": "2026-10-15T05:16:22.371806+00:00",
+      "recovered_from_run_id": "38666244105"
+    },
+    {
+      "url": "https://www.iesdouyin.com/share/video/7696374559105332401/?region=US&mid=7693534907138295849&u_code=0&did=MS4wLjABAAAA84qFCxCo82QBvLtD6GquQHCM7XOwVjuN-KIc6-8s3wI&iid=MS4wLjABAAAAUe0TKsftIPqLIyfQ2AsbrXqB1sQaTknIv16N0knTgHw&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=vuE9YTDDw_SDshjCQa3Tz3mVZWR0uySjbxaCCLFD9WE-&share_version=320900&ts=1792028734&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "我的情商by bike： #综艺 #代露娃 #我家那闺女 #名场面 #综艺节目",
+      "author": "小怂菜奈",
+      "like_count": 1099,
+      "comment_count": 284,
+      "share_count": 926,
+      "duration_ms": 41734,
+      "create_time_iso": "2026-10-14T04:24:03+00:00",
+      "known_entities": [],
+      "primary_celebrities": [],
+      "quality_score": 146.957,
+      "aweme_id": "7696374559105332401",
+      "content_id": "7696374559105332401",
+      "platform": "douyin",
+      "output_date": "2026-10-15",
+      "selected_at": "2026-10-15T05:16:17.074456+00:00",
+      "recovered_from_run_id": "38666244105"
+    },
     {
       "aweme_id": "7695975934004415227",
       "content_id": "7695975934004415227",
