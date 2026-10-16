@@ -1,7 +1,157 @@
 {
-  "updated_at": "2026-10-15T05:29:23.300751+00:00",
-  "count": 510,
+  "updated_at": "2026-10-16T02:10:12.980220+00:00",
+  "count": 515,
   "items": [
+    {
+      "aweme_id": "7696795519666368369",
+      "content_id": "7696795519666368369",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7696795519666368369/?region=US&mid=7549063192938661897&u_code=0&did=MS4wLjABAAAATCFoes0MbOm6HrbFODFTe1kb5cdcX_FbfCRJZIRfYKPelEwMXI3YHygVOdtDn-3g&iid=MS4wLjABAAAA7F--HggGsB5mt2tP_Twtwh6uIFw8cOmY7klr3fcWV8KaiRdryJfwuNW-VSTi1yCg&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=g0rJzdwqVPJcxxPP3JZd2LQgxvDpznGGOQz_FYuuUA8-&share_version=320900&ts=1792114860&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#徐若晗 #郭宇欣 美女同框 两位状态如何？#玉簟秋 #玉簟秋抖音追剧团",
+      "author": "娱乐圈小蜜",
+      "like_count": 32309,
+      "comment_count": 5436,
+      "share_count": 10916,
+      "duration_ms": 13067,
+      "create_time_iso": "2026-10-15T07:37:35+00:00",
+      "known_entities": [
+        "玉簟秋",
+        "玉簟秋抖音追剧团",
+        "徐若晗",
+        "郭宇欣"
+      ],
+      "verified_entities": [
+        "玉簟秋",
+        "玉簟秋抖音追剧团",
+        "徐若晗",
+        "郭宇欣"
+      ],
+      "primary_celebrities": [
+        "徐若晗",
+        "郭宇欣"
+      ],
+      "quality_score": 287.274,
+      "output_date": "2026-10-16",
+      "selected_at": "2026-10-16T02:10:12.980220+00:00"
+    },
+    {
+      "aweme_id": "7696801960364681722",
+      "content_id": "7696801960364681722",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7696801960364681722/?region=US&mid=7644838167121102857&u_code=0&did=MS4wLjABAAAATCFoes0MbOm6HrbFODFTe1kb5cdcX_FbfCRJZIRfYKPelEwMXI3YHygVOdtDn-3g&iid=MS4wLjABAAAA7F--HggGsB5mt2tP_Twtwh6uIFw8cOmY7klr3fcWV8KaiRdryJfwuNW-VSTi1yCg&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=8.Xv1o4.Zvj7.WJkOdngkoWeok15jeIh2KvyX0hvvtw-&share_version=320900&ts=1792114860&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "丞磊徐若晗神之公主抱来了 啊啊啊俩人好甜好好磕#玉簟秋 #玉簟秋抖音追剧团 #丞磊徐若晗神之公主抱",
+      "author": "娱乐圈小蜜",
+      "like_count": 40636,
+      "comment_count": 1061,
+      "share_count": 5287,
+      "duration_ms": 14500,
+      "create_time_iso": "2026-10-15T08:02:35+00:00",
+      "known_entities": [
+        "玉簟秋",
+        "玉簟秋抖音追剧团",
+        "丞磊徐若晗神之公主抱",
+        "徐若晗",
+        "丞磊"
+      ],
+      "verified_entities": [
+        "玉簟秋",
+        "玉簟秋抖音追剧团",
+        "丞磊徐若晗神之公主抱",
+        "徐若晗",
+        "丞磊"
+      ],
+      "primary_celebrities": [
+        "丞磊",
+        "徐若晗"
+      ],
+      "quality_score": 255.375,
+      "output_date": "2026-10-16",
+      "selected_at": "2026-10-16T02:10:12.980220+00:00"
+    },
+    {
+      "aweme_id": "7696886265198769777",
+      "content_id": "7696886265198769777",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7696886265198769777/?region=CN&mid=7696886184962394934&u_code=djkkk9ld23g&did=MS4wLjABAAAAZW226JA6IkOgyvXGDrO0VWKdmVHvx_O92PHGL-C3OrhRZuIG8a2V20WQL2ihompI&iid=MS4wLjABAAAAIA4prLZgDpPsOEIasMoJ_bFon8eJRcEVHOunNe3LTXRICx5WbS_ZAPGPfpFyZjA_&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=ScOvGQlmizk.5ErCDXbtYWPttkEiuV.ydklGozW5.gw-&share_version=400300&ts=1792113832&from_aid=1128&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "小s简直是模仿界的天才\n#大s小s综艺名场面 #搞笑 #娱乐百分百",
+      "author": "亿万少女的依靠",
+      "like_count": 4002,
+      "comment_count": 301,
+      "share_count": 8234,
+      "duration_ms": 30535,
+      "create_time_iso": "2026-10-15T13:29:44+00:00",
+      "known_entities": [
+        "大s小s综艺名场面",
+        "搞笑",
+        "娱乐百分百"
+      ],
+      "verified_entities": [
+        "大s小s综艺名场面",
+        "搞笑",
+        "娱乐百分百"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 245.572,
+      "output_date": "2026-10-16",
+      "selected_at": "2026-10-16T02:10:12.980220+00:00"
+    },
+    {
+      "aweme_id": "7696828447980637474",
+      "content_id": "7696828447980637474",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7696828447980637474/?region=CN&mid=7696828600162569001&u_code=h4afdk04&did=MS4wLjABAAAA6pyJiNcO5g4jhtTj3Ox4XrXn5iqlpPfrfqf6ZECq3C0YjRfNW_SDmeFah1DmAtPN&iid=MS4wLjABAAAAGZhWZoLGXGefwrnojekr9xfP3u7vGQAETTss4ZvIXFTl3w19wfT6gcMDPOr4eQEC&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=l2ZKNibE2nZeZZcnqQItfwIkPTBiYLoUyjTefiTBSKY-&share_version=400700&ts=1792114536&from_aid=1128&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "离开你们零人还能逗我笑了（评论的人每天都会很开心）\n#现在就出发没有一分钟不好笑的 #现在就出发熟人局的快乐 #沈腾 #范丞丞 #综艺",
+      "author": "草莓松饼",
+      "like_count": 1384,
+      "comment_count": 10,
+      "share_count": 386,
+      "duration_ms": 195700,
+      "create_time_iso": "2026-10-15T09:45:27+00:00",
+      "known_entities": [
+        "范丞丞",
+        "沈腾"
+      ],
+      "verified_entities": [
+        "范丞丞",
+        "沈腾"
+      ],
+      "primary_celebrities": [
+        "沈腾",
+        "范丞丞"
+      ],
+      "quality_score": 196.513,
+      "output_date": "2026-10-16",
+      "selected_at": "2026-10-16T02:10:12.980220+00:00"
+    },
+    {
+      "aweme_id": "7696826661468246632",
+      "content_id": "7696826661468246632",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7696826661468246632/?region=US&mid=7690104752998337343&u_code=0&did=MS4wLjABAAAATCFoes0MbOm6HrbFODFTe1kb5cdcX_FbfCRJZIRfYKPelEwMXI3YHygVOdtDn-3g&iid=MS4wLjABAAAA7F--HggGsB5mt2tP_Twtwh6uIFw8cOmY7klr3fcWV8KaiRdryJfwuNW-VSTi1yCg&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=j7pp7uoIpCNjAkYC5fcOUSir3.R9l8_X0wT9Soan88g-&share_version=320900&ts=1792114860&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#周也 高清怼脸更显得脸精致了#绝美镜头自带贵气柔光 #天选建模脸 #镜头一怼，魅力翻倍！",
+      "author": "娱乐圈超仁",
+      "like_count": 2637,
+      "comment_count": 28,
+      "share_count": 264,
+      "duration_ms": 11100,
+      "create_time_iso": "2026-10-15T09:38:26+00:00",
+      "known_entities": [
+        "周也",
+        "绝美镜头自带贵气柔光",
+        "天选建模脸"
+      ],
+      "verified_entities": [
+        "周也",
+        "绝美镜头自带贵气柔光",
+        "天选建模脸"
+      ],
+      "primary_celebrities": [
+        "周也"
+      ],
+      "quality_score": 173.102,
+      "output_date": "2026-10-16",
+      "selected_at": "2026-10-16T02:10:12.980220+00:00"
+    },
     {
       "aweme_id": "7696414235317218937",
       "content_id": "7696414235317218937",
