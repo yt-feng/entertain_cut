@@ -1,7 +1,158 @@
 {
-  "updated_at": "2026-10-17T01:50:01.777482+00:00",
-  "count": 520,
+  "updated_at": "2026-10-18T01:28:32.606032+00:00",
+  "count": 525,
   "items": [
+    {
+      "aweme_id": "7697517590428208826",
+      "content_id": "7697517590428208826",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7697517590428208826/?region=US&mid=7697517523717131048&u_code=0&did=MS4wLjABAAAANpttMKDuN7U31wA799V8a_L21ZyN_NrLZQ730oQS9P3KiH93MKJB36Ni301wV7fK&iid=MS4wLjABAAAAT0G4SKOBF-_RZk3JdYnYEUcTwpMQv8OngTggp_WuVIEr64KqDAZfK_zJl6suE-df&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=sc3wi5gVIQ44jiPmBteIcDJ70W4k7mihf1YuD_46QzM-&share_version=320900&ts=1792286156&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "此刻最好的都在身边 #奔跑吧",
+      "author": "王祖蓝",
+      "like_count": 2513941,
+      "comment_count": 31718,
+      "share_count": 304520,
+      "duration_ms": 7834,
+      "create_time_iso": "2026-10-17T06:19:36+00:00",
+      "known_entities": [
+        "奔跑吧"
+      ],
+      "verified_entities": [
+        "奔跑吧"
+      ],
+      "primary_celebrities": [
+        "王祖蓝"
+      ],
+      "quality_score": 306.59,
+      "output_date": "2026-10-18",
+      "selected_at": "2026-10-18T01:28:32.606032+00:00"
+    },
+    {
+      "aweme_id": "7697531534451428457",
+      "content_id": "7697531534451428457",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7697531534451428457/?region=US&mid=7697531501130517299&u_code=0&did=MS4wLjABAAAAeeIlMLGVGi5nqv56auofcDWthnwX1943EO1Oqm6WeTdb9xNn5CcraLKh8weljRBU&iid=MS4wLjABAAAAaDeIdrj_v1oqhZ2EEbiRX8eQR41JoNSefbtbT1x-JOtsHO5iDNR1OhqIolP_0qi9&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=NE0Av8u4FDaLNLsHifF0Y2xVbKhd_ArgrOmAvkIDIog-&share_version=320900&ts=1792286142&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "笑死我了太有节目了 #孟屯 #张百乔 #万宁 #好好好你这么整是吧 #综艺搞笑名场面 @张百乔 \n《好好好你这么整是吧》第一集逗死我了速速更新哈哈哈哈哈哈哈",
+      "author": "Hypocrisy",
+      "like_count": 82521,
+      "comment_count": 1175,
+      "share_count": 92319,
+      "duration_ms": 58634,
+      "create_time_iso": "2026-10-17T07:13:42+00:00",
+      "known_entities": [
+        "好好好你这么整是吧",
+        "孟屯",
+        "张百乔",
+        "万宁",
+        "综艺搞笑名场面"
+      ],
+      "verified_entities": [
+        "好好好你这么整是吧",
+        "孟屯",
+        "张百乔",
+        "万宁",
+        "综艺搞笑名场面"
+      ],
+      "primary_celebrities": [
+        "张百乔",
+        "万宁"
+      ],
+      "quality_score": 298.864,
+      "output_date": "2026-10-18",
+      "selected_at": "2026-10-18T01:28:32.606032+00:00"
+    },
+    {
+      "aweme_id": "7697538737119338745",
+      "content_id": "7697538737119338745",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7697538737119338745/?region=US&mid=7697538656222989071&u_code=0&did=MS4wLjABAAAAeeIlMLGVGi5nqv56auofcDWthnwX1943EO1Oqm6WeTdb9xNn5CcraLKh8weljRBU&iid=MS4wLjABAAAAaDeIdrj_v1oqhZ2EEbiRX8eQR41JoNSefbtbT1x-JOtsHO5iDNR1OhqIolP_0qi9&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=7je50E0F3Js7eoRBZuHaulfgDEHPvZX9zLDNEKjpGGk-&share_version=320900&ts=1792286142&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "有人懂这段吗 白的无奈娇羞感 头一次感受到白敬亭的cp感 真的被王楚然的幼稚感给乐笑了  #白敬亭 #综艺名场面 #现在就出发 #王楚然",
+      "author": "洋欣",
+      "like_count": 21257,
+      "comment_count": 530,
+      "share_count": 3930,
+      "duration_ms": 7934,
+      "create_time_iso": "2026-10-17T07:41:39+00:00",
+      "known_entities": [
+        "王楚然",
+        "综艺名场面",
+        "白敬亭",
+        "现在就出发"
+      ],
+      "verified_entities": [
+        "王楚然",
+        "综艺名场面",
+        "白敬亭",
+        "现在就出发"
+      ],
+      "primary_celebrities": [
+        "白敬亭",
+        "王楚然"
+      ],
+      "quality_score": 264.261,
+      "output_date": "2026-10-18",
+      "selected_at": "2026-10-18T01:28:32.606032+00:00"
+    },
+    {
+      "aweme_id": "7697444732842257785",
+      "content_id": "7697444732842257785",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7697444732842257785/?region=US&mid=7687072286310893618&u_code=0&did=MS4wLjABAAAAlJNnUfgpkfgfcT8Dz6iF4wnrc70TIC_VEv65gYhGmhs&iid=MS4wLjABAAAAwfNYCArQfR_lOreET82zX119VCPBNEdnO4ZfsDBCdeg&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=_RceCu0wsZWGgP9dyI3t3Om.c2kbKguoYfWm5UWnKls-&share_version=320900&ts=1792286144&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "24岁说的话 35岁也一直在践行 最让我感慨的其实是他年纪轻轻能说出这些话，那其实代表他想的已远不止这些了。很敬佩他一直在思考 一直在学习 一直明白自己想要什么…张艺兴是一位优秀的文艺工作者\n#张艺兴 #内娱 #艺人 #采访 #责任与担当",
+      "author": "𝑶𝑽𝑵𝑿🍚",
+      "like_count": 30630,
+      "comment_count": 814,
+      "share_count": 8231,
+      "duration_ms": 33834,
+      "create_time_iso": "2026-10-17T01:36:52+00:00",
+      "known_entities": [
+        "张艺兴",
+        "内娱",
+        "艺人",
+        "采访",
+        "责任与担当"
+      ],
+      "verified_entities": [
+        "张艺兴",
+        "内娱",
+        "艺人",
+        "采访",
+        "责任与担当"
+      ],
+      "primary_celebrities": [
+        "张艺兴"
+      ],
+      "quality_score": 262.515,
+      "output_date": "2026-10-18",
+      "selected_at": "2026-10-18T01:28:32.606032+00:00"
+    },
+    {
+      "aweme_id": "7697539682641269327",
+      "content_id": "7697539682641269327",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7697539682641269327/?region=US&mid=7697539635299584809&u_code=0&did=MS4wLjABAAAAeeIlMLGVGi5nqv56auofcDWthnwX1943EO1Oqm6WeTdb9xNn5CcraLKh8weljRBU&iid=MS4wLjABAAAAaDeIdrj_v1oqhZ2EEbiRX8eQR41JoNSefbtbT1x-JOtsHO5iDNR1OhqIolP_0qi9&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=GqWgkV52Zo1eiXFteIw6L8t.EIztY973NzY.CfR.C78-&share_version=320900&ts=1792286142&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "你管得着吗 #王楚然 #综艺名场面",
+      "author": "波比波比波",
+      "like_count": 69197,
+      "comment_count": 268,
+      "share_count": 8763,
+      "duration_ms": 27500,
+      "create_time_iso": "2026-10-17T07:45:19+00:00",
+      "known_entities": [
+        "王楚然",
+        "综艺名场面"
+      ],
+      "verified_entities": [
+        "王楚然",
+        "综艺名场面"
+      ],
+      "primary_celebrities": [
+        "王楚然"
+      ],
+      "quality_score": 259.379,
+      "output_date": "2026-10-18",
+      "selected_at": "2026-10-18T01:28:32.606032+00:00"
+    },
     {
       "aweme_id": "7697084118248590635",
       "content_id": "7697084118248590635",
