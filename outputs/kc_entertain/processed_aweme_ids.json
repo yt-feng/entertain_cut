@@ -1,7 +1,132 @@
 {
-  "updated_at": "2026-10-19T02:00:52.968667+00:00",
-  "count": 530,
+  "updated_at": "2026-10-20T02:24:32.644529+00:00",
+  "count": 534,
   "items": [
+    {
+      "aweme_id": "7698310573428252106",
+      "content_id": "7698310573428252106",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7698310573428252106/?region=US&mid=7521580258035664923&u_code=0&did=MS4wLjABAAAAMW08G8kCbiZx3vctNEfWRghqjZF5jMop7EtYQzwB5Kw&iid=MS4wLjABAAAAQDLWcPI-Fx4M4vvf0KJB8Ep1U5lepWBUjk0fOuy1ajw&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=VgW49BjYq2TQb2sd5rr2OdB5PyBRYlR4kOqG2_3Gf88-&share_version=320900&ts=1792461644&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "闫桉田曦薇同框剧宣 绅士桉这裙摆是不是提的有点高了哈哈#田曦薇 #闫桉 #嫁金钗",
+      "author": "娱乐圈小蜜",
+      "like_count": 89743,
+      "comment_count": 909,
+      "share_count": 12325,
+      "duration_ms": 21567,
+      "create_time_iso": "2026-10-19T09:36:47+00:00",
+      "known_entities": [
+        "田曦薇",
+        "闫桉",
+        "嫁金钗",
+        "娱乐圈"
+      ],
+      "verified_entities": [
+        "田曦薇",
+        "闫桉",
+        "嫁金钗",
+        "娱乐圈"
+      ],
+      "primary_celebrities": [
+        "田曦薇",
+        "闫桉"
+      ],
+      "quality_score": 273.122,
+      "output_date": "2026-10-20",
+      "selected_at": "2026-10-20T02:24:32.644529+00:00"
+    },
+    {
+      "aweme_id": "7698232992582897545",
+      "content_id": "7698232992582897545",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7698232992582897545/?region=US&mid=7698232962689370899&u_code=0&did=MS4wLjABAAAAP1wWwfoZC36pl3wN-PeCqg44VBpmRT_izAEtaZ9GU2L1pDlutZAxjiV2IpgiNFmo&iid=MS4wLjABAAAAvIoN_xv7ts--LxFBXCppma7-NiPjOiVC8L9KcPtVvLtSvsWUbIqez9eM7qKT3qgC&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=xLtPnQWQ7k6eB0r1ZRhXvTW4TIpLTK.UhXSR92SYmRI-&share_version=320900&ts=1792461634&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "“韩女的嘴攻击力依旧强的没边”\n#韩综 #金智雨 #综艺名场面 #搞笑 @DOU+小助手",
+      "author": "A8os",
+      "like_count": 32592,
+      "comment_count": 222,
+      "share_count": 22217,
+      "duration_ms": 29700,
+      "create_time_iso": "2026-10-19T04:35:43+00:00",
+      "known_entities": [
+        "韩综",
+        "金智雨",
+        "综艺名场面",
+        "搞笑"
+      ],
+      "verified_entities": [
+        "韩综",
+        "金智雨",
+        "综艺名场面",
+        "搞笑"
+      ],
+      "primary_celebrities": [
+        "金智雨"
+      ],
+      "quality_score": 256.933,
+      "output_date": "2026-10-20",
+      "selected_at": "2026-10-20T02:24:32.644529+00:00"
+    },
+    {
+      "aweme_id": "7698381295394605032",
+      "content_id": "7698381295394605032",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7698381295394605032/?region=US&mid=7698381241691409194&u_code=0&did=MS4wLjABAAAAMW08G8kCbiZx3vctNEfWRghqjZF5jMop7EtYQzwB5Kw&iid=MS4wLjABAAAAQDLWcPI-Fx4M4vvf0KJB8Ep1U5lepWBUjk0fOuy1ajw&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=lO5CQDi0EPFUl.kKR5kqcYjnbakVwMnI2wKZyiFTrZA-&share_version=320900&ts=1792461644&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "吊威亚真相到底是什么！ 期待母带！\n\n大家就可以看到为啥#成毅拉威亚 手出血，为啥拉威亚看起来没拉几遍，结果在镜头里看着累的不行了✋\n\n为啥俺和其他人表情这么命苦，为啥有些人前一个镜头在台上穿着戏服下一个镜头瞬移到台下穿着常服～～#影视圈 #娱乐圈 #武打动作",
+      "author": "皓月少年张昊玥",
+      "like_count": 5631,
+      "comment_count": 361,
+      "share_count": 262,
+      "duration_ms": 241649,
+      "create_time_iso": "2026-10-19T14:11:13+00:00",
+      "known_entities": [
+        "成毅",
+        "成毅拉威亚",
+        "影视圈",
+        "娱乐圈"
+      ],
+      "verified_entities": [
+        "成毅",
+        "成毅拉威亚",
+        "影视圈",
+        "娱乐圈"
+      ],
+      "primary_celebrities": [
+        "成毅"
+      ],
+      "quality_score": 223.47799999999998,
+      "output_date": "2026-10-20",
+      "selected_at": "2026-10-20T02:24:32.644529+00:00"
+    },
+    {
+      "aweme_id": "7698398411212723386",
+      "content_id": "7698398411212723386",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7698398411212723386/?region=US&mid=7698398342141020963&u_code=0&did=MS4wLjABAAAAMW08G8kCbiZx3vctNEfWRghqjZF5jMop7EtYQzwB5Kw&iid=MS4wLjABAAAAQDLWcPI-Fx4M4vvf0KJB8Ep1U5lepWBUjk0fOuy1ajw&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=BZPrBKIsd6CcmlLihFcWN5Loid9PtuFizoy2MCyyfQQ-&share_version=320900&ts=1792461644&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#毛林林 高清镜头下这40岁状态如何？#嫁金钗 #嫁金钗抖音追剧团",
+      "author": "娱乐圈小蜜",
+      "like_count": 9294,
+      "comment_count": 440,
+      "share_count": 790,
+      "duration_ms": 11967,
+      "create_time_iso": "2026-10-19T15:17:39+00:00",
+      "known_entities": [
+        "嫁金钗",
+        "毛林林",
+        "嫁金钗抖音追剧团",
+        "娱乐圈"
+      ],
+      "verified_entities": [
+        "嫁金钗",
+        "毛林林",
+        "嫁金钗抖音追剧团",
+        "娱乐圈"
+      ],
+      "primary_celebrities": [
+        "毛林林"
+      ],
+      "quality_score": 216.71499999999997,
+      "output_date": "2026-10-20",
+      "selected_at": "2026-10-20T02:24:32.644529+00:00"
+    },
     {
       "aweme_id": "7697875893113485238",
       "content_id": "7697875893113485238",
