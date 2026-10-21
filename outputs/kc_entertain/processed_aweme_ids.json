@@ -1,7 +1,147 @@
 {
-  "updated_at": "2026-10-20T02:44:11.502446+00:00",
-  "count": 535,
+  "updated_at": "2026-10-21T02:05:21.379791+00:00",
+  "count": 540,
   "items": [
+    {
+      "aweme_id": "7698715788639467763",
+      "content_id": "7698715788639467763",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7698715788639467763/?region=US&mid=7644967369408169984&u_code=0&did=MS4wLjABAAAA-aCbJngfink2W6b6_Cv44YBMQu_JS8m3Fdk2_DvTVjw&iid=MS4wLjABAAAAathdoqstrxbXCNg7TehIsMzaCYgk5IaWvQklUxoAkis&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=HkycXkzVwRt9olVTzgo7YL86e1AzTCRYfpLkmqDV3fg-&share_version=320900&ts=1792547270&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "井Luke走红毯闪耀澳门 #井柏然 #明星活动现场",
+      "author": "DANTA",
+      "like_count": 35862,
+      "comment_count": 1247,
+      "share_count": 13265,
+      "duration_ms": 25034,
+      "create_time_iso": "2026-10-20T11:49:12+00:00",
+      "known_entities": [
+        "井柏然",
+        "明星活动现场"
+      ],
+      "verified_entities": [
+        "井柏然",
+        "明星活动现场"
+      ],
+      "primary_celebrities": [
+        "井柏然"
+      ],
+      "quality_score": 263.046,
+      "output_date": "2026-10-21",
+      "selected_at": "2026-10-21T02:05:21.379791+00:00"
+    },
+    {
+      "aweme_id": "7698566790082825472",
+      "content_id": "7698566790082825472",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7698566790082825472/?region=US&mid=7698566797536086827&u_code=0&did=MS4wLjABAAAAPOoJaH3hcT18ZG1NXc0b2agJXDvv4xBIrhCTevpz-0-72Gw7mUrbPiV1NAeSWRPu&iid=MS4wLjABAAAATb7u_HAurp9oFSGv520E9TEr1SF5orok9eKhpc73tsnsS2AfwkR2CGd0K_FTeee-&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=7Y.KTLRJUJk9X9w_kmEAX68PVAw3imRd7UK4KwJ73Qs-&share_version=320900&ts=1792547260&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "豆豆一句话就把孙杨钓成翘嘴了，恋爱脑孙杨上线哈哈哈 #孙杨 #张豆豆 #妻子的浪漫旅行 #模仿 #综艺名场面",
+      "author": "黑皮王子和三个小矮人",
+      "like_count": 21526,
+      "comment_count": 168,
+      "share_count": 2819,
+      "duration_ms": 19273,
+      "create_time_iso": "2026-10-20T02:11:07+00:00",
+      "known_entities": [
+        "孙杨",
+        "张豆豆",
+        "妻子的浪漫旅行",
+        "模仿",
+        "综艺名场面"
+      ],
+      "verified_entities": [
+        "孙杨",
+        "张豆豆",
+        "妻子的浪漫旅行",
+        "综艺名场面"
+      ],
+      "primary_celebrities": [
+        "孙杨",
+        "张豆豆"
+      ],
+      "quality_score": 251.69299999999998,
+      "output_date": "2026-10-21",
+      "selected_at": "2026-10-21T02:05:21.379791+00:00"
+    },
+    {
+      "aweme_id": "7698666645137767097",
+      "content_id": "7698666645137767097",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7698666645137767097/?region=US&mid=7644759785666283529&u_code=0&did=MS4wLjABAAAAz2cIARtT4bl110PGCOCIrqaYHglGwUeX6a-Uz1g-1u_GdV4lMzp5ldS7kR1oTU9n&iid=MS4wLjABAAAAWcTsPaQvO4KbBo-BM-dt6MbYOqWhLcpHfh_FrsbW3kNd7nyZ0bDpCQ49rZDGz0w-&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=NARVlEcW.QiUssTxvvkU.fGGrn23AP0a4B0avhz1UFQ-&share_version=320900&ts=1792547272&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "感受搞事业的虞军长 爽！最不吃压力之人 #民国热播剧 #演员的爆发力  #追剧 #丞磊#玉簟秋虞昶轩",
+      "author": "奶橙味的吐司",
+      "like_count": 6031,
+      "comment_count": 529,
+      "share_count": 1867,
+      "duration_ms": 11655,
+      "create_time_iso": "2026-10-20T08:38:31+00:00",
+      "known_entities": [
+        "民国热播剧",
+        "演员的爆发力",
+        "追剧",
+        "丞磊",
+        "玉簟秋虞昶轩"
+      ],
+      "verified_entities": [
+        "丞磊",
+        "玉簟秋虞昶轩",
+        "民国热播剧",
+        "演员的爆发力"
+      ],
+      "primary_celebrities": [
+        "丞磊"
+      ],
+      "quality_score": 224.37699999999998,
+      "output_date": "2026-10-21",
+      "selected_at": "2026-10-21T02:05:21.379791+00:00"
+    },
+    {
+      "aweme_id": "7698569021562390971",
+      "content_id": "7698569021562390971",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7698569021562390971/?region=US&mid=7698568875998628671&u_code=0&did=MS4wLjABAAAAPOoJaH3hcT18ZG1NXc0b2agJXDvv4xBIrhCTevpz-0-72Gw7mUrbPiV1NAeSWRPu&iid=MS4wLjABAAAATb7u_HAurp9oFSGv520E9TEr1SF5orok9eKhpc73tsnsS2AfwkR2CGd0K_FTeee-&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=f2TI0OzX5eROKIS90KR6rpeKiJxW2QeIxnlDyXEXps4-&share_version=320900&ts=1792547260&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#你的追剧名场面 #奔跑吧",
+      "author": "壹月.",
+      "like_count": 4373,
+      "comment_count": 99,
+      "share_count": 530,
+      "duration_ms": 83067,
+      "create_time_iso": "2026-10-20T02:19:41+00:00",
+      "known_entities": [
+        "奔跑吧",
+        "追剧"
+      ],
+      "verified_entities": [
+        "奔跑吧",
+        "追剧"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 217.20000000000002,
+      "output_date": "2026-10-21",
+      "selected_at": "2026-10-21T02:05:21.379791+00:00"
+    },
+    {
+      "aweme_id": "7698722711501893850",
+      "content_id": "7698722711501893850",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7698722711501893850/?region=US&mid=7698722642534140681&u_code=0&did=MS4wLjABAAAAPOoJaH3hcT18ZG1NXc0b2agJXDvv4xBIrhCTevpz-0-72Gw7mUrbPiV1NAeSWRPu&iid=MS4wLjABAAAATb7u_HAurp9oFSGv520E9TEr1SF5orok9eKhpc73tsnsS2AfwkR2CGd0K_FTeee-&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=_L1hOzyT5VpYzerIZ.0Zc.RBdtjBlN5jm2al8Fj9.Pw-&share_version=320900&ts=1792547260&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "妈耶😂笑死了 #热门的话题 这是什么雷霆普通话😂😂#笑不活了家人们 #综艺名场面 #笑到停不下来 #笑疯了",
+      "author": "暖暖",
+      "like_count": 4363,
+      "comment_count": 226,
+      "share_count": 1353,
+      "duration_ms": 17400,
+      "create_time_iso": "2026-10-20T12:16:04+00:00",
+      "known_entities": [
+        "综艺名场面"
+      ],
+      "verified_entities": [
+        "综艺名场面"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 208.979,
+      "output_date": "2026-10-21",
+      "selected_at": "2026-10-21T02:05:21.379791+00:00"
+    },
     {
       "aweme_id": "7698206352744680747",
       "content_id": "7698206352744680747",
