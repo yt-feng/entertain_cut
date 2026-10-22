@@ -1,7 +1,133 @@
 {
-  "updated_at": "2026-10-21T02:05:21.379791+00:00",
-  "count": 540,
+  "updated_at": "2026-10-22T02:21:43.000746+00:00",
+  "count": 545,
   "items": [
+    {
+      "aweme_id": "7699096734153436002",
+      "content_id": "7699096734153436002",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7699096734153436002/?region=US&mid=7699096728317774633&u_code=0&did=MS4wLjABAAAAAtTT16Xyva34F-uCujLQ016YyWQWOR3rWMe_JAg_1PzFsE4ZLGTFhHfB-ZxIKfso&iid=MS4wLjABAAAAWDSh8QYeoBo1Yy91sfLWREgg_-_TYKKVQBxD22v3J4Q-iAIjHe5BQyMhCNdUd9yx&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=SmPCk9F5j5EfWrqKJunUIdAQ0wJFY2_BMcyFS1aYkTA-&share_version=320900&ts=1792633371&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "社会心理学视角深度解析肖战南京演唱会二开 王一博肖战南京演唱会会同台吗？博君一肖站姐全球热称爬也要爬进去的！博君一肖是真的吗？为什么内娱再无法超越博君一肖？三家粉丝太热闹了！#王一博 #肖战 #红绿小磕糖",
+      "author": "🍭红绿·小磕糖",
+      "like_count": 17789,
+      "comment_count": 574,
+      "share_count": 2407,
+      "duration_ms": 263167,
+      "create_time_iso": "2026-10-21T12:27:29+00:00",
+      "known_entities": [
+        "王一博",
+        "肖战"
+      ],
+      "verified_entities": [
+        "肖战",
+        "王一博"
+      ],
+      "primary_celebrities": [
+        "肖战",
+        "王一博"
+      ],
+      "quality_score": 265.161,
+      "output_date": "2026-10-22",
+      "selected_at": "2026-10-22T02:21:43.000746+00:00"
+    },
+    {
+      "aweme_id": "7699080262705387451",
+      "content_id": "7699080262705387451",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7699080262705387451/?region=US&mid=7699080233567193883&u_code=0&did=MS4wLjABAAAADnB2n6MqyD49SGF86RJgwFNkJkBPrC0ssf-O7OX3AyJq-QYCfOClZT7hszpQI3U0&iid=MS4wLjABAAAA_8asHJ-C725D4gVYwsduDW-PhX1OQErX2NrwoNvuYyykoC_kacbtOUJCUX0R8b-R&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=WDjsjngF0HYZfXtbjfJFXu8h3lLviEEywRwI5GpQ8YE-&share_version=320900&ts=1792633367&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "赵露思你的珍宝真的来了，我完全爆哭#赵露思 #时尚芭莎来自中国年度盛典 #时尚芭莎来自中国 #江阴霞客行",
+      "author": "会火大明星",
+      "like_count": 123699,
+      "comment_count": 1211,
+      "share_count": 14577,
+      "duration_ms": 7167,
+      "create_time_iso": "2026-10-21T11:23:33+00:00",
+      "known_entities": [
+        "赵露思"
+      ],
+      "verified_entities": [
+        "赵露思"
+      ],
+      "primary_celebrities": [
+        "赵露思"
+      ],
+      "quality_score": 239.26,
+      "output_date": "2026-10-22",
+      "selected_at": "2026-10-22T02:21:43.000746+00:00"
+    },
+    {
+      "aweme_id": "7699100556514213604",
+      "content_id": "7699100556514213604",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7699100556514213604/?region=US&mid=7630739945766176809&u_code=0&did=MS4wLjABAAAADnB2n6MqyD49SGF86RJgwFNkJkBPrC0ssf-O7OX3AyJq-QYCfOClZT7hszpQI3U0&iid=MS4wLjABAAAA_8asHJ-C725D4gVYwsduDW-PhX1OQErX2NrwoNvuYyykoC_kacbtOUJCUX0R8b-R&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=aSuA5_WVRGWCpF87Zszd12YOQT4kl371yvVSMHHqIkI-&share_version=320900&ts=1792633367&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "此女是神！ #赵露思 #美貌暴击 #芭莎红毯高光时刻 #女明星红毯 #此女权威 @赵露思",
+      "author": "Forever_赵露思",
+      "like_count": 26602,
+      "comment_count": 214,
+      "share_count": 1208,
+      "duration_ms": 20400,
+      "create_time_iso": "2026-10-21T12:42:18+00:00",
+      "known_entities": [
+        "赵露思"
+      ],
+      "verified_entities": [
+        "赵露思"
+      ],
+      "primary_celebrities": [
+        "赵露思"
+      ],
+      "quality_score": 204.294,
+      "output_date": "2026-10-22",
+      "selected_at": "2026-10-22T02:21:43.000746+00:00"
+    },
+    {
+      "aweme_id": "7699021429665524196",
+      "content_id": "7699021429665524196",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7699021429665524196/?region=US&mid=7699021423199800107&u_code=0&did=MS4wLjABAAAA1LlfGjRnvtVwlINRnHYiqcA-Eu1y0ca_quU0eG1HUlUznnm23Tv06JvsWfynEerE&iid=MS4wLjABAAAAHZMCG_3ySG8G29bCdZbHHMxjRxZ3jtg4H0-izlBAdCzAGWdfU2vc99iDhwxg5ie-&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=EYq2I5Zod8Cpqj39zuB8iAa37sJ0P6LlUBJNCRNzHls-&share_version=320900&ts=1792633365&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "大家遮住自己的光，只为让你的视角里出现一抹绿色#高瀚宇 #鹿晗 #追星女 #芦苇 #温暖",
+      "author": "娱乐圈小蜜蜂",
+      "like_count": 75984,
+      "comment_count": 590,
+      "share_count": 8593,
+      "duration_ms": 43979,
+      "create_time_iso": "2026-10-21T07:35:15+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "鹿晗",
+        "高瀚宇"
+      ],
+      "primary_celebrities": [
+        "鹿晗",
+        "高瀚宇"
+      ],
+      "quality_score": 192.608,
+      "output_date": "2026-10-22",
+      "selected_at": "2026-10-22T02:21:43.000746+00:00"
+    },
+    {
+      "aweme_id": "7698950937989513059",
+      "content_id": "7698950937989513059",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7698950937989513059/?region=US&mid=7698950857651669802&u_code=0&did=MS4wLjABAAAAy_g4q6VRUeiAnC-1jrxVWdBoTrmlATeFo9hWr6v--Xtp4W2LrT3xVx1AT1V8Hf4J&iid=MS4wLjABAAAAz0ms2LDq8_kF9aL7nDEGf41GtsLVHToI4_SMgnKDrYSEXhkZM6lzKTZ4zt2TRO4d&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=H3aX6QD_HmDsMCuxr8ujuDhcdrBGHMkxT3om69DfTSY-&share_version=320900&ts=1792633360&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "惹不起惹不起～ #魏大勋 #综艺名场面  #太好笑了 #笑到停不下来",
+      "author": "陌归矣",
+      "like_count": 12454,
+      "comment_count": 138,
+      "share_count": 998,
+      "duration_ms": 16974,
+      "create_time_iso": "2026-10-21T03:01:42+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "魏大勋"
+      ],
+      "primary_celebrities": [
+        "魏大勋"
+      ],
+      "quality_score": 177.26600000000002,
+      "output_date": "2026-10-22",
+      "selected_at": "2026-10-22T02:21:43.000746+00:00"
+    },
     {
       "aweme_id": "7698715788639467763",
       "content_id": "7698715788639467763",
