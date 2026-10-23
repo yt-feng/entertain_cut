@@ -1,7 +1,159 @@
 {
-  "updated_at": "2026-10-22T02:21:43.000746+00:00",
-  "count": 545,
+  "updated_at": "2026-10-23T02:27:30.466188+00:00",
+  "count": 550,
   "items": [
+    {
+      "aweme_id": "7699401460144000319",
+      "content_id": "7699401460144000319",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7699401460144000319/?region=US&mid=7699401438711319350&u_code=0&did=MS4wLjABAAAAcNtl3qVjdEUdOt7FBqkWSJYVkd0UkIF6oyGWg7PfhZg&iid=MS4wLjABAAAAPneZfVw-nLdmM4QHtVgOkx_23UPtyyD19wKaxUq2bno&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=N2VyY1JLFUsYAPa0WbGOoj7nm456BNtFbS1F8X4Ept4-&share_version=320900&ts=1792721415&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "闫桉就这么从各种名场面路过#闫桉 #嫁金钗 #搞笑 #考古",
+      "author": "哔哔King",
+      "like_count": 40588,
+      "comment_count": 966,
+      "share_count": 13158,
+      "duration_ms": 56588,
+      "create_time_iso": "2026-10-22T08:10:02+00:00",
+      "known_entities": [
+        "闫桉",
+        "嫁金钗",
+        "搞笑",
+        "考古"
+      ],
+      "verified_entities": [
+        "闫桉",
+        "嫁金钗",
+        "搞笑",
+        "考古"
+      ],
+      "primary_celebrities": [
+        "闫桉"
+      ],
+      "quality_score": 286.862,
+      "output_date": "2026-10-23",
+      "selected_at": "2026-10-23T02:27:30.466188+00:00"
+    },
+    {
+      "aweme_id": "7699352954637258746",
+      "content_id": "7699352954637258746",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7699352954637258746/?region=US&mid=7692269752811767827&u_code=0&did=MS4wLjABAAAAcNtl3qVjdEUdOt7FBqkWSJYVkd0UkIF6oyGWg7PfhZg&iid=MS4wLjABAAAAPneZfVw-nLdmM4QHtVgOkx_23UPtyyD19wKaxUq2bno&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=UCMnZQGXy_mlfjXLOZPdCRTeb2P7VT76w.JakwZ9nRU-&share_version=320900&ts=1792721415&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "地板最强王者 #黄景瑜 #范丞丞  #现在就出发4 #综艺名场面",
+      "author": "Deng等等～",
+      "like_count": 25876,
+      "comment_count": 602,
+      "share_count": 6725,
+      "duration_ms": 10600,
+      "create_time_iso": "2026-10-22T05:01:45+00:00",
+      "known_entities": [
+        "范丞丞",
+        "黄景瑜",
+        "现在就出发4",
+        "综艺名场面"
+      ],
+      "verified_entities": [
+        "范丞丞",
+        "黄景瑜",
+        "现在就出发4",
+        "综艺名场面"
+      ],
+      "primary_celebrities": [
+        "范丞丞",
+        "黄景瑜"
+      ],
+      "quality_score": 265.78000000000003,
+      "output_date": "2026-10-23",
+      "selected_at": "2026-10-23T02:27:30.466188+00:00"
+    },
+    {
+      "aweme_id": "7699412525808385930",
+      "content_id": "7699412525808385930",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7699412525808385930/?region=US&mid=7699412657429908266&u_code=0&did=MS4wLjABAAAAdmF4NU_PdMBdnnVgpAtbH3MwlM7fG65FZiyocuRQYsk&iid=MS4wLjABAAAAKJ5gZEbz-0NcALbxpVK_GjDnXj-94MbXCTpeBfO1M-0&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=oRsGZqmU0xGkBzNPVXSRRvlT2Le2C725OtFTYyyUcnU-&share_version=320900&ts=1792721424&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "迪丽热巴vogue红毯真的来了，燥候#迪丽热巴 #VOGUE #红毯",
+      "author": "Hey 喜塔",
+      "like_count": 22576,
+      "comment_count": 399,
+      "share_count": 2400,
+      "duration_ms": 32207,
+      "create_time_iso": "2026-10-22T08:52:55+00:00",
+      "known_entities": [
+        "迪丽热巴",
+        "VOGUE",
+        "红毯"
+      ],
+      "verified_entities": [
+        "迪丽热巴",
+        "VOGUE",
+        "红毯"
+      ],
+      "primary_celebrities": [
+        "迪丽热巴"
+      ],
+      "quality_score": 246.86800000000002,
+      "output_date": "2026-10-23",
+      "selected_at": "2026-10-23T02:27:30.466188+00:00"
+    },
+    {
+      "aweme_id": "7699344850046972134",
+      "content_id": "7699344850046972134",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7699344850046972134/?region=US&mid=7699344818431691558&u_code=0&did=MS4wLjABAAAAcNtl3qVjdEUdOt7FBqkWSJYVkd0UkIF6oyGWg7PfhZg&iid=MS4wLjABAAAAPneZfVw-nLdmM4QHtVgOkx_23UPtyyD19wKaxUq2bno&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=Ya8gDvj5B8B9ee_wl9FwuXyFCqsDgaIVtCUfpwIsmak-&share_version=320900&ts=1792721415&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "《魔丸进化论》\n#王安宇#沈腾 #综艺名场面 #高能 #现在就出发",
+      "author": "王安宇成长回忆录",
+      "like_count": 8860,
+      "comment_count": 128,
+      "share_count": 2188,
+      "duration_ms": 43049,
+      "create_time_iso": "2026-10-22T04:30:17+00:00",
+      "known_entities": [
+        "沈腾",
+        "综艺名场面"
+      ],
+      "verified_entities": [
+        "沈腾",
+        "王安宇",
+        "综艺名场面",
+        "现在就出发"
+      ],
+      "primary_celebrities": [
+        "沈腾",
+        "王安宇"
+      ],
+      "quality_score": 222.126,
+      "output_date": "2026-10-23",
+      "selected_at": "2026-10-23T02:27:30.466188+00:00"
+    },
+    {
+      "aweme_id": "7699425334567768256",
+      "content_id": "7699425334567768256",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7699425334567768256/?region=US&mid=7699425311167154987&u_code=0&did=MS4wLjABAAAAcNtl3qVjdEUdOt7FBqkWSJYVkd0UkIF6oyGWg7PfhZg&iid=MS4wLjABAAAAPneZfVw-nLdmM4QHtVgOkx_23UPtyyD19wKaxUq2bno&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=9jbWVT80SXlmiPD1eFg35HFzWzud8XMXFmH74BQIwWM-&share_version=320900&ts=1792721415&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "志胜儿啊给我们笑呵呵留点面子吧 #贺峻霖 #贺峻霖令人心动的offer8 #徐志胜 #综艺搞笑 #综艺名场面",
+      "author": "lilbell",
+      "like_count": 5083,
+      "comment_count": 64,
+      "share_count": 349,
+      "duration_ms": 38867,
+      "create_time_iso": "2026-10-22T09:42:37+00:00",
+      "known_entities": [
+        "搞笑",
+        "综艺名场面"
+      ],
+      "verified_entities": [
+        "贺峻霖",
+        "徐志胜",
+        "令人心动的offer8",
+        "综艺名场面"
+      ],
+      "primary_celebrities": [
+        "贺峻霖",
+        "徐志胜"
+      ],
+      "quality_score": 214.25699999999998,
+      "output_date": "2026-10-23",
+      "selected_at": "2026-10-23T02:27:30.466188+00:00"
+    },
     {
       "aweme_id": "7699096734153436002",
       "content_id": "7699096734153436002",
