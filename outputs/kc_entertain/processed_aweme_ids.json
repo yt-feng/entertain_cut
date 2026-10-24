@@ -1,7 +1,155 @@
 {
-  "updated_at": "2026-10-23T02:27:30.466188+00:00",
-  "count": 550,
+  "updated_at": "2026-10-24T01:58:23.841477+00:00",
+  "count": 555,
   "items": [
+    {
+      "aweme_id": "7699750923454779045",
+      "content_id": "7699750923454779045",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7699750923454779045/?region=US&mid=7326174658191985434&u_code=0&did=MS4wLjABAAAAsYa60AVwnhQJnT1S-XiHP71UHEcqfY3dckU67nv8YqY&iid=MS4wLjABAAAA5iPVFSZNVhWSCEU_ToPuCiGT7Bp7k_jybg8faGuofwk&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=EwugASDCFnHvY2LMLrCYyWH2m.zOwMgwKuJ3i_wSwH4-&share_version=320900&ts=1792806442&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "自尊常常将人拖着#马天宇 #张萌 #再见朋友 #综艺名场面 #友情",
+      "author": "佳佳佳佳怕",
+      "like_count": 17346,
+      "comment_count": 410,
+      "share_count": 5093,
+      "duration_ms": 45700,
+      "create_time_iso": "2026-10-23T06:46:04+00:00",
+      "known_entities": [
+        "马天宇",
+        "张萌",
+        "再见朋友"
+      ],
+      "verified_entities": [
+        "马天宇",
+        "张萌",
+        "再见朋友",
+        "综艺名场面"
+      ],
+      "primary_celebrities": [
+        "马天宇",
+        "张萌"
+      ],
+      "quality_score": 271.486,
+      "output_date": "2026-10-24",
+      "selected_at": "2026-10-24T01:58:23.841477+00:00"
+    },
+    {
+      "aweme_id": "7699825329729046696",
+      "content_id": "7699825329729046696",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7699825329729046696/?region=US&mid=7681123937627719699&u_code=0&did=MS4wLjABAAAAGmn_RuOHyzTAIUNmbLAWqpgkdivOpAJ5P_tY4XIRo2Wr-nEQ5Ua7YlSlF7L-6H7R&iid=MS4wLjABAAAAHGg3NiX7OGrG3XI--lmd5vDjrlwq5VdsEd1xfHBrBy4IZHh4N2z8itZD6wrHd8mU&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=WUEgorLEgnglmJ_gzLcB8qcieGvEqXJhW3aPWrsPTtA-&share_version=320900&ts=1792806450&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "热巴VOGUE开场红毯之神来临#迪丽热巴 #女明星红毯 #vogue盛典 #秀场直击 #走秀",
+      "author": "揪只小团团",
+      "like_count": 82453,
+      "comment_count": 553,
+      "share_count": 16180,
+      "duration_ms": 15334,
+      "create_time_iso": "2026-10-23T11:34:48+00:00",
+      "known_entities": [
+        "迪丽热巴",
+        "女明星红毯",
+        "vogue盛典",
+        "秀场直击",
+        "走秀",
+        "红毯",
+        "vogue",
+        "女明星"
+      ],
+      "verified_entities": [
+        "迪丽热巴",
+        "vogue盛典",
+        "女明星红毯",
+        "红毯"
+      ],
+      "primary_celebrities": [
+        "迪丽热巴"
+      ],
+      "quality_score": 270.40500000000003,
+      "output_date": "2026-10-24",
+      "selected_at": "2026-10-24T01:58:23.841477+00:00"
+    },
+    {
+      "aweme_id": "7699856622562584228",
+      "content_id": "7699856622562584228",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7699856622562584228/?region=US&mid=7698769824238947108&u_code=0&did=MS4wLjABAAAAGmn_RuOHyzTAIUNmbLAWqpgkdivOpAJ5P_tY4XIRo2Wr-nEQ5Ua7YlSlF7L-6H7R&iid=MS4wLjABAAAAHGg3NiX7OGrG3XI--lmd5vDjrlwq5VdsEd1xfHBrBy4IZHh4N2z8itZD6wrHd8mU&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=EzQa2o14OqaXDtZ1KT2iFk_BmhzBy3xzzwnMjlSaD9E-&share_version=320900&ts=1792806450&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "内娱百花齐放#红毯 #vogue #女明星",
+      "author": "一颗紫米粒",
+      "like_count": 34160,
+      "comment_count": 897,
+      "share_count": 7122,
+      "duration_ms": 29813,
+      "create_time_iso": "2026-10-23T13:36:14+00:00",
+      "known_entities": [
+        "红毯",
+        "vogue",
+        "女明星"
+      ],
+      "verified_entities": [
+        "红毯",
+        "vogue",
+        "女明星"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 262.537,
+      "output_date": "2026-10-24",
+      "selected_at": "2026-10-24T01:58:23.841477+00:00"
+    },
+    {
+      "aweme_id": "7699817555686412529",
+      "content_id": "7699817555686412529",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7699817555686412529/?region=US&mid=7668283763503926054&u_code=0&did=MS4wLjABAAAAGmn_RuOHyzTAIUNmbLAWqpgkdivOpAJ5P_tY4XIRo2Wr-nEQ5Ua7YlSlF7L-6H7R&iid=MS4wLjABAAAAHGg3NiX7OGrG3XI--lmd5vDjrlwq5VdsEd1xfHBrBy4IZHh4N2z8itZD6wrHd8mU&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=Ej2IXAD3djARHm9wuMXgcQgLoZvqybtNWAdH5G.zP9M-&share_version=320900&ts=1792806450&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "男神闪耀vogue\n#王鹤棣 #vogue #vogue红毯",
+      "author": "生气忍忍",
+      "like_count": 11834,
+      "comment_count": 352,
+      "share_count": 2003,
+      "duration_ms": 11734,
+      "create_time_iso": "2026-10-23T11:04:38+00:00",
+      "known_entities": [
+        "王鹤棣",
+        "红毯",
+        "vogue"
+      ],
+      "verified_entities": [
+        "王鹤棣",
+        "vogue",
+        "红毯"
+      ],
+      "primary_celebrities": [
+        "王鹤棣"
+      ],
+      "quality_score": 238.102,
+      "output_date": "2026-10-24",
+      "selected_at": "2026-10-24T01:58:23.841477+00:00"
+    },
+    {
+      "aweme_id": "7699839705906564393",
+      "content_id": "7699839705906564393",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7699839705906564393/?region=US&mid=7699839761193585450&u_code=0&did=MS4wLjABAAAAGBgo4KlQohT061TKKywIWc0uxyNFH7Y4F4T7hCHZxybQaGEAKad6EHj-kf6hhyxQ&iid=MS4wLjABAAAAMU6SFYKOwKhfzDU-fqeXGJS8W3wmg01YBBj5ABGK8WeppkVl5WCWrPi72TX9YgPQ&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=0GHuHos7Y5PpwK7oYAURx7RyckVw8P5426drjl.I88I-&share_version=320900&ts=1792806454&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "肖战掏出手帕擦汗台下都在笑 哈哈嘘 #肖战 #南京 #演唱会 #星姐现场",
+      "author": "星姐",
+      "like_count": 14475,
+      "comment_count": 609,
+      "share_count": 3293,
+      "duration_ms": 38940,
+      "create_time_iso": "2026-10-23T12:30:42+00:00",
+      "known_entities": [
+        "肖战"
+      ],
+      "verified_entities": [
+        "肖战",
+        "演唱会"
+      ],
+      "primary_celebrities": [
+        "肖战"
+      ],
+      "quality_score": 226.224,
+      "output_date": "2026-10-24",
+      "selected_at": "2026-10-24T01:58:23.841477+00:00"
+    },
     {
       "aweme_id": "7699401460144000319",
       "content_id": "7699401460144000319",
