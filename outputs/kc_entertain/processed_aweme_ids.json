@@ -1,7 +1,154 @@
 {
-  "updated_at": "2026-10-24T01:58:23.841477+00:00",
-  "count": 555,
+  "updated_at": "2026-10-25T02:08:24.555355+00:00",
+  "count": 560,
   "items": [
+    {
+      "aweme_id": "7700062549789674815",
+      "content_id": "7700062549789674815",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7700062549789674815/?region=US&mid=7700062707931728681&u_code=0&did=MS4wLjABAAAAJRp_NRp1VIfWBF2ipGPSJ3_Emnyr0jJ_ZceBDe6Py2P0qEIfDkZ55hn_hPIPJKSe&iid=MS4wLjABAAAALJ7J1H5MAh1J1Y819u0ac6TbPyAg7_9v70WD1e3bzthGJKGZuZGxMTzawMwTxVsK&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=I4wptUy.vy871GaHB.cCCOHOUF1b1S0H7dZ2euwHorw-&share_version=320900&ts=1792891465&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "医生不会看胶片，不会用显微镜？曾瑜萱被淘汰真是一点不怨 #令人心动的offer #综艺 #娱乐评论大赏",
+      "author": "入夏观星社",
+      "like_count": 51399,
+      "comment_count": 3824,
+      "share_count": 39894,
+      "duration_ms": 193334,
+      "create_time_iso": "2026-10-24T02:55:25+00:00",
+      "known_entities": [
+        "令人心动的offer",
+        "娱乐评论大赏"
+      ],
+      "verified_entities": [
+        "令人心动的offer",
+        "娱乐评论大赏"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 289.521,
+      "output_date": "2026-10-25",
+      "selected_at": "2026-10-25T02:08:24.555355+00:00"
+    },
+    {
+      "aweme_id": "7700265350151068898",
+      "content_id": "7700265350151068898",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7700265350151068898/?region=US&mid=7700265301815921427&u_code=0&did=MS4wLjABAAAAJRp_NRp1VIfWBF2ipGPSJ3_Emnyr0jJ_ZceBDe6Py2P0qEIfDkZ55hn_hPIPJKSe&iid=MS4wLjABAAAALJ7J1H5MAh1J1Y819u0ac6TbPyAg7_9v70WD1e3bzthGJKGZuZGxMTzawMwTxVsK&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=ir_GNl8pCmAbcI1MTVKGlfkl8tVSOh9qBEKHSrNpGhg-&share_version=320900&ts=1792891462&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "王俊凯《那女孩对我说》完整版直拍 听了想哭#那女孩对我说#一个人心中只有一个宝贝 #我在抖音追巡演#王俊凯贵阳演唱会",
+      "author": "DARKSTAR王俊凯暗星站",
+      "like_count": 45211,
+      "comment_count": 1077,
+      "share_count": 4211,
+      "duration_ms": 270400,
+      "create_time_iso": "2026-10-24T16:02:18+00:00",
+      "known_entities": [
+        "王俊凯",
+        "那女孩对我说",
+        "一个人心中只有一个宝贝",
+        "我在抖音追巡演",
+        "王俊凯贵阳演唱会"
+      ],
+      "verified_entities": [
+        "王俊凯",
+        "那女孩对我说",
+        "王俊凯贵阳演唱会",
+        "我在抖音追巡演"
+      ],
+      "primary_celebrities": [
+        "王俊凯"
+      ],
+      "quality_score": 285.688,
+      "output_date": "2026-10-25",
+      "selected_at": "2026-10-25T02:08:24.555355+00:00"
+    },
+    {
+      "aweme_id": "7700071908717304228",
+      "content_id": "7700071908717304228",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7700071908717304228/?region=US&mid=7700071903546493739&u_code=0&did=MS4wLjABAAAA6abtqNFwcGmtWNRhkBvXBLm_UvzUoKBI769ZdwXh0gg9rSIZdeU3-aEYEFVGmo4j&iid=MS4wLjABAAAAIeFNzMzxi5mH72eVgu5efCREY9tpS2-rs8b7RdWJ5nFWEdyaKujbA-waYSPIuuMA&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=RNyI0yQYjNsb5A6fCM7Ak_4hIcGAN6kEQZICCy7Cvds-&share_version=320900&ts=1792891458&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "迪丽热巴！蝴蝶神女！高定最佳诠释！ #Leobridal#迪丽热巴 #vogue #迪丽热巴美神降临 #VOGUE",
+      "author": "LEO BRIDAL 蕾欧婚纱礼服",
+      "like_count": 161163,
+      "comment_count": 1465,
+      "share_count": 13604,
+      "duration_ms": 14600,
+      "create_time_iso": "2026-10-24T03:31:39+00:00",
+      "known_entities": [
+        "迪丽热巴",
+        "Leobridal",
+        "vogue",
+        "迪丽热巴美神降临",
+        "VOGUE",
+        "红毯"
+      ],
+      "verified_entities": [
+        "迪丽热巴",
+        "Leobridal",
+        "VOGUE",
+        "红毯"
+      ],
+      "primary_celebrities": [
+        "迪丽热巴"
+      ],
+      "quality_score": 273.14799999999997,
+      "output_date": "2026-10-25",
+      "selected_at": "2026-10-25T02:08:24.555355+00:00"
+    },
+    {
+      "aweme_id": "7700171815309710321",
+      "content_id": "7700171815309710321",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7700171815309710321/?region=US&mid=7700171757740280585&u_code=0&did=MS4wLjABAAAAyQ7m4DwxaQ6zzMMgLGcnB-gZWHurYIuIaVyxor1_aGMt3eLiw2hG97R3nRhDDp7I&iid=MS4wLjABAAAAf4LnOfNLJWDJ-EUTZogjPqxfe3OQkCJHL4HxcU8rOSbuBPyIWO94he95dXM60bvz&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=1vRJZe0PBI0sg74ZT.zyVmWNKdgUTN9CHP74vyoC9pg-&share_version=320900&ts=1792891467&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#何润东 黑色西装造型亮相，霸王气场全开啊！ #横店入戏30年 #横店影视节 #谁的青春没有横店",
+      "author": "星娱乐Online",
+      "like_count": 39611,
+      "comment_count": 3288,
+      "share_count": 3672,
+      "duration_ms": 16400,
+      "create_time_iso": "2026-10-24T09:59:20+00:00",
+      "known_entities": [
+        "何润东",
+        "横店入戏30年",
+        "横店影视节",
+        "谁的青春没有横店"
+      ],
+      "verified_entities": [
+        "何润东",
+        "横店入戏30年",
+        "横店影视节"
+      ],
+      "primary_celebrities": [
+        "何润东"
+      ],
+      "quality_score": 265.73,
+      "output_date": "2026-10-25",
+      "selected_at": "2026-10-25T02:08:24.555355+00:00"
+    },
+    {
+      "aweme_id": "7700231509319954809",
+      "content_id": "7700231509319954809",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7700231509319954809/?region=US&mid=7700231552474745626&u_code=0&did=MS4wLjABAAAAJRp_NRp1VIfWBF2ipGPSJ3_Emnyr0jJ_ZceBDe6Py2P0qEIfDkZ55hn_hPIPJKSe&iid=MS4wLjABAAAALJ7J1H5MAh1J1Y819u0ac6TbPyAg7_9v70WD1e3bzthGJKGZuZGxMTzawMwTxVsK&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=yU93dq.CIiP7WJ7BPsjufHKTJQElRA99a9Qmv6789bo-&share_version=320900&ts=1792891462&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "太可爱了。#蔡徐坤#蔡徐坤演唱会",
+      "author": "北纬82｜蔡徐坤",
+      "like_count": 43310,
+      "comment_count": 449,
+      "share_count": 4366,
+      "duration_ms": 169700,
+      "create_time_iso": "2026-10-24T13:50:59+00:00",
+      "known_entities": [
+        "蔡徐坤",
+        "蔡徐坤演唱会"
+      ],
+      "verified_entities": [
+        "蔡徐坤",
+        "蔡徐坤演唱会"
+      ],
+      "primary_celebrities": [
+        "蔡徐坤"
+      ],
+      "quality_score": 263.423,
+      "output_date": "2026-10-25",
+      "selected_at": "2026-10-25T02:08:24.555355+00:00"
+    },
     {
       "aweme_id": "7699750923454779045",
       "content_id": "7699750923454779045",
