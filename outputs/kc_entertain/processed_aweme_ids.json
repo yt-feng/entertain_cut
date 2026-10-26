@@ -1,7 +1,131 @@
 {
-  "updated_at": "2026-10-25T02:08:24.555355+00:00",
-  "count": 560,
+  "updated_at": "2026-10-26T01:41:02.086165+00:00",
+  "count": 565,
   "items": [
+    {
+      "aweme_id": "7700529761545702682",
+      "content_id": "7700529761545702682",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7700529761545702682/?region=US&mid=6717521188706667276&u_code=0&did=MS4wLjABAAAAtF5GuNBs2v3tCx7gKEC6-HUClBbEeesRwBf22wmSEvNfUznh8cSY_1vRXuzQrBbo&iid=MS4wLjABAAAANH5yXTnJ9NqtDBUwXAnDg6VoiypmAx81Hup0dZqJUjqHYIJk5UtdDfR85lkKFdVB&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=GkKyptn6fpgEd6Zp5hVPFBYFvvnxmMDQxexNbuOB2OQ-&share_version=320900&ts=1792978046&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#媒体原创  10月25日，肖战出道十年首次个人巡回演唱会“出口·我们”南京站将迎来第二场。一位五十岁的女士专程来看肖战演唱会，她说肖战很真实，没有偶像包袱，在她心里，他不是遥不可及的明星，特别接地气。（记者：王易楚）#文娱体万象观 #直击第一线",
+      "author": "北京时间",
+      "like_count": 15264,
+      "comment_count": 681,
+      "share_count": 1984,
+      "duration_ms": 29934,
+      "create_time_iso": "2026-10-25T09:08:29+00:00",
+      "known_entities": [
+        "肖战",
+        "巡回",
+        "不是"
+      ],
+      "verified_entities": [
+        "肖战",
+        "巡回演唱会"
+      ],
+      "primary_celebrities": [
+        "肖战"
+      ],
+      "quality_score": 253.482,
+      "output_date": "2026-10-26",
+      "selected_at": "2026-10-26T01:41:02.086165+00:00"
+    },
+    {
+      "aweme_id": "7700443319561657019",
+      "content_id": "7700443319561657019",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7700443319561657019/?region=US&mid=7655990896516975410&u_code=0&did=MS4wLjABAAAAKPs9AJyHgeLhzq7Zc39iCxoVXB2trgqEXVoTO8AiuAQ7afZfWL6xDdyc3FNOUNQW&iid=MS4wLjABAAAAA45OIV25w3fa_MNMZWZ6sqRGepIziUpPkuFAcUkLdQdQg_YCWZTUSpnrkkIQ9kFQ&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=7HOhpSE6xad7ZYhu2iITzGPuP2Knws3dj3DJZSEkEuU-&share_version=320900&ts=1792978042&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "刘亦菲线下非常高挑纤细 #刘亦菲vogue红毯 #刘亦菲",
+      "author": "LYF的小梨涡",
+      "like_count": 101907,
+      "comment_count": 946,
+      "share_count": 8063,
+      "duration_ms": 11267,
+      "create_time_iso": "2026-10-25T03:32:55+00:00",
+      "known_entities": [
+        "刘亦菲"
+      ],
+      "verified_entities": [
+        "刘亦菲",
+        "VOGUE红毯"
+      ],
+      "primary_celebrities": [
+        "刘亦菲"
+      ],
+      "quality_score": 230.036,
+      "output_date": "2026-10-26",
+      "selected_at": "2026-10-26T01:41:02.086165+00:00"
+    },
+    {
+      "aweme_id": "7700496541283360741",
+      "content_id": "7700496541283360741",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7700496541283360741/?region=US&mid=7700496510634789659&u_code=0&did=MS4wLjABAAAAl_LU8WB01RcQHoQPKv68yS2HOpPKU5FtDH-tVK_K2gA&iid=MS4wLjABAAAA9NrE26gNb-46XpyrymVJ6ztPqTbfURppUINNDPDyd6s&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=cfLFN2Q9K63ugSHmZzBsDNMth2hcZAOPr_KcJu48Rts-&share_version=320900&ts=1792978034&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "王楚然和沈腾两个人也是低山臭水遇知音了！ #王楚然 #沈腾 #综艺名场面",
+      "author": "波比波比波",
+      "like_count": 30509,
+      "comment_count": 215,
+      "share_count": 9633,
+      "duration_ms": 30567,
+      "create_time_iso": "2026-10-25T06:59:26+00:00",
+      "known_entities": [
+        "沈腾"
+      ],
+      "verified_entities": [
+        "沈腾",
+        "王楚然",
+        "综艺名场面"
+      ],
+      "primary_celebrities": [
+        "沈腾",
+        "王楚然"
+      ],
+      "quality_score": 224.929,
+      "output_date": "2026-10-26",
+      "selected_at": "2026-10-26T01:41:02.086165+00:00"
+    },
+    {
+      "aweme_id": "7700472992614344411",
+      "content_id": "7700472992614344411",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7700472992614344411/?region=US&mid=7700472915233770303&u_code=0&did=MS4wLjABAAAAl_LU8WB01RcQHoQPKv68yS2HOpPKU5FtDH-tVK_K2gA&iid=MS4wLjABAAAA9NrE26gNb-46XpyrymVJ6ztPqTbfURppUINNDPDyd6s&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=0JNcPSjymX7tBEu8JQvDG_obRnloftv2EjzKCLXFY6g-&share_version=320900&ts=1792978034&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "现发又q到goodbai了～白和腾哥共创 #综艺名场面 #白敬亭 #现在就出发 #现在就出发4 #剪映",
+      "author": "·Puppyeyes·",
+      "like_count": 16894,
+      "comment_count": 46,
+      "share_count": 2097,
+      "duration_ms": 16934,
+      "create_time_iso": "2026-10-25T05:28:03+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "现在就出发"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 179.979,
+      "output_date": "2026-10-26",
+      "selected_at": "2026-10-26T01:41:02.086165+00:00"
+    },
+    {
+      "aweme_id": "7700441722262168250",
+      "content_id": "7700441722262168250",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7700441722262168250/?region=US&mid=7700441662815816489&u_code=0&did=MS4wLjABAAAA6abtqNFwcGmtWNRhkBvXBLm_UvzUoKBI769ZdwXh0gg9rSIZdeU3-aEYEFVGmo4j&iid=MS4wLjABAAAAIeFNzMzxi5mH72eVgu5efCREY9tpS2-rs8b7RdWJ5nFWEdyaKujbA-waYSPIuuMA&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=u.tlkysuSPH3YUYdf14y3KU4nqd17Ib8JiKaDZRBXZc-&share_version=320900&ts=1792978038&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "帅晕了。 #神级舞台视觉盛宴 #神级舞蹈现场 #蔡徐坤 #蔡徐坤新加坡演唱会",
+      "author": "Kaelin（见过蔡徐坤3次版）",
+      "like_count": 20154,
+      "comment_count": 109,
+      "share_count": 1456,
+      "duration_ms": 31134,
+      "create_time_iso": "2026-10-25T03:26:43+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "蔡徐坤新加坡演唱会"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 171.77,
+      "output_date": "2026-10-26",
+      "selected_at": "2026-10-26T01:41:02.086165+00:00"
+    },
     {
       "aweme_id": "7700062549789674815",
       "content_id": "7700062549789674815",
