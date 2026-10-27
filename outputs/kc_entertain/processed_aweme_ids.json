@@ -1,7 +1,138 @@
 {
-  "updated_at": "2026-10-26T01:41:02.086165+00:00",
-  "count": 565,
+  "updated_at": "2026-10-27T02:43:01.020256+00:00",
+  "count": 570,
   "items": [
+    {
+      "aweme_id": "7700880882298653995",
+      "content_id": "7700880882298653995",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7700880882298653995/?region=US&mid=7700880894898309942&u_code=0&did=MS4wLjABAAAAGst39BwS_jXFqxuG8L_Vf5d1eXbL_XF9fsAIdFeApK3YF7N7aYtZw6wpuW31n-av&iid=MS4wLjABAAAAOs2tjibc9AYeZuZXIILXDk53ZhewRRCcb6QyVrfduaMiAKisRI8AbVsNz0w-ruaq&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=Sy3xlN9sTAVLvk.Vawoaecix7Y8MudRHJd1O4RXbu2c-&share_version=320900&ts=1793067394&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "有这样的用心的节目组 是真的会被狠狠打动！#现在就出发4 #一镜到底 #欢迎来龙餐馆",
+      "author": "拾光茶话铺",
+      "like_count": 226966,
+      "comment_count": 1134,
+      "share_count": 70301,
+      "duration_ms": 86541,
+      "create_time_iso": "2026-10-26T07:50:59+00:00",
+      "known_entities": [
+        "现在就出发4",
+        "一镜到底",
+        "欢迎来龙餐馆"
+      ],
+      "verified_entities": [
+        "现在就出发4",
+        "一镜到底",
+        "欢迎来龙餐馆"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 308.618,
+      "output_date": "2026-10-27",
+      "selected_at": "2026-10-27T02:43:01.020256+00:00"
+    },
+    {
+      "aweme_id": "7700872257131875634",
+      "content_id": "7700872257131875634",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7700872257131875634/?region=US&mid=7700872159899880234&u_code=0&did=MS4wLjABAAAAnU8JieSBrT1Axp5mY0ie4MUwdfr7uyNyMc8k1Axyi0Q&iid=MS4wLjABAAAANWz_HswLFBLFN2ubuBWyRQv4sbwhAeyK1wFMMQmUdAM&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=kdNnFJu91D_tI3Rw2r.4H28fYWG9SlGlanrA77yO3bA-&share_version=320900&ts=1793067402&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "她可以在任何领域发光 #欧阳娜娜 #vogue #红毯 #审美",
+      "author": "是舒舒呀",
+      "like_count": 50942,
+      "comment_count": 212,
+      "share_count": 6007,
+      "duration_ms": 58608,
+      "create_time_iso": "2026-10-26T07:17:31+00:00",
+      "known_entities": [
+        "欧阳娜娜",
+        "vogue",
+        "红毯",
+        "审美"
+      ],
+      "verified_entities": [
+        "欧阳娜娜",
+        "vogue",
+        "红毯",
+        "审美"
+      ],
+      "primary_celebrities": [
+        "欧阳娜娜"
+      ],
+      "quality_score": 259.62,
+      "output_date": "2026-10-27",
+      "selected_at": "2026-10-27T02:43:01.020256+00:00"
+    },
+    {
+      "aweme_id": "7700799549233622696",
+      "content_id": "7700799549233622696",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7700799549233622696/?region=US&mid=7653378966351628342&u_code=0&did=MS4wLjABAAAAGA8YkAMlFYRZvRY7ynNVjkU2KV0ZIBKfUDN2Z9Riqe1jAVYl4vpU9pvP1DWvyO1L&iid=MS4wLjABAAAAcYg-TkQNcq5dhvcs6l8wEcgTHWdXT_eC3XQ0MJUHEzU2GGPmLDbMu7xzWCdOtP_z&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=EtAX0jn2Ls1CZxB8Ckt_TPeSnQMYjL7kO.kpNzhML.c-&share_version=320900&ts=1793067408&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "我们有大把的朋友！ #发癫吧后浪 #群像是友谊和青春的乌托邦 #发癫吧后浪切片 #群像 #我拥抱着爱",
+      "author": "逐浪吧，少年！",
+      "like_count": 18551,
+      "comment_count": 246,
+      "share_count": 4923,
+      "duration_ms": 50334,
+      "create_time_iso": "2026-10-26T02:35:16+00:00",
+      "known_entities": [
+        "发癫吧后浪"
+      ],
+      "verified_entities": [
+        "发癫吧后浪"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 229.69,
+      "output_date": "2026-10-27",
+      "selected_at": "2026-10-27T02:43:01.020256+00:00"
+    },
+    {
+      "aweme_id": "7700799378868505871",
+      "content_id": "7700799378868505871",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7700799378868505871/?region=US&mid=7700799359366875930&u_code=0&did=MS4wLjABAAAAnU8JieSBrT1Axp5mY0ie4MUwdfr7uyNyMc8k1Axyi0Q&iid=MS4wLjABAAAANWz_HswLFBLFN2ubuBWyRQv4sbwhAeyK1wFMMQmUdAM&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=NlPM7UjHNSq_biyk2vBHS9iXZXtFPdM4E4r76lKk5GQ-&share_version=320900&ts=1793067402&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "抱着必去VOGUE红毯的决心所以那样做了 没白来啊yznn！\n一晚上持续赞叹VOGUE让我们吃的好好！\n（除了手机没电错过录制好多美丽时刻🥹\n但是眼睛看到了！）\n#女神降临 #vogue #圆梦时刻",
+      "author": "一枝南南",
+      "like_count": 18472,
+      "comment_count": 217,
+      "share_count": 421,
+      "duration_ms": 19945,
+      "create_time_iso": "2026-10-26T02:34:40+00:00",
+      "known_entities": [
+        "vogue",
+        "红毯"
+      ],
+      "verified_entities": [
+        "vogue",
+        "红毯"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 216.61499999999998,
+      "output_date": "2026-10-27",
+      "selected_at": "2026-10-27T02:43:01.020256+00:00"
+    },
+    {
+      "aweme_id": "7700858836080528666",
+      "content_id": "7700858836080528666",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7700858836080528666/?region=US&mid=7700858924928338739&u_code=0&did=MS4wLjABAAAAXnByyCwpD7QB4P605E81vjJUYJBAbHVNNyargSQOmyDkDGfK1kPFxX82h_2o3k_9&iid=MS4wLjABAAAAAZT_gFBC0neyOioaHQBcKWax49EVsVmaW1KxyXmXRKPMuwT-g1dqQwhv6bQLyB0o&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=238blLUS6Chzizr3WK3Pwt9H6Fx6QXYwoI.A8Tqzqec-&share_version=320900&ts=1793067406&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "20年被骂一年很荒唐~ #肖战 #肖战演唱会 #内娱 #明星",
+      "author": "芋泥啵啵奶茶🏍️",
+      "like_count": 2852,
+      "comment_count": 71,
+      "share_count": 215,
+      "duration_ms": 148655,
+      "create_time_iso": "2026-10-26T06:25:26+00:00",
+      "known_entities": [
+        "肖战"
+      ],
+      "verified_entities": [
+        "肖战"
+      ],
+      "primary_celebrities": [
+        "肖战"
+      ],
+      "quality_score": 171.088,
+      "output_date": "2026-10-27",
+      "selected_at": "2026-10-27T02:43:01.020256+00:00"
+    },
     {
       "aweme_id": "7700529761545702682",
       "content_id": "7700529761545702682",
