@@ -1,7 +1,146 @@
 {
-  "updated_at": "2026-10-27T02:43:01.020256+00:00",
-  "count": 570,
+  "updated_at": "2026-10-28T03:05:31.431415+00:00",
+  "count": 575,
   "items": [
+    {
+      "aweme_id": "7701234232933420475",
+      "content_id": "7701234232933420475",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7701234232933420475/?region=US&mid=7475288845040322598&u_code=0&did=MS4wLjABAAAA-A93nTUsnowN_T1HCn50CWIw3PskQYntM2n92z8c4p1nBs0I3DDYKbacysxy7X-Z&iid=MS4wLjABAAAAfOQkrzhC4Ur2d47HC0Rl47-DybHSSTHMdZNwzaeuAiDoCMjCh614sTZPGADMZSMl&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=7BBwDh_Wj5Fv8mnbk.hxle.EAIJNN.rp960YBvtiRw8-&share_version=320900&ts=1793154757&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#姜妍 教#肖战 说东北话嘎嘎好看dóu得看 肖战还得打良心分呢哈哈哈#小城良方 #小城良方抖音追剧团 #肖战东北血脉觉醒了",
+      "author": "娱乐圈小蜜",
+      "like_count": 74848,
+      "comment_count": 1972,
+      "share_count": 21164,
+      "duration_ms": 19467,
+      "create_time_iso": "2026-10-27T06:42:05+00:00",
+      "known_entities": [
+        "肖战",
+        "姜妍",
+        "小城良方",
+        "小城良方抖音追剧团",
+        "肖战东北血脉觉醒了"
+      ],
+      "verified_entities": [
+        "肖战",
+        "姜妍",
+        "小城良方",
+        "小城良方抖音追剧团",
+        "肖战东北血脉觉醒了"
+      ],
+      "primary_celebrities": [
+        "肖战",
+        "姜妍"
+      ],
+      "quality_score": 265.385,
+      "output_date": "2026-10-28",
+      "selected_at": "2026-10-28T03:05:31.431415+00:00"
+    },
+    {
+      "aweme_id": "7701173606272830774",
+      "content_id": "7701173606272830774",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7701173606272830774/?region=US&mid=7701173547058023222&u_code=0&did=MS4wLjABAAAA2MWw8ZSKjTFtOK2ga_6hFChS-FfNOeMSczhATJBGHQlLlpoRPWpDuZ-JrwbqXLAx&iid=MS4wLjABAAAA75nR8SzALyWEwZ9tUApOvOLjlmdmG8qBVS0S4_9e8SANCli92CXxIEDwI0ewrwPJ&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=KulC7oWKJSCPi_I4964GHFP.dJ7T9z3aSgr2dEAUcEw-&share_version=320900&ts=1793154750&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "一个镜头就把群像的魅力展现的淋漓尽致#现在就出发4 #一镜到底 #黄景瑜王安宇 #沈腾贾冰 #范丞丞胡先煦 #王楚然白敬亭",
+      "author": "追星文盲段黄派",
+      "like_count": 27057,
+      "comment_count": 111,
+      "share_count": 9292,
+      "duration_ms": 93809,
+      "create_time_iso": "2026-10-27T02:46:52+00:00",
+      "known_entities": [
+        "范丞丞",
+        "沈腾"
+      ],
+      "verified_entities": [
+        "范丞丞",
+        "沈腾",
+        "现在就出发4"
+      ],
+      "primary_celebrities": [
+        "范丞丞",
+        "沈腾"
+      ],
+      "quality_score": 257.94599999999997,
+      "output_date": "2026-10-28",
+      "selected_at": "2026-10-28T03:05:31.431415+00:00"
+    },
+    {
+      "aweme_id": "7701235693486681513",
+      "content_id": "7701235693486681513",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7701235693486681513/?region=US&mid=7701235637885717299&u_code=0&did=MS4wLjABAAAAeoRXm616_PTHc9c30FBREhCDgws7VbCxdmR-zwtgSRXYuxv5cSjMl1ejePy7L_m8&iid=MS4wLjABAAAAXR0sjmoSBetAd2ARVTaVOH-ebyWg3r5dE5jiVeMFkiITNbMBgHZWI7h15SAjyaPT&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=NorI13a6ZKYYOYrOXv_EwISrTh3Xe.Bz8o8qAGPUzkg-&share_version=320900&ts=1793154745&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "恶人先告状，我仅用1秒就猜出了这个节目里面的狼是谁。#王子璇 女孩，不要再流不幸福的眼泪了#再见朋友 #后会友期 #综艺 #娱乐",
+      "author": "爱喝伯牙绝弦",
+      "like_count": 7136,
+      "comment_count": 104,
+      "share_count": 3641,
+      "duration_ms": 215621,
+      "create_time_iso": "2026-10-27T06:47:43+00:00",
+      "known_entities": [
+        "再见朋友"
+      ],
+      "verified_entities": [
+        "再见朋友",
+        "王子璇"
+      ],
+      "primary_celebrities": [
+        "王子璇"
+      ],
+      "quality_score": 209.44199999999998,
+      "output_date": "2026-10-28",
+      "selected_at": "2026-10-28T03:05:31.431415+00:00"
+    },
+    {
+      "aweme_id": "5209820558594077857",
+      "content_id": "5209820558594077857",
+      "platform": "kuaishou",
+      "url": "https://www.kuaishou.com/short-video/5209820558594077857",
+      "title": "大屏都扛不住 当什么明星 #王老吉 #鞠婧祎 #虞书欣 #祎念池",
+      "author": "祎念池",
+      "like_count": 3041,
+      "comment_count": 4719,
+      "share_count": 1018,
+      "duration_ms": 11966,
+      "create_time_iso": "2026-10-27T10:27:41+00:00",
+      "known_entities": [
+        "虞书欣"
+      ],
+      "verified_entities": [
+        "鞠婧祎",
+        "虞书欣"
+      ],
+      "primary_celebrities": [
+        "鞠婧祎",
+        "虞书欣"
+      ],
+      "quality_score": 198.064,
+      "output_date": "2026-10-28",
+      "selected_at": "2026-10-28T03:05:31.431415+00:00"
+    },
+    {
+      "aweme_id": "5245286402139172950",
+      "content_id": "5245286402139172950",
+      "platform": "kuaishou",
+      "url": "https://www.kuaishou.com/short-video/5245286402139172950",
+      "title": "#明星娱乐 #演唱会 #薛凯琪 #娱乐资讯 薛凯琪粉色长发搭配亮片服，又甜又辣太有吸引力！",
+      "author": "阿布娱乐",
+      "like_count": 2744,
+      "comment_count": 716,
+      "share_count": 309,
+      "duration_ms": 11166,
+      "create_time_iso": "2026-10-27T09:38:32+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "薛凯琪"
+      ],
+      "primary_celebrities": [
+        "薛凯琪"
+      ],
+      "quality_score": 171.092,
+      "output_date": "2026-10-28",
+      "selected_at": "2026-10-28T03:05:31.431415+00:00"
+    },
     {
       "aweme_id": "7700880882298653995",
       "content_id": "7700880882298653995",
