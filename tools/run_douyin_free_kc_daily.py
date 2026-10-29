@@ -22,6 +22,10 @@ if str(TOOLS_DIR) not in sys.path:
 VIDEO_EXTENSIONS = {".mp4", ".mov", ".m4v", ".mkv", ".webm"}
 DEFAULT_SEED_KEYWORDS = ",".join(
     [
+        # Reach broad searches before endpoint fallback exhausts the daily cap.
+        "综艺",
+        "明星",
+        "娱乐",
         "综艺 名场面",
         "明星 采访",
         "明星 舞台",
@@ -29,9 +33,6 @@ DEFAULT_SEED_KEYWORDS = ",".join(
         "明星 红毯",
         "热播剧 演员",
         "演唱会 明星",
-        "综艺",
-        "娱乐",
-        "明星",
         "演员 名场面",
         "明星 评论区",
         "娱乐圈 热议",

@@ -17,6 +17,45 @@ daily = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(daily)
 
 
+class DefaultSearchCoverageTests(unittest.TestCase):
+    def test_broad_searches_are_reached_after_two_endpoint_failovers(self) -> None:
+        import httpx
+        import run_douyin_tikhub_daily as tikhub
+
+        with mock.patch.object(sys, "argv", ["daily", "--recent-hours", "24"]):
+            defaults = daily.parse_args()
+            args = tikhub.parse_args()
+        args.max_search_requests = defaults.tikhub_max_search_requests
+        args.douyin_search_requests = defaults.tikhub_douyin_search_requests
+        seeds = defaults.seed_keywords.split(",")
+        self.assertEqual(len(seeds), len(set(seeds)))
+        keywords = tikhub.plan_search_keywords(
+            args, seeds, {"terms": ["纯真年代的爱情", "杨幂"]},
+        )
+        client = mock.MagicMock()
+        client.__enter__.return_value = client
+        # Reproduce the two incompatible video APIs before general search works.
+        client.post.side_effect = [
+            httpx.Response(400, json={"detail": "upstream rejected"}),
+            httpx.Response(400, json={"detail": "upstream rejected"}),
+            *[
+                httpx.Response(200, json={"code": 200, "data": {"status_code": 0, "data": []}})
+                for _ in range(8)
+            ],
+        ]
+        info = {"errors": []}
+        with (
+            tempfile.TemporaryDirectory() as temporary,
+            mock.patch.object(tikhub.httpx, "Client", return_value=client),
+        ):
+            tikhub.fetch_candidates(args, "test-key", keywords, Path(temporary), info)
+
+        searched = {entry["keyword"] for entry in info["tikhub_search"]}
+        self.assertTrue({"综艺", "明星", "娱乐"}.issubset(searched))
+        self.assertEqual(client.post.call_count, 10)
+        self.assertEqual(args.max_search_requests - client.post.call_count, 5)
+
+
 class SelectedDiversityGuardTests(unittest.TestCase):
     def test_wrapper_removes_third_video_for_same_celebrity(self) -> None:
         with tempfile.TemporaryDirectory() as temp_dir:

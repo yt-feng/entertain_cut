@@ -84,16 +84,21 @@ jobs:
 
           state_file="${RUNNER_TEMP}/douyin-kc-delivery-state.json"
           state_status=""
+          state_reason=""
           if gh api --method GET \
             "repos/${GITHUB_REPOSITORY}/contents/state/douyin_free_kc_daily.json" \
             -f "ref=${DEFAULT_BRANCH}" --jq '.content' 2>/dev/null | base64 -d > "$state_file"; then
             state_status="$(jq -r --arg date "$output_date" '.items[]? | select(.date == $date) | .status' "$state_file" 2>/dev/null | tail -n 1)"
+            state_reason="$(jq -r --arg date "$output_date" '.items[]? | select(.date == $date) | .reason // ""' "$state_file" 2>/dev/null | tail -n 1)"
           fi
-          if [[ "$state_status" == "deferred" || "$state_status" == "delivered" ]]; then
+          if [[ "$state_status" == "delivered" || ( "$state_status" == "deferred" && "$state_reason" != "insufficient_videos" ) ]]; then
             echo "published_count=state_${state_status}" >> "$GITHUB_OUTPUT"
             echo "should_run=false" >> "$GITHUB_OUTPUT"
             echo "Today's scheduled delivery is already marked ${state_status}; skipping repeated compensation."
             exit 0
+          fi
+          if [[ "$state_status" == "deferred" && "$state_reason" == "insufficient_videos" ]]; then
+            echo "Previous delivery was short; this scheduled compensation will reuse verified same-day artifacts and fill the remaining gap."
           fi
 
           response_file="${RUNNER_TEMP}/kc-published.json"
@@ -874,7 +879,9 @@ jobs:
             exit 0
           fi
           git commit -m "Record deferred Douyin KC delivery ${KC_OUTPUT_DATE}"
-          git pull --rebase origin "${GITHUB_REF_NAME}"
+          # Artifact recovery updates the processed manifest even when delivery is
+          # deferred. Preserve those local changes without publishing them here.
+          git pull --rebase --autostash origin "${GITHUB_REF_NAME}"
           git push origin "HEAD:${GITHUB_REF_NAME}"
 
       - name: Verify daily delivery

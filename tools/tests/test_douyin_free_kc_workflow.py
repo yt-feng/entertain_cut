@@ -39,13 +39,13 @@ class DouyinFreeKcWorkflowContractTests(unittest.TestCase):
         guard = self.step_block("  delivery_guard:\n", "  tavily-hot-context-smoke:\n")
         self.assertIn("contents/outputs/kc_entertain/${output_date}", guard)
         self.assertIn("contents/state/douyin_free_kc_daily.json", guard)
-        self.assertIn('[[ "$state_status" == "deferred"', guard)
+        self.assertIn('"$state_reason" != "insufficient_videos"', guard)
         self.assertIn("published_count >= KC_LIMIT", guard)
         self.assertIn('echo "should_run=false"', guard)
         self.assertIn("needs: delivery_guard", self.workflow)
         self.assertIn("needs.delivery_guard.outputs.should_run == 'true'", self.workflow)
 
-    def test_shortage_is_structured_defer_and_recorded_once(self) -> None:
+    def test_shortage_is_structured_defer_and_recorded(self) -> None:
         classify = self.step_block(
             "      - name: Classify KC delivery outcome\n",
             "      - name: Upload all KC videos and prepare Git-safe copies\n",
@@ -60,6 +60,56 @@ class DouyinFreeKcWorkflowContractTests(unittest.TestCase):
         self.assertIn("state/douyin_free_kc_daily.json", record)
         self.assertIn("KC_DEFERRED", self.workflow)
         self.assertIn("KC delivery was deferred with structured evidence", self.workflow)
+
+    @unittest.skipUnless(shutil.which("jq"), "workflow guard requires jq")
+    def test_scheduled_guard_retries_only_shortage_and_stops_at_published_target(self) -> None:
+        guard = self.step_block("  delivery_guard:\n", "  tavily-hot-context-smoke:\n")
+        script = textwrap.dedent(guard.split("        run: |\n", 1)[1])
+        mock = textwrap.dedent("""\
+            date() { echo 2026-10-29; }
+            gh() {
+              if [[ "$*" == *"/contents/state/"* ]]; then
+                base64 < "$MOCK_STATE"
+              else
+                echo queried >> "$MOCK_PUBLICATION_QUERIES"
+                cat "$MOCK_PUBLISHED"
+              fi
+            }
+            """)
+        cases = (
+            ("schedule", "deferred", "insufficient_videos", "2026-10-29", 0, True, True),
+            ("schedule", "deferred", "insufficient_videos", "2026-10-29", 1, True, True),
+            ("schedule", "deferred", "insufficient_videos", "2026-10-29", 4, True, True),
+            ("schedule", "deferred", "insufficient_videos", "2026-10-29", 5, False, True),
+            ("schedule", "deferred", "provider_blocked", "2026-10-29", 0, False, False),
+            ("schedule", "deferred", "budget_exhausted", "2026-10-29", 0, False, False),
+            ("schedule", "deferred", "", "2026-10-29", 0, False, False),
+            ("schedule", "delivered", "delivery_ready", "2026-10-29", 5, False, False),
+            ("schedule", "deferred", "provider_blocked", "2026-10-28", 0, True, True),
+            ("workflow_dispatch", "deferred", "provider_blocked", "2026-10-29", 0, True, False),
+        )
+        for event, status, reason, state_date, count, expected_run, expected_query in cases:
+            with self.subTest(event=event, status=status, reason=reason, date=state_date, count=count), tempfile.TemporaryDirectory() as temp_dir:
+                root = Path(temp_dir)
+                state = root / "state.json"
+                state.write_text(json.dumps({"items": [{"date": state_date, "status": status, "reason": reason}]}))
+                published = root / "published.json"
+                published.write_text(json.dumps([{"type": "file", "name": f"video-{index}.mp4"}
+                                                 for index in range(count)] + [{"type": "file", "name": "report.json"}]))
+                output = root / "github-output.txt"
+                queried = root / "publication-queries.txt"
+                env = {**os.environ, "GITHUB_EVENT_NAME": event, "GITHUB_OUTPUT": str(output),
+                       "RUNNER_TEMP": str(root), "GITHUB_REPOSITORY": "test/repo", "DEFAULT_BRANCH": "main",
+                       "KC_LIMIT": "5", "MOCK_STATE": str(state), "MOCK_PUBLISHED": str(published),
+                       "MOCK_PUBLICATION_QUERIES": str(queried)}
+                result = subprocess.run(["bash", "-eo", "pipefail", "-c", mock + script],
+                                        cwd=root, env=env, capture_output=True, text=True)
+                self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+                values = dict(line.split("=", 1) for line in output.read_text().splitlines())
+                self.assertEqual(values["should_run"], str(expected_run).lower())
+                self.assertEqual(queried.exists(), expected_query)
+                if expected_query:
+                    self.assertEqual(values["published_count"], str(count))
 
     def test_artifacts_use_current_upload_action_runtime(self) -> None:
         self.assertNotIn("actions/upload-artifact@v5", self.workflow)
@@ -350,6 +400,66 @@ class KcDeliveryWorkflowExecutionTests(unittest.TestCase):
             result = self.run_script(commit, root, env)
             self.assertEqual(result.returncode, 0, result.stderr)
             self.assertTrue(all(path.read_bytes() == b"previous" for path in previous))
+
+    def test_deferred_state_push_preserves_unpublished_recovery_changes(self) -> None:
+        script = self.script("Commit deferred KC delivery state", "Verify daily delivery")
+        for advance_remote in (False, True):
+            with self.subTest(advance_remote=advance_remote), tempfile.TemporaryDirectory() as temp_dir:
+                base = Path(temp_dir)
+                remote = base / "remote.git"
+                root = base / "runner"
+                root.mkdir()
+
+                def git(*args: str, cwd: Path = root) -> str:
+                    return subprocess.run(["git", *args], cwd=cwd, check=True,
+                                          capture_output=True, text=True).stdout.strip()
+
+                git("init", "--bare", "-q", str(remote))
+                git("init", "-q", "-b", "main")
+                git("config", "user.name", "test")
+                git("config", "user.email", "test@example.invalid")
+                manifest = root / "outputs/kc_entertain/processed_aweme_ids.json"
+                manifest.parent.mkdir(parents=True)
+                manifest.write_text('{"items": []}\n')
+                git("add", ".")
+                git("commit", "-qm", "Initial delivery history")
+                git("remote", "add", "origin", str(remote))
+                git("push", "-q", "origin", "main")
+
+                if advance_remote:
+                    peer = base / "peer"
+                    git("clone", "-q", "-b", "main", str(remote), str(peer))
+                    git("config", "user.name", "test", cwd=peer)
+                    git("config", "user.email", "test@example.invalid", cwd=peer)
+                    (peer / "concurrent.txt").write_text("Another workflow committed.\n")
+                    git("add", "concurrent.txt", cwd=peer)
+                    git("commit", "-qm", "Concurrent update", cwd=peer)
+                    git("push", "-q", "origin", "main", cwd=peer)
+                previous_tip = git("rev-parse", "main", cwd=remote)
+
+                recovered_manifest = '{"items": [{"aweme_id": "recovered"}]}\n'
+                manifest.write_text(recovered_manifest)
+                artifact = root / "work/recovered.mp4"
+                artifact.parent.mkdir()
+                artifact.write_bytes(b"unpublished recovered video")
+                state = root / "state/douyin_free_kc_daily.json"
+                state.parent.mkdir()
+                state.write_text('{"items": [{"date": "2026-10-29", "status": "deferred"}]}\n')
+                env = {**os.environ, "KC_DEFERRED": "true", "KC_OUTPUT_DATE": "2026-10-29",
+                       "GITHUB_REF_NAME": "main"}
+                result = self.run_script(script, root, env)
+                self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+                self.assertEqual(manifest.read_text(), recovered_manifest)
+                self.assertEqual(artifact.read_bytes(), b"unpublished recovered video")
+                self.assertEqual(git("diff", "--name-only", previous_tip, "main", cwd=remote),
+                                 "state/douyin_free_kc_daily.json")
+                self.assertEqual(git("show", "main:state/douyin_free_kc_daily.json", cwd=remote),
+                                 state.read_text().strip())
+                self.assertEqual(git("show", "main:outputs/kc_entertain/processed_aweme_ids.json", cwd=remote),
+                                 '{"items": []}')
+                self.assertEqual(git("diff", "--name-only"), "outputs/kc_entertain/processed_aweme_ids.json")
+                self.assertEqual(git("diff", "--cached", "--name-only"), "")
+                self.assertEqual(git("stash", "list"), "")
 
 
 if __name__ == "__main__":
