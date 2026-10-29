@@ -1,7 +1,134 @@
 {
-  "updated_at": "2026-10-28T03:05:31.431415+00:00",
-  "count": 575,
+  "updated_at": "2026-10-29T06:28:11.101731+00:00",
+  "count": 580,
   "items": [
+    {
+      "aweme_id": "7701689193743793905",
+      "content_id": "7701689193743793905",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7701689193743793905/?region=US&mid=7701689140483918655&u_code=0&did=MS4wLjABAAAAJ2QoHfu4htg5j4ZbLlXSEMp8Tl85YExGUj9vCXUKmrW4KreOjoWWorfUe5TRZORG&iid=MS4wLjABAAAAcYUH85-TwNLk87BYt982OFwej4MeQ96iemsT_CECIm6TQUsDPtp_FMve6hws0ET1&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=Kiz91Pcnay8D2bbtiNhahPCZW6d5cgtZbD7ZAlfxavg-&share_version=320900&ts=1793253538&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#小城良方抖音追剧团 小西门大舞台，有乐你就来~#小城良方 #肖战",
+      "author": "萤火虫娱乐",
+      "like_count": 48888,
+      "comment_count": 618,
+      "share_count": 12882,
+      "duration_ms": 118608,
+      "create_time_iso": "2026-10-28T12:07:32+00:00",
+      "known_entities": [
+        "肖战",
+        "小城良方"
+      ],
+      "verified_entities": [
+        "肖战",
+        "小城良方"
+      ],
+      "primary_celebrities": [
+        "肖战"
+      ],
+      "quality_score": 270.834,
+      "output_date": "2026-10-29",
+      "selected_at": "2026-10-29T06:28:11.101731+00:00"
+    },
+    {
+      "aweme_id": "7701688841224991218",
+      "content_id": "7701688841224991218",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7701688841224991218/?region=US&mid=7701688793669192498&u_code=0&did=MS4wLjABAAAAJ2QoHfu4htg5j4ZbLlXSEMp8Tl85YExGUj9vCXUKmrW4KreOjoWWorfUe5TRZORG&iid=MS4wLjABAAAAcYUH85-TwNLk87BYt982OFwej4MeQ96iemsT_CECIm6TQUsDPtp_FMve6hws0ET1&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=YVw2v_MNACbV_zeopbWoluh1igB4fgBjPOINvbE5ACg-&share_version=320900&ts=1793253538&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#杨紫上海话台词好强 《玉兰花开君再来》白玉兰班底全员演技派，杨紫台词代入感太牛了#杨紫 #玉兰花开君再来#欧豪",
+      "author": "搜狐娱乐",
+      "like_count": 23395,
+      "comment_count": 1370,
+      "share_count": 1384,
+      "duration_ms": 36100,
+      "create_time_iso": "2026-10-28T12:06:10+00:00",
+      "known_entities": [
+        "杨紫"
+      ],
+      "verified_entities": [
+        "杨紫"
+      ],
+      "primary_celebrities": [
+        "杨紫"
+      ],
+      "quality_score": 259.857,
+      "output_date": "2026-10-29",
+      "selected_at": "2026-10-29T06:28:11.101731+00:00"
+    },
+    {
+      "aweme_id": "7701744150080829851",
+      "content_id": "7701744150080829851",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7701744150080829851/?region=US&mid=7701744004756884224&u_code=0&did=MS4wLjABAAAAJ2QoHfu4htg5j4ZbLlXSEMp8Tl85YExGUj9vCXUKmrW4KreOjoWWorfUe5TRZORG&iid=MS4wLjABAAAAcYUH85-TwNLk87BYt982OFwej4MeQ96iemsT_CECIm6TQUsDPtp_FMve6hws0ET1&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=9s8ovUxJCbV45USUPbKUcAtDDQtIHNoHwilPfsuU3.Y-&share_version=320900&ts=1793253538&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "好有质感的预告，快把正片抬上来让我尝尝咸淡！#电视剧剑来 #剑来预告 #吴磊 #剧版剑来质感好能打 @DOU+上热门",
+      "author": "橘子娱乐.",
+      "like_count": 17969,
+      "comment_count": 1371,
+      "share_count": 18085,
+      "duration_ms": 55752,
+      "create_time_iso": "2026-10-29T02:00:00+00:00",
+      "known_entities": [
+        "吴磊"
+      ],
+      "verified_entities": [
+        "吴磊"
+      ],
+      "primary_celebrities": [
+        "吴磊"
+      ],
+      "quality_score": 253.761,
+      "output_date": "2026-10-29",
+      "selected_at": "2026-10-29T06:28:11.101731+00:00"
+    },
+    {
+      "aweme_id": "7701659703075458331",
+      "content_id": "7701659703075458331",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7701659703075458331/?region=US&mid=7701659780980411178&u_code=0&did=MS4wLjABAAAAJ2QoHfu4htg5j4ZbLlXSEMp8Tl85YExGUj9vCXUKmrW4KreOjoWWorfUe5TRZORG&iid=MS4wLjABAAAAcYUH85-TwNLk87BYt982OFwej4MeQ96iemsT_CECIm6TQUsDPtp_FMve6hws0ET1&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=wkA64Zkb8Gc.A5j2KQcRCAPbfD_SY7nQ4My0HDpm9Z4-&share_version=320900&ts=1793253538&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "在沈近真的身上，信仰永远优先于爱情#沈近真#李沁#王一博#追风者#娱乐评论大赏",
+      "author": "麻花娱乐",
+      "like_count": 22640,
+      "comment_count": 474,
+      "share_count": 732,
+      "duration_ms": 57284,
+      "create_time_iso": "2026-10-28T10:13:16+00:00",
+      "known_entities": [
+        "王一博"
+      ],
+      "verified_entities": [
+        "王一博"
+      ],
+      "primary_celebrities": [
+        "王一博"
+      ],
+      "quality_score": 226.726,
+      "output_date": "2026-10-29",
+      "selected_at": "2026-10-29T06:28:11.101731+00:00"
+    },
+    {
+      "url": "https://www.iesdouyin.com/share/video/7701519148446360810/?region=CN&mid=7701519067475102473&u_code=444c3c3ida1h&did=MS4wLjABAAAAzacuKht-gbqJeDB62iUb6zSNfRYqk37m_hek8j0L3M1nPs6qhIveBUuyKWuGH9BM&iid=MS4wLjABAAAAe8599NiHMPglJwPNtnK9yoqK0Qvc-FyXARJQ2TrJsXGyvZusab8KqzHm9j_5Gs8W&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=3vd.b09T3rvL.hbeyBRbetiZo0ULShb7umClg8eDfDM-&share_version=400800&ts=1793241237&from_aid=1128&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "说话的艺术 #提雅普拉提练起来 #提雅普拉提 #综艺名场面 #爸爸去哪儿 #嗯哼",
+      "author": "Suna",
+      "like_count": 73448,
+      "comment_count": 377,
+      "share_count": 43337,
+      "duration_ms": 26634,
+      "create_time_iso": "2026-10-28T04:07:00+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "爸爸去哪儿",
+        "嗯哼"
+      ],
+      "primary_celebrities": [
+        "嗯哼"
+      ],
+      "quality_score": 214.217,
+      "aweme_id": "7701519148446360810",
+      "content_id": "7701519148446360810",
+      "platform": "douyin",
+      "output_date": "2026-10-29",
+      "selected_at": "2026-10-29T05:57:07.119248+00:00",
+      "recovered_from_run_id": "40817498744"
+    },
     {
       "aweme_id": "7701234232933420475",
       "content_id": "7701234232933420475",
