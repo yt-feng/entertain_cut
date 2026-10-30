@@ -1,7 +1,159 @@
 {
-  "updated_at": "2026-10-29T06:28:11.101731+00:00",
-  "count": 580,
+  "updated_at": "2026-10-30T03:20:53.726636+00:00",
+  "count": 585,
   "items": [
+    {
+      "aweme_id": "7702039483365652906",
+      "content_id": "7702039483365652906",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7702039483365652906/?region=US&mid=7702039469079268139&u_code=0&did=MS4wLjABAAAAelEmvYcMN_MsJaDwtbmcxxJ1-31KymUJTwwJELo1QPg&iid=MS4wLjABAAAAYax-xWtpNK77AGlaKkZ6vokpW6r39NErKdFl0EgjwUA&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=58hrbFfWSPNyGdsbmeRx3DTHdlQHJjD5HVe9VvaukB0-&share_version=320900&ts=1793328619&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "白小纯是一本摊开的书可惜青稚不识字 #后会友期 #再见朋友 #纯稚 #嗑cp的快乐 #综艺名场面",
+      "author": "言之有荔枝",
+      "like_count": 30550,
+      "comment_count": 1202,
+      "share_count": 6332,
+      "duration_ms": 131134,
+      "create_time_iso": "2026-10-29T12:46:00+00:00",
+      "known_entities": [
+        "后会友期",
+        "再见朋友",
+        "纯稚",
+        "嗑cp的快乐",
+        "综艺名场面"
+      ],
+      "verified_entities": [
+        "后会友期",
+        "再见朋友",
+        "纯稚",
+        "嗑cp的快乐",
+        "综艺名场面"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 295.622,
+      "output_date": "2026-10-30",
+      "selected_at": "2026-10-30T03:20:53.726636+00:00"
+    },
+    {
+      "aweme_id": "7702018167640546795",
+      "content_id": "7702018167640546795",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7702018167640546795/?region=US&mid=7702018103135603506&u_code=0&did=MS4wLjABAAAAU3jom6aDNxvXwIc_gZAUtrqkNAd4Cd52VOhWP0MHESpt-BTTg3P_aWmE3ZeCu4KB&iid=MS4wLjABAAAAdkc7zitHQf_Q5Sx4RWQnviERr8FketUZ5LFG-yR-odMwEnLBXyPXTLeqUVGbdwYI&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=NmhDkJtTnrg8eIXoehU7Hmygrr50UutNjPeKpCW0IEI-&share_version=320900&ts=1793328625&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "你也来考考看吧 他俩为啥这样啊#磕糖考试 #我嗑的cp是真的 #综艺名场面分享 #磕cp",
+      "author": "我薯条要酱嘛🍟",
+      "like_count": 47121,
+      "comment_count": 2036,
+      "share_count": 4340,
+      "duration_ms": 59754,
+      "create_time_iso": "2026-10-29T09:24:08+00:00",
+      "known_entities": [
+        "磕糖考试",
+        "我嗑的cp是真的",
+        "综艺名场面分享",
+        "磕cp",
+        "综艺名场面"
+      ],
+      "verified_entities": [
+        "磕糖考试",
+        "我嗑的cp是真的",
+        "综艺名场面分享",
+        "磕cp",
+        "综艺名场面"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 292.043,
+      "output_date": "2026-10-30",
+      "selected_at": "2026-10-30T03:20:53.726636+00:00"
+    },
+    {
+      "aweme_id": "7702144128192799930",
+      "content_id": "7702144128192799930",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7702144128192799930/?region=US&mid=7702144079873723145&u_code=0&did=MS4wLjABAAAAU3jom6aDNxvXwIc_gZAUtrqkNAd4Cd52VOhWP0MHESpt-BTTg3P_aWmE3ZeCu4KB&iid=MS4wLjABAAAAdkc7zitHQf_Q5Sx4RWQnviERr8FketUZ5LFG-yR-odMwEnLBXyPXTLeqUVGbdwYI&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=2dEMX111Uve5JzZIEPSONDiJvg40vCYqzvgv.YKfRh4-&share_version=320900&ts=1793328625&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "后会有期这个节目太好看了，我想住在芒果的母带里！第一遍看和第二遍看，感受完全不一样！马天宇人可真不错呀#马天宇 #综艺旅行 #后会有期 #文吉儿 #王子璇",
+      "author": "戴逸",
+      "like_count": 17232,
+      "comment_count": 811,
+      "share_count": 3489,
+      "duration_ms": 24080,
+      "create_time_iso": "2026-10-29T17:32:56+00:00",
+      "known_entities": [
+        "马天宇",
+        "王子璇",
+        "文吉儿"
+      ],
+      "verified_entities": [
+        "马天宇",
+        "王子璇",
+        "文吉儿",
+        "后会有期"
+      ],
+      "primary_celebrities": [
+        "马天宇",
+        "王子璇",
+        "文吉儿"
+      ],
+      "quality_score": 271.918,
+      "output_date": "2026-10-30",
+      "selected_at": "2026-10-30T03:20:53.726636+00:00"
+    },
+    {
+      "aweme_id": "7701979974772870442",
+      "content_id": "7701979974772870442",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7701979974772870442/?region=US&mid=7701980007639321353&u_code=0&did=MS4wLjABAAAAelEmvYcMN_MsJaDwtbmcxxJ1-31KymUJTwwJELo1QPg&iid=MS4wLjABAAAAYax-xWtpNK77AGlaKkZ6vokpW6r39NErKdFl0EgjwUA&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=g5D_sixvRw32hv6tnfT5qgkU5QnG7ql4pf.GDQiVNn8-&share_version=320900&ts=1793328619&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "好想跟张萌马天宇畅聊一整天！#张萌  #马天宇  #后会友期  #综艺  #搞笑",
+      "author": "巨星火火",
+      "like_count": 39993,
+      "comment_count": 319,
+      "share_count": 18774,
+      "duration_ms": 47360,
+      "create_time_iso": "2026-10-29T06:56:01+00:00",
+      "known_entities": [
+        "张萌",
+        "马天宇",
+        "后会友期",
+        "搞笑"
+      ],
+      "verified_entities": [
+        "张萌",
+        "马天宇",
+        "后会友期",
+        "搞笑"
+      ],
+      "primary_celebrities": [
+        "张萌",
+        "马天宇"
+      ],
+      "quality_score": 260.125,
+      "output_date": "2026-10-30",
+      "selected_at": "2026-10-30T03:20:53.726636+00:00"
+    },
+    {
+      "aweme_id": "7702098815914628776",
+      "content_id": "7702098815914628776",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7702098815914628776/?region=US&mid=7702098802534452004&u_code=0&did=MS4wLjABAAAAU3jom6aDNxvXwIc_gZAUtrqkNAd4Cd52VOhWP0MHESpt-BTTg3P_aWmE3ZeCu4KB&iid=MS4wLjABAAAAdkc7zitHQf_Q5Sx4RWQnviERr8FketUZ5LFG-yR-odMwEnLBXyPXTLeqUVGbdwYI&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=S9L3Ea0Fjiyp9ICXfP.PY6H1vKbPtGGELayZ75z.iaA-&share_version=320900&ts=1793328625&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "这个厉娜笑死我了好懵呀，你们真的不觉得 大米饭香吗#后会有期 #综艺名场面",
+      "author": "江江江江",
+      "like_count": 2973,
+      "comment_count": 312,
+      "share_count": 2721,
+      "duration_ms": 30900,
+      "create_time_iso": "2026-10-29T14:37:05+00:00",
+      "known_entities": [
+        "综艺名场面"
+      ],
+      "verified_entities": [
+        "综艺名场面",
+        "厉娜"
+      ],
+      "primary_celebrities": [
+        "厉娜"
+      ],
+      "quality_score": 224.98499999999999,
+      "output_date": "2026-10-30",
+      "selected_at": "2026-10-30T03:20:53.726636+00:00"
+    },
     {
       "aweme_id": "7701689193743793905",
       "content_id": "7701689193743793905",
