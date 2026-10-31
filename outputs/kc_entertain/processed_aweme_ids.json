@@ -1,7 +1,161 @@
 {
-  "updated_at": "2026-10-30T03:20:53.726636+00:00",
-  "count": 585,
+  "updated_at": "2026-10-31T03:11:02.569804+00:00",
+  "count": 590,
   "items": [
+    {
+      "aweme_id": "7702401596822523136",
+      "content_id": "7702401596822523136",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7702401596822523136/?region=US&mid=7702401686182202162&u_code=0&did=MS4wLjABAAAAgQAaboi0FDXtFXLsnwp74vLZ-tECFpOk2ep-T0D7K1aWhxuG-hrDoY9HtdXzNR4d&iid=MS4wLjABAAAAhcry8w9OrsUpNqgLFrc6BMuuI_983dvyq5WzH4bHdu0ePdVsRylwjgG1Vh_l7LOd&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=QSX7jxc7.fLq58o2E21KIqIQzrcuRThsOvRsZ06WZTY-&share_version=320900&ts=1793414356&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "楚然一句话把小胡cpu都烧干了\n#现在就出发 #综艺 #王楚然 #胡先煦 #王安宇",
+      "author": "草莓松饼",
+      "like_count": 42818,
+      "comment_count": 169,
+      "share_count": 3797,
+      "duration_ms": 175700,
+      "create_time_iso": "2026-10-30T10:12:08+00:00",
+      "known_entities": [
+        "王楚然",
+        "胡先煦",
+        "现在就出发",
+        "王安宇"
+      ],
+      "verified_entities": [
+        "王楚然",
+        "胡先煦",
+        "王安宇",
+        "现在就出发"
+      ],
+      "primary_celebrities": [
+        "王楚然",
+        "胡先煦",
+        "王安宇"
+      ],
+      "quality_score": 277.651,
+      "output_date": "2026-10-31",
+      "selected_at": "2026-10-31T03:11:02.569804+00:00"
+    },
+    {
+      "aweme_id": "7702386446933495080",
+      "content_id": "7702386446933495080",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7702386446933495080/?region=US&mid=7702386498544438079&u_code=0&did=MS4wLjABAAAAB_mko3dHhX5l3nssfEEAmf_zdEVnK-gVGcN6Mzifr97r3FkXQmA6kx5x9_npsd9c&iid=MS4wLjABAAAA5dqouPqnaoJj4d_BJCY4u8gSZdwgYTOKh8f6r_vhx3jVlwF_T1V9dMDkD4Nf3nVJ&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=..4nPw2prjljsqhwgjZtVnaDH4256KXCVrZHUkNnNrY-&share_version=320900&ts=1793414354&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "泪失禁真的共情了、、#王子璇  #后会友期",
+      "author": "喵了个娱",
+      "like_count": 164396,
+      "comment_count": 2980,
+      "share_count": 21653,
+      "duration_ms": 49575,
+      "create_time_iso": "2026-10-30T09:13:20+00:00",
+      "known_entities": [
+        "后会友期",
+        "王子璇"
+      ],
+      "verified_entities": [
+        "王子璇",
+        "后会友期"
+      ],
+      "primary_celebrities": [
+        "王子璇"
+      ],
+      "quality_score": 275.17699999999996,
+      "output_date": "2026-10-31",
+      "selected_at": "2026-10-31T03:11:02.569804+00:00"
+    },
+    {
+      "aweme_id": "7702349873370189092",
+      "content_id": "7702349873370189092",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7702349873370189092/?region=US&mid=7702349804034116394&u_code=0&did=MS4wLjABAAAA6RTbKoqxIjkD17YPl-bHRub6WWZXPq8Zcb9OX8YUniiHZLFSGzxSqFCqwdOOm1af&iid=MS4wLjABAAAACnAHam_ZGIXF5NUlzaJnxr_boSgd3S0IB9FjMmOX8bq-N3PZmRGePKum0A1qAben&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=s6PigDfLM3Z8WjmLxteGRW1FlKW43ziwkiZZm4XP6pU-&share_version=320900&ts=1793414349&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "王楚然的山东话真给我笑崩溃了 #现在就出发4 #王楚然  #沈腾 #胡先煦 #白敬亭",
+      "author": "综艺萌次元",
+      "like_count": 78427,
+      "comment_count": 1179,
+      "share_count": 55908,
+      "duration_ms": 25008,
+      "create_time_iso": "2026-10-30T06:51:26+00:00",
+      "known_entities": [
+        "沈腾",
+        "现在就出发4",
+        "王楚然",
+        "胡先煦",
+        "白敬亭",
+        "现在就出发"
+      ],
+      "verified_entities": [
+        "王楚然",
+        "沈腾",
+        "胡先煦",
+        "白敬亭",
+        "现在就出发4",
+        "现在就出发"
+      ],
+      "primary_celebrities": [
+        "王楚然",
+        "沈腾",
+        "胡先煦",
+        "白敬亭"
+      ],
+      "quality_score": 271.8,
+      "output_date": "2026-10-31",
+      "selected_at": "2026-10-31T03:11:02.569804+00:00"
+    },
+    {
+      "aweme_id": "7702463100071514726",
+      "content_id": "7702463100071514726",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7702463100071514726/?region=US&mid=7702463069724625706&u_code=0&did=MS4wLjABAAAAgQAaboi0FDXtFXLsnwp74vLZ-tECFpOk2ep-T0D7K1aWhxuG-hrDoY9HtdXzNR4d&iid=MS4wLjABAAAAhcry8w9OrsUpNqgLFrc6BMuuI_983dvyq5WzH4bHdu0ePdVsRylwjgG1Vh_l7LOd&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=N1heXCZQ30Yswf3IH1XoPp7fUKFWA62icVCOxlkoFmc-&share_version=320900&ts=1793414356&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "怎么这么像我偷贴同桌贴纸🤣🤣🤣根本绷不住哈哈哈哈哈哈哈哈哈哈哈哈😄@卡布叻_周深 @黄子弘凡 @薛之谦 #音乐源计划第三季 #音乐缘计划 #综艺搞笑 #综艺搞笑名场面",
+      "author": "捕梦🫧",
+      "like_count": 14479,
+      "comment_count": 477,
+      "share_count": 11162,
+      "duration_ms": 30900,
+      "create_time_iso": "2026-10-30T14:10:41+00:00",
+      "known_entities": [
+        "周深",
+        "薛之谦"
+      ],
+      "verified_entities": [
+        "周深",
+        "薛之谦"
+      ],
+      "primary_celebrities": [
+        "周深",
+        "薛之谦"
+      ],
+      "quality_score": 254.894,
+      "output_date": "2026-10-31",
+      "selected_at": "2026-10-31T03:11:02.569804+00:00"
+    },
+    {
+      "aweme_id": "7702344990277899752",
+      "content_id": "7702344990277899752",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7702344990277899752/?region=US&mid=7698348493492389897&u_code=0&did=MS4wLjABAAAAgQAaboi0FDXtFXLsnwp74vLZ-tECFpOk2ep-T0D7K1aWhxuG-hrDoY9HtdXzNR4d&iid=MS4wLjABAAAAhcry8w9OrsUpNqgLFrc6BMuuI_983dvyq5WzH4bHdu0ePdVsRylwjgG1Vh_l7LOd&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=NjZyNwVmnYgRs.eAhXnGyvadQWNhAvwN6JboLGAkM5o-&share_version=320900&ts=1793414356&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "好可爱的俩人#孟子义 #李昀锐 #综艺名场面分享 #你好星期六",
+      "author": "Sweety",
+      "like_count": 37634,
+      "comment_count": 241,
+      "share_count": 3769,
+      "duration_ms": 23467,
+      "create_time_iso": "2026-10-30T06:32:23+00:00",
+      "known_entities": [
+        "孟子义",
+        "李昀锐"
+      ],
+      "verified_entities": [
+        "孟子义",
+        "李昀锐"
+      ],
+      "primary_celebrities": [
+        "孟子义",
+        "李昀锐"
+      ],
+      "quality_score": 248.56799999999998,
+      "output_date": "2026-10-31",
+      "selected_at": "2026-10-31T03:11:02.569804+00:00"
+    },
     {
       "aweme_id": "7702039483365652906",
       "content_id": "7702039483365652906",
