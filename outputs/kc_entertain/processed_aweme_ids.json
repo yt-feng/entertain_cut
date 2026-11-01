@@ -1,7 +1,155 @@
 {
-  "updated_at": "2026-10-31T03:11:02.569804+00:00",
-  "count": 590,
+  "updated_at": "2026-11-01T03:00:06.069528+00:00",
+  "count": 595,
   "items": [
+    {
+      "aweme_id": "7702754348052303123",
+      "content_id": "7702754348052303123",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7702754348052303123/?region=US&mid=7702754346123594550&u_code=0&did=MS4wLjABAAAAdlDETkwf21RpUIJ7Yib5-4ihTIp_fZg_xK0R2wSYwqjMZ1Q31Dsm_iRHcuwLi8LI&iid=MS4wLjABAAAAp-WjDOY_17sDJqNbA2l5tbN2LKen1GNGmqk-vy9rOtULpH8hhdd2KsMeKKEyxxtz&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=MPdsCyIrFJhknE25WB92AQrA4MOhiuHFCtP_fR9VLGs-&share_version=320900&ts=1793500122&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "青稚白小纯，这波顾居居老师全责，我不行了#后会友期 #青稚 #白小纯 #顾居居 #搞笑",
+      "author": "爆爆小薯",
+      "like_count": 101478,
+      "comment_count": 1569,
+      "share_count": 35700,
+      "duration_ms": 92346,
+      "create_time_iso": "2026-10-31T09:00:59+00:00",
+      "known_entities": [
+        "后会友期",
+        "白小纯",
+        "青稚",
+        "顾居居",
+        "搞笑"
+      ],
+      "verified_entities": [
+        "后会友期",
+        "白小纯",
+        "青稚",
+        "顾居居",
+        "搞笑"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 291.06,
+      "output_date": "2026-11-01",
+      "selected_at": "2026-11-01T03:00:06.069528+00:00"
+    },
+    {
+      "aweme_id": "7702689314450246966",
+      "content_id": "7702689314450246966",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7702689314450246966/?region=US&mid=7702689333702085395&u_code=0&did=MS4wLjABAAAAdlDETkwf21RpUIJ7Yib5-4ihTIp_fZg_xK0R2wSYwqjMZ1Q31Dsm_iRHcuwLi8LI&iid=MS4wLjABAAAAp-WjDOY_17sDJqNbA2l5tbN2LKen1GNGmqk-vy9rOtULpH8hhdd2KsMeKKEyxxtz&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=Hzfvj6Q9_rj67hXkpPvgwIuKXeh4yI2mUEkIZJegFck-&share_version=320900&ts=1793500122&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#泰国灵能综艺UNSEEN  这个泰国灵能综艺真是给我看进去了…",
+      "author": "是剧剧呀",
+      "like_count": 150197,
+      "comment_count": 3627,
+      "share_count": 125330,
+      "duration_ms": 64000,
+      "create_time_iso": "2026-10-31T04:48:38+00:00",
+      "known_entities": [
+        "泰国灵能综艺UNSEEN"
+      ],
+      "verified_entities": [
+        "泰国灵能综艺UNSEEN"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 284.274,
+      "output_date": "2026-11-01",
+      "selected_at": "2026-11-01T03:00:06.069528+00:00"
+    },
+    {
+      "aweme_id": "7702744355076951296",
+      "content_id": "7702744355076951296",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7702744355076951296/?region=US&mid=7702744409854872339&u_code=0&did=MS4wLjABAAAAdlDETkwf21RpUIJ7Yib5-4ihTIp_fZg_xK0R2wSYwqjMZ1Q31Dsm_iRHcuwLi8LI&iid=MS4wLjABAAAAp-WjDOY_17sDJqNbA2l5tbN2LKen1GNGmqk-vy9rOtULpH8hhdd2KsMeKKEyxxtz&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=aiXbT2PZI2NvbEkjKOXdhM6cMZ6oHSLG_p710KmODxE-&share_version=320900&ts=1793500122&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "这反派三人组，主角还怎么打啊#铁证 #刘宇宁 #孙红雷 #反派 #阿如那",
+      "author": "元气梨梨",
+      "like_count": 70868,
+      "comment_count": 686,
+      "share_count": 36585,
+      "duration_ms": 67780,
+      "create_time_iso": "2026-10-31T08:22:14+00:00",
+      "known_entities": [
+        "铁证",
+        "刘宇宁",
+        "孙红雷",
+        "反派"
+      ],
+      "verified_entities": [
+        "铁证",
+        "刘宇宁",
+        "孙红雷",
+        "反派"
+      ],
+      "primary_celebrities": [
+        "刘宇宁",
+        "孙红雷"
+      ],
+      "quality_score": 281.131,
+      "output_date": "2026-11-01",
+      "selected_at": "2026-11-01T03:00:06.069528+00:00"
+    },
+    {
+      "aweme_id": "7702689802466020634",
+      "content_id": "7702689802466020634",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7702689802466020634/?region=US&mid=7702689800528546602&u_code=0&did=MS4wLjABAAAAdlDETkwf21RpUIJ7Yib5-4ihTIp_fZg_xK0R2wSYwqjMZ1Q31Dsm_iRHcuwLi8LI&iid=MS4wLjABAAAAp-WjDOY_17sDJqNbA2l5tbN2LKen1GNGmqk-vy9rOtULpH8hhdd2KsMeKKEyxxtz&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=wWIjIaJK0nhIsutzN3ps3m0oKmxdQRc3_cANZEBI03U-&share_version=320900&ts=1793500122&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "原来礼根哥哥是这样宠庆波的#后会友期 #综艺 #白小纯 #青稚 #纯稚",
+      "author": "就叫嘻嘻",
+      "like_count": 112688,
+      "comment_count": 1004,
+      "share_count": 14431,
+      "duration_ms": 48716,
+      "create_time_iso": "2026-10-31T04:50:31+00:00",
+      "known_entities": [
+        "后会友期",
+        "白小纯",
+        "青稚",
+        "纯稚"
+      ],
+      "verified_entities": [
+        "后会友期",
+        "白小纯",
+        "青稚",
+        "纯稚"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 275.082,
+      "output_date": "2026-11-01",
+      "selected_at": "2026-11-01T03:00:06.069528+00:00"
+    },
+    {
+      "aweme_id": "7702738280596704674",
+      "content_id": "7702738280596704674",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7702738280596704674/?region=US&mid=7693004815244445705&u_code=0&did=MS4wLjABAAAAdlDETkwf21RpUIJ7Yib5-4ihTIp_fZg_xK0R2wSYwqjMZ1Q31Dsm_iRHcuwLi8LI&iid=MS4wLjABAAAAp-WjDOY_17sDJqNbA2l5tbN2LKen1GNGmqk-vy9rOtULpH8hhdd2KsMeKKEyxxtz&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=yZI2BCxHTnv1FX3jqG4CewehjpAYWVk.zunqR.p7FGU-&share_version=320900&ts=1793500122&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "🙋他为什么突然站起来啊？没剧本 纯会玩 #范丞丞 #现在就出发 #他咋了 #浅发色帅哥 #范丞丞站起来那一刻我笑疯了",
+      "author": "范丞丞工作室",
+      "like_count": 128663,
+      "comment_count": 2429,
+      "share_count": 9830,
+      "duration_ms": 28534,
+      "create_time_iso": "2026-10-31T07:58:33+00:00",
+      "known_entities": [
+        "范丞丞",
+        "现在就出发",
+        "他咋了",
+        "浅发色帅哥",
+        "范丞丞站起来那一刻我笑疯了"
+      ],
+      "verified_entities": [
+        "范丞丞",
+        "现在就出发",
+        "他咋了",
+        "浅发色帅哥",
+        "范丞丞站起来那一刻我笑疯了"
+      ],
+      "primary_celebrities": [
+        "范丞丞"
+      ],
+      "quality_score": 273.41700000000003,
+      "output_date": "2026-11-01",
+      "selected_at": "2026-11-01T03:00:06.069528+00:00"
+    },
     {
       "aweme_id": "7702401596822523136",
       "content_id": "7702401596822523136",
