@@ -1,7 +1,136 @@
 {
-  "updated_at": "2026-11-01T03:00:06.069528+00:00",
-  "count": 595,
+  "updated_at": "2026-11-02T03:13:07.815299+00:00",
+  "count": 600,
   "items": [
+    {
+      "aweme_id": "7703194997286242895",
+      "content_id": "7703194997286242895",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7703194997286242895/?region=CN&mid=7703194922320595746&u_code=1797h8190&did=MS4wLjABAAAAyasL5gLZgyF1i5B4CPTRyMExfSXwp4qOc8QZRumD4rw&iid=MS4wLjABAAAAZGoz7X_1kRsSFd8o0Z6tFMoCachGBMwIZLgxmjl-h5hmG535V4HCPtAeAEOKy5la&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=7FEDtyTeBcR8G_OvNxgCRa4utOvmHx0P8vnPZV3mjwY-&share_version=400800&ts=1793587453&from_aid=1128&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "笑发财啦~听说厉娜就因为接这个私活儿赚了1500块钱，结果被雪藏八年#厉娜 #后会友期 #综艺名场面 #搞笑",
+      "author": "祉猷并茂✨",
+      "like_count": 13629,
+      "comment_count": 893,
+      "share_count": 14165,
+      "duration_ms": 10380,
+      "create_time_iso": "2026-11-01T13:30:50+00:00",
+      "known_entities": [
+        "后会友期"
+      ],
+      "verified_entities": [
+        "厉娜",
+        "后会友期"
+      ],
+      "primary_celebrities": [
+        "厉娜"
+      ],
+      "quality_score": 267.19100000000003,
+      "output_date": "2026-11-02",
+      "selected_at": "2026-11-02T03:13:07.815299+00:00"
+    },
+    {
+      "aweme_id": "7703095680134417707",
+      "content_id": "7703095680134417707",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7703095680134417707/?region=US&mid=7703095686102829833&u_code=0&did=MS4wLjABAAAAykf3M8zItJrSfMedyMo-OUWvMlQwkkG50GTKMBYGhBzkvDiAuP6nK8vPiAC_qEA6&iid=MS4wLjABAAAAlt4ZyCpb3Dp1HDiv8pxgo4nFTZvh3bzZSPgz9cTJAdCJFu-BS8YKdrSM2DtHkTSV&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=wHF5sjwqPM7PivqKA7Zd9N8A2hZUSIridgoL1dMX.PQ-&share_version=320900&ts=1793587544&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "文吉儿敢在张萌面前“又装又演，真是好大的胆子！ #文吉儿 #张萌 #影娱热点团 #后会友期",
+      "author": "山谷CHEN",
+      "like_count": 17130,
+      "comment_count": 657,
+      "share_count": 4651,
+      "duration_ms": 193867,
+      "create_time_iso": "2026-11-01T07:05:32+00:00",
+      "known_entities": [
+        "后会友期"
+      ],
+      "verified_entities": [
+        "张萌",
+        "文吉儿",
+        "后会友期"
+      ],
+      "primary_celebrities": [
+        "张萌",
+        "文吉儿"
+      ],
+      "quality_score": 242.971,
+      "output_date": "2026-11-02",
+      "selected_at": "2026-11-02T03:13:07.815299+00:00"
+    },
+    {
+      "aweme_id": "7703206073335529467",
+      "content_id": "7703206073335529467",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7703206073335529467/?region=US&mid=7234694529398491941&u_code=0&did=MS4wLjABAAAAykf3M8zItJrSfMedyMo-OUWvMlQwkkG50GTKMBYGhBzkvDiAuP6nK8vPiAC_qEA6&iid=MS4wLjABAAAAlt4ZyCpb3Dp1HDiv8pxgo4nFTZvh3bzZSPgz9cTJAdCJFu-BS8YKdrSM2DtHkTSV&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=n0WiwVtmcLIobKeSJ8hSzCth6YR4vLSI6kszqW5JVJc-&share_version=320900&ts=1793587542&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#刘亦菲 惊艳亮相W盛典，不管有多少明星，很难把视线从她身上移开，这就是神仙姐姐的权威美貌吧👍 #WGALA双城记 #W黄金时代 #W中文版年度盛典",
+      "author": "明星娱乐第一现场",
+      "like_count": 10554,
+      "comment_count": 448,
+      "share_count": 1244,
+      "duration_ms": 11967,
+      "create_time_iso": "2026-11-01T14:13:48+00:00",
+      "known_entities": [
+        "刘亦菲"
+      ],
+      "verified_entities": [
+        "刘亦菲",
+        "W盛典"
+      ],
+      "primary_celebrities": [
+        "刘亦菲"
+      ],
+      "quality_score": 212.943,
+      "output_date": "2026-11-02",
+      "selected_at": "2026-11-02T03:13:07.815299+00:00"
+    },
+    {
+      "aweme_id": "7703086394622121906",
+      "content_id": "7703086394622121906",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7703086394622121906/?region=CN&mid=7662211384188701490&u_code=19aa78978&did=MS4wLjABAAAAMDo8q4VmdwYTeU3n19bzfsK92xNt6sv_0IiflFf33mACJZmbTXp-Vkmdd7uUc38k&iid=MS4wLjABAAAA4W2YTabtUKE9b-tWs87E5k0ulBwIV0r6F0IjBaWZDf7eJnifqvR1Oewrpe-nnJ2j&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=7OX5JF6OP86acYRV_Eptaym8nGVkUvXjXtfOPYZUv04-&share_version=400900&ts=1793587355&from_aid=1128&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "你们的生命不会呐喊吗 这个系列真的太爽了！哈哈哈哈哈#白敬亭 #王楚然 #现在就出发4 #综艺名场面",
+      "author": "副经理决定上班了",
+      "like_count": 44530,
+      "comment_count": 427,
+      "share_count": 8240,
+      "duration_ms": 17767,
+      "create_time_iso": "2026-11-01T06:29:23+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "白敬亭",
+        "王楚然",
+        "现在就出发4"
+      ],
+      "primary_celebrities": [
+        "白敬亭",
+        "王楚然"
+      ],
+      "quality_score": 208.254,
+      "output_date": "2026-11-02",
+      "selected_at": "2026-11-02T03:13:07.815299+00:00"
+    },
+    {
+      "aweme_id": "7703201235894225398",
+      "content_id": "7703201235894225398",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7703201235894225398/?region=US&mid=7703201178233998099&u_code=0&did=MS4wLjABAAAAykf3M8zItJrSfMedyMo-OUWvMlQwkkG50GTKMBYGhBzkvDiAuP6nK8vPiAC_qEA6&iid=MS4wLjABAAAAlt4ZyCpb3Dp1HDiv8pxgo4nFTZvh3bzZSPgz9cTJAdCJFu-BS8YKdrSM2DtHkTSV&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=1jCu5CCjbnni.7oA_GtplXJK03kVT9ukwRdcxgsuQDY-&share_version=320900&ts=1793587544&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "蔡徐坤随音乐起舞 现场无一人敢上前 难怪说i人是e人的玩具#蔡徐坤 #娱乐",
+      "author": "5号的递水小跟班",
+      "like_count": 81533,
+      "comment_count": 572,
+      "share_count": 5823,
+      "duration_ms": 13800,
+      "create_time_iso": "2026-11-01T13:55:02+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "蔡徐坤"
+      ],
+      "primary_celebrities": [
+        "蔡徐坤"
+      ],
+      "quality_score": 204.809,
+      "output_date": "2026-11-02",
+      "selected_at": "2026-11-02T03:13:07.815299+00:00"
+    },
     {
       "aweme_id": "7702754348052303123",
       "content_id": "7702754348052303123",
