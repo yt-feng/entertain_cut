@@ -1,7 +1,168 @@
 {
-  "updated_at": "2026-11-03T04:33:11.120384+00:00",
-  "count": 605,
+  "updated_at": "2026-11-04T03:32:37.100060+00:00",
+  "count": 610,
   "items": [
+    {
+      "aweme_id": "7703899421981461923",
+      "content_id": "7703899421981461923",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7703899421981461923/?region=US&mid=7703899402703833907&u_code=0&did=MS4wLjABAAAAc-4Rnhznos27IBeJPu-Ko_gLi2lliHpGOgV9DTJl70M&iid=MS4wLjABAAAA3XYjYE3JBh12OzCoNONcxKIZvdpxFf09yn_3dUAmCaQ&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=mPQ28VVJKVTBIz7A4msGd68S2yzWu0ux0lzsMZ2VeCI-&share_version=320900&ts=1793762035&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "“楚然的话我来 我想来” #王楚然 #范丞丞 \n#综艺名场面 \n#现在就出发 \n#年下",
+      "author": "杀生丸的猫呢",
+      "like_count": 16896,
+      "comment_count": 983,
+      "share_count": 4686,
+      "duration_ms": 77567,
+      "create_time_iso": "2026-11-03T11:04:22+00:00",
+      "known_entities": [
+        "范丞丞",
+        "王楚然",
+        "现在就出发"
+      ],
+      "verified_entities": [
+        "范丞丞",
+        "王楚然",
+        "现在就出发"
+      ],
+      "primary_celebrities": [
+        "范丞丞",
+        "王楚然"
+      ],
+      "quality_score": 289.97700000000003,
+      "output_date": "2026-11-04",
+      "selected_at": "2026-11-04T03:32:37.100060+00:00"
+    },
+    {
+      "aweme_id": "7703821260643383034",
+      "content_id": "7703821260643383034",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7703821260643383034/?region=US&mid=7681988069087595300&u_code=0&did=MS4wLjABAAAAc-4Rnhznos27IBeJPu-Ko_gLi2lliHpGOgV9DTJl70M&iid=MS4wLjABAAAA3XYjYE3JBh12OzCoNONcxKIZvdpxFf09yn_3dUAmCaQ&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=.XYJ1yvBeVHjKWFhoGmiroHyZPVgpYpi_uOd.OElpGI-&share_version=320900&ts=1793762035&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "许飞这个眼神 不小心对视后先是震惊然后暗爽，我就这样在磕到了和磕不动了之间反复横跳#综艺名场面 #许飞 #厉娜",
+      "author": "卫弦",
+      "like_count": 35323,
+      "comment_count": 2250,
+      "share_count": 19087,
+      "duration_ms": 10434,
+      "create_time_iso": "2026-11-03T06:01:03+00:00",
+      "known_entities": [
+        "许飞",
+        "厉娜"
+      ],
+      "verified_entities": [
+        "许飞",
+        "厉娜"
+      ],
+      "primary_celebrities": [
+        "许飞",
+        "厉娜"
+      ],
+      "quality_score": 278.81899999999996,
+      "output_date": "2026-11-04",
+      "selected_at": "2026-11-04T03:32:37.100060+00:00"
+    },
+    {
+      "aweme_id": "7703946783957372819",
+      "content_id": "7703946783957372819",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7703946783957372819/?region=US&mid=7703946742923873087&u_code=0&did=MS4wLjABAAAAu3aWgTLxwl6F63NmmZHJhr7HyA8g-IaRog7NtrDfjuLbxDuPttuCdBsWqE7tecow&iid=MS4wLjABAAAA4O2A61oe8EJnm_X3ErRS6i_j8snhqeOPqizfIqHz8Ehd1tQTtcC3QPCi92Td5IsY&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=L0Eec5g1ObtYVMQWjwYELkNVxby5k5iqcpLfEzAKNVA-&share_version=320900&ts=1793762027&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "热舞女郎 气质女明星\n#王楚然 #现在就出发 #综艺 #综艺搞笑 #接着奏乐接着舞",
+      "author": "掬水（跟着小船现在就出发）",
+      "like_count": 71080,
+      "comment_count": 1577,
+      "share_count": 17077,
+      "duration_ms": 23405,
+      "create_time_iso": "2026-11-03T14:08:08+00:00",
+      "known_entities": [
+        "王楚然",
+        "现在就出发",
+        "综艺搞笑",
+        "接着奏乐接着舞"
+      ],
+      "verified_entities": [
+        "王楚然",
+        "现在就出发",
+        "综艺搞笑",
+        "接着奏乐接着舞"
+      ],
+      "primary_celebrities": [
+        "王楚然"
+      ],
+      "quality_score": 273.959,
+      "output_date": "2026-11-04",
+      "selected_at": "2026-11-04T03:32:37.100060+00:00"
+    },
+    {
+      "aweme_id": "7703925108854803750",
+      "content_id": "7703925108854803750",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7703925108854803750/?region=US&mid=7703925288794622763&u_code=0&did=MS4wLjABAAAAu3aWgTLxwl6F63NmmZHJhr7HyA8g-IaRog7NtrDfjuLbxDuPttuCdBsWqE7tecow&iid=MS4wLjABAAAA4O2A61oe8EJnm_X3ErRS6i_j8snhqeOPqizfIqHz8Ehd1tQTtcC3QPCi92Td5IsY&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=q_qwe7hrfhZesawyqr337uIAk6mcYGD0XMo4H.OPnbA-&share_version=320900&ts=1793762027&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "在花海中选择和不和好吗 真的好浪漫的吧#后会友期 #综艺 #许飞厉娜  #白小纯青稚",
+      "author": "喵哇摸娱记",
+      "like_count": 44468,
+      "comment_count": 1033,
+      "share_count": 14232,
+      "duration_ms": 27354,
+      "create_time_iso": "2026-11-03T12:44:08+00:00",
+      "known_entities": [
+        "后会友期",
+        "许飞",
+        "厉娜",
+        "许飞厉娜",
+        "白小纯青稚"
+      ],
+      "verified_entities": [
+        "后会友期",
+        "许飞",
+        "厉娜",
+        "许飞厉娜",
+        "白小纯青稚"
+      ],
+      "primary_celebrities": [
+        "许飞",
+        "厉娜"
+      ],
+      "quality_score": 265.401,
+      "output_date": "2026-11-04",
+      "selected_at": "2026-11-04T03:32:37.100060+00:00"
+    },
+    {
+      "aweme_id": "7703833604476210811",
+      "content_id": "7703833604476210811",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7703833604476210811/?region=US&mid=7703833540265265939&u_code=0&did=MS4wLjABAAAALP6rbE9u2yqXgRq98gbglmhgAILFfzeYnkSiACEGZZ3dGxkxBPksBmgx9INo8QUY&iid=MS4wLjABAAAAAVK2PS3GGIqtpCBp7bZJ9-3hkuPwsMjVFElnfRki_-27HM-UQHqWBUC7HC2Kk2zd&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=PmagJFcACaDw8i50TiIECk7aJlUNHzixeYUsjxYcT6w-&share_version=320900&ts=1793762032&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "现在就出发泰国校服录制！青春活力，像在演校园剧，男双女美！#范丞丞 #王楚然 #王安宇 #胡先煦 白敬亭 黄景瑜 沈腾 贾冰#现在就出发4全员校服造型",
+      "author": "明星娱乐一线",
+      "like_count": 79919,
+      "comment_count": 1556,
+      "share_count": 36926,
+      "duration_ms": 28100,
+      "create_time_iso": "2026-11-03T06:48:57+00:00",
+      "known_entities": [
+        "范丞丞",
+        "沈腾",
+        "王楚然",
+        "王安宇",
+        "胡先煦",
+        "现在就出发4全员校服造型",
+        "现在就出发"
+      ],
+      "verified_entities": [
+        "范丞丞",
+        "沈腾",
+        "王楚然",
+        "王安宇",
+        "胡先煦",
+        "现在就出发4全员校服造型",
+        "现在就出发"
+      ],
+      "primary_celebrities": [
+        "范丞丞",
+        "沈腾"
+      ],
+      "quality_score": 260.38599999999997,
+      "output_date": "2026-11-04",
+      "selected_at": "2026-11-04T03:32:37.100060+00:00"
+    },
     {
       "aweme_id": "7703446287195058274",
       "content_id": "7703446287195058274",
