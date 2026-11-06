@@ -1,7 +1,154 @@
 {
-  "updated_at": "2026-11-05T05:09:25.052687+00:00",
-  "count": 615,
+  "updated_at": "2026-11-06T05:10:32.096772+00:00",
+  "count": 620,
   "items": [
+    {
+      "aweme_id": "7704626529321405715",
+      "content_id": "7704626529321405715",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7704626529321405715/?region=US&mid=7704626525848570651&u_code=0&did=MS4wLjABAAAAfWmaHGHRpGkLnswAabdPwmWYuBHm8NCIqPaRPmtPwYs&iid=MS4wLjABAAAAH-l8VFNb7YkZiMDAqEtc8t7tmwrddOeP9WnEPsW3w-4&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=iggYvEHqmEdljEfXwqS0pfbx_dK1iYEjx2mDHuTFGDU-&share_version=320900&ts=1793940256&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "有种在看花少的幸福感谁懂。。。 #后会友期 #群像 #内容过于真实",
+      "author": "娱圈跳跳糖",
+      "like_count": 182194,
+      "comment_count": 1804,
+      "share_count": 17385,
+      "duration_ms": 28909,
+      "create_time_iso": "2026-11-05T10:06:01+00:00",
+      "known_entities": [
+        "后会友期",
+        "群像",
+        "内容过于真实"
+      ],
+      "verified_entities": [
+        "后会友期",
+        "群像",
+        "内容过于真实"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 275.606,
+      "output_date": "2026-11-06",
+      "selected_at": "2026-11-06T05:10:32.096772+00:00"
+    },
+    {
+      "aweme_id": "7704620368014609674",
+      "content_id": "7704620368014609674",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7704620368014609674/?region=US&mid=7704620347953253170&u_code=0&did=MS4wLjABAAAAtrkxAWzdDtiPy2MUcY44zQGLHe_wD1fg9TNaDW6QPlYI6FPnOSooqITyZb_eXpbO&iid=MS4wLjABAAAAJe8X1wEq4GO585-NeGbXijDNNgARXYIzbA272pRAB_RqVE9mYGNoj-LgROvJ72cz&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=G9u6Yr5fm4Ihi0kjanu5hy9WjBY9uOs1NGtE7jy4AR0-&share_version=320900&ts=1793940260&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "我不想哭着跨年啊芒果~ #后会友期 #跨年 #友情 #震惊",
+      "author": "娱乐小表妹",
+      "like_count": 63823,
+      "comment_count": 595,
+      "share_count": 23038,
+      "duration_ms": 22872,
+      "create_time_iso": "2026-11-05T09:42:04+00:00",
+      "known_entities": [
+        "后会友期",
+        "跨年",
+        "友情",
+        "震惊"
+      ],
+      "verified_entities": [
+        "后会友期",
+        "跨年",
+        "友情",
+        "震惊"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 250.256,
+      "output_date": "2026-11-06",
+      "selected_at": "2026-11-06T05:10:32.096772+00:00"
+    },
+    {
+      "aweme_id": "7704609345333431592",
+      "content_id": "7704609345333431592",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7704609345333431592/?region=US&mid=7704609374731340580&u_code=0&did=MS4wLjABAAAAfWmaHGHRpGkLnswAabdPwmWYuBHm8NCIqPaRPmtPwYs&iid=MS4wLjABAAAAH-l8VFNb7YkZiMDAqEtc8t7tmwrddOeP9WnEPsW3w-4&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=CntYyAhcBumQrTMcLz4ayM7ExE2fNJ.yjg.jf0J8syo-&share_version=320900&ts=1793940256&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "王子璇悬崖悟道，我要退钱，至此艺术已成！ #后会友期 #综艺解说 #王子璇 #文吉儿 #友谊",
+      "author": "叶子综艺解说",
+      "like_count": 10077,
+      "comment_count": 688,
+      "share_count": 3004,
+      "duration_ms": 194675,
+      "create_time_iso": "2026-11-05T08:59:19+00:00",
+      "known_entities": [
+        "后会友期"
+      ],
+      "verified_entities": [
+        "后会友期",
+        "王子璇",
+        "文吉儿"
+      ],
+      "primary_celebrities": [
+        "王子璇"
+      ],
+      "quality_score": 247.851,
+      "output_date": "2026-11-06",
+      "selected_at": "2026-11-06T05:10:32.096772+00:00"
+    },
+    {
+      "aweme_id": "7704592245974240186",
+      "content_id": "7704592245974240186",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7704592245974240186/?region=US&mid=7704592147390958370&u_code=0&did=MS4wLjABAAAAtrkxAWzdDtiPy2MUcY44zQGLHe_wD1fg9TNaDW6QPlYI6FPnOSooqITyZb_eXpbO&iid=MS4wLjABAAAAJe8X1wEq4GO585-NeGbXijDNNgARXYIzbA272pRAB_RqVE9mYGNoj-LgROvJ72cz&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=BMDybYFBR7NOq39zQHzbCuQf0pQ9mo05QQMJ13OHfXQ-&share_version=320900&ts=1793940260&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#林一 #卢昱晓 挽手出场 还互相整理头上彩带 俩人这cp感如何？#折月亮 #折月亮抖音追剧团 #林一卢昱晓西装白裙好配",
+      "author": "娱乐圈小蜜",
+      "like_count": 39292,
+      "comment_count": 518,
+      "share_count": 8563,
+      "duration_ms": 14834,
+      "create_time_iso": "2026-11-05T07:52:52+00:00",
+      "known_entities": [
+        "林一",
+        "卢昱晓",
+        "折月亮",
+        "折月亮抖音追剧团"
+      ],
+      "verified_entities": [
+        "林一",
+        "卢昱晓",
+        "折月亮",
+        "折月亮抖音追剧团"
+      ],
+      "primary_celebrities": [
+        "林一",
+        "卢昱晓"
+      ],
+      "quality_score": 241.592,
+      "output_date": "2026-11-06",
+      "selected_at": "2026-11-06T05:10:32.096772+00:00"
+    },
+    {
+      "aweme_id": "7704612479724924091",
+      "content_id": "7704612479724924091",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7704612479724924091/?region=US&mid=7704612362967468815&u_code=0&did=MS4wLjABAAAAtrkxAWzdDtiPy2MUcY44zQGLHe_wD1fg9TNaDW6QPlYI6FPnOSooqITyZb_eXpbO&iid=MS4wLjABAAAAJe8X1wEq4GO585-NeGbXijDNNgARXYIzbA272pRAB_RqVE9mYGNoj-LgROvJ72cz&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=S8T4FiQ0ZqPUM2JXkmCXB7bmrG6KhtDlGQpVsckfAu8-&share_version=320900&ts=1793940260&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "我上课被点到名belike: #林一 #卢昱晓 #卢洋洋 #折月亮 #折月亮抖音追剧团",
+      "author": "娱乐保时姐",
+      "like_count": 34212,
+      "comment_count": 97,
+      "share_count": 1723,
+      "duration_ms": 9267,
+      "create_time_iso": "2026-11-05T09:11:23+00:00",
+      "known_entities": [
+        "林一",
+        "卢昱晓",
+        "折月亮",
+        "折月亮抖音追剧团"
+      ],
+      "verified_entities": [
+        "林一",
+        "卢昱晓",
+        "折月亮",
+        "折月亮抖音追剧团"
+      ],
+      "primary_celebrities": [
+        "林一",
+        "卢昱晓"
+      ],
+      "quality_score": 218.62,
+      "output_date": "2026-11-06",
+      "selected_at": "2026-11-06T05:10:32.096772+00:00"
+    },
     {
       "aweme_id": "7704211013226205041",
       "content_id": "7704211013226205041",
