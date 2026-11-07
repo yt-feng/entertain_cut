@@ -1,7 +1,143 @@
 {
-  "updated_at": "2026-11-06T05:10:32.096772+00:00",
-  "count": 620,
+  "updated_at": "2026-11-07T03:31:32.036502+00:00",
+  "count": 625,
   "items": [
+    {
+      "aweme_id": "7705032404318739355",
+      "content_id": "7705032404318739355",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7705032404318739355/?region=US&mid=7705032376430824243&u_code=0&did=MS4wLjABAAAAdXv14XhkN258TWmX9lj7scXaMMgiAQYK9j-vN61JUEr7gA0wfvtljLrpBgvWBASi&iid=MS4wLjABAAAAyuHTPQVjCQ0O72I7uF82BCef3kADBSbKFKCstTZ9EE8a4I-aOKK3ZJdfKhGFVEO4&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=pyShdjysD8x8GCCHh4sHI2oYGnRtd0UnLpKQiUGJMTo-&share_version=320900&ts=1794020733&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "姐姐笑的好开心～ #赵丽颖 #金鸡奖 #金鸡奖开幕式",
+      "author": "搜狐娱乐",
+      "like_count": 29087,
+      "comment_count": 400,
+      "share_count": 1940,
+      "duration_ms": 11534,
+      "create_time_iso": "2026-11-06T12:20:54+00:00",
+      "known_entities": [
+        "赵丽颖",
+        "金鸡奖",
+        "金鸡奖开幕式"
+      ],
+      "verified_entities": [
+        "赵丽颖",
+        "金鸡奖",
+        "金鸡奖开幕式"
+      ],
+      "primary_celebrities": [
+        "赵丽颖"
+      ],
+      "quality_score": 243.112,
+      "output_date": "2026-11-07",
+      "selected_at": "2026-11-07T03:31:32.036502+00:00"
+    },
+    {
+      "aweme_id": "7704967537725348707",
+      "content_id": "7704967537725348707",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7704967537725348707/?region=US&mid=7704967481395252004&u_code=0&did=MS4wLjABAAAAdXv14XhkN258TWmX9lj7scXaMMgiAQYK9j-vN61JUEr7gA0wfvtljLrpBgvWBASi&iid=MS4wLjABAAAAyuHTPQVjCQ0O72I7uF82BCef3kADBSbKFKCstTZ9EE8a4I-aOKK3ZJdfKhGFVEO4&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=k3aCp3FjJTZIzQ8y2HWM0WdaXnuH7s5AjeuAaGnTyUI-&share_version=320900&ts=1794020731&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "山野逐光大秀开始杨丽萍老师开场封神 大秀官方指定合作花艺品牌\n大谷完美交付\n感谢品牌方信任\n@晨佛爷 @無界MOMENT影像空间官方号 \n#晨佛爷 #無界agamo山野逐光#無界agamo",
+      "author": "大谷明星应援花艺培训",
+      "like_count": 16726,
+      "comment_count": 249,
+      "share_count": 1485,
+      "duration_ms": 8467,
+      "create_time_iso": "2026-11-06T08:09:12+00:00",
+      "known_entities": [
+        "官方",
+        "晨佛爷",
+        "無界agamo山野逐光",
+        "無界agamo"
+      ],
+      "verified_entities": [
+        "官方",
+        "晨佛爷",
+        "無界agamo山野逐光",
+        "無界agamo"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 233.177,
+      "output_date": "2026-11-07",
+      "selected_at": "2026-11-07T03:31:32.036502+00:00"
+    },
+    {
+      "aweme_id": "7705217907650782949",
+      "content_id": "7705217907650782949",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7705217907650782949/?region=US&mid=7642735490521778182&u_code=0&did=MS4wLjABAAAAdXv14XhkN258TWmX9lj7scXaMMgiAQYK9j-vN61JUEr7gA0wfvtljLrpBgvWBASi&iid=MS4wLjABAAAAyuHTPQVjCQ0O72I7uF82BCef3kADBSbKFKCstTZ9EE8a4I-aOKK3ZJdfKhGFVEO4&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=K_1Oqhk8bNch..mfmhsVUZPM.UqmaLBy7J9PRFhzdww-&share_version=320900&ts=1794020733&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#张若昀 #胡先煦 #黄明昊 主演新剧#重庆号 横店开机！开机大吉！拍摄顺利！#横店影视城娱乐频道",
+      "author": "横店影视城娱乐频道",
+      "like_count": 2266,
+      "comment_count": 169,
+      "share_count": 928,
+      "duration_ms": 16400,
+      "create_time_iso": "2026-11-07T00:20:46+00:00",
+      "known_entities": [
+        "黄明昊",
+        "张若昀"
+      ],
+      "verified_entities": [
+        "黄明昊",
+        "张若昀"
+      ],
+      "primary_celebrities": [
+        "黄明昊",
+        "张若昀"
+      ],
+      "quality_score": 209.396,
+      "output_date": "2026-11-07",
+      "selected_at": "2026-11-07T03:31:32.036502+00:00"
+    },
+    {
+      "aweme_id": "7705044116027598986",
+      "content_id": "7705044116027598986",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7705044116027598986/?region=US&mid=7705044122649873188&u_code=0&did=MS4wLjABAAAAovDSQK1FJJi376QUIyy3eDrgJnW9zNd_lYnEKZdm3kfZDPfODeEhZjp7al-WTocJ&iid=MS4wLjABAAAAgbnrRU4UXghbZcotQ-sISWUfJNgzOCnBHUH7tgp0EOZoQQ5LSxuCif5wqm9Qkhmq&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=3Xx1kM9yQ.q.WA.mfbaxrEpdW4kyvdLjyMbZo6jZ2IA-&share_version=320900&ts=1794020741&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "王俊凯是舞美设计的神！ 不允许有人错过这场流星雨🌠#演唱会顶级舞美 #王俊凯全能ace #王俊凯 #神级现场 #全开麦演唱会现场",
+      "author": "uiil.",
+      "like_count": 1055,
+      "comment_count": 23,
+      "share_count": 220,
+      "duration_ms": 184800,
+      "create_time_iso": "2026-11-06T13:06:21+00:00",
+      "known_entities": [
+        "王俊凯"
+      ],
+      "verified_entities": [
+        "王俊凯"
+      ],
+      "primary_celebrities": [
+        "王俊凯"
+      ],
+      "quality_score": 159.994,
+      "output_date": "2026-11-07",
+      "selected_at": "2026-11-07T03:31:32.036502+00:00"
+    },
+    {
+      "aweme_id": "7705034620631592625",
+      "content_id": "7705034620631592625",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7705034620631592625/?region=US&mid=7705034594453981993&u_code=0&did=MS4wLjABAAAAovDSQK1FJJi376QUIyy3eDrgJnW9zNd_lYnEKZdm3kfZDPfODeEhZjp7al-WTocJ&iid=MS4wLjABAAAAgbnrRU4UXghbZcotQ-sISWUfJNgzOCnBHUH7tgp0EOZoQQ5LSxuCif5wqm9Qkhmq&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=eLPzq3e_wNdj_KjI.7uShihGkKHuk0Lez4yfjqyvHhQ-&share_version=320900&ts=1794020741&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "嗨翻全场 #舞台帅炸了 #演唱会现场 #演唱会直拍 #肖战的舞台魅力",
+      "author": "重庆小散",
+      "like_count": 1240,
+      "comment_count": 22,
+      "share_count": 44,
+      "duration_ms": 26795,
+      "create_time_iso": "2026-11-06T12:29:30+00:00",
+      "known_entities": [
+        "肖战"
+      ],
+      "verified_entities": [
+        "肖战"
+      ],
+      "primary_celebrities": [
+        "肖战"
+      ],
+      "quality_score": 136.491,
+      "output_date": "2026-11-07",
+      "selected_at": "2026-11-07T03:31:32.036502+00:00"
+    },
     {
       "aweme_id": "7704626529321405715",
       "content_id": "7704626529321405715",
