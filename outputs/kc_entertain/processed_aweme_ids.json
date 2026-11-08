@@ -1,7 +1,155 @@
 {
-  "updated_at": "2026-11-07T03:31:32.036502+00:00",
-  "count": 625,
+  "updated_at": "2026-11-08T03:31:23.976203+00:00",
+  "count": 630,
   "items": [
+    {
+      "aweme_id": "7705453976071098362",
+      "content_id": "7705453976071098362",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7705453976071098362/?region=US&mid=7705453882226936591&u_code=0&did=MS4wLjABAAAAypl2KNW0B0oPXWLnO03V_GmfYCPIg2Y5w_eEs6Sff6o&iid=MS4wLjABAAAAoPE2OJaC3dNPOlud7H64uBxRzUS8CeZ9B7jtTCrvWvs&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=PR_1RlCphDxpiHIcbwejc507hXboelgRH0fcxkQtw2A-&share_version=320900&ts=1794105836&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "时隔两周终于完全看明白许飞厉这段话了 #后会友期 #许飞 #厉娜",
+      "author": "一口一个乔治",
+      "like_count": 15714,
+      "comment_count": 1845,
+      "share_count": 21693,
+      "duration_ms": 290713,
+      "create_time_iso": "2026-11-07T15:36:49+00:00",
+      "known_entities": [
+        "后会友期",
+        "厉娜",
+        "许飞"
+      ],
+      "verified_entities": [
+        "后会友期",
+        "许飞",
+        "厉娜"
+      ],
+      "primary_celebrities": [
+        "许飞",
+        "厉娜"
+      ],
+      "quality_score": 298.0,
+      "output_date": "2026-11-08",
+      "selected_at": "2026-11-08T03:31:23.976203+00:00"
+    },
+    {
+      "aweme_id": "7705340272058320569",
+      "content_id": "7705340272058320569",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7705340272058320569/?region=US&mid=7705340220329397002&u_code=0&did=MS4wLjABAAAAypl2KNW0B0oPXWLnO03V_GmfYCPIg2Y5w_eEs6Sff6o&iid=MS4wLjABAAAAoPE2OJaC3dNPOlud7H64uBxRzUS8CeZ9B7jtTCrvWvs&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=NWm8KHvT6mACONq2DInCp_Nwseq3IlMy8YVEYyBKVCs-&share_version=320900&ts=1794105836&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "火树老师ob后会友期纯稚 你只是爱我，却不理会我灵魂的出口#青稚 #白小纯 #后会友期 #芒果tv",
+      "author": "蜡笔小鑫",
+      "like_count": 132702,
+      "comment_count": 4323,
+      "share_count": 32073,
+      "duration_ms": 25055,
+      "create_time_iso": "2026-11-07T08:15:35+00:00",
+      "known_entities": [
+        "后会友期",
+        "青稚",
+        "白小纯",
+        "芒果tv",
+        "纯稚"
+      ],
+      "verified_entities": [
+        "后会友期",
+        "青稚",
+        "白小纯",
+        "芒果tv",
+        "纯稚"
+      ],
+      "primary_celebrities": [
+        "青稚",
+        "白小纯"
+      ],
+      "quality_score": 289.284,
+      "output_date": "2026-11-08",
+      "selected_at": "2026-11-08T03:31:23.976203+00:00"
+    },
+    {
+      "aweme_id": "7705424542004481307",
+      "content_id": "7705424542004481307",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7705424542004481307/?region=US&mid=7705424836402662163&u_code=0&did=MS4wLjABAAAAypl2KNW0B0oPXWLnO03V_GmfYCPIg2Y5w_eEs6Sff6o&iid=MS4wLjABAAAAoPE2OJaC3dNPOlud7H64uBxRzUS8CeZ9B7jtTCrvWvs&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=QcRbo5rCA1zcHG_wLgyWLD13LxQevo0caKuE0dpKSiM-&share_version=320900&ts=1794105836&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "第一次在旅游综艺里看见提前出发的#后会友期 #张萌 #纯稚 #马天宇",
+      "author": "仙人掌娱乐",
+      "like_count": 28090,
+      "comment_count": 416,
+      "share_count": 3122,
+      "duration_ms": 94668,
+      "create_time_iso": "2026-11-07T13:42:45+00:00",
+      "known_entities": [
+        "后会友期",
+        "张萌",
+        "纯稚",
+        "马天宇"
+      ],
+      "verified_entities": [
+        "后会友期",
+        "张萌",
+        "纯稚",
+        "马天宇"
+      ],
+      "primary_celebrities": [
+        "张萌",
+        "马天宇"
+      ],
+      "quality_score": 282.61699999999996,
+      "output_date": "2026-11-08",
+      "selected_at": "2026-11-08T03:31:23.976203+00:00"
+    },
+    {
+      "aweme_id": "7705350350823780709",
+      "content_id": "7705350350823780709",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7705350350823780709/?region=CN&mid=7705350245703043875&u_code=hmlg83fd&did=MS4wLjABAAAAze3X694k1ZW_2caZtXMbBCOunZxX5EgCOLOrIrGDjxDQZtNY57IaPQm3KglZfLae&iid=MS4wLjABAAAArdLt32uQwaO7hcx8_w865jRliKORD1m0yZhGVse19JMDt_qqopuue0U5YkLFNr9E&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=n_2B_Lkh2NjjBxLYqtCMxr9.91roedCfGVhtlGmNxOQ-&share_version=400900&ts=1794105716&from_aid=1128&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "边录边播的好处就是，梗都是热乎的\n#王楚然 #综艺名场面 #现在就出发 #天选综艺人",
+      "author": "鲜香胳肢窝",
+      "like_count": 27283,
+      "comment_count": 104,
+      "share_count": 3156,
+      "duration_ms": 47298,
+      "create_time_iso": "2026-11-07T08:54:42+00:00",
+      "known_entities": [
+        "王楚然",
+        "综艺名场面"
+      ],
+      "verified_entities": [
+        "王楚然",
+        "综艺名场面"
+      ],
+      "primary_celebrities": [
+        "王楚然"
+      ],
+      "quality_score": 253.362,
+      "output_date": "2026-11-08",
+      "selected_at": "2026-11-08T03:31:23.976203+00:00"
+    },
+    {
+      "aweme_id": "7705360819916252859",
+      "content_id": "7705360819916252859",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7705360819916252859/?region=US&mid=7705360791662234409&u_code=0&did=MS4wLjABAAAA64B16WtfBpZVF6_n_fTOxmjPz-67X1bR0wRXVFDz9aKXSraslCAjwYIq87_DG7Pw&iid=MS4wLjABAAAAiQcgR9ejHMjlAu25jAl-XiPC9jw-DNBEsgINTPhGF5c4z6qwHPwxi5xnLJiZd-1w&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=ZCZMHQHXeGeeTuMSRyCLmR1nrm7OnvYu1_YehN2U1G8-&share_version=320900&ts=1794105834&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "赵丽颖的粉丝好疯狂的迷晕了一个人#金鸡奖#金鸡奖电影节#赵丽颖",
+      "author": "潘晓波烫染差异化教学",
+      "like_count": 10848,
+      "comment_count": 408,
+      "share_count": 689,
+      "duration_ms": 12400,
+      "create_time_iso": "2026-11-07T09:35:19+00:00",
+      "known_entities": [
+        "赵丽颖"
+      ],
+      "verified_entities": [
+        "赵丽颖"
+      ],
+      "primary_celebrities": [
+        "赵丽颖"
+      ],
+      "quality_score": 228.302,
+      "output_date": "2026-11-08",
+      "selected_at": "2026-11-08T03:31:23.976203+00:00"
+    },
     {
       "aweme_id": "7705032404318739355",
       "content_id": "7705032404318739355",
