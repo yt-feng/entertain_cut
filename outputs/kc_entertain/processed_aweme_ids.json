@@ -1,7 +1,127 @@
 {
-  "updated_at": "2026-11-08T03:31:23.976203+00:00",
-  "count": 630,
+  "updated_at": "2026-11-09T03:23:56.346855+00:00",
+  "count": 635,
   "items": [
+    {
+      "aweme_id": "7705649750829327315",
+      "content_id": "7705649750829327315",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7705649750829327315/?region=US&mid=7705649718344321828&u_code=0&did=MS4wLjABAAAA5EpXaRfVG6qtG_Lwd6w0SoDAzZ6JiRV80D2OScT064w&iid=MS4wLjABAAAAladghF_eq9jLFgh0Hsbm1CeqOVubzFPczXjnNrV6m7k&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=828PtJ9koXJgOhM9uMfj9.UD4R2X8VaAyC0g69cD7bs-&share_version=320900&ts=1794192960&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "我兰哥还是太机智了 #后会友期 #纯稚 #白小纯青稚 #tcalan #alan",
+      "author": "好了不呆不呆",
+      "like_count": 87134,
+      "comment_count": 1432,
+      "share_count": 26051,
+      "duration_ms": 74047,
+      "create_time_iso": "2026-11-08T04:16:31+00:00",
+      "known_entities": [
+        "后会友期"
+      ],
+      "verified_entities": [
+        "后会友期"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 253.54600000000002,
+      "output_date": "2026-11-09",
+      "selected_at": "2026-11-09T03:23:56.346855+00:00"
+    },
+    {
+      "aweme_id": "7705659244428158310",
+      "content_id": "7705659244428158310",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7705659244428158310/?region=CN&mid=7705659202097662761&u_code=108a5bddl1j6&did=MS4wLjABAAAAeM183DSxVu43nOhhQcSliFIf7npe_A0mqsi2dijQzK-uB44oDOdiJnjXkibMQDgx&iid=MS4wLjABAAAAynigTFHxP_6NR8yebPznziV-tt1mYUhE_uEfJsvOpm4&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=ZH1ojIbWJ8Ro4xCCv6o04fxFUwGhQJkCNJsCB5muRFU-&share_version=400100&ts=1794192963&from_aid=1128&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "腾哥：观众们都不白来哈～ #李昀锐  #沈腾 #现在就出发  #综艺名场面 #爱上李昀锐轻而易举",
+      "author": "泥在说森么",
+      "like_count": 14915,
+      "comment_count": 144,
+      "share_count": 2159,
+      "duration_ms": 19200,
+      "create_time_iso": "2026-11-08T04:53:22+00:00",
+      "known_entities": [
+        "沈腾"
+      ],
+      "verified_entities": [
+        "沈腾",
+        "李昀锐",
+        "现在就出发"
+      ],
+      "primary_celebrities": [
+        "沈腾",
+        "李昀锐"
+      ],
+      "quality_score": 231.12800000000001,
+      "output_date": "2026-11-09",
+      "selected_at": "2026-11-09T03:23:56.346855+00:00"
+    },
+    {
+      "aweme_id": "7705697103012068850",
+      "content_id": "7705697103012068850",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7705697103012068850/?region=US&mid=7705697066030680873&u_code=0&did=MS4wLjABAAAA5EpXaRfVG6qtG_Lwd6w0SoDAzZ6JiRV80D2OScT064w&iid=MS4wLjABAAAAladghF_eq9jLFgh0Hsbm1CeqOVubzFPczXjnNrV6m7k&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=BETmM0GbF2YBdy_mmU1f4RfNv6.Tzw0Rze9xld8cf44-&share_version=320900&ts=1794192960&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "明明是很好的陈礼根 #白小纯 #后会友期 #真诚才是必杀技",
+      "author": "一只眠羊🐏",
+      "like_count": 27302,
+      "comment_count": 624,
+      "share_count": 2585,
+      "duration_ms": 59534,
+      "create_time_iso": "2026-11-08T07:20:16+00:00",
+      "known_entities": [
+        "后会友期"
+      ],
+      "verified_entities": [
+        "后会友期"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 229.777,
+      "output_date": "2026-11-09",
+      "selected_at": "2026-11-09T03:23:56.346855+00:00"
+    },
+    {
+      "aweme_id": "7705740217848329201",
+      "content_id": "7705740217848329201",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7705740217848329201/?region=US&mid=7705740181680802611&u_code=0&did=MS4wLjABAAAA5EpXaRfVG6qtG_Lwd6w0SoDAzZ6JiRV80D2OScT064w&iid=MS4wLjABAAAAladghF_eq9jLFgh0Hsbm1CeqOVubzFPczXjnNrV6m7k&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=5l0n4Fj_811i188qdIeGniRShrluqlb1IA.PPF_NFHc-&share_version=320900&ts=1794192960&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "已被后会友期硬控，满脑子都是画地为牢。 #腼腆害羞内向社恐文静小女生 #内容过于真实",
+      "author": "三姐没事吧",
+      "like_count": 22534,
+      "comment_count": 130,
+      "share_count": 3378,
+      "duration_ms": 22174,
+      "create_time_iso": "2026-11-08T10:07:35+00:00",
+      "known_entities": [
+        "后会友期"
+      ],
+      "verified_entities": [
+        "后会友期"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 204.415,
+      "output_date": "2026-11-09",
+      "selected_at": "2026-11-09T03:23:56.346855+00:00"
+    },
+    {
+      "aweme_id": "7705821291688758582",
+      "content_id": "7705821291688758582",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7705821291688758582/?region=US&mid=7705821248751782706&u_code=0&did=MS4wLjABAAAA5EpXaRfVG6qtG_Lwd6w0SoDAzZ6JiRV80D2OScT064w&iid=MS4wLjABAAAAladghF_eq9jLFgh0Hsbm1CeqOVubzFPczXjnNrV6m7k&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=jO829t7HazMKErSg4sRp8eTx1C7xCtrq_MisV.fjrFU-&share_version=320900&ts=1794192960&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "碰杯＆黑脸？我反正不对“仇人”这样 依旧是CP脑产物\n这两个人的巨表情真的特别容易分析呀#后会友期 #纯稚 #白小纯青稚#cczzqhh  #综艺片段",
+      "author": "吝啬生长痛",
+      "like_count": 5663,
+      "comment_count": 198,
+      "share_count": 429,
+      "duration_ms": 78252,
+      "create_time_iso": "2026-11-08T15:22:30+00:00",
+      "known_entities": [
+        "后会友期"
+      ],
+      "verified_entities": [
+        "后会友期"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 228.226,
+      "output_date": "2026-11-09",
+      "selected_at": "2026-11-09T03:23:56.346855+00:00"
+    },
     {
       "aweme_id": "7705453976071098362",
       "content_id": "7705453976071098362",
