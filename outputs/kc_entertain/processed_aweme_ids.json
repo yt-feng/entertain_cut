@@ -1,7 +1,36 @@
 {
-  "updated_at": "2026-11-10T05:13:38.336708+00:00",
-  "count": 639,
+  "updated_at": "2026-11-10T07:46:34.048667+00:00",
+  "count": 640,
   "items": [
+    {
+      "aweme_id": "7706129645775024625",
+      "content_id": "7706129645775024625",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7706129645775024625/?region=US&mid=7706129587318999848&u_code=0&did=MS4wLjABAAAApIC9qgTuYj5Iki5DnNTY2tGDhYdIQs6RkFwp_peC8xW_BmkISjH9jqG0HsBMLCT_&iid=MS4wLjABAAAAw6C4NEYpaEYMd-YG0-xdlujXHqDq5C7BA2k8xpOfkpFbsmYaGokjg7DhKZRiwd5b&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=BVDOr8KUBGn2UieWzvDuXonLXbKBqcNqGA8eFLlf7o0-&share_version=320900&ts=1794296553&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "高圆圆，金鸡华语电影推介人。今夜，美神降临#高圆圆 #金鸡奖 #第39届中国电影金鸡奖",
+      "author": "YINGYIYI✨",
+      "like_count": 53015,
+      "comment_count": 731,
+      "share_count": 28301,
+      "duration_ms": 31200,
+      "create_time_iso": "2026-11-09T11:18:46+00:00",
+      "known_entities": [
+        "高圆圆",
+        "金鸡奖",
+        "第39届中国电影金鸡奖"
+      ],
+      "verified_entities": [
+        "高圆圆",
+        "金鸡奖",
+        "第39届中国电影金鸡奖"
+      ],
+      "primary_celebrities": [
+        "高圆圆"
+      ],
+      "quality_score": 251.898,
+      "output_date": "2026-11-10",
+      "selected_at": "2026-11-10T07:46:34.048667+00:00"
+    },
     {
       "aweme_id": "7706131206001167659",
       "content_id": "7706131206001167659",
