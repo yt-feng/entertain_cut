@@ -1,7 +1,127 @@
 {
-  "updated_at": "2026-11-10T07:46:34.048667+00:00",
-  "count": 640,
+  "updated_at": "2026-11-11T03:39:25.507112+00:00",
+  "count": 644,
   "items": [
+    {
+      "aweme_id": "7706468686126735594",
+      "content_id": "7706468686126735594",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7706468686126735594/?region=US&mid=7149936801028131598&u_code=0&did=MS4wLjABAAAATGIELaJNmAKBtmZswKryC04aQ7SJRHgvM6z6aWhbl4fY_S2FeX9pZo9_TNcWUCSQ&iid=MS4wLjABAAAAuKDlkBuhGeEkp_NvBuQUPzdRbb_fpFaS1uzDIMZSrbNido4v36gVEiFauwT3mOLR&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=g4yZb4NVilkh4ougPa2u36abSO6KE00lHVGUVd8z73c-&share_version=320900&ts=1794366233&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#王传君 #高叶 亮相金鸡奖红毯，今天好飒，两位大器晚成的好演员，你喜欢吗？",
+      "author": "娱乐现场🔥",
+      "like_count": 12647,
+      "comment_count": 724,
+      "share_count": 515,
+      "duration_ms": 11534,
+      "create_time_iso": "2026-11-10T09:14:25+00:00",
+      "known_entities": [
+        "王传君",
+        "高叶",
+        "金鸡奖"
+      ],
+      "verified_entities": [
+        "王传君",
+        "高叶",
+        "金鸡奖"
+      ],
+      "primary_celebrities": [
+        "王传君",
+        "高叶"
+      ],
+      "quality_score": 249.957,
+      "output_date": "2026-11-11",
+      "selected_at": "2026-11-11T03:39:25.507112+00:00"
+    },
+    {
+      "aweme_id": "7706466638924729600",
+      "content_id": "7706466638924729600",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7706466638924729600/?region=US&mid=7706466816876497718&u_code=0&did=MS4wLjABAAAADwLn7jy_R27NUQpCcG4Q3eIrR5nxFAVUbYtPLYpFpPMx4E8MlukYZFcpQdDMAU0W&iid=MS4wLjABAAAAv29Qy9tPrO3ljD9Qtwxqwcf-W8EFmJOlLNTncG4ePXd_-6zbLZjv7ZA6YeZosFsh&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=BYMnktHQSPPVsVylFGyBIhvD87r3L48QOGSKHhvFYyc-&share_version=320900&ts=1794366225&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "长着偶像的脸，干着段子手的活！胡先煦范丞丞这对吐槽役太顶了 #胡先煦 #范丞丞 #沈腾 #搞笑 #显眼包",
+      "author": "星途拾光",
+      "like_count": 2945,
+      "comment_count": 38,
+      "share_count": 616,
+      "duration_ms": 213810,
+      "create_time_iso": "2026-11-10T09:06:35+00:00",
+      "known_entities": [
+        "范丞丞",
+        "沈腾",
+        "胡先煦",
+        "搞笑",
+        "显眼包"
+      ],
+      "verified_entities": [
+        "范丞丞",
+        "沈腾",
+        "胡先煦",
+        "搞笑",
+        "显眼包"
+      ],
+      "primary_celebrities": [
+        "范丞丞",
+        "沈腾",
+        "胡先煦"
+      ],
+      "quality_score": 230.09199999999998,
+      "output_date": "2026-11-11",
+      "selected_at": "2026-11-11T03:39:25.507112+00:00"
+    },
+    {
+      "aweme_id": "7706555045207524579",
+      "content_id": "7706555045207524579",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7706555045207524579/?region=US&mid=7706554843708279562&u_code=0&did=MS4wLjABAAAApAScbdZl_PIi0m8LLB5t2N5180qam70emwcfXtGzRC8&iid=MS4wLjABAAAAgj22WSZe1PFe5LaSM0Vo29411CflVs3EgdP_tM2ZKTc&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=exbH_WXvaO1Y.HWfFpolfitfsU8QEqELE7pzA46KC50-&share_version=320900&ts=1794366223&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "金鸡奖，关晓彤和杜江老师这段很松弛的主持，我喜欢#关晓彤#苏知秋#孟露莎#董慧文##金鸡百花电影节闭幕式",
+      "author": "橘子汽泡水🍀",
+      "like_count": 1628,
+      "comment_count": 59,
+      "share_count": 34,
+      "duration_ms": 148655,
+      "create_time_iso": "2026-11-10T14:49:32+00:00",
+      "known_entities": [
+        "金鸡奖"
+      ],
+      "verified_entities": [
+        "金鸡奖",
+        "关晓彤",
+        "杜江"
+      ],
+      "primary_celebrities": [
+        "关晓彤",
+        "杜江"
+      ],
+      "quality_score": 180.49,
+      "output_date": "2026-11-11",
+      "selected_at": "2026-11-11T03:39:25.507112+00:00"
+    },
+    {
+      "aweme_id": "7706437030645307712",
+      "content_id": "7706437030645307712",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7706437030645307712/?region=US&mid=7703831727717845787&u_code=0&did=MS4wLjABAAAATGIELaJNmAKBtmZswKryC04aQ7SJRHgvM6z6aWhbl4fY_S2FeX9pZo9_TNcWUCSQ&iid=MS4wLjABAAAAuKDlkBuhGeEkp_NvBuQUPzdRbb_fpFaS1uzDIMZSrbNido4v36gVEiFauwT3mOLR&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=vl4xxMO81vB6J2Uk_R0lGyzE4Cnr2CWWttVMR4CR.Bw-&share_version=320900&ts=1794366233&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "谭松韵红毯候场冻得裹紧羽绒服，一上红毯立马切换状态#谭松韵 #谭松韵许兰香 #兰香如故 #w盛典",
+      "author": "moneyXn（随便）",
+      "like_count": 1765,
+      "comment_count": 61,
+      "share_count": 39,
+      "duration_ms": 21167,
+      "create_time_iso": "2026-11-10T07:11:34+00:00",
+      "known_entities": [
+        "谭松韵",
+        "谭松韵许兰香"
+      ],
+      "verified_entities": [
+        "谭松韵",
+        "谭松韵许兰香"
+      ],
+      "primary_celebrities": [
+        "谭松韵"
+      ],
+      "quality_score": 174.826,
+      "output_date": "2026-11-11",
+      "selected_at": "2026-11-11T03:39:25.507112+00:00"
+    },
     {
       "aweme_id": "7706129645775024625",
       "content_id": "7706129645775024625",
