@@ -1,7 +1,38 @@
 {
-  "updated_at": "2026-11-11T03:39:25.507112+00:00",
-  "count": 644,
+  "updated_at": "2026-11-11T04:09:13.876527+00:00",
+  "count": 645,
   "items": [
+    {
+      "aweme_id": "7706728069125508387",
+      "content_id": "7706728069125508387",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7706728069125508387/?region=US&mid=7706728035928001318&u_code=0&did=MS4wLjABAAAAYj1e-j53vOzfdZFXO_3KIjmeSvVHnES23L_jzdaVsAXG6zNE02rBJDNoU8gA2Hm3&iid=MS4wLjABAAAALqaHhOmwUFhmWjOt_c17d2pvaPdGlSKHZDI85m57hn3zXvj7-wuxQ-Qa2CzjOCmm&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=50OkxYRmalYIvAXs6rgedzv.lqsYdY10PLyaUxvTKq8-&share_version=320900&ts=1794369947&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#电视剧谷雨  大boss竟然浮出水面了？！#余文乐 #冯雷 #谷雨人人皆是局中人",
+      "author": "优酷",
+      "like_count": 1075,
+      "comment_count": 118,
+      "share_count": 109,
+      "duration_ms": 43538,
+      "create_time_iso": "2026-11-11T02:01:02+00:00",
+      "known_entities": [
+        "谷雨",
+        "电视剧谷雨",
+        "余文乐"
+      ],
+      "verified_entities": [
+        "谷雨",
+        "电视剧谷雨",
+        "余文乐",
+        "冯雷"
+      ],
+      "primary_celebrities": [
+        "余文乐",
+        "冯雷"
+      ],
+      "quality_score": 218.186,
+      "output_date": "2026-11-11",
+      "selected_at": "2026-11-11T04:09:13.876527+00:00"
+    },
     {
       "aweme_id": "7706468686126735594",
       "content_id": "7706468686126735594",
