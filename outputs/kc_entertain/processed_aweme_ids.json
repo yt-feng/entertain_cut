@@ -1,7 +1,82 @@
 {
-  "updated_at": "2026-11-12T04:22:31.059966+00:00",
-  "count": 650,
+  "updated_at": "2026-11-13T03:45:24.850671+00:00",
+  "count": 653,
   "items": [
+    {
+      "aweme_id": "7707209703738319013",
+      "content_id": "7707209703738319013",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7707209703738319013/?region=US&mid=7707209644456184618&u_code=0&did=MS4wLjABAAAABovRs3m4fXtWpSkXjDYYw7S8xpK5Cs8K8fauPlic-Gk&iid=MS4wLjABAAAAdUmbZk5ls02s6-rBQ1WeZ00vXHk86eQg4rOVMcn0k3o&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=MdXhpKnKy6FhualpgkbAKjNdejEzXHdy1vP4Q.94vlg-&share_version=320900&ts=1794541218&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#毛林林 红色纱裙亮相代言人影响力盛典红毯 这气质好美啊",
+      "author": "娱乐圈小蜜",
+      "like_count": 147390,
+      "comment_count": 2450,
+      "share_count": 16209,
+      "duration_ms": 11834,
+      "create_time_iso": "2026-11-12T09:09:56+00:00",
+      "known_entities": [
+        "盛典"
+      ],
+      "verified_entities": [
+        "毛林林",
+        "盛典"
+      ],
+      "primary_celebrities": [
+        "毛林林"
+      ],
+      "quality_score": 262.669,
+      "output_date": "2026-11-13",
+      "selected_at": "2026-11-13T03:45:24.850671+00:00"
+    },
+    {
+      "aweme_id": "7707237399076744122",
+      "content_id": "7707237399076744122",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7707237399076744122/?region=US&mid=7707237336895392566&u_code=0&did=MS4wLjABAAAABovRs3m4fXtWpSkXjDYYw7S8xpK5Cs8K8fauPlic-Gk&iid=MS4wLjABAAAAdUmbZk5ls02s6-rBQ1WeZ00vXHk86eQg4rOVMcn0k3o&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=Geqaone3mdjoQ3ulk2d0ST.Ofcfz_lNn6MDEwR7892c-&share_version=320900&ts=1794541218&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#毛林林 红毯高清直拍 完全明艳动人大美女",
+      "author": "娱乐圈小蜜",
+      "like_count": 13439,
+      "comment_count": 509,
+      "share_count": 1186,
+      "duration_ms": 11367,
+      "create_time_iso": "2026-11-12T10:57:25+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "毛林林"
+      ],
+      "primary_celebrities": [
+        "毛林林"
+      ],
+      "quality_score": 186.81300000000002,
+      "output_date": "2026-11-13",
+      "selected_at": "2026-11-13T03:45:24.850671+00:00"
+    },
+    {
+      "aweme_id": "7707326109209798747",
+      "content_id": "7707326109209798747",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7707326109209798747/?region=US&mid=7670361532736112649&u_code=0&did=MS4wLjABAAAA-AeokuaXSMgCXUXtjOnw3O6-LFYvzM0sWtIFKsDFd2vH5p7RXfMWsl0VdqjpkNHL&iid=MS4wLjABAAAA2AsjJuNY-J9NiR6txV7WnvF6NDG_7K9iP5-XEA0YWAKJJ3-dYuBmP-wlxqrbSZl_&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=TNgth7aWcFa9RBYXU7bP1QeARgpxZgMkJHQ9gxdXOVA-&share_version=320900&ts=1794541210&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "怎么能笑成这样 要萌翻所有人#范丞丞 #现在就出发第四季 #综艺名场面",
+      "author": "叽歪想要来碗范",
+      "like_count": 7823,
+      "comment_count": 55,
+      "share_count": 3443,
+      "duration_ms": 7834,
+      "create_time_iso": "2026-11-12T16:41:39+00:00",
+      "known_entities": [
+        "范丞丞"
+      ],
+      "verified_entities": [
+        "范丞丞",
+        "现在就出发第四季"
+      ],
+      "primary_celebrities": [
+        "范丞丞"
+      ],
+      "quality_score": 191.615,
+      "output_date": "2026-11-13",
+      "selected_at": "2026-11-13T03:45:24.850671+00:00"
+    },
     {
       "aweme_id": "7706783883463752346",
       "content_id": "7706783883463752346",
