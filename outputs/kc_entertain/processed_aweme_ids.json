@@ -1,7 +1,73 @@
 {
-  "updated_at": "2026-11-13T03:45:24.850671+00:00",
-  "count": 653,
+  "updated_at": "2026-11-13T04:08:45.466799+00:00",
+  "count": 655,
   "items": [
+    {
+      "aweme_id": "7707163644190553713",
+      "content_id": "7707163644190553713",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7707163644190553713/?region=US&mid=7707163576649141032&u_code=0&did=MS4wLjABAAAAw3wU-oyxVEBpXUt1S-exOwf5wVBQGrL8kc0vUL5l6bcq1QL_eAoeGhKPGAluqOrp&iid=MS4wLjABAAAAKSk9r66UDANyMklWdC_DUxzJt6YZkNlv_G0_XerdA8t3crvhelGrA1PO1rDf-Npf&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=ryZseQNpnmrpWM7xv5Bk2uuXBQpd3eUkMrlc4m1oynw-&share_version=320900&ts=1794542491&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "太喜欢这个综艺了哈哈哈哈哈哈 活人感太强\n#综艺名场面 #综艺 #下饭综艺 #后会友期 #天选综艺人",
+      "author": "嘻嘻嘻嘻",
+      "like_count": 187033,
+      "comment_count": 7040,
+      "share_count": 113133,
+      "duration_ms": 30400,
+      "create_time_iso": "2026-11-12T06:11:12+00:00",
+      "known_entities": [
+        "后会友期",
+        "综艺名场面",
+        "下饭综艺",
+        "天选综艺人"
+      ],
+      "verified_entities": [
+        "后会友期",
+        "综艺名场面",
+        "下饭综艺",
+        "天选综艺人"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 306.178,
+      "output_date": "2026-11-13",
+      "selected_at": "2026-11-13T04:08:45.466799+00:00"
+    },
+    {
+      "aweme_id": "7707214780146192808",
+      "content_id": "7707214780146192808",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7707214780146192808/?region=CN&mid=7634807659237067530&u_code=ida152a6&did=MS4wLjABAAAAdFlmdDw28GpzAXLoINriPUMxaZhWLiW3IT_MdT-AtNoQ0DjQG1zfSvF29vWp3pfr&iid=MS4wLjABAAAA1E6y_iEKojP6oIPTBI1eCSb2tj8BKnkk72CylN1kVXRfRUmCMj85wTNuH2a9-JGd&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=H_VKx52_MK2jZ6Cs729y.B7PgELEkt2HUMp1EjdgHcg-&share_version=410100&ts=1794542220&from_aid=1128&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "看哭了😭 感觉马哥跟萌姐把青稚当小孩子养了#青稚 #马天宇 #张萌 #综艺名场面分享 #后会友期",
+      "author": "那年栀子花开",
+      "like_count": 121927,
+      "comment_count": 1883,
+      "share_count": 12336,
+      "duration_ms": 40403,
+      "create_time_iso": "2026-11-12T09:29:38+00:00",
+      "known_entities": [
+        "后会友期",
+        "综艺名场面",
+        "青稚",
+        "马天宇",
+        "张萌",
+        "综艺名场面分享"
+      ],
+      "verified_entities": [
+        "后会友期",
+        "综艺名场面",
+        "青稚",
+        "马天宇",
+        "张萌",
+        "综艺名场面分享"
+      ],
+      "primary_celebrities": [
+        "马天宇",
+        "张萌",
+        "青稚"
+      ],
+      "quality_score": 297.772,
+      "output_date": "2026-11-13",
+      "selected_at": "2026-11-13T04:08:45.466799+00:00"
+    },
     {
       "aweme_id": "7707209703738319013",
       "content_id": "7707209703738319013",
