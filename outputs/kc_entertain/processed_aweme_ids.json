@@ -1,7 +1,163 @@
 {
-  "updated_at": "2026-11-13T04:08:45.466799+00:00",
-  "count": 655,
+  "updated_at": "2026-11-14T04:01:27.947719+00:00",
+  "count": 660,
   "items": [
+    {
+      "aweme_id": "7707564181217660223",
+      "content_id": "7707564181217660223",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7707564181217660223/?region=US&mid=7707564247655467817&u_code=0&did=MS4wLjABAAAAYdPgiPNPIaXwjtF36p8xqYNSdy0W1Y_0Oj74x7kFA42-LFqTcnPlLVbxlf0RAnV2&iid=MS4wLjABAAAA8BlVqhGaG9R9YZPnu19YgSFY9MAP9ALchCGPivk3nPNdL8ADhoVJ1pja3Nu1LfUz&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=m2gtLR22sjbDZs._k7X2iyz6_6Y8F1D72Wj5PMW1bl8-&share_version=320900&ts=1794627432&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "果然综艺这块怎么也飞不出芒果的世界 #画地为牢  #玩梗  #搞笑  #芒果tv  #真香",
+      "author": "钮祜禄淑芬",
+      "like_count": 222308,
+      "comment_count": 6232,
+      "share_count": 456371,
+      "duration_ms": 130008,
+      "create_time_iso": "2026-11-13T08:05:33+00:00",
+      "known_entities": [
+        "画地为牢",
+        "玩梗",
+        "搞笑",
+        "芒果tv",
+        "真香"
+      ],
+      "verified_entities": [
+        "画地为牢",
+        "玩梗",
+        "搞笑",
+        "芒果tv",
+        "真香"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 311.73,
+      "output_date": "2026-11-14",
+      "selected_at": "2026-11-14T04:01:27.947719+00:00"
+    },
+    {
+      "aweme_id": "7707524267822993371",
+      "content_id": "7707524267822993371",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7707524267822993371/?region=US&mid=7707524186960366399&u_code=0&did=MS4wLjABAAAAC-zynlFc1cZB1Uk99PIe6KWPIaujUgL4bolaKe_1jpk&iid=MS4wLjABAAAAmo_Frb3g07gqMkUUMQ6fOpCNuCIdB40ib29ClVdsc0s&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=aWrH5QJaCbz_NTWzl36cKa5rbxtBYTrVYTvrRSyM0Hs-&share_version=320900&ts=1794627444&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "这娱乐圈人设骗局真的太吓人了#玫瑰战争 #玫瑰战争真的好敢拍#日常唠嗑 #娱乐圈",
+      "author": "小柴乐呵呵",
+      "like_count": 67004,
+      "comment_count": 594,
+      "share_count": 2300,
+      "duration_ms": 67700,
+      "create_time_iso": "2026-11-13T05:30:36+00:00",
+      "known_entities": [
+        "玫瑰战争",
+        "玫瑰战争真的好敢拍",
+        "日常唠嗑",
+        "娱乐圈"
+      ],
+      "verified_entities": [
+        "玫瑰战争",
+        "玫瑰战争真的好敢拍",
+        "娱乐圈"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 257.332,
+      "output_date": "2026-11-14",
+      "selected_at": "2026-11-14T04:01:27.947719+00:00"
+    },
+    {
+      "aweme_id": "7707589944466193359",
+      "content_id": "7707589944466193359",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7707589944466193359/?region=US&mid=7707589830615960362&u_code=0&did=MS4wLjABAAAACLvp6u0cJLJGW1yy4o5NtXu3StFf3yhOmdbGB75J7jk&iid=MS4wLjABAAAAEU3f4_Ed4HbjDdnIhsf53GuJOlYMSQLFSiuno4PGi1g&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=740r.8Te9PHVyVLISarR5kDY0GkZPkVYcofoJkUI268-&share_version=320900&ts=1794627438&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "好想像马天宇一样随心所欲地活一次 #该死的温柔 #综艺名场面 #马天宇 #搞笑 #王琳",
+      "author": "谭走鱼尾纹",
+      "like_count": 12152,
+      "comment_count": 127,
+      "share_count": 8094,
+      "duration_ms": 9542,
+      "create_time_iso": "2026-11-13T09:45:28+00:00",
+      "known_entities": [
+        "搞笑",
+        "该死的温柔",
+        "综艺名场面",
+        "马天宇",
+        "王琳"
+      ],
+      "verified_entities": [
+        "马天宇",
+        "王琳",
+        "该死的温柔",
+        "综艺名场面"
+      ],
+      "primary_celebrities": [
+        "马天宇",
+        "王琳"
+      ],
+      "quality_score": 248.796,
+      "output_date": "2026-11-14",
+      "selected_at": "2026-11-14T04:01:27.947719+00:00"
+    },
+    {
+      "aweme_id": "7707618544728525049",
+      "content_id": "7707618544728525049",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7707618544728525049/?region=US&mid=7707618443800955682&u_code=0&did=MS4wLjABAAAACLvp6u0cJLJGW1yy4o5NtXu3StFf3yhOmdbGB75J7jk&iid=MS4wLjABAAAAEU3f4_Ed4HbjDdnIhsf53GuJOlYMSQLFSiuno4PGi1g&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=3CxpcQKDffIQCmhmDyOA5vnJjISyLkMwl0idTX2bnNw-&share_version=320900&ts=1794627438&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "致敬经典了#纯稚 #后会友期 #综艺名场面 #pel",
+      "author": "月儿圆",
+      "like_count": 8354,
+      "comment_count": 101,
+      "share_count": 5030,
+      "duration_ms": 22338,
+      "create_time_iso": "2026-11-13T11:36:27+00:00",
+      "known_entities": [
+        "综艺名场面",
+        "纯稚",
+        "后会友期",
+        "pel"
+      ],
+      "verified_entities": [
+        "综艺名场面",
+        "纯稚",
+        "后会友期",
+        "pel"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 223.915,
+      "output_date": "2026-11-14",
+      "selected_at": "2026-11-14T04:01:27.947719+00:00"
+    },
+    {
+      "aweme_id": "7707587457964969243",
+      "content_id": "7707587457964969243",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7707587457964969243/?region=US&mid=7442813474307442742&u_code=0&did=MS4wLjABAAAAC-zynlFc1cZB1Uk99PIe6KWPIaujUgL4bolaKe_1jpk&iid=MS4wLjABAAAAmo_Frb3g07gqMkUUMQ6fOpCNuCIdB40ib29ClVdsc0s&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=Y9Vd0iTKucO14Qkd6lGtXdPPFGNg.uUJ8TZjaDO2Tek-&share_version=320900&ts=1794627444&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "恒隆周年庆，把内娱男明星集齐了？ #蔡徐坤 #邓为 #陈飞宇 #任嘉伦 #龚俊",
+      "author": "Bloddy布布",
+      "like_count": 3277,
+      "comment_count": 821,
+      "share_count": 892,
+      "duration_ms": 15440,
+      "create_time_iso": "2026-11-13T09:35:54+00:00",
+      "known_entities": [
+        "邓为",
+        "龚俊",
+        "娱乐圈"
+      ],
+      "verified_entities": [
+        "蔡徐坤",
+        "邓为",
+        "陈飞宇",
+        "任嘉伦",
+        "龚俊"
+      ],
+      "primary_celebrities": [
+        "蔡徐坤",
+        "邓为",
+        "陈飞宇",
+        "任嘉伦",
+        "龚俊"
+      ],
+      "quality_score": 210.73000000000002,
+      "output_date": "2026-11-14",
+      "selected_at": "2026-11-14T04:01:27.947719+00:00"
+    },
     {
       "aweme_id": "7707163644190553713",
       "content_id": "7707163644190553713",
