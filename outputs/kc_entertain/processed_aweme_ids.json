@@ -1,7 +1,152 @@
 {
-  "updated_at": "2026-11-14T04:01:27.947719+00:00",
-  "count": 660,
+  "updated_at": "2026-11-15T03:28:20.757244+00:00",
+  "count": 665,
   "items": [
+    {
+      "aweme_id": "7707965144784964898",
+      "content_id": "7707965144784964898",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7707965144784964898/?region=US&mid=7707965238578006820&u_code=0&did=MS4wLjABAAAAI8zJiYg8UImSjDgtrL6Pm0CXjB_8m_qfL9XEB05fiAK1060zQg4qk5GuVBWj1pii&iid=MS4wLjABAAAACj2Z8EwTfjSuR3_wwLsOB02H3YaOe654yLgC7PtszIzz0lbb4JGPPBHZf6OgxGUb&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=lmy7Rs7i_beY8qAQq5fd_zeKeIdGaNlXYfMhuPlqcQY-&share_version=320900&ts=1794711716&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "现发狼人杀名场面还在增加，还有什么是你们干不出来的\n#现在就出发 #沈腾 #王楚然 #白敬亭 #宋亚轩*范丞丞*黄景瑜*胡先煦*贾冰",
+      "author": "草莓松饼",
+      "like_count": 104968,
+      "comment_count": 700,
+      "share_count": 34331,
+      "duration_ms": 225300,
+      "create_time_iso": "2026-11-14T10:01:32+00:00",
+      "known_entities": [
+        "范丞丞",
+        "沈腾",
+        "现在就出发",
+        "王楚然",
+        "白敬亭",
+        "宋亚轩*范丞丞*黄景瑜*胡先煦*"
+      ],
+      "verified_entities": [
+        "沈腾",
+        "范丞丞",
+        "现在就出发",
+        "王楚然",
+        "白敬亭",
+        "宋亚轩*范丞丞*黄景瑜*胡先煦*"
+      ],
+      "primary_celebrities": [
+        "沈腾",
+        "范丞丞"
+      ],
+      "quality_score": 302.377,
+      "output_date": "2026-11-15",
+      "selected_at": "2026-11-15T03:28:20.757244+00:00"
+    },
+    {
+      "aweme_id": "7707878424434404347",
+      "content_id": "7707878424434404347",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7707878424434404347/?region=US&mid=7707878456322689833&u_code=0&did=MS4wLjABAAAAI8zJiYg8UImSjDgtrL6Pm0CXjB_8m_qfL9XEB05fiAK1060zQg4qk5GuVBWj1pii&iid=MS4wLjABAAAACj2Z8EwTfjSuR3_wwLsOB02H3YaOe654yLgC7PtszIzz0lbb4JGPPBHZf6OgxGUb&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=JvlnTxaVciiQdHaKuydwEMGyy8HuVBxVfHRH43urxa8-&share_version=320900&ts=1794711716&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "你邓超叔叔这人最精了 故意不去抢这凳子 就是想要去跳钢管舞来折磨一下观众 #邓超 #刘亦菲",
+      "author": "期雾.",
+      "like_count": 45964,
+      "comment_count": 470,
+      "share_count": 32223,
+      "duration_ms": 62700,
+      "create_time_iso": "2026-11-14T04:24:55+00:00",
+      "known_entities": [
+        "刘亦菲",
+        "邓超"
+      ],
+      "verified_entities": [
+        "刘亦菲",
+        "邓超"
+      ],
+      "primary_celebrities": [
+        "刘亦菲",
+        "邓超"
+      ],
+      "quality_score": 265.51300000000003,
+      "output_date": "2026-11-15",
+      "selected_at": "2026-11-15T03:28:20.757244+00:00"
+    },
+    {
+      "aweme_id": "7707888156498919019",
+      "content_id": "7707888156498919019",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7707888156498919019/?region=CN&mid=7707888121408424755&u_code=11ehgb21g&did=MS4wLjABAAAAHrQOR933Av3i0fjvH41r1L4-93gMPV6-NDQbB30Yn-I&iid=MS4wLjABAAAA3EZ6kAoOyQyBqm3T2NHsIZN4jllcTNOaq2OEq9_AXhydFxeqECW0L1bHf3vEOVIp&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=5YSpr.GcV9QNTJvhoM039CK1TMb.BTwRudUNW_3zASQ-&share_version=410000&ts=1794711693&from_aid=1128&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "一百年内狼人杀没人见过这种死法… #白敬亭 #现在就出发 #综艺名场面",
+      "author": "白糖烧麦",
+      "like_count": 39024,
+      "comment_count": 267,
+      "share_count": 13824,
+      "duration_ms": 18734,
+      "create_time_iso": "2026-11-14T05:02:41+00:00",
+      "known_entities": [
+        "现在就出发",
+        "白敬亭",
+        "综艺名场面"
+      ],
+      "verified_entities": [
+        "白敬亭",
+        "现在就出发",
+        "综艺名场面"
+      ],
+      "primary_celebrities": [
+        "白敬亭"
+      ],
+      "quality_score": 262.044,
+      "output_date": "2026-11-15",
+      "selected_at": "2026-11-15T03:28:20.757244+00:00"
+    },
+    {
+      "aweme_id": "7707714288042937615",
+      "content_id": "7707714288042937615",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7707714288042937615/?region=CN&mid=7707714288110127908&u_code=6bimdcdb8l6&did=MS4wLjABAAAAiceVHatQhthSGYYKdJGrAKYEQM7il0Efnhge6By_xcI&iid=MS4wLjABAAAAbJBfrgEF-hHfAwJkMdhqlLBYXkg-V_K4CwepR0oVGS2uNhlJqyVZG_xFlMZeE7nf&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=5.NJiA1IFdLAJvykn2G3SsRTHjYDOH7KXvHVHLRjDx4-&share_version=410100&ts=1794711419&from_aid=1128&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#宋亚轩好人装狼这把是高端局#宋亚轩装“杀手”扭转战局~#范丞丞#现在就出发#现在就出发4",
+      "author": "腾讯视频现在就出发",
+      "like_count": 17617,
+      "comment_count": 185,
+      "share_count": 451,
+      "duration_ms": 55402,
+      "create_time_iso": "2026-11-14T04:32:00+00:00",
+      "known_entities": [
+        "范丞丞",
+        "现在就出发"
+      ],
+      "verified_entities": [
+        "范丞丞",
+        "现在就出发"
+      ],
+      "primary_celebrities": [
+        "范丞丞"
+      ],
+      "quality_score": 246.472,
+      "output_date": "2026-11-15",
+      "selected_at": "2026-11-15T03:28:20.757244+00:00"
+    },
+    {
+      "aweme_id": "7707863341877082745",
+      "content_id": "7707863341877082745",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7707863341877082745/?region=US&mid=7707863285328005942&u_code=0&did=MS4wLjABAAAAnmVWztQ2ksNn5aWl2IE3gM3CYY5F6yk455uMWowLJUMHoywvj2a1weLppiRgpEK3&iid=MS4wLjABAAAA7J55f0OyKQbl2r-Ryg10HGarUReSRZod4nGb0oholWrkiiMTLsNZInz0SLxMZNV2&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=SZIoQXerj6RWuiR.3wb_iOL18LkT4NoBqos4XAssIxg-&share_version=320900&ts=1794711725&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "李荣浩，你这双眼睛究竟看了多远？ #上热门 #李荣浩 #偶像练习生 #搞笑 #采访",
+      "author": "风信子wind",
+      "like_count": 23979,
+      "comment_count": 143,
+      "share_count": 3458,
+      "duration_ms": 15100,
+      "create_time_iso": "2026-11-14T03:26:23+00:00",
+      "known_entities": [
+        "李荣浩"
+      ],
+      "verified_entities": [
+        "李荣浩"
+      ],
+      "primary_celebrities": [
+        "李荣浩"
+      ],
+      "quality_score": 217.61100000000002,
+      "output_date": "2026-11-15",
+      "selected_at": "2026-11-15T03:28:20.757244+00:00"
+    },
     {
       "aweme_id": "7707564181217660223",
       "content_id": "7707564181217660223",
