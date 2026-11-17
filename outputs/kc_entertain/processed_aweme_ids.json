@@ -1,7 +1,32 @@
 {
-  "updated_at": "2026-11-17T05:51:57.506146+00:00",
-  "count": 674,
+  "updated_at": "2026-11-17T06:21:02.592671+00:00",
+  "count": 675,
   "items": [
+    {
+      "aweme_id": "5214887110036042298",
+      "content_id": "5214887110036042298",
+      "platform": "kuaishou",
+      "url": "https://www.kuaishou.com/short-video/5214887110036042298",
+      "title": "尊重穿衣自由，但自由永远要有边界 #虞书欣 #穿衣自由 #粉丝 #老铁娱乐观察站",
+      "author": "娱乐艾花花",
+      "like_count": 9825,
+      "comment_count": 1675,
+      "share_count": 1929,
+      "duration_ms": 25300,
+      "create_time_iso": "2026-11-16T07:38:15+00:00",
+      "known_entities": [
+        "虞书欣"
+      ],
+      "verified_entities": [
+        "虞书欣"
+      ],
+      "primary_celebrities": [
+        "虞书欣"
+      ],
+      "quality_score": 212.89,
+      "output_date": "2026-11-17",
+      "selected_at": "2026-11-17T06:21:02.592671+00:00"
+    },
     {
       "aweme_id": "7708637848936729875",
       "content_id": "7708637848936729875",
