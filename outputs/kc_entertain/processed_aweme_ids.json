@@ -1,7 +1,30 @@
 {
-  "updated_at": "2026-11-18T05:12:18.166147+00:00",
-  "count": 679,
+  "updated_at": "2026-11-18T06:01:09.641047+00:00",
+  "count": 680,
   "items": [
+    {
+      "aweme_id": "7709078824529190266",
+      "content_id": "7709078824529190266",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7709078824529190266/?region=US&mid=7709078777166367530&u_code=0&did=MS4wLjABAAAAeCrj3yknzOHEpORej5aZPpLVSHnsBGaaHlZp4IoHOXEudlCmlr5zFPswGzapnimJ&iid=MS4wLjABAAAA4P35-1ORpHd7oCCu23-gzs7FcxHaK6v21N_W06d-AgsksQnCjI4tT-mVNfUpkI3b&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=H.9Q7ZA4v1GErHXvSNwm4M8N.euHZbVOfmsfmjnykio-&share_version=320900&ts=1794981549&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "谁懂啊！片场这一幕是传承 休息间隙，朱刚日尧#朱刚日尧 老师亮出功底示范，还耐心教小谢耍棒动作。\n前辈带后辈，言传身教！\n《伟大的长征》北京卫视正在热播！#电视剧伟大的长征 #伟大的长征",
+      "author": "萧李臻瑱",
+      "like_count": 23927,
+      "comment_count": 663,
+      "share_count": 463,
+      "duration_ms": 15000,
+      "create_time_iso": "2026-11-17T10:03:05+00:00",
+      "known_entities": [
+        "伟大的长征"
+      ],
+      "verified_entities": [
+        "伟大的长征"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 218.80599999999998,
+      "output_date": "2026-11-18",
+      "selected_at": "2026-11-18T06:01:09.641047+00:00"
+    },
     {
       "aweme_id": "7709086715171999016",
       "content_id": "7709086715171999016",
