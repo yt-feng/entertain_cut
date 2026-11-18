@@ -1,7 +1,107 @@
 {
-  "updated_at": "2026-11-17T06:21:02.592671+00:00",
-  "count": 675,
+  "updated_at": "2026-11-18T05:12:18.166147+00:00",
+  "count": 679,
   "items": [
+    {
+      "aweme_id": "7709086715171999016",
+      "content_id": "7709086715171999016",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7709086715171999016/?region=US&mid=7709086756267690815&u_code=0&did=MS4wLjABAAAAl0QQE1NXNDpOLykoczSfTV38AkDzGhmo72uGMt3fhrYdijePm7V-imfIOtIkhIdZ&iid=MS4wLjABAAAAqrjRrfxtbaEm7lYr3Ij98ZfdhMQQcHrG9KrJTDjmBr7Bktban4Ek8SisL6VIcxEZ&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=G9DfegPeTRnOEmxgt3lqw2FGjMHrQuQYlgYJsutfv2c-&share_version=320900&ts=1794977138&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "腾哥的快刀流也是后继有人了。 #现在就出发 #白敬亭 #沈腾#综艺 #搞笑",
+      "author": "橘子日记",
+      "like_count": 69524,
+      "comment_count": 221,
+      "share_count": 14435,
+      "duration_ms": 182400,
+      "create_time_iso": "2026-11-17T10:33:47+00:00",
+      "known_entities": [
+        "沈腾"
+      ],
+      "verified_entities": [
+        "沈腾",
+        "白敬亭",
+        "现在就出发"
+      ],
+      "primary_celebrities": [
+        "沈腾"
+      ],
+      "quality_score": 272.568,
+      "output_date": "2026-11-18",
+      "selected_at": "2026-11-18T05:12:18.166147+00:00"
+    },
+    {
+      "aweme_id": "7709021470337766554",
+      "content_id": "7709021470337766554",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7709021470337766554/?region=US&mid=7709021370625428224&u_code=0&did=MS4wLjABAAAAl0QQE1NXNDpOLykoczSfTV38AkDzGhmo72uGMt3fhrYdijePm7V-imfIOtIkhIdZ&iid=MS4wLjABAAAAqrjRrfxtbaEm7lYr3Ij98ZfdhMQQcHrG9KrJTDjmBr7Bktban4Ek8SisL6VIcxEZ&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=2qb_0K4aRiTcHG8qE0q9gtd.M35pBUCEbpyeAfu08Pc-&share_version=320900&ts=1794977138&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "谁能赖过他啊 😂 #沈腾 #综艺名场面 #综艺名场面分享 #沈腾还是太全面了 #综艺爆笑片段",
+      "author": "哈哈哈哈哈哈哈",
+      "like_count": 3221,
+      "comment_count": 117,
+      "share_count": 1188,
+      "duration_ms": 80758,
+      "create_time_iso": "2026-11-17T06:20:31+00:00",
+      "known_entities": [
+        "沈腾"
+      ],
+      "verified_entities": [
+        "沈腾"
+      ],
+      "primary_celebrities": [
+        "沈腾"
+      ],
+      "quality_score": 217.631,
+      "output_date": "2026-11-18",
+      "selected_at": "2026-11-18T05:12:18.166147+00:00"
+    },
+    {
+      "aweme_id": "7709085246583186043",
+      "content_id": "7709085246583186043",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7709085246583186043/?region=US&mid=7330562644761692954&u_code=0&did=MS4wLjABAAAAIIF0eI2a-PGRhaObmpwbwtilqrqmgYNo1295Dz1j6K_hW_P4el9l3_AWRW9GxMrj&iid=MS4wLjABAAAAZpKD_rTG6Biq8zfWYHVTIHkz3wGubIsQon8-cKEu6PMK5uvd_rdP8Q3tggTewV5z&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=d0O85ReMiLX1gpeRf3k6J6ntj5pCFdXA4XcQoXtj2Hk-&share_version=320900&ts=1794977145&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "谁看谁不迷糊！#舞台帅炸了 #爱豆神级现场 #舞台上的他 #肖战#上热门",
+      "author": "抚顺文化旅游",
+      "like_count": 2708,
+      "comment_count": 158,
+      "share_count": 55,
+      "duration_ms": 15349,
+      "create_time_iso": "2026-11-17T10:28:00+00:00",
+      "known_entities": [
+        "肖战"
+      ],
+      "verified_entities": [
+        "肖战"
+      ],
+      "primary_celebrities": [
+        "肖战"
+      ],
+      "quality_score": 162.49099999999999,
+      "output_date": "2026-11-18",
+      "selected_at": "2026-11-18T05:12:18.166147+00:00"
+    },
+    {
+      "aweme_id": "7709063043523042019",
+      "content_id": "7709063043523042019",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7709063043523042019/?region=US&mid=7709062994604788543&u_code=0&did=MS4wLjABAAAAIIF0eI2a-PGRhaObmpwbwtilqrqmgYNo1295Dz1j6K_hW_P4el9l3_AWRW9GxMrj&iid=MS4wLjABAAAAZpKD_rTG6Biq8zfWYHVTIHkz3wGubIsQon8-cKEu6PMK5uvd_rdP8Q3tggTewV5z&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=quQrKuwAn5OFMByMAEKVU2eJ.lTHB02Vz0Hac4SsPGU-&share_version=320900&ts=1794977145&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "程潇你这么大方我受不了！所有人感受！#程潇 #舞娘 #舞台直拍",
+      "author": "指尖Live",
+      "like_count": 5015,
+      "comment_count": 10,
+      "share_count": 397,
+      "duration_ms": 19784,
+      "create_time_iso": "2026-11-17T09:01:51+00:00",
+      "known_entities": [],
+      "verified_entities": [
+        "程潇"
+      ],
+      "primary_celebrities": [
+        "程潇"
+      ],
+      "quality_score": 123.155,
+      "output_date": "2026-11-18",
+      "selected_at": "2026-11-18T05:12:18.166147+00:00"
+    },
     {
       "aweme_id": "5214887110036042298",
       "content_id": "5214887110036042298",
