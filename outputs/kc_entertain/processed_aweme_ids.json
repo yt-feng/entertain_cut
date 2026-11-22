@@ -1,7 +1,143 @@
 {
-  "updated_at": "2026-11-21T04:41:27.125964+00:00",
-  "count": 695,
+  "updated_at": "2026-11-22T04:03:15.972745+00:00",
+  "count": 700,
   "items": [
+    {
+      "aweme_id": "7710590340894515647",
+      "content_id": "7710590340894515647",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7710590340894515647/?region=US&mid=7710590335151278857&u_code=0&did=MS4wLjABAAAAH6GMsSwxuwns9WGpPDETdN9AmO7oBiGjFOYVRuBu37pXTrnis6Gk_FhV-EWb7zMg&iid=MS4wLjABAAAArVVsbzFtiDsWyJkavAQMO9zY7l1oliGjnNXY0tCqiDFRrRysN6pXPEJ4UIXY1GlO&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=FhILuuUvd.DLMrGxrTmAqjYNsRitsS0lfdb5N5vCRio-&share_version=320900&ts=1795318283&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "律动满分男！” @周翊然 #舞台帅炸了 #周翊然 #周翊然生日会 #周翊然overwinter生日音乐会 #演唱会舞台",
+      "author": "然然卷然然",
+      "like_count": 39259,
+      "comment_count": 480,
+      "share_count": 11562,
+      "duration_ms": 160750,
+      "create_time_iso": "2026-11-21T11:48:32+00:00",
+      "known_entities": [
+        "舞台帅炸了",
+        "周翊然",
+        "周翊然生日会",
+        "周翊然overwinter生日音",
+        "演唱会舞台"
+      ],
+      "verified_entities": [
+        "周翊然",
+        "周翊然生日会",
+        "演唱会舞台"
+      ],
+      "primary_celebrities": [
+        "周翊然"
+      ],
+      "quality_score": 275.258,
+      "output_date": "2026-11-22",
+      "selected_at": "2026-11-22T04:03:15.972745+00:00"
+    },
+    {
+      "aweme_id": "7710476649377079729",
+      "content_id": "7710476649377079729",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7710476649377079729/?region=US&mid=7653090680914495489&u_code=0&did=MS4wLjABAAAAhRxocWBiekYJrcVmUYBXj403slYLM0cwqAkhlE56ofxNRpoDFKdvQ50PGteZZx8L&iid=MS4wLjABAAAAuYslkPCKhE8AVbtKYhM31SDGYjTS9NdBqGEjRvUJvusQCd-86V81Kogs8PXjRqv8&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=XgD_ZJjRGC7ZkQ5FefNg2.MmtJ18rz_KZNySJoS5rEQ-&share_version=320900&ts=1795318287&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "cortis现场红毯视频！脸在江山在 #cortis #mama红毯 #MAMA",
+      "author": "无力亲故加纳",
+      "like_count": 146054,
+      "comment_count": 1891,
+      "share_count": 17139,
+      "duration_ms": 11075,
+      "create_time_iso": "2026-11-21T04:27:21+00:00",
+      "known_entities": [
+        "cortis",
+        "mama红毯",
+        "MAMA"
+      ],
+      "verified_entities": [
+        "cortis",
+        "mama红毯",
+        "MAMA"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 272.214,
+      "output_date": "2026-11-22",
+      "selected_at": "2026-11-22T04:03:15.972745+00:00"
+    },
+    {
+      "aweme_id": "7710598928476123515",
+      "content_id": "7710598928476123515",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7710598928476123515/?region=US&mid=7694921740956616756&u_code=0&did=MS4wLjABAAAASmZMIFvF955i5K5JYPYF0hdq9LeC4mwAZu-kfPdOqxB82aRErvDju4MzrAdE9-t8&iid=MS4wLjABAAAAUbv4rllFNLvCsOD8ZWPtoodl6CvKoaoFlANsh-mPpYUFLPoF8gal-qD1xcPLmCuI&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=NByiZ8vbZki8LZzVhqGk4ssXSE4SlmRWpANQWKXdSQU-&share_version=320900&ts=1795318281&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "不被负能量打倒，心里住着小太阳。\n见过复杂，还是愿意当小孩\n#赵丽颖#花千骨#赵丽颖早期采访",
+      "author": "Y —ᵕ—",
+      "like_count": 40655,
+      "comment_count": 322,
+      "share_count": 3716,
+      "duration_ms": 32134,
+      "create_time_iso": "2026-11-21T12:21:51+00:00",
+      "known_entities": [
+        "赵丽颖",
+        "花千骨",
+        "赵丽颖早期采访"
+      ],
+      "verified_entities": [
+        "赵丽颖",
+        "花千骨",
+        "赵丽颖早期采访"
+      ],
+      "primary_celebrities": [
+        "赵丽颖"
+      ],
+      "quality_score": 249.534,
+      "output_date": "2026-11-22",
+      "selected_at": "2026-11-22T04:03:15.972745+00:00"
+    },
+    {
+      "aweme_id": "7710540269766685898",
+      "content_id": "7710540269766685898",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7710540269766685898/?region=CN&mid=7709836708796091177&u_code=hk1jl0jc&did=MS4wLjABAAAATfQqpaW4ZxMl9NYKa4xDCbtOJBAvFwLTmpazW24XtTPKY9Q3DrJ-qyv4KODjR_MC&iid=MS4wLjABAAAAHRvHt3VoNGTrpDr4sO0Dy7fnQJiU_63M8JDJ420SAGkDq94eBjjyVvxpEoKMp9op&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=jHJODr6I6aijrQDqW4nJ.d2KvKaMMcQWcT5OfTuRr4w-&share_version=410100&ts=1795317931&from_aid=1128&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "谁懂啊，越磕越上头了#综艺名场面 #综艺片段互动 #综艺磕cp #楚景生情",
+      "author": "会跳舞的猫",
+      "like_count": 11590,
+      "comment_count": 347,
+      "share_count": 2378,
+      "duration_ms": 8038,
+      "create_time_iso": "2026-11-21T08:34:14+00:00",
+      "known_entities": [
+        "综艺名场面"
+      ],
+      "verified_entities": [
+        "综艺名场面"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 235.46800000000002,
+      "output_date": "2026-11-22",
+      "selected_at": "2026-11-22T04:03:15.972745+00:00"
+    },
+    {
+      "aweme_id": "7710496014939765618",
+      "content_id": "7710496014939765618",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7710496014939765618/?region=US&mid=7710495955841551114&u_code=0&did=MS4wLjABAAAAhRxocWBiekYJrcVmUYBXj403slYLM0cwqAkhlE56ofxNRpoDFKdvQ50PGteZZx8L&iid=MS4wLjABAAAAuYslkPCKhE8AVbtKYhM31SDGYjTS9NdBqGEjRvUJvusQCd-86V81Kogs8PXjRqv8&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=ZMMkcQ3qQUECqv04gbFnLz3Oqwr0HqyJuseET37v5ns-&share_version=320900&ts=1795318276&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "这次确实给超越留下了心理阴影，真的又心酸又好笑，我反正是不敢去玩大摆锤，太吓人了#综艺名场面 #大摆锤 #杨超越 @抖音小助手 @DOU+小助手 @杨超越",
+      "author": "小羊的幸运罐🌙",
+      "like_count": 5779,
+      "comment_count": 917,
+      "share_count": 1916,
+      "duration_ms": 166200,
+      "create_time_iso": "2026-11-21T05:42:30+00:00",
+      "known_entities": [
+        "综艺名场面"
+      ],
+      "verified_entities": [
+        "综艺名场面",
+        "杨超越"
+      ],
+      "primary_celebrities": [
+        "杨超越"
+      ],
+      "quality_score": 245.194,
+      "output_date": "2026-11-22",
+      "selected_at": "2026-11-22T04:03:15.972745+00:00"
+    },
     {
       "aweme_id": "7710115523673050297",
       "content_id": "7710115523673050297",
