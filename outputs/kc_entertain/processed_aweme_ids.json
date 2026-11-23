@@ -1,7 +1,67 @@
 {
-  "updated_at": "2026-11-23T04:03:29.792210+00:00",
-  "count": 703,
+  "updated_at": "2026-11-23T04:20:18.978989+00:00",
+  "count": 705,
   "items": [
+    {
+      "aweme_id": "7710884354650851279",
+      "content_id": "7710884354650851279",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7710884354650851279/?region=US&mid=7710884294679595839&u_code=0&did=MS4wLjABAAAAMRwLOkNOkhTy5ZJ-hYHeTSJDtbS-psFivzHwdd93fWhO2C3fb1NoI2ybRRGicQog&iid=MS4wLjABAAAA7TvmmUSJ2cpvLBgVyTk4Exsgk9jCZ2EmF9A7qcYIOe8Ptm2zMBPZfUcTLAwSEYbH&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=evAWkPG0_Eb_r1mg.xD0iL6Ghq3L6HLSuE7HbVAENqI-&share_version=320900&ts=1795407086&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "有趣的灵魂#李光洙 #池石镇 #刘在石 #韩综爆笑名场面 #韩综爆笑",
+      "author": "开心果影视",
+      "like_count": 3707,
+      "comment_count": 213,
+      "share_count": 121,
+      "duration_ms": 29304,
+      "create_time_iso": "2026-11-22T06:49:28+00:00",
+      "known_entities": [
+        "李光洙",
+        "池石镇",
+        "刘在石",
+        "韩综爆笑名场面",
+        "韩综爆笑"
+      ],
+      "verified_entities": [
+        "李光洙",
+        "池石镇",
+        "刘在石",
+        "韩综爆笑名场面",
+        "韩综爆笑"
+      ],
+      "primary_celebrities": [
+        "李光洙",
+        "池石镇",
+        "刘在石"
+      ],
+      "quality_score": 223.093,
+      "output_date": "2026-11-23",
+      "selected_at": "2026-11-23T04:20:18.978989+00:00"
+    },
+    {
+      "aweme_id": "5221361033163589004",
+      "content_id": "5221361033163589004",
+      "platform": "kuaishou",
+      "url": "https://www.kuaishou.com/short-video/5221361033163589004",
+      "title": "明星真的不适合开美颜！ #吴京 #王楚然 #张新成 #喜爱度激励计划",
+      "author": "蛋蛋蛋卷",
+      "like_count": 3277,
+      "comment_count": 19,
+      "share_count": 340,
+      "duration_ms": 42483,
+      "create_time_iso": "2026-11-22T15:34:31+00:00",
+      "known_entities": [
+        "王楚然"
+      ],
+      "verified_entities": [
+        "王楚然"
+      ],
+      "primary_celebrities": [
+        "王楚然"
+      ],
+      "quality_score": 182.206,
+      "output_date": "2026-11-23",
+      "selected_at": "2026-11-23T04:20:18.978989+00:00"
+    },
     {
       "aweme_id": "7710906837922942056",
       "content_id": "7710906837922942056",
