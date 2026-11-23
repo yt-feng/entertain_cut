@@ -1,7 +1,92 @@
 {
-  "updated_at": "2026-11-22T04:03:15.972745+00:00",
-  "count": 700,
+  "updated_at": "2026-11-23T04:03:29.792210+00:00",
+  "count": 703,
   "items": [
+    {
+      "aweme_id": "7710906837922942056",
+      "content_id": "7710906837922942056",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7710906837922942056/?region=US&mid=7710906789525097258&u_code=0&did=MS4wLjABAAAAKQfReZwnXG56PMLT648TaCaT8urXaGS56cMCf45jxiigo5mOUEXCKnhKBMqUm8Ov&iid=MS4wLjABAAAABzDf0M540qerZvW5-ZHZTHqYwkabEu2ljVnBQNgePSyUskwZqxx5VVwf5Vo-nCiK&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=1EUAZvWgG56D3OsO4Y8O36z734eGkIaGbuYyY19Imuo-&share_version=320900&ts=1795405894&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "王楚然越熟越皮 #王楚然 #综艺名场面 #剪映",
+      "author": "波比波比波",
+      "like_count": 66489,
+      "comment_count": 198,
+      "share_count": 8284,
+      "duration_ms": 53800,
+      "create_time_iso": "2026-11-22T08:16:42+00:00",
+      "known_entities": [
+        "王楚然",
+        "综艺名场面",
+        "剪映"
+      ],
+      "verified_entities": [
+        "王楚然",
+        "综艺名场面",
+        "剪映"
+      ],
+      "primary_celebrities": [
+        "王楚然"
+      ],
+      "quality_score": 277.121,
+      "output_date": "2026-11-23",
+      "selected_at": "2026-11-23T04:03:29.792210+00:00"
+    },
+    {
+      "aweme_id": "7710945626746671035",
+      "content_id": "7710945626746671035",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7710945626746671035/?region=US&mid=7710945475419048714&u_code=0&did=MS4wLjABAAAAP07jSDGvrMWqwz8bBFi5fOGGegsMwOWHEKJ0eRNi0DAF9hBOzgYes8EuwPhyvu4M&iid=MS4wLjABAAAAhHVF9hWYtIhObZfiTinUPVvEdUu3H7RJkD6leoApYS-mDKdD5IPK8FBXFHit_gBd&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=z3Y2a7ciZfBmyzv2MA2PJ6MEz8zCGazubtlHsP6IWmA-&share_version=320900&ts=1795405903&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "天后陈慧琳自认：劳碌命没横财！ 太真实了，还是脚踏实地最重要！#陈慧琳 #现场采访 #乐坛天后",
+      "author": "Lang",
+      "like_count": 3357,
+      "comment_count": 184,
+      "share_count": 1170,
+      "duration_ms": 33400,
+      "create_time_iso": "2026-11-22T10:47:14+00:00",
+      "known_entities": [
+        "陈慧琳",
+        "现场采访",
+        "乐坛天后"
+      ],
+      "verified_entities": [
+        "陈慧琳",
+        "现场采访",
+        "乐坛天后"
+      ],
+      "primary_celebrities": [
+        "陈慧琳"
+      ],
+      "quality_score": 214.40800000000002,
+      "output_date": "2026-11-23",
+      "selected_at": "2026-11-23T04:03:29.792210+00:00"
+    },
+    {
+      "aweme_id": "7710931770917900367",
+      "content_id": "7710931770917900367",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7710931770917900367/?region=US&mid=7710931733465664319&u_code=0&did=MS4wLjABAAAAcdX6EvyMbENTqBVn8RVWOsoST1X6gqt3OZs3k_EpXQhV-sRulQk5juU1fe_cejLr&iid=MS4wLjABAAAA_Toqt965Lw5QxXgvh3nEC9ZxVkGmQRfuy52xxv0O-SAauVlTQ2N2her7Df6NG164&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=uRKDOj0edr6wOxglYELDAIudUclc4ubpuM7IS6lThc4-&share_version=320900&ts=1795405905&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "为舞台而生\n#程潇 #程潇舞台",
+      "author": "左耳",
+      "like_count": 1974,
+      "comment_count": 13,
+      "share_count": 103,
+      "duration_ms": 14867,
+      "create_time_iso": "2026-11-22T09:53:28+00:00",
+      "known_entities": [
+        "程潇",
+        "程潇舞台"
+      ],
+      "verified_entities": [
+        "程潇",
+        "程潇舞台"
+      ],
+      "primary_celebrities": [
+        "程潇"
+      ],
+      "quality_score": 166.56199999999998,
+      "output_date": "2026-11-23",
+      "selected_at": "2026-11-23T04:03:29.792210+00:00"
+    },
     {
       "aweme_id": "7710590340894515647",
       "content_id": "7710590340894515647",
