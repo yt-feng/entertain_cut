@@ -1,7 +1,40 @@
 {
-  "updated_at": "2026-11-26T05:40:03.834712+00:00",
-  "count": 719,
+  "updated_at": "2026-11-26T08:33:55.739448+00:00",
+  "count": 720,
   "items": [
+    {
+      "aweme_id": "7712050869323320617",
+      "content_id": "7712050869323320617",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7712050869323320617/?region=US&mid=7712050897417014059&u_code=0&did=MS4wLjABAAAAS30OrWIBKq9VsVWQ-ZPicmIZO2NZqSsnB7fTE6_PjuK7NI65jMRj6p95cMMIBIIi&iid=MS4wLjABAAAAjLbZRLcJhhMUqP7H8MP9_s899LOgRDrkt-ntyOWwQxQvZWIl4R0Uebc6Ytrn4w46&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=nd6xo2cHmV0ObHm8GqjcaDxMsP58Y8JYPbEioHoQJzE-&share_version=320900&ts=1795681773&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "第一次见到这么高规格的影视剧研讨会，肖战还是太牛了#肖战 #小城良方 #实力 #权威 #研讨会",
+      "author": "追星娱乐",
+      "like_count": 81739,
+      "comment_count": 1704,
+      "share_count": 12439,
+      "duration_ms": 37934,
+      "create_time_iso": "2026-11-25T10:16:22+00:00",
+      "known_entities": [
+        "肖战",
+        "小城良方",
+        "实力",
+        "权威",
+        "研讨会"
+      ],
+      "verified_entities": [
+        "肖战",
+        "小城良方",
+        "实力",
+        "权威",
+        "研讨会"
+      ],
+      "primary_celebrities": [
+        "肖战"
+      ],
+      "quality_score": 271.157,
+      "output_date": "2026-11-26",
+      "selected_at": "2026-11-26T08:33:55.739448+00:00"
+    },
     {
       "aweme_id": "7712040771986605435",
       "content_id": "7712040771986605435",
