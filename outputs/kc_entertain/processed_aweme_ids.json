@@ -1,7 +1,32 @@
 {
-  "updated_at": "2026-11-26T05:27:26.082059+00:00",
-  "count": 718,
+  "updated_at": "2026-11-26T05:40:03.834712+00:00",
+  "count": 719,
   "items": [
+    {
+      "aweme_id": "7712040771986605435",
+      "content_id": "7712040771986605435",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7712040771986605435/?region=US&mid=7712040656247540480&u_code=0&did=MS4wLjABAAAArDYW7_4c1slBLKa3MCD_KF0BC-nImNIBuFJZO9BQ7uTgrWAycpHmP0t5conAqRQy&iid=MS4wLjABAAAAohsiWU8pNYtPP4_WLcxak0qQvA2b-IOSY6v_4wBsKkqp6JEkVia7ad0bMG9friE6&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=jbP9pSw7KNenJJVad2ijfTC8d0ygvMY2z20y0AHAZGc-&share_version=320900&ts=1795671403&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "侃侃而谈的大明星 𝟐𝟎𝟐𝟔𝟏𝟏𝟐𝟓 𝐖𝐄𝐓𝐕红毯\n@丁禹兮 \n#丁禹兮 #沈言",
+      "author": "过敏丨丁禹兮",
+      "like_count": 1820,
+      "comment_count": 45,
+      "share_count": 113,
+      "duration_ms": 16416,
+      "create_time_iso": "2026-11-25T09:36:57+00:00",
+      "known_entities": [
+        "丁禹兮"
+      ],
+      "verified_entities": [
+        "丁禹兮"
+      ],
+      "primary_celebrities": [
+        "丁禹兮"
+      ],
+      "quality_score": 173.685,
+      "output_date": "2026-11-26",
+      "selected_at": "2026-11-26T05:40:03.834712+00:00"
+    },
     {
       "aweme_id": "7711996631339601188",
       "content_id": "7711996631339601188",
