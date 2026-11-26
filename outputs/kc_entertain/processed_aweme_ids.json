@@ -1,7 +1,89 @@
 {
-  "updated_at": "2026-11-25T06:16:29.365335+00:00",
-  "count": 715,
+  "updated_at": "2026-11-26T05:27:26.082059+00:00",
+  "count": 718,
   "items": [
+    {
+      "aweme_id": "7711996631339601188",
+      "content_id": "7711996631339601188",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7711996631339601188/?region=US&mid=7711996628860767018&u_code=0&did=MS4wLjABAAAATqCy8gP4IWWr47dEDZROaUTsQqVazpFWTVt6DkItujwlTbpEMNFOC5wsBl6k8fEM&iid=MS4wLjABAAAAlLQFuBfmEwhYTxE9DZzRLgks_r-Au56pzwld_y3HFBeSljMd4YEX5_0sy3rQIyr7&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=NdKiTSEGQ1X6PElNekvDRRkcy09xXqlmELwaXj_EjMU-&share_version=320900&ts=1795670238&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "谁能赖得过你啊，腾哥！ 问的越多，知道的越少，哈哈哈哈马丽说你们赖不过他的含金量还在上升，沈腾式耍赖已经出现人传人现象，#现在就出发 #现在就出发没有一分钟不好笑的 #沈腾 #耍赖皮 #现在就出发4",
+      "author": "芬达大王",
+      "like_count": 136330,
+      "comment_count": 1466,
+      "share_count": 110769,
+      "duration_ms": 24080,
+      "create_time_iso": "2026-11-25T06:45:51+00:00",
+      "known_entities": [
+        "沈腾",
+        "马丽"
+      ],
+      "verified_entities": [
+        "沈腾",
+        "马丽",
+        "现在就出发"
+      ],
+      "primary_celebrities": [
+        "沈腾",
+        "马丽"
+      ],
+      "quality_score": 265.12,
+      "output_date": "2026-11-26",
+      "selected_at": "2026-11-26T05:27:26.082059+00:00"
+    },
+    {
+      "aweme_id": "7712025639990479547",
+      "content_id": "7712025639990479547",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7712025639990479547/?region=US&mid=7712025476922919707&u_code=0&did=MS4wLjABAAAATqCy8gP4IWWr47dEDZROaUTsQqVazpFWTVt6DkItujwlTbpEMNFOC5wsBl6k8fEM&iid=MS4wLjABAAAAlLQFuBfmEwhYTxE9DZzRLgks_r-Au56pzwld_y3HFBeSljMd4YEX5_0sy3rQIyr7&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=PE4U8WR4qVDCLXU6kzt0j96S6yvmyW4JEqjQxB4BfdM-&share_version=320900&ts=1795670246&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "这个我可以看一百遍#迪丽热巴龚俊  #综艺名场面 #迪丽热巴好可爱 #笑到停不下来",
+      "author": "Dear-冷巴🫧",
+      "like_count": 1134,
+      "comment_count": 41,
+      "share_count": 113,
+      "duration_ms": 80735,
+      "create_time_iso": "2026-11-25T08:38:14+00:00",
+      "known_entities": [
+        "迪丽热巴",
+        "龚俊"
+      ],
+      "verified_entities": [
+        "迪丽热巴",
+        "龚俊"
+      ],
+      "primary_celebrities": [
+        "迪丽热巴",
+        "龚俊"
+      ],
+      "quality_score": 196.76999999999998,
+      "output_date": "2026-11-26",
+      "selected_at": "2026-11-26T05:27:26.082059+00:00"
+    },
+    {
+      "aweme_id": "7711991624880261833",
+      "content_id": "7711991624880261833",
+      "platform": "douyin",
+      "url": "https://www.iesdouyin.com/share/video/7711991624880261833/?region=US&mid=7711991575743662874&u_code=0&did=MS4wLjABAAAAzHZlkioZk7jMVXfMR8VXHtI7Mt8jQ6w3mbV8vWF6kvqbUIN1dYa9A0LqdnVoeLgH&iid=MS4wLjABAAAAAfDOTS91DsPSxvRQmvgQAubZL4H5rfd760fPEx44Wua8TOPO_BgT6vy7VxVHTZqJ&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=8DLllH.YqIFac4CYa36IYq_lMs9U.wXa7QEPV9m0D.Y-&share_version=320900&ts=1795670249&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "全世界正数第一爱自己角色之人 #肖战",
+      "author": "姜饼碎碎",
+      "like_count": 2925,
+      "comment_count": 41,
+      "share_count": 50,
+      "duration_ms": 8567,
+      "create_time_iso": "2026-11-25T06:26:14+00:00",
+      "known_entities": [
+        "肖战"
+      ],
+      "verified_entities": [
+        "肖战"
+      ],
+      "primary_celebrities": [
+        "肖战"
+      ],
+      "quality_score": 161.717,
+      "output_date": "2026-11-26",
+      "selected_at": "2026-11-26T05:27:26.082059+00:00"
+    },
     {
       "aweme_id": "7711667281939500303",
       "content_id": "7711667281939500303",
