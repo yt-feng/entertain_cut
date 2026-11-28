@@ -1,7 +1,104 @@
 {
-  "updated_at": "2026-11-27T05:37:19.173993+00:00",
-  "count": 725,
+  "updated_at": "2026-11-28T08:06:52.292463+00:00",
+  "count": 728,
   "items": [
+    {
+      "aweme_id": "5214042687365243635",
+      "content_id": "5214042687365243635",
+      "platform": "kuaishou",
+      "url": "https://www.kuaishou.com/short-video/5214042687365243635",
+      "title": "演员即兴表演有多疯？小沈阳一句话，全场笑到拍桌子！#即兴表演 #小沈阳 #章子怡 #李立群 @经典段子(O812817483)",
+      "author": "经典段子",
+      "like_count": 1925,
+      "comment_count": 82,
+      "share_count": 73,
+      "duration_ms": 97033,
+      "create_time_iso": "2026-11-27T09:45:25+00:00",
+      "known_entities": [
+        "综艺名场面",
+        "演员",
+        "即兴表演",
+        "小沈阳",
+        "章子怡",
+        "李立群"
+      ],
+      "verified_entities": [
+        "小沈阳",
+        "章子怡",
+        "李立群",
+        "即兴表演",
+        "综艺名场面"
+      ],
+      "primary_celebrities": [
+        "小沈阳",
+        "章子怡",
+        "李立群"
+      ],
+      "quality_score": 235.221,
+      "output_date": "2026-11-28",
+      "selected_at": "2026-11-28T08:06:52.292463+00:00"
+    },
+    {
+      "url": "https://www.iesdouyin.com/share/video/7712748105536231754/?region=US&mid=7712748071083592486&u_code=0&did=MS4wLjABAAAAF_oUJ8zj7aqQjb2W3gtpoS9ZkTBUZdbHZy8nBZg3kblXHrZbJpoL1rYNF2H4ed1X&iid=MS4wLjABAAAAgzq9yCikpm0ZIXp2sVAcXG8a5qA0QPBPuB--sX5KWv8Xu3hQsss9cb6IOaKDvLtt&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=RGcwWsL9uNzENOaNYCQ41G7Ylb.65SKumxPmd_T7rLw-&share_version=320900&ts=1795842420&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#综艺名场面 #综艺名场面分享 #综艺片段互动",
+      "author": "蛋蛋很会买",
+      "like_count": 2177,
+      "comment_count": 31,
+      "share_count": 153,
+      "duration_ms": 101681,
+      "create_time_iso": "2026-11-27T07:21:46+00:00",
+      "known_entities": [
+        "综艺名场面",
+        "综艺名场面分享",
+        "综艺片段互动"
+      ],
+      "verified_entities": [
+        "综艺名场面",
+        "综艺名场面分享",
+        "综艺片段互动"
+      ],
+      "primary_celebrities": [],
+      "quality_score": 204.73000000000002,
+      "aweme_id": "7712748105536231754",
+      "content_id": "7712748105536231754",
+      "platform": "douyin",
+      "output_date": "2026-11-28",
+      "selected_at": "2026-11-28T07:57:39.336837+00:00",
+      "recovered_from_run_id": "46109867408"
+    },
+    {
+      "url": "https://www.iesdouyin.com/share/video/7712738864326102282/?region=US&mid=7712738941610609435&u_code=0&did=MS4wLjABAAAAxzeBPNbXvxDN_HUshOQ0BkynKATSkfmQpr6Q-nBnQCM&iid=MS4wLjABAAAACjDY7zf0wEpE62pmVF31gAHIhdtJLjmjttWTw5uQ_0U&with_sec_did=1&video_share_track_ver=&titleType=title&share_sign=Ulgcy9X5YxaujurSar1F_0HJckSwZrcem5V3cf_VBOs-&share_version=320900&ts=1795842422&from_aid=615883&from_ssr=1&share_track_info=%7B%22link_description_type%22%3A%22%22%7D",
+      "title": "#马天宇回应催婚表示不吃压力 马天宇说自己有过亲密关系，都40了怎么可能没有 #马天宇 #易立竞 #娱乐评论大赏 @DOU+小助手",
+      "author": "娱乐速报台",
+      "like_count": 5766,
+      "comment_count": 352,
+      "share_count": 1231,
+      "duration_ms": 184529,
+      "create_time_iso": "2026-11-27T06:46:26+00:00",
+      "known_entities": [
+        "马天宇回应催婚表示不吃压力",
+        "马天宇",
+        "易立竞",
+        "娱乐评论大赏"
+      ],
+      "verified_entities": [
+        "马天宇回应催婚表示不吃压力",
+        "马天宇",
+        "易立竞",
+        "娱乐评论大赏"
+      ],
+      "primary_celebrities": [
+        "马天宇",
+        "易立竞"
+      ],
+      "quality_score": 238.123,
+      "aweme_id": "7712738864326102282",
+      "content_id": "7712738864326102282",
+      "platform": "douyin",
+      "output_date": "2026-11-28",
+      "selected_at": "2026-11-28T07:57:33.760683+00:00",
+      "recovered_from_run_id": "46109867408"
+    },
     {
       "aweme_id": "7712402384974040371",
       "content_id": "7712402384974040371",
