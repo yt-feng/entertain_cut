@@ -45,11 +45,11 @@
       "date": "2026-11-28",
       "status": "deferred",
       "reason": "insufficient_videos",
-      "message": "Only 0/5 KC video(s) are available; minimum delivery is 3. The scheduled delivery is deferred.",
+      "message": "Only 2/5 KC video(s) are available; minimum delivery is 3. The scheduled delivery is deferred.",
       "target": 5,
-      "succeeded": 0,
-      "updated_at": "2026-11-28T04:58:39+00:00",
-      "run_id": "46109021421"
+      "succeeded": 2,
+      "updated_at": "2026-11-28T05:32:38+00:00",
+      "run_id": "46109867408"
     }
   ]
 }
